@@ -1,0 +1,26 @@
+Package: chirps
+Type: Package
+Title: API Client for the Climate Hazards Group InfraRed Precipitation with Station Data
+Version: 0.2-9
+Authors@R: c(person("Kaue", "de Sousa", 
+        email = "kaue.desousa@inn.no", role = c("aut", "cre"),
+        comment = c(ORCID = "0000-0002-7571-7845")))
+Maintainer: Kaue de Sousa <kaue.desousa@inn.no>
+URL: https://agrobioinfoservices.github.io/chirps/
+BugReports: https://github.com/agrobioinfoservices/chirps/issues
+Description: API client for the Climate Hazards Group InfraRed Precipitation with Station Data 'CHIRPS'. The 'CHIRPS' data is a 35+ year quasi-global rainfall data set which incorporates 0.05° resolution satellite imagery, and in-situ station data to create gridded rainfall time series for trend analysis and seasonal drought monitoring. For more details on 'CHIRPS' data please visit its official home page https://www.chc.ucsb.edu/data/chirps. 
+License: GPL-3
+Encoding: UTF-8
+LazyData: true
+Depends: R (>= 2.10)
+Imports:
+    httr, 
+    jsonlite, 
+    tibble
+Suggests: 
+    knitr,
+    rmarkdown,
+    testthat (>= 2.1.0)
+Language: en-GB
+RoxygenNote: 7.0.0
+VignetteBuilder: knitr

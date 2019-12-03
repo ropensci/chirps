@@ -16,13 +16,16 @@
 
 # RStudio files
 .Rproj.user/
+.Rproj
+
+# Example code in package build process
+*-Ex.R
 
 # produced vignettes
 vignettes/*.html
 vignettes/*.pdf
-
-# OAuth2 token, see https://github.com/hadley/httr/releases/tag/v0.3
-.httr-oauth
+vignettes/*.log
+vignettes/*.tex
 
 # knitr and R markdown default cache directories
 /*_cache/
@@ -31,6 +34,8 @@ vignettes/*.pdf
 # Temporary files created by R markdown
 *.utf8.md
 *.knit.md
+.Rproj.user
 
-# Shiny token, see https://shiny.rstudio.com/articles/shinyapps.html
-rsconnect/
+logo.svg
+
+
