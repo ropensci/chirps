@@ -2,7 +2,7 @@
 % Please edit documentation in R/get_chirps.R
 \name{get_chirps}
 \alias{get_chirps}
-\title{Get CHIRPS}
+\title{Get CHIRPS precipitation data}
 \usage{
 get_chirps(lonlat, dates, operation = 5)
 }
@@ -11,26 +11,41 @@ get_chirps(lonlat, dates, operation = 5)
 
 \item{dates}{a character of start and end dates in that order in the format YYYY-MM-DD}
 
-\item{operation}{optional, an integer that represents which type of statistical operation to perform on the dataset}
+\item{operation}{optional, an integer that represents which type of statistical operation 
+to perform on the dataset}
 }
 \value{
-A data frame of CHIRPS data including latlon and dates
+A data frame of CHIRPS data including:
+\item{id}{the index for the rows in \code{lonlat}}
+\item{dates}{the dates from which CHIRPS was requested}
+\item{lon}{the longitude as provided in \code{lonlat}}
+\item{lat}{the latitude as provided in \code{lonlat}}
+\item{chirps}{the CHIRPS value in mm}
 }
 \description{
 Fetch the Climate Hazards Group InfraRed Precipitation with Station Data via 
-ClimateSERV API Client
+ClimateSERV API Client. ClimateSERV works with geojson strings of type 'Polygon'. The 
+input 'lonlat' are then transformed into polygons with a small buffer area around 
+the point.
 }
 \details{
 Types of operation supported by ClimateSERV are,
-max = 0, min = 1, median = 2, range = 3, sum = 4, average = 5
+max = 0, min = 1, median = 2, sum = 4, average = 5
 }
 \examples{
-lonlat <- data.frame(lon = runif(10, 5, 7),
-                     lat = runif(10, 60, 62))
-dates <- c("2019-10-01","2019-11-01")
+\donttest{
+lonlat <- data.frame(lon = runif(2, -55, -54),
+                     lat = runif(2, -3, -2.7))
 
-get_chirps(lonlat, dates)
+dates <- c("2017-12-15","2018-01-20")
+
+
+df <- get_chirps(lonlat, dates)
+} 
+}
+\references{
+Funk C. et al. (2015). Scientific Data, 2, 150066. \url{https://doi.org/10.1038/sdata.2015.66}
 }
 \seealso{
-\url{https://climateserv.servirglobal.net} and \url{http://chg.geog.ucsb.edu/data/chirps/}
+ClimateSERV (\link{https://climateserv.servirglobal.net})
 }
