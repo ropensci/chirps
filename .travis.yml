@@ -5,8 +5,6 @@ r: bioc-devel
 cache:
   packages: false
 
-sudo: false
-
 r_packages:
   - covr
 
