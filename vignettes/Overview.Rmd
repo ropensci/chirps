@@ -1,0 +1,34 @@
+---
+title: "chirps: API Client for the Climate Hazards Group InfraRed Precipitation with Station Data"
+package: chirps
+author:
+- name: Kauê de Sousa
+  affiliation: Department of Agricultural Sciences, Inland Norway University of Applied Sciences, Hamar, Norway; and Bioversity International, Rome, Italy
+output: html_document
+vignette: >
+  %\VignetteIndexEntry{chirps}
+  %\VignetteEncoding{UTF-8}
+  %\VignetteEngine{knitr::rmarkdown}
+bibliography: ["chirps.bib"]
+csl: citation_style.csl
+---
+
+```{r setup, include=FALSE}
+TRAVIS <- !identical(tolower(Sys.getenv("TRAVIS")), "true")
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  purl = TRAVIS
+)
+```
+
+# Summary
+
+The **chirps** package provides functionalities for reproducible analysis using the CHIRPS data [@Funk2015] in R[@RCoreTeam]. CHIRPS is a tool developed by the Climate Hazards Group[@Funk2015] for hight resolution precipitation gridded data. Is a 35+ year quasi-global rainfall data set. Spanning 50°S-50°N (and all longitudes) and ranging from 1981 to near-present, CHIRPS incorporates 0.05° resolution satellite imagery, and in-situ station data to create gridded rainfall time series for trend analysis and seasonal drought monitoring[@Funk2015]. 
+
+
+# References
+
+
+
+

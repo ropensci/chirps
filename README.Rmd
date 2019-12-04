@@ -16,12 +16,12 @@ knitr::opts_chunk$set(fig.path = "man/figures/")
 [![GPLv3 license](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.r-project.org/Licenses/GPL-3)
 <!-- badges: end -->
 
-# *chirps*: API client for the Climate Hazards Group InfraRed Precipitation with Station Data <img align="right" src="man/figures/logo.png">
+# *chirps*: API Client for the Climate Hazards Group InfraRed Precipitation with Station Data <img align="right" src="man/figures/logo.png">
 
 
 ## Overview
 
-**chirps** provides the API client for Climate Hazards Group InfraRed Precipitation with Station Data [(CHIRPS)](https://www.chc.ucsb.edu/data/chirps) via [ClimateSERV](https://climateserv.readthedocs.io/en/latest/index.html). [CHIRPS](https://www.chc.ucsb.edu/data/chirps) is a 35+ year quasi-global rainfall data set. Spanning 50°S-50°N (and all longitudes) and ranging from 1981 to near-present, CHIRPS incorporates 0.05° resolution satellite imagery, and in-situ station data to create gridded rainfall time series for trend analysis and seasonal drought monitoring. 
+**chirps** provides the API Client for Climate Hazards Group InfraRed Precipitation with Station Data [(CHIRPS)](https://www.chc.ucsb.edu/data/chirps) via [ClimateSERV](https://climateserv.readthedocs.io/en/latest/index.html). [CHIRPS](https://www.chc.ucsb.edu/data/chirps) is a 35+ year quasi-global rainfall data set. Spanning 50°S-50°N (and all longitudes) and ranging from 1981 to near-present, CHIRPS incorporates 0.05° resolution satellite imagery, and in-situ station data to create gridded rainfall time series for trend analysis and seasonal drought monitoring. 
 
 ## Package website
 
@@ -40,6 +40,13 @@ devtools::install_github("agrobioinfoservices/chirps")
 
 ## Going further
 
+The full functionality of **chirps** is illustrated in the package vignette. The vignette can be found on the [package website](https://agrobioinfoservices.github.io/chirps/) or from within `R` once the package has been installed, e.g. via 
+
+```{r vignette, message=FALSE, eval=FALSE, echo=TRUE}
+
+vignette("Overview", package = "chirps")
+
+```
 
 
 ## Contribution
