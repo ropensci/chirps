@@ -17,13 +17,16 @@
 #' \item{lon}{the longitude as provided in \code{lonlat}}
 #' \item{lat}{the latitude as provided in \code{lonlat}}
 #' \item{chirps}{the CHIRPS value in mm}
-#' @seealso ClimateSERV (\link{https://climateserv.servirglobal.net})
+#' @seealso ClimateSERV <https://climateserv.servirglobal.net>
 #' @references 
 #' 
 #' Funk C. et al. (2015). Scientific Data, 2, 150066. \url{https://doi.org/10.1038/sdata.2015.66}
 #' 
 #' @examples
 #' \donttest{
+#' 
+#' # Two random points across the Tapajos National Forest in Brazil
+#' set.seed(123)
 #' lonlat <- data.frame(lon = runif(2, -55, -54),
 #'                      lat = runif(2, -3, -2.7))
 #' 
@@ -51,10 +54,10 @@ get_chirps <- function(lonlat, dates, operation = 5) {
   nr <- nrow(lonlat)
   
   # validate lonlat to check if they are within the CHIRPS range lat -50, 50
-  .validate_lonlat(lonlat, silent = TRUE)
+  .validate_lonlat(lonlat)
   
   # validate dates
-  .validate_dates(dates, silent = TRUE)
+  .validate_dates(dates)
   
   # get geojson strings from lonlat
   gjson <- .c_polygon(lonlat)
@@ -159,16 +162,9 @@ get_chirps <- function(lonlat, dates, operation = 5) {
   
   result <- merge(result, lonlat, by = "id")
   
-  if (operation == "3") {
-    
-  }
+  names(result)[3:5] <- c("chirps","lon","lat")
   
-  if (operation != "3") {
-    
-    names(result)[3:5] <- c("chirps","lon","lat")
-    result <- result[, c("id","lon","lat","date","chirps")]
-  
-  }
+  result <- result[, c("id","lon","lat","date","chirps")]
   
   result <- tibble::as_tibble(result)
   

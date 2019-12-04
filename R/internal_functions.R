@@ -47,7 +47,7 @@
     
     x <- sf::st_point(x)
     
-    x <- sf::st_buffer(x, dist)
+    x <- sf::st_buffer(x, dist, nQuadSegs = 1)
     
     x <- x[[1]]
     
@@ -65,7 +65,6 @@
 # @param lonlat a data.frame with geographical coordinates lonlat in that order
 # @param xlim a numeric vector for the min and max accepted range in the longitude in that order
 # @param ylim a numeric vector for the min and max accepted range in the latitude in that order 
-# @param silent logical, return messages via \code{cat}
 # @return nothing
 # @examples
 # # random geographic locations around bbox(10, 12, 45, 57)
@@ -75,7 +74,9 @@
 # 
 # .validate_lonlat(lonlat)
 
-.validate_lonlat <- function(lonlat, xlim = c(-180, 180), ylim = c(-50, 50), silent = FALSE) {
+.validate_lonlat <- function(lonlat, 
+                             xlim = c(-180, 180), 
+                             ylim = c(-50, 50)) {
   
   lon <- lonlat[,1]
   
@@ -87,20 +88,16 @@
   v4 <- max(lat) > ylim[2]
   
   if(any(c(v1,v2,v3,v4))) {
-    stop("lonlat are beyond the accepted lims, which are: " ,
+    stop("lonlat are beyond the accepted lims, which are: ",
          paste(paste(xlim[1], ylim[1], sep = " , "),
                paste(xlim[2], ylim[2], sep = " , "), sep = " , "))
   }
-  if (!silent) {
-    return(cat("lonlat OK! \n"))
-  } 
 }
 
 
 # Validate dates within an accepted range
 #
 # @param x a character of start and end dates in that order in the format YYYY-MM-DD
-# @param silent logical, return messages via \code{cat}
 # @return nothing
 # @examples
 # dates <- c("2016-01-31","2017-12-01")
@@ -111,7 +108,7 @@
 # dates <- c("2018-01-31","2017-12-01")
 # 
 # .validate_dates(dates)
-.validate_dates <- function(x, silent = FALSE) {
+.validate_dates <- function(x) {
   
   xmin <- as.Date(x[1], format = "%Y-%m-%d")
   
@@ -119,12 +116,9 @@
   
   accepted <- as.integer(xmax - xmin) > 1
   
-  if(accepted & !silent) {
-    cat("dates OK! \n")
-  }
-  
   if(!accepted) {
-    stop("something wrong with dates provided, end date seems to be older than begin date \n")
+    stop("something wrong with dates provided, 
+         end date seems to be older than begin date \n")
   }
   
 }

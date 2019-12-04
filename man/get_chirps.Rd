@@ -34,6 +34,9 @@ max = 0, min = 1, median = 2, sum = 4, average = 5
 }
 \examples{
 \donttest{
+
+# Two random points across the Tapajos National Forest in Brazil
+set.seed(123)
 lonlat <- data.frame(lon = runif(2, -55, -54),
                      lat = runif(2, -3, -2.7))
 
@@ -47,5 +50,5 @@ df <- get_chirps(lonlat, dates)
 Funk C. et al. (2015). Scientific Data, 2, 150066. \url{https://doi.org/10.1038/sdata.2015.66}
 }
 \seealso{
-ClimateSERV (\link{https://climateserv.servirglobal.net})
+ClimateSERV <https://climateserv.servirglobal.net>
 }

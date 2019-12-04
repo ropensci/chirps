@@ -7,7 +7,7 @@ Authors@R: c(person("Kaue", "de Sousa",
         comment = c(ORCID = "0000-0002-7571-7845")), 
         person("Billy", "Ashmall", role = "aut",
         comment = c("API Client implementation")), 
-        person("Jacob", "van Etten", role = c("ths"),
+        person("Jacob", "van Etten", role = c("aut","ths"),
         comment = c(ORCID = "0000-0001-7554-2558")),
         person("Svein", "Solberg", role = c("ths")))
 Maintainer: Kaue de Sousa <kaue.desousa@inn.no>
