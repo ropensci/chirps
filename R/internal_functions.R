@@ -127,7 +127,12 @@
 
 
 
+# Check if contains class "chirps"
+.is_chirps <- function(x) {
+  
+  c("chirps") %in% class(x)
 
+}
 
 
 

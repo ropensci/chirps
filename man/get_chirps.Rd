@@ -52,7 +52,7 @@ df <- get_chirps(lonlat, dates)
 } 
 }
 \references{
-Funk C. et al. (2015). Scientific Data, 2, 150066. https://doi.org/10.1038/sdata.2015.66
+Funk C. et al. (2015). Scientific Data, 2, 150066. \link{https://doi.org/10.1038/sdata.2015.66}
 }
 \seealso{
 ClimateSERV <https://climateserv.servirglobal.net>

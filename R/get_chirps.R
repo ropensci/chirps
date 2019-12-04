@@ -26,7 +26,7 @@
 #' @seealso ClimateSERV <https://climateserv.servirglobal.net>
 #' @references 
 #' 
-#' Funk C. et al. (2015). Scientific Data, 2, 150066. https://doi.org/10.1038/sdata.2015.66
+#' Funk C. et al. (2015). Scientific Data, 2, 150066. \link{https://doi.org/10.1038/sdata.2015.66}
 #' 
 #' @examples
 #' \donttest{
@@ -167,6 +167,8 @@ get_chirps <- function(lonlat, dates, operation = 5, ...) {
   result <- result[, c("id","lon","lat","date","chirps")]
   
   result <- tibble::as_tibble(result)
+  
+  class(result) <- c("chirps", class(result))
   
   return(result)
 }
