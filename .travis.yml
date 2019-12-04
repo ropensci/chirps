@@ -1,12 +1,26 @@
 # R for travis: see documentation at https://docs.travis-ci.com/user/languages/r
+language: R
+sudo: false
+cache: packages
+r:
+  - release
+  - devel
+  #- oldrel
 
-language: r
-r: bioc-devel
-cache:
-  packages: false
+warnings_are_errors: true
 
-r_packages:
-  - covr
+addons:
+  apt:
+    packages:
+      - libudunits2-dev
+
+r_github_packages:
+  - r-lib/covr
+  - r-quantities/errors
+
+script:
+  - git clone https://github.com/r-quantities/quantities.git
+  - bash quantities/scripts/check_with_quantities.sh
 
 after_success:
-  - Rscript -e 'library(covr); codecov()'
+  - Rscript -e 'covr::codecov()'
