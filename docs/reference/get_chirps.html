@@ -128,7 +128,7 @@ the point.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>get_chirps</span>(<span class='no'>lonlat</span>, <span class='no'>dates</span>, <span class='kw'>operation</span> <span class='kw'>=</span> <span class='fl'>5</span>)</pre>
+    <pre class="usage"><span class='fu'>get_chirps</span>(<span class='no'>lonlat</span>, <span class='no'>dates</span>, <span class='kw'>operation</span> <span class='kw'>=</span> <span class='fl'>5</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -146,6 +146,10 @@ the point.</p>
       <td><p>optional, an integer that represents which type of statistical operation 
 to perform on the dataset</p></td>
     </tr>
+    <tr>
+      <th>...</th>
+      <td><p>further arguments passed to <code>sf</code> methods. See details</p></td>
+    </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
@@ -160,12 +164,13 @@ to perform on the dataset</p></td>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>Types of operation supported by ClimateSERV are,
-max = 0, min = 1, median = 2, sum = 4, average = 5</p>
+    <p>operation: supported operations are max = 0, min = 1, median = 2, sum = 4, average = 5</p>
+<p>dist: numeric, buffer distance for all <code>lonlat</code> coordinates</p>
+<p>nQuadSegs: integer, number of segments per quadrant</p>
     
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
-    <p>Funk C. et al. (2015). Scientific Data, 2, 150066. <a href='https://doi.org/10.1038/sdata.2015.66'>https://doi.org/10.1038/sdata.2015.66</a></p>
+    <p>Funk C. et al. (2015). Scientific Data, 2, 150066. https://doi.org/10.1038/sdata.2015.66</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
@@ -182,7 +187,7 @@ max = 0, min = 1, median = 2, sum = 4, average = 5</p>
 <span class='no'>dates</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"2017-12-15"</span>,<span class='st'>"2018-01-20"</span>)
 
 
-<span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'>get_chirps</span>(<span class='no'>lonlat</span>, <span class='no'>dates</span>)</div><div class='output co'>#&gt; Fetching CHIRPS </div></pre>
+<span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'>get_chirps</span>(<span class='no'>lonlat</span>, <span class='no'>dates</span>)</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

@@ -9,8 +9,14 @@
 #' @param dates a character of start and end dates in that order in the format YYYY-MM-DD
 #' @param operation optional, an integer that represents which type of statistical operation 
 #' to perform on the dataset
-#' @details Types of operation supported by ClimateSERV are,
-#' max = 0, min = 1, median = 2, sum = 4, average = 5
+#' @param ... further arguments passed to \code{sf} methods. See details 
+#' @details  
+#' operation: supported operations are max = 0, min = 1, median = 2, sum = 4, average = 5
+#' 
+#' dist: numeric, buffer distance for all \code{lonlat} coordinates
+#' 
+#' nQuadSegs: integer, number of segments per quadrant
+#' 
 #' @return A data frame of CHIRPS data including:
 #' \item{id}{the index for the rows in \code{lonlat}}
 #' \item{dates}{the dates from which CHIRPS was requested}
@@ -20,7 +26,7 @@
 #' @seealso ClimateSERV <https://climateserv.servirglobal.net>
 #' @references 
 #' 
-#' Funk C. et al. (2015). Scientific Data, 2, 150066. \url{https://doi.org/10.1038/sdata.2015.66}
+#' Funk C. et al. (2015). Scientific Data, 2, 150066. https://doi.org/10.1038/sdata.2015.66
 #' 
 #' @examples
 #' \donttest{
@@ -35,12 +41,12 @@
 #' 
 #' df <- get_chirps(lonlat, dates)
 #' } 
+#' @import sf
 #' @importFrom httr accept_json content GET
 #' @importFrom jsonlite fromJSON
-#' @importFrom sf st_point st_buffer
 #' @importFrom tibble as_tibble
 #' @export
-get_chirps <- function(lonlat, dates, operation = 5) {
+get_chirps <- function(lonlat, dates, operation = 5, ...) {
   
 
   # the first path is the request the data
@@ -60,7 +66,7 @@ get_chirps <- function(lonlat, dates, operation = 5) {
   .validate_dates(dates)
   
   # get geojson strings from lonlat
-  gjson <- .c_polygon(lonlat)
+  gjson <- .c_geojson(lonlat, ...)
   
   # reformat dates as required in ClimateSERV ("MM/DD/YYYY")
   begindate <- dates[1]
@@ -107,12 +113,6 @@ get_chirps <- function(lonlat, dates, operation = 5) {
   
   success <- as.vector(unlist(success))
   
-  if (all(success)) {
-    
-    cat("Fetching CHIRPS \n")
-  
-  }
-  
   if (!all(success)) {
     
     stop("Fail to fetch one or more points, which were: ", 
@@ -121,28 +121,28 @@ get_chirps <- function(lonlat, dates, operation = 5) {
   }
   
   # pick the ids 
-  ids <- lapply(ids, function(x) {
-    strsplit(x, '["]')[[1]][2] 
+  ids <- lapply(ids, function(i) {
+    i <- strsplit(i, '["]')[[1]][2] 
+    return(i)
   })
   
   # get data from request
   result <- lapply(ids, function(x) {
-    
+
     d <- httr::GET(url = path2,
-                   query = list(id = x),
-                   httr::accept_json())
-    
+                   query = list(id = x))
+
     d <- httr::content(d, as = "text", encoding = "UTF-8")
-    
+
     d <- jsonlite::fromJSON(d)
-    
+
     d <- data.frame(cbind(date = d$data$date,
                           d$data$value))
-    
+
     d$date <- as.character(d$date)
-    
+
     return(d)
-    
+
   })
   
   result <- do.call("rbind", result) 

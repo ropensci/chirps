@@ -4,7 +4,7 @@
 \alias{get_chirps}
 \title{Get CHIRPS precipitation data}
 \usage{
-get_chirps(lonlat, dates, operation = 5)
+get_chirps(lonlat, dates, operation = 5, ...)
 }
 \arguments{
 \item{lonlat}{a data.frame of geographic coordinates of longitude and latitude in that order}
@@ -13,6 +13,8 @@ get_chirps(lonlat, dates, operation = 5)
 
 \item{operation}{optional, an integer that represents which type of statistical operation 
 to perform on the dataset}
+
+\item{...}{further arguments passed to \code{sf} methods. See details}
 }
 \value{
 A data frame of CHIRPS data including:
@@ -29,8 +31,11 @@ input 'lonlat' are then transformed into polygons with a small buffer area aroun
 the point.
 }
 \details{
-Types of operation supported by ClimateSERV are,
-max = 0, min = 1, median = 2, sum = 4, average = 5
+operation: supported operations are max = 0, min = 1, median = 2, sum = 4, average = 5
+
+dist: numeric, buffer distance for all \code{lonlat} coordinates
+
+nQuadSegs: integer, number of segments per quadrant
 }
 \examples{
 \donttest{
@@ -47,7 +52,7 @@ df <- get_chirps(lonlat, dates)
 } 
 }
 \references{
-Funk C. et al. (2015). Scientific Data, 2, 150066. \url{https://doi.org/10.1038/sdata.2015.66}
+Funk C. et al. (2015). Scientific Data, 2, 150066. https://doi.org/10.1038/sdata.2015.66
 }
 \seealso{
 ClimateSERV <https://climateserv.servirglobal.net>

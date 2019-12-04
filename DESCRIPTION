@@ -23,7 +23,7 @@ Imports:
     jsonlite, 
     sf,
     tibble
-Suggests: 
+Suggests:
     knitr,
     rmarkdown,
     testthat (>= 2.1.0)
