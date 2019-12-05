@@ -128,11 +128,12 @@
 
 
 # Check if contains class "chirps"
+# @param x an object to test
+# @return logical, TRUE for an object of class 'chirps'
+# @examples
+# .is_chirps(airquality)
 .is_chirps <- function(x) {
   
   c("chirps") %in% class(x)
 
 }
-
-
-

@@ -39,21 +39,20 @@ nQuadSegs: integer, number of segments per quadrant
 }
 \examples{
 \donttest{
+# Three points in the Tapajos National Forest, Brazil
+library("chirps")
 
-# Two random points across the Tapajos National Forest in Brazil
-set.seed(123)
-lonlat <- data.frame(lon = runif(2, -55, -54),
-                     lat = runif(2, -3, -2.7))
+lonlat <- data.frame(lon = c(-55.0281,-54.9857, -55.0714),
+                     lat = c(-2.8094, -2.8756, -3.5279))
 
-dates <- c("2017-12-15","2018-01-20")
+dates <- c("2017-12-15","2018-01-31")
 
 
 df <- get_chirps(lonlat, dates)
 } 
 }
 \references{
-Funk C. et al. (2015). Scientific Data, 2, 150066. \link{https://doi.org/10.1038/sdata.2015.66}
-}
-\seealso{
-ClimateSERV <https://climateserv.servirglobal.net>
+Funk C. et al. (2015). Scientific Data, 2, 150066. https://doi.org/10.1038/sdata.2015.66
+
+ClimateSERV https://climateserv.servirglobal.net
 }

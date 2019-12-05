@@ -4,40 +4,50 @@
 \alias{precip_indices}
 \title{Precipitation indices}
 \usage{
-precip_indices(object, timeseries = FALSE, span = NULL, index = NULL)
+precip_indices(object, timeseries = FALSE, span = NULL)
 }
 \arguments{
 \item{object}{a data.frame with CHIRPS data as privided by \code{get_chirps}}
 
-\item{timeseries}{logical, should the indices return static of in time series}
+\item{timeseries}{logical, FALSE for a single point time series observation or TRUE for a time series based on a \code{span}}
 
 \item{span}{integer no lower than 5, for the days intervals when \code{timeseries} = TRUE}
-
-\item{index}{character or a vector with characters for the indices to be calculated}
 }
 \value{
-A dataframe with selected indices. Options are:
+A dataframe with selected indices:
 \item{MLDS}{maximum length of consecutive dry days (r <  1 mm)}
 \item{MLWS}{maximum length of consecutive wet days (r >= 1 mm)}
 \item{R10mm}{number of heavy precipitation days (10 >= r < 20 mm)}
 \item{R20mm}{number of very heavy precipitation days (r >= 20) }
-\item{SDII}{simple daily intensity index (mean of wet days / total rainfall)}
 \item{Rx1day}{maximum 1-day rainfall (mm)}
 \item{Rx5day}{maximum 5-day rainfall (mm) }
+\item{SDII}{simple daily intensity index (mean of wet days / total rainfall)}
 \item{Rtotal}{total rainfall (mm) in wet days (R >= 1)}
 }
 \description{
 Compute precipitation indices over a time series.
 }
 \examples{
+
 \donttest{
+# Three points in the Tapajos National Forest, Brazil
+lonlat <- data.frame(lon = c(-55.0281,-54.9857, -55.0714),
+                     lat = c(-2.8094, -2.8756, -3.5279))
 
+dates <- c("2017-12-15","2018-05-31")
+ 
+df <- get_chirps(lonlat, dates)
 
+# take the indices for the entire period 
+precip_indices(df, timeseries = FALSE)
+
+# take the indices for periods of 7 days
+precip_indices(df, timeseries = TRUE, span = 7)
 }       
          
 }
 \references{
-Aguilar E., et al. (2005). Journal of Geophysical Research, 110(D23), D23107. \link{https://doi.org/10.1029/2005JD006119}
+Aguilar E., et al. (2005). Journal of Geophysical Research, 110(D23), D23107. https://doi.org/10.1029/2005JD006119
 
 Kehel Z., et al. (2016). In: Applied Mathematics and Omics to Assess Crop Genetic Resources for Climate Change Adaptive Traits (eds Bari A., Damania A. B., Mackay M., Dayanandan S.), pp. 151–174. CRC Press.
 }
