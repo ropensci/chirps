@@ -36,7 +36,6 @@ test_that("one point and other operation works", {
 })
 
 
-
 test_that("points beyond lims", {
   
   lonlat <- data.frame(lon = runif(1, -55, -54),
@@ -52,7 +51,7 @@ test_that("points beyond lims", {
 })
 
 
-test_that("points beyond lims", {
+test_that("wrong dates", {
   
   lonlat <- data.frame(lon = runif(1, -55, -54),
                        lat = runif(1, -3, -2))

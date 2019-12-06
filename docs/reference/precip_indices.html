@@ -144,14 +144,16 @@
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>A dataframe with selected indices:</p>
-<dt>MLDS</dt><dd><p>maximum length of consecutive dry days (r &lt;  1 mm)</p></dd>
-<dt>MLWS</dt><dd><p>maximum length of consecutive wet days (r &gt;= 1 mm)</p></dd>
-<dt>R10mm</dt><dd><p>number of heavy precipitation days (10 &gt;= r &lt; 20 mm)</p></dd>
-<dt>R20mm</dt><dd><p>number of very heavy precipitation days (r &gt;= 20)</p></dd>
-<dt>Rx1day</dt><dd><p>maximum 1-day rainfall (mm)</p></dd>
-<dt>Rx5day</dt><dd><p>maximum 5-day rainfall (mm)</p></dd>
-<dt>SDII</dt><dd><p>simple daily intensity index (mean of wet days / total rainfall)</p></dd>
-<dt>Rtotal</dt><dd><p>total rainfall (mm) in wet days (R &gt;= 1)</p></dd>
+<dt>MLDS</dt><dd><p>maximum length of consecutive dry day, rain &lt;  1 mm (days)</p></dd>
+<dt>MLWS</dt><dd><p>maximum length of consecutive wet days, rain &gt;= 1 mm (days)</p></dd>
+<dt>R10mm</dt><dd><p>number of heavy precipitation days 10 &gt;= rain &lt; 20 mm (days)</p></dd>
+<dt>R20mm</dt><dd><p>number of very heavy precipitation days rain &gt;= 20 (days)</p></dd>
+<dt>Rx1day</dt><dd><p>maximum 1-day precipitation (mm)</p></dd>
+<dt>Rx5day</dt><dd><p>maximum 5-day precipitation (mm)</p></dd>
+<dt>R95p</dt><dd><p>total precipitation when rain &gt; 95th percentile (mm)</p></dd>
+<dt>R99p</dt><dd><p>total precipitation when rain &gt; 99th percentile (mm)</p></dd>
+<dt>Rtotal</dt><dd><p>total precipitation (mm) in wet days, rain &gt;= 1 (mm)</p></dd>
+<dt>SDII</dt><dd><p>simple daily intensity index, total precipitation divided by the number of wet days (mm/days)</p></dd>
 
     
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
@@ -175,7 +177,7 @@
 <span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='get_chirps.html'>get_chirps</a></span>(<span class='no'>lonlat</span>, <span class='no'>dates</span>)
 
 <span class='co'># take the indices for the entire period </span>
-<span class='fu'>precip_indices</span>(<span class='no'>df</span>, <span class='kw'>timeseries</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 24 x 6</span><span>
+<span class='fu'>precip_indices</span>(<span class='no'>df</span>, <span class='kw'>timeseries</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 30 x 6</span><span>
 #&gt;       id   bin   lon   lat index   value
 #&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
 #&gt; </span><span style='color: #555555;'> 1</span><span>     1     1 -</span><span style='color: #BB0000;'>55.0</span><span> -</span><span style='color: #BB0000;'>2.81</span><span> MLDS      6  
@@ -184,13 +186,13 @@
 #&gt; </span><span style='color: #555555;'> 4</span><span>     1     1 -</span><span style='color: #BB0000;'>55.0</span><span> -</span><span style='color: #BB0000;'>2.81</span><span> R20mm    30  
 #&gt; </span><span style='color: #555555;'> 5</span><span>     1     1 -</span><span style='color: #BB0000;'>55.0</span><span> -</span><span style='color: #BB0000;'>2.81</span><span> Rx1day   72.1
 #&gt; </span><span style='color: #555555;'> 6</span><span>     1     1 -</span><span style='color: #BB0000;'>55.0</span><span> -</span><span style='color: #BB0000;'>2.81</span><span> Rx5day  174. 
-#&gt; </span><span style='color: #555555;'> 7</span><span>     1     1 -</span><span style='color: #BB0000;'>55.0</span><span> -</span><span style='color: #BB0000;'>2.81</span><span> SDII     20.1
-#&gt; </span><span style='color: #555555;'> 8</span><span>     1     1 -</span><span style='color: #BB0000;'>55.0</span><span> -</span><span style='color: #BB0000;'>2.81</span><span> Rtotal </span><span style='text-decoration: underline;'>1</span><span>585. 
-#&gt; </span><span style='color: #555555;'> 9</span><span>     2     1 -</span><span style='color: #BB0000;'>55.0</span><span> -</span><span style='color: #BB0000;'>2.88</span><span> MLDS      7  
-#&gt; </span><span style='color: #555555;'>10</span><span>     2     1 -</span><span style='color: #BB0000;'>55.0</span><span> -</span><span style='color: #BB0000;'>2.88</span><span> MLWS      7  
-#&gt; </span><span style='color: #555555;'># ... with 14 more rows</span><span></div><div class='input'>
+#&gt; </span><span style='color: #555555;'> 7</span><span>     1     1 -</span><span style='color: #BB0000;'>55.0</span><span> -</span><span style='color: #BB0000;'>2.81</span><span> R95p    464. 
+#&gt; </span><span style='color: #555555;'> 8</span><span>     1     1 -</span><span style='color: #BB0000;'>55.0</span><span> -</span><span style='color: #BB0000;'>2.81</span><span> R99p    133. 
+#&gt; </span><span style='color: #555555;'> 9</span><span>     1     1 -</span><span style='color: #BB0000;'>55.0</span><span> -</span><span style='color: #BB0000;'>2.81</span><span> Rtotal </span><span style='text-decoration: underline;'>1</span><span>585. 
+#&gt; </span><span style='color: #555555;'>10</span><span>     1     1 -</span><span style='color: #BB0000;'>55.0</span><span> -</span><span style='color: #BB0000;'>2.81</span><span> SDII     20.1
+#&gt; </span><span style='color: #555555;'># ... with 20 more rows</span><span></div><div class='input'>
 <span class='co'># take the indices for periods of 7 days</span>
-<span class='fu'>precip_indices</span>(<span class='no'>df</span>, <span class='kw'>timeseries</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>span</span> <span class='kw'>=</span> <span class='fl'>7</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 576 x 6</span><span>
+<span class='fu'>precip_indices</span>(<span class='no'>df</span>, <span class='kw'>timeseries</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>span</span> <span class='kw'>=</span> <span class='fl'>7</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 720 x 6</span><span>
 #&gt;       id   bin   lon   lat index  value
 #&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
 #&gt; </span><span style='color: #555555;'> 1</span><span>     1     1 -</span><span style='color: #BB0000;'>55.0</span><span> -</span><span style='color: #BB0000;'>2.81</span><span> MLDS     3  
@@ -199,12 +201,11 @@
 #&gt; </span><span style='color: #555555;'> 4</span><span>     1     1 -</span><span style='color: #BB0000;'>55.0</span><span> -</span><span style='color: #BB0000;'>2.81</span><span> R20mm    0  
 #&gt; </span><span style='color: #555555;'> 5</span><span>     1     1 -</span><span style='color: #BB0000;'>55.0</span><span> -</span><span style='color: #BB0000;'>2.81</span><span> Rx1day  13.7
 #&gt; </span><span style='color: #555555;'> 6</span><span>     1     1 -</span><span style='color: #BB0000;'>55.0</span><span> -</span><span style='color: #BB0000;'>2.81</span><span> Rx5day  27.4
-#&gt; </span><span style='color: #555555;'> 7</span><span>     1     1 -</span><span style='color: #BB0000;'>55.0</span><span> -</span><span style='color: #BB0000;'>2.81</span><span> SDII    13.7
-#&gt; </span><span style='color: #555555;'> 8</span><span>     1     1 -</span><span style='color: #BB0000;'>55.0</span><span> -</span><span style='color: #BB0000;'>2.81</span><span> Rtotal  27.4
-#&gt; </span><span style='color: #555555;'> 9</span><span>     1     2 -</span><span style='color: #BB0000;'>55.0</span><span> -</span><span style='color: #BB0000;'>2.81</span><span> MLDS     2  
-#&gt; </span><span style='color: #555555;'>10</span><span>     1     2 -</span><span style='color: #BB0000;'>55.0</span><span> -</span><span style='color: #BB0000;'>2.81</span><span> MLWS     2  
-#&gt; </span><span style='color: #555555;'># ... with 566 more rows</span><span></div></span><div class='input'>         
-</div></pre>
+#&gt; </span><span style='color: #555555;'> 7</span><span>     1     1 -</span><span style='color: #BB0000;'>55.0</span><span> -</span><span style='color: #BB0000;'>2.81</span><span> R95p     0  
+#&gt; </span><span style='color: #555555;'> 8</span><span>     1     1 -</span><span style='color: #BB0000;'>55.0</span><span> -</span><span style='color: #BB0000;'>2.81</span><span> R99p     0  
+#&gt; </span><span style='color: #555555;'> 9</span><span>     1     1 -</span><span style='color: #BB0000;'>55.0</span><span> -</span><span style='color: #BB0000;'>2.81</span><span> Rtotal  27.4
+#&gt; </span><span style='color: #555555;'>10</span><span>     1     1 -</span><span style='color: #BB0000;'>55.0</span><span> -</span><span style='color: #BB0000;'>2.81</span><span> SDII    13.7
+#&gt; </span><span style='color: #555555;'># ... with 710 more rows</span><span></div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

@@ -15,14 +15,16 @@ precip_indices(object, timeseries = FALSE, span = NULL)
 }
 \value{
 A dataframe with selected indices:
-\item{MLDS}{maximum length of consecutive dry days (r <  1 mm)}
-\item{MLWS}{maximum length of consecutive wet days (r >= 1 mm)}
-\item{R10mm}{number of heavy precipitation days (10 >= r < 20 mm)}
-\item{R20mm}{number of very heavy precipitation days (r >= 20) }
-\item{Rx1day}{maximum 1-day rainfall (mm)}
-\item{Rx5day}{maximum 5-day rainfall (mm) }
-\item{SDII}{simple daily intensity index (mean of wet days / total rainfall)}
-\item{Rtotal}{total rainfall (mm) in wet days (R >= 1)}
+\item{MLDS}{maximum length of consecutive dry day, rain <  1 mm (days)}
+\item{MLWS}{maximum length of consecutive wet days, rain >= 1 mm (days)}
+\item{R10mm}{number of heavy precipitation days 10 >= rain < 20 mm (days)}
+\item{R20mm}{number of very heavy precipitation days rain >= 20 (days)}
+\item{Rx1day}{maximum 1-day precipitation (mm)}
+\item{Rx5day}{maximum 5-day precipitation (mm)}
+\item{R95p}{total precipitation when rain > 95th percentile (mm)}
+\item{R99p}{total precipitation when rain > 99th percentile (mm)}
+\item{Rtotal}{total precipitation (mm) in wet days, rain >= 1 (mm)}
+\item{SDII}{simple daily intensity index, total precipitation divided by the number of wet days (mm/days)}
 }
 \description{
 Compute precipitation indices over a time series.
@@ -44,7 +46,6 @@ precip_indices(df, timeseries = FALSE)
 # take the indices for periods of 7 days
 precip_indices(df, timeseries = TRUE, span = 7)
 }       
-         
 }
 \references{
 Aguilar E., et al. (2005). Journal of Geophysical Research, 110(D23), D23107. https://doi.org/10.1029/2005JD006119

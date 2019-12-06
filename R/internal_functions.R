@@ -62,12 +62,12 @@
 }
 
 
-# Validate lonlat within an accepted geographical range
+# Validate lonlat within an pre-defined bounding box
 # 
 # @param lonlat a data.frame with geographical coordinates lonlat in that order
 # @param xlim a numeric vector for the min and max accepted range in the longitude in that order
 # @param ylim a numeric vector for the min and max accepted range in the latitude in that order 
-# @return nothing
+# @return If lonlat are valid (within the bounding box) returns nothing
 # @examples
 # # random geographic locations around bbox(10, 12, 45, 57)
 # set.seed(123)
@@ -90,7 +90,7 @@
   v4 <- max(lat) > ylim[2]
   
   if(any(c(v1,v2,v3,v4))) {
-    stop("lonlat are beyond the accepted lims, which are: ",
+    stop("Subscript out of bounds. \n lonlat are beyond the accepted bbox, which are: ",
          paste(paste(xlim[1], ylim[1], sep = " , "),
                paste(xlim[2], ylim[2], sep = " , "), sep = " , "))
   }
@@ -100,32 +100,58 @@
 # Validate dates within an accepted range
 #
 # @param x a character of start and end dates in that order in the format YYYY-MM-DD
+# @param availability a character for the dates the dataset is available
 # @return nothing
 # @examples
 # dates <- c("2016-01-31","2017-12-01")
 # 
 # .validate_dates(dates)
 # 
-# 
 # dates <- c("2018-01-31","2017-12-01")
 # 
 # .validate_dates(dates)
-.validate_dates <- function(x) {
+# 
+# dates <- c("2018-01-31", as.character(Sys.Date()))
+# 
+# .validate_dates(dates)
+# 
+# dates <- c("1980-12-31", "2018-01-31")
+# 
+# .validate_dates(dates)
+.validate_dates <- function(x, availability = c("1981-01-01", "0")) {
   
   xmin <- as.Date(x[1], format = "%Y-%m-%d")
   
   xmax <- as.Date(x[2], format = "%Y-%m-%d")
   
-  accepted <- as.integer(xmax - xmin) > 1
+  # the first day from which the dataset is available
+  past <- as.Date(availability[1], origin = "1970-01-01")
   
-  if(!accepted) {
-    stop("something wrong with dates provided, 
-         end date seems to be older than begin date \n")
+  # the most recent date from which the dataset is available
+  # generally it takes 45 days to update
+  if(availability[2] == "0") {
+    present <- Sys.Date() - 45
+    present <- format(present,  "%Y-%m-%d")
+  }
+  
+  # last given date should be higher than first
+  cond1 <- as.integer(xmax - xmin) > 1
+  
+  # no older than past date
+  cond2 <- xmin > past
+  
+  # no later then present date
+  cond3 <- xmax < present
+  
+  if(!all(cond1, cond2, cond3)) {
+    
+    stop("Subscript out of bounds\n 
+         Please check your dates. The dataset is available from ", 
+         as.character(past), " to about ", as.character(present), "\n 
+         Or your dates may be twisted. \n")
   }
   
 }
-
-
 
 # Check if contains class "chirps"
 # @param x an object to test

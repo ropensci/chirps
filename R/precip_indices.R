@@ -6,14 +6,16 @@
 #' @param timeseries logical, FALSE for a single point time series observation or TRUE for a time series based on a \code{span}  
 #' @param span integer no lower than 5, for the days intervals when \code{timeseries} = TRUE
 #' @return A dataframe with selected indices:
-#' \item{MLDS}{maximum length of consecutive dry days (r <  1 mm)}
-#' \item{MLWS}{maximum length of consecutive wet days (r >= 1 mm)}
-#' \item{R10mm}{number of heavy precipitation days (10 >= r < 20 mm)}
-#' \item{R20mm}{number of very heavy precipitation days (r >= 20) }
-#' \item{Rx1day}{maximum 1-day rainfall (mm)}
-#' \item{Rx5day}{maximum 5-day rainfall (mm) }
-#' \item{SDII}{simple daily intensity index (mean of wet days / total rainfall)}
-#' \item{Rtotal}{total rainfall (mm) in wet days (R >= 1)}
+#' \item{MLDS}{maximum length of consecutive dry day, rain <  1 mm (days)}
+#' \item{MLWS}{maximum length of consecutive wet days, rain >= 1 mm (days)}
+#' \item{R10mm}{number of heavy precipitation days 10 >= rain < 20 mm (days)}
+#' \item{R20mm}{number of very heavy precipitation days rain >= 20 (days)}
+#' \item{Rx1day}{maximum 1-day precipitation (mm)}
+#' \item{Rx5day}{maximum 5-day precipitation (mm)}
+#' \item{R95p}{total precipitation when rain > 95th percentile (mm)}
+#' \item{R99p}{total precipitation when rain > 99th percentile (mm)}
+#' \item{Rtotal}{total precipitation (mm) in wet days, rain >= 1 (mm)}
+#' \item{SDII}{simple daily intensity index, total precipitation divided by the number of wet days (mm/days)}
 #' @seealso \code{\link[tidyr]{pivot_wider}}
 #' @references 
 #' 
@@ -38,15 +40,16 @@
 #' # take the indices for periods of 7 days
 #' precip_indices(df, timeseries = TRUE, span = 7)
 #' }       
-#'          
+#' @importFrom stats quantile        
 #' @export
 precip_indices <- function(object, timeseries = FALSE, span = NULL) {
   
   if (!.is_chirps(object)) {
-    stop("object must be a data.frame of class 'chirps'\n")
+    stop("object must be a data.frame with class 'chirps'\n")
   }
    
-  indices <- c("MLDS","MLWS","R10mm","R20mm","Rx1day","Rx5day","SDII","Rtotal")
+  indices <- c("MLDS","MLWS","R10mm","R20mm","Rx1day",
+               "Rx5day","R95p","R99p","Rtotal","SDII")
   
   # keep unique ids in a new data.frame
   lonlat <- object[!duplicated(object$id), c("id","lon","lat")]
@@ -87,11 +90,12 @@ precip_indices <- function(object, timeseries = FALSE, span = NULL) {
     x <- x[1:length(bins), ]
     x$bin <- bins
     x
+    
   })
   
   object <- do.call("rbind", object)
   
-  object <- split(object, paste(bins, object$id, sep = "_"))
+  object <- split(object, paste(object$id, bins, sep = "_"))
   
   object <- lapply(object, function(x) {
     
@@ -103,8 +107,10 @@ precip_indices <- function(object, timeseries = FALSE, span = NULL) {
              .r_twenty_mm(chr),
              .r_one_day(chr),
              .r_five_day(chr),
-             .sdii(chr),
-             .r_total(chr))
+             .very_wet_days(chr),
+             .extrem_wet_days(chr),
+             .r_total(chr),
+             .sdii(chr))
     
     ind <- data.frame(id = rep(x$id[1], length(indices)),
                       bin = rep(x$bin[1], length(indices)),
@@ -246,15 +252,30 @@ precip_indices <- function(object, timeseries = FALSE, span = NULL) {
 # Simple rainfall intensity index
 # @param object numeric vector
 # @return the SDII index, which is the simple daily intensity 
-# index (mean of wet days / total rainfall)
+# index total precipitation divided by the number of wet days (r >= 1.0mm)
 # @examples
 # set.seed(12)
 # r <- runif(20, 0, 9)
+#
 # r[c(1,4,9:11)] <- 0.1
+#
 # .sdii(r)
+#
+# .sdii(rep(0.1, 9))
 .sdii <- function(object) {
   
-  si <- sum(object, na.rm = TRUE) / sum(object >= 1, na.rm = TRUE)
+  # total precipitation
+  tp <- sum(object, na.rm = TRUE)
+  
+  # number of wet days
+  wd <- length(object[object >= 1])
+  
+  #if both zero, then return 0
+  if (wd == 0) {
+    si <- 0L
+  }else{
+    si <- tp / wd
+  }
   
   return(si)
   
@@ -323,3 +344,45 @@ precip_indices <- function(object, timeseries = FALSE, span = NULL) {
   
 }
 
+
+# Very wet days
+# @param object numeric vector
+# @return the R95p index, annual total PRCP when rain > 95th percentile
+# @examples
+# set.seed(12)
+# r <- runif(20, 0, 9)
+# r[c(1,4,9:12,17)] <- 0
+# .very_wet_days(r)
+.very_wet_days <- function(object) {
+  
+  q <- stats::quantile(object, probs = seq(0, 1, 0.05), na.rm = TRUE)
+  q <- q["95%"]
+  
+  vwd <- object[object > q]
+  
+  vwd <- sum(vwd, na.rm = TRUE)
+  
+  return(vwd)
+  
+}
+
+# Very wet days
+# @param object numeric vector
+# @return the R95p index, annual total PRCP when rain > 95th percentile
+# @examples
+# set.seed(12)
+# r <- runif(20, 0, 9)
+# r[c(1,4,9:12,17)] <- 0
+# .extrem_wet_days(r)
+.extrem_wet_days <- function(object) {
+  
+  q <- stats::quantile(object, probs = seq(0, 1, 0.01), na.rm = TRUE)
+  q <- q["99%"]
+  
+  vwd <- object[object > q]
+  
+  vwd <- sum(vwd, na.rm = TRUE)
+  
+  return(vwd)
+  
+}

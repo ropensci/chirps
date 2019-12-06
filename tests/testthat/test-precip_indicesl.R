@@ -16,7 +16,7 @@ test_that("timespan FALSE", {
   p <- precip_indices(df, timeseries = FALSE)
   d <- dim(p)
   
-  expect_equal(d, c(16, 6))
+  expect_equal(d, c(20, 6))
 
 })
 
@@ -24,10 +24,10 @@ test_that("timespan FALSE", {
 test_that("timespan TRUE", {
   
   # take the indices for the entire period 
-  p <- precip_indices(df, timeseries = TRUE, span = 5)
+  p <- precip_indices(df, timeseries = TRUE, span = 10)
   d <- dim(p)
   
-  expect_equal(d, c(144, 6))
+  expect_equal(d, c(80, 6))
   
 })
 
@@ -44,6 +44,15 @@ test_that("accepts NAs", {
   p <- all(!is.na(p$value))
   
   expect_true(p)
+  
+})
+
+
+test_that("non chirps data", {
+  
+  expect_error(
+    precip_indices(object = airquality)
+  )
   
 })
 

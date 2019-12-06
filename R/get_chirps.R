@@ -1,6 +1,6 @@
 #' Get CHIRPS precipitation data
 #' 
-#' Fetch the Climate Hazards Group InfraRed Precipitation with Station Data via 
+#' Get the Climate Hazards Group InfraRed Precipitation with Station Data via 
 #' ClimateSERV API Client. ClimateSERV works with geojson strings of type 'Polygon'. The 
 #' input 'lonlat' are then transformed into polygons with a small buffer area around 
 #' the point.
@@ -61,7 +61,7 @@ get_chirps <- function(lonlat, dates, operation = 5, ...) {
   nr <- nrow(lonlat)
   
   # validate lonlat to check if they are within the CHIRPS range lat -50, 50
-  .validate_lonlat(lonlat)
+  .validate_lonlat(lonlat, xlim = c(-180, 180), ylim = c(-50, 50))
   
   # validate dates
   .validate_dates(dates)
@@ -131,7 +131,8 @@ get_chirps <- function(lonlat, dates, operation = 5, ...) {
   result <- lapply(ids, function(x) {
 
     d <- httr::GET(url = path2,
-                   query = list(id = x))
+                   query = list(id = x), 
+                   httr::accept_json())
 
     d <- httr::content(d, as = "text", encoding = "UTF-8")
 

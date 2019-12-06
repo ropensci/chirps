@@ -25,7 +25,7 @@ A data frame of CHIRPS data including:
 \item{chirps}{the CHIRPS value in mm}
 }
 \description{
-Fetch the Climate Hazards Group InfraRed Precipitation with Station Data via 
+Get the Climate Hazards Group InfraRed Precipitation with Station Data via 
 ClimateSERV API Client. ClimateSERV works with geojson strings of type 'Polygon'. The 
 input 'lonlat' are then transformed into polygons with a small buffer area around 
 the point.
