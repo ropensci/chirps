@@ -5,7 +5,7 @@
 #' input 'lonlat' are then transformed into polygons with a small buffer area around 
 #' the point.
 #' 
-#' @param lonlat a data.frame of geographic coordinates of longitude and latitude in that order
+#' @param object input, an object of class data.frame, geojson (Polygon), json (Polygon) or sf
 #' @param dates a character of start and end dates in that order in the format YYYY-MM-DD
 #' @param operation optional, an integer that represents which type of statistical operation 
 #' to perform on the dataset
@@ -43,35 +43,34 @@
 #' df <- get_chirps(lonlat, dates)
 #' } 
 #' @import sf
+#' @import methods
 #' @importFrom httr accept_json content GET
 #' @importFrom jsonlite fromJSON
 #' @importFrom tibble as_tibble
 #' @export
-get_chirps <- function(lonlat, dates, operation = 5, ...) {
+get_chirps <- function(object, dates, operation = 5, ...) {
   
+  UseMethod("get_chirps")
+  
+}
 
-  nr <- nrow(lonlat)
+
+
+#' @rdname get_chirps
+#' @export
+get_chirps.default <-  function(object, dates, operation = 5, ...) {
+  
+  nr <- nrow(object)
   
   # validate lonlat to check if they are within the CHIRPS range lat -50, 50
-  .validate_lonlat(lonlat, xlim = c(-180, 180), ylim = c(-50, 50))
+  .validate_lonlat(object, xlim = c(-180, 180), ylim = c(-50, 50))
   
-  # validate dates
-  .validate_dates(dates)
+  dates <- .reformat_dates(dates)
+  begindate <- dates[1]
+  enddate <- dates[2]
   
   # get geojson strings from lonlat
-  gjson <- .as_geojson(lonlat, ...)
-  
-  # reformat dates as required in ClimateSERV ("MM/DD/YYYY")
-  begindate <- dates[1]
-  begindate <- strsplit(begindate, "-")[[1]]
-  begindate <- paste(begindate[2], begindate[3], begindate[1], sep = "/")
-  
-  enddate <- dates[2]
-  enddate <- strsplit(enddate, "-")[[1]]
-  enddate <- paste(enddate[2], enddate[3], enddate[1], sep = "/")
-  
-  # force a string in operation integer
-  operation <- toString(operation)
+  gjson <- .dataframe_to_geojson(object, ...)
   
   # submit data request
   ids <- lapply(gjson, function(x) {
@@ -95,7 +94,7 @@ get_chirps <- function(lonlat, dates, operation = 5, ...) {
     d <- .get_data_from_request(id = x)
     
     return(d)
-
+    
   })
   
   result <- do.call("rbind", result) 
@@ -111,9 +110,9 @@ get_chirps <- function(lonlat, dates, operation = 5, ...) {
   dat <- paste(dat[,3], dat[,1], dat[,2], sep = "-")
   result$date <- as.Date(dat, format = "%Y-%m-%d")
   
-  lonlat$id <- rownames(lonlat)
+  object$id <- rownames(object)
   
-  result <- merge(result, lonlat, by = "id")
+  result <- merge(result, object, by = "id")
   
   names(result)[3:5] <- c("chirps","lon","lat")
   
@@ -129,8 +128,13 @@ get_chirps <- function(lonlat, dates, operation = 5, ...) {
 # @rdname get_chirps
 # @method get_chirps geojson
 # @export
-# get_chirps.geojson <- function()
-
+get_chirps.geojson <- function(object, dates, operation = 5, ...) {
+  
+  
+  
+}
+# get_chirps.default
+# get_chirps.sf
 
 
 

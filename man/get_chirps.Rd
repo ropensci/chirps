@@ -2,12 +2,15 @@
 % Please edit documentation in R/get_chirps.R
 \name{get_chirps}
 \alias{get_chirps}
+\alias{get_chirps.default}
 \title{Get CHIRPS precipitation data}
 \usage{
-get_chirps(lonlat, dates, operation = 5, ...)
+get_chirps(object, dates, operation = 5, ...)
+
+\method{get_chirps}{default}(object, dates, operation = 5, ...)
 }
 \arguments{
-\item{lonlat}{a data.frame of geographic coordinates of longitude and latitude in that order}
+\item{object}{input, an object of class data.frame, geojson (Polygon), json (Polygon) or sf}
 
 \item{dates}{a character of start and end dates in that order in the format YYYY-MM-DD}
 

@@ -14,9 +14,9 @@
 # lonlat <- data.frame(lon = runif(10, 10, 12),
 #                      lat = runif(10, 45, 57))
 # 
-# gjson <- .as_geojson(lonlat)
+# gjson <- .dataframe_to_geojson(lonlat)
 # 
-.as_geojson <- function(lonlat, dist = 0.00001, nQuadSegs = 2L) {
+.dataframe_to_geojson <- function(lonlat, dist = 0.00001, nQuadSegs = 2L) {
   
   n <- nrow(lonlat)
   
@@ -63,6 +63,33 @@
   
 }
 
+
+# Set output from ClimateServ data request
+.set_output <- function(x, ids) {
+  
+  result <- do.call("rbind", x) 
+  
+  # fix ids
+  id <- strsplit(row.names(result), "[.]")
+  id <- do.call("rbind", id)[,1]
+  result$id <- id
+  
+  # transform dates to the original format as input
+  dat <-  strsplit(result$date, "/")
+  dat <- do.call("rbind", dat)
+  dat <- paste(dat[,3], dat[,1], dat[,2], sep = "-")
+  result$date <- as.Date(dat, format = "%Y-%m-%d")
+  
+  lonlat$id <- rownames(lonlat)
+  
+  result <- merge(result, lonlat, by = "id")
+  
+  names(result)[3:5] <- c("chirps","lon","lat")
+  
+  result <- result[, c("id","lon","lat","date","chirps")]
+  
+  result <- tibble::as_tibble(result)
+}
 
 # Sent a request to ClimateSERV
 #
@@ -207,8 +234,10 @@
   past <- as.Date(availability[1], origin = "1970-01-01")
   
   # the most recent date from which the dataset is available
+  present <- availability[2]
+  
   # generally it takes 45 days to update
-  if(availability[2] == "0") {
+  if(present == "0") {
     present <- Sys.Date() - 45
     present <- format(present,  "%Y-%m-%d")
   }
@@ -232,6 +261,36 @@
   
 }
 
+
+# Reformat dates as required by ClimateServ
+#
+# @param x a character of start and end dates in that order in the format YYYY-MM-DD
+# @param ... further arguments passed to .validate_dates
+# @return a character with reformated dates as MM/DD/YYYY
+# @examples
+# x <- c("2016-01-31","2017-12-01")
+# 
+# .reformat_dates(x)
+.reformat_dates <- function(x, ...) {
+  
+  # validate dates
+  .validate_dates(x, ...)
+
+  begindate <- x[1]
+  begindate <- strsplit(begindate, "-")[[1]]
+  begindate <- paste(begindate[2], begindate[3], begindate[1], sep = "/")
+  
+  enddate <- x[2]
+  enddate <- strsplit(enddate, "-")[[1]]
+  enddate <- paste(enddate[2], enddate[3], enddate[1], sep = "/")
+  
+  dates <- c(begindate, enddate)
+  
+  return(dates)
+  
+}
+
+
 # Check if contains class "chirps"
 # @param x an object to test
 # @return logical, TRUE for an object of class 'chirps'
@@ -240,5 +299,5 @@
 .is_chirps <- function(x) {
   
   c("chirps") %in% class(x)
-
+  
 }
