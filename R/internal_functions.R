@@ -1,4 +1,4 @@
-# Concatenate a coordinate point into a geojson polygon
+# Concatenate a coordinate point data.frame into a geojson polygon
 #
 # Take single points from geographical coordinates 
 # and convert it into a geojson 'Polygon' string using sf::st_buffer
@@ -14,9 +14,9 @@
 # lonlat <- data.frame(lon = runif(10, 10, 12),
 #                      lat = runif(10, 45, 57))
 # 
-# .c_geojson(lonlat)
+# gjson <- .as_geojson(lonlat)
 # 
-.c_geojson <- function(lonlat, dist = 0.00001, nQuadSegs = 2L) {
+.as_geojson <- function(lonlat, dist = 0.00001, nQuadSegs = 2L) {
   
   n <- nrow(lonlat)
   
@@ -34,9 +34,6 @@
   # and then into a geometry list colunm
   lonlat <- sf::st_sfc(lonlat)
   
-  # set a temporary file with geojson extension
-  tf <- tempfile(fileext = ".geojson")
-  
   # set the buffer around the points
   lonlatb <- sf::st_buffer(lonlat, 
                            dist = dist, 
@@ -46,6 +43,7 @@
   lonlatb <- sf::st_as_sf(lonlatb)
   
   # write the geojson string
+  tf <- tempfile(fileext = ".geojson")
   sf::st_write(lonlatb, tf, quiet = TRUE)
   
   # capture these strings
@@ -57,10 +55,91 @@
   
   gj <- split(gj, 1:n)
   
-  return(gj)
+  gjson <- lapply(gj, function(x) {
+    gsub(" ", "", x)
+  })
+  
+  return(gjson)
   
 }
 
+
+# Sent a request to ClimateSERV
+#
+# @param datatype integer, the unique datatype number for the dataset which this request operates on
+# @param begintime character, start date for processing interval, format ("MM/DD/YYYY")
+# @param endtime character, end date for processing interval, format ("MM/DD/YYYY")
+# @param intervaltype integer, value that represents which type of time interval to process
+# @param operationtype integer, value that represents which type of statistical operation to perform
+# @param geometry a geojson for the geometry that is defined by the user on the current client
+# @return A id to be used in the data request
+# @details 
+# datatype codes are described at https://climateserv.readthedocs.io/en/latest/api.html
+# operation: supported operations are max = 0, min = 1, median = 2, sum = 4, average = 5
+.send_request <- function(datatype = 0, begintime = NULL, endtime = NULL,
+                          intervaltype = 0, operationtype = 5, geometry = NULL) {
+  
+  requestpath <- "https://climateserv.servirglobal.net/chirps/submitDataRequest/?"
+  
+  # organise the query
+  query <- list(
+    datatype = toString(datatype),
+    begintime = begintime,
+    endtime = endtime,
+    intervaltype = toString(intervaltype),
+    operationtype = toString(operationtype),
+    callback = "successCallback",
+    dateType_Category = "default",
+    isZip_CurrentDataType = "false",
+    geometry = geometry
+  )
+  
+  
+  # sent the query
+  id <- httr::GET(url = requestpath, 
+                  query = query, 
+                  httr::accept_json())
+  
+  # get content from the query
+  id <- httr::content(id, as = "text", encoding = "UTF-8")
+  
+
+  id <- strsplit(id, '["]')[[1]][2]
+  
+  return(id)
+  
+}
+
+
+# Get data from a request to ClimateSERV
+#
+# @param id character with the id obtained from \code{.send_request} 
+# @return A data frame with requested data
+# @examples
+# .get_data_from_request(id = "385452af-b09a-4f75-babf-01078811819b")
+.get_data_from_request <- function(id) {
+  
+  getdata_path <- "https://climateserv.servirglobal.net/chirps/getDataFromRequest/?"
+  
+  id <- list(id = id)
+  
+  d <- httr::GET(url = getdata_path,
+                 query = id, 
+                 httr::accept_json())
+  
+  d <- httr::content(d, as = "text", encoding = "UTF-8")
+  
+  d <- jsonlite::fromJSON(d)
+  
+  d <- data.frame(cbind(date = d$data$date,
+                        d$data$value))
+  
+  d$date <- as.character(d$date)
+  
+  
+  return(d)
+  
+}
 
 # Validate lonlat within an pre-defined bounding box
 # 

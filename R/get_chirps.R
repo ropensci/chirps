@@ -50,14 +50,6 @@
 get_chirps <- function(lonlat, dates, operation = 5, ...) {
   
 
-  # the first path is the request the data
-  # a successful request returns an id from which is possible to download the data
-  path <- "https://climateserv.servirglobal.net/chirps/submitDataRequest/?"
-  
-  # the second path is to download the data from the previous request
-  # a successful returns a json file which can be transformed into a data.frame 
-  path2 <- "https://climateserv.servirglobal.net/chirps/getDataFromRequest/?"
-  
   nr <- nrow(lonlat)
   
   # validate lonlat to check if they are within the CHIRPS range lat -50, 50
@@ -67,7 +59,7 @@ get_chirps <- function(lonlat, dates, operation = 5, ...) {
   .validate_dates(dates)
   
   # get geojson strings from lonlat
-  gjson <- .c_geojson(lonlat, ...)
+  gjson <- .as_geojson(lonlat, ...)
   
   # reformat dates as required in ClimateSERV ("MM/DD/YYYY")
   begindate <- dates[1]
@@ -84,65 +76,24 @@ get_chirps <- function(lonlat, dates, operation = 5, ...) {
   # submit data request
   ids <- lapply(gjson, function(x) {
     
-    # organise the query
-    query <- list(
-      datatype = "0",
-      begintime =  begindate,
+    i <- .send_request(
+      datatype = 0,
+      begintime = begindate,
       endtime = enddate,
-      intervaltype = "0",
+      intervaltype = 0,
       operationtype = operation,
-      callback = "successCallback",
-      dateType_Category = "default",
-      isZip_CurrentDataType = "false",
       geometry = x
     )
     
-    # sent the query
-    id <- httr::GET(url = path, 
-                    query = query)
-    
-    # get content from the query
-    id <- httr::content(id, as = "text", encoding = "UTF-8")
-    
-  })
-  
-  # check that all calls were successful
-  success <- lapply(ids, function(x) {
-    grepl("successCallback", x) 
-    
-  })
-  
-  success <- as.vector(unlist(success))
-  
-  if (!all(success)) {
-    
-    stop("Fail to fetch one or more points, which were: ", 
-         paste(which(success == FALSE), collapse = ", "), "\n")
-  
-  }
-  
-  # pick the ids 
-  ids <- lapply(ids, function(i) {
-    i <- strsplit(i, '["]')[[1]][2] 
     return(i)
+    
   })
   
   # get data from request
   result <- lapply(ids, function(x) {
-
-    d <- httr::GET(url = path2,
-                   query = list(id = x), 
-                   httr::accept_json())
-
-    d <- httr::content(d, as = "text", encoding = "UTF-8")
-
-    d <- jsonlite::fromJSON(d)
-
-    d <- data.frame(cbind(date = d$data$date,
-                          d$data$value))
-
-    d$date <- as.character(d$date)
-
+    
+    d <- .get_data_from_request(id = x)
+    
     return(d)
 
   })
@@ -174,4 +125,14 @@ get_chirps <- function(lonlat, dates, operation = 5, ...) {
   
   return(result)
 }
+
+# @rdname get_chirps
+# @method get_chirps geojson
+# @export
+# get_chirps.geojson <- function()
+
+
+
+
+
 
