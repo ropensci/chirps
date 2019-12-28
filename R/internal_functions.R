@@ -163,19 +163,22 @@
   }
 
 
-# Validate lonlat within an pre-defined bounding box
-# 
-# @param lonlat a data.frame with geographical coordinates lonlat in that order
-# @param xlim a numeric vector for the min and max accepted range in the longitude in that order
-# @param ylim a numeric vector for the min and max accepted range in the latitude in that order 
-# @return If lonlat are valid (within the bounding box) returns nothing
-# @examples
-# # random geographic locations around bbox(10, 12, 45, 57)
-# set.seed(123)
-# lonlat <- data.frame(lon = runif(10, 10, 12),
-#                      lat = runif(10, 45, 49))
-# 
-# .validate_lonlat(lonlat)
+#' Validate lonlat within an pre-defined bounding box
+#' 
+#' @param lonlat a data.frame with geographical coordinates lonlat in that order
+#' @param xlim a numeric vector for the min and max accepted range in the
+#'  longitude in that order
+#' @param ylim a numeric vector for the min and max accepted range in the
+#'  latitude in that order 
+#' @return If lonlat are valid (within the bounding box) returns nothing
+#' @examples
+#' # random geographic locations around bbox(10, 12, 45, 57)
+#' set.seed(123)
+#' lonlat <- data.frame(lon = runif(10, 10, 12),
+#'                      lat = runif(10, 45, 49))
+#' 
+#' .validate_lonlat(lonlat)
+#' @noRd
 
 .validate_lonlat <- function(lonlat, 
                              xlim = c(-180, 180), 
@@ -204,27 +207,30 @@
 }
 
 
-# Validate dates within an accepted range
-#
-# @param x a character of start and end dates in that order in the format YYYY-MM-DD
-# @param availability a character for the dates the dataset is available
-# @return nothing
-# @examples
-# dates <- c("2016-01-31","2017-12-01")
-# 
-# .validate_dates(dates)
-# 
-# dates <- c("2018-01-31","2017-12-01")
-# 
-# .validate_dates(dates)
-# 
-# dates <- c("2018-01-31", as.character(Sys.Date()))
-# 
-# .validate_dates(dates)
-# 
-# dates <- c("1980-12-31", "2018-01-31")
-# 
-# .validate_dates(dates)
+#' Validate dates within an accepted range
+#'
+#' @param x a character of start and end dates in that order in the format
+#'  YYYY-MM-DD
+#' @param availability a character for the dates the dataset is available
+#' @return nothing
+#' @examples
+#' dates <- c("2016-01-31","2017-12-01")
+#' 
+#' .validate_dates(dates)
+#' 
+#' dates <- c("2018-01-31","2017-12-01")
+#' 
+#' .validate_dates(dates)
+#' 
+#' dates <- c("2018-01-31", as.character(Sys.Date()))
+#' 
+#' .validate_dates(dates)
+#' 
+#' dates <- c("1980-12-31", "2018-01-31")
+#' 
+#' .validate_dates(dates)
+#' @noRd
+
 .validate_dates <- function(x, availability = c("1981-01-01", "0")) {
   
   xmin <- as.Date(x[1], format = "%Y-%m-%d")
@@ -268,15 +274,17 @@
 }
 
 
-# Reformat dates as required by ClimateServ
-#
-# @param x a character of start and end dates in that order in the format YYYY-MM-DD
-# @param ... further arguments passed to .validate_dates
-# @return a character with reformated dates as MM/DD/YYYY
-# @examples
-# x <- c("2016-01-31","2017-12-01")
-# 
-# .reformat_dates(x)
+#' Reformat dates as required by ClimateServ
+#'
+#' @param x a character of start and end dates in that order in the format YYYY-MM-DD
+#' @param ... further arguments passed to .validate_dates
+#' @return a character with reformated dates as MM/DD/YYYY
+#' @examples
+#' x <- c("2016-01-31","2017-12-01")
+#' 
+#' .reformat_dates(x)
+#' @noRd
+
 .reformat_dates <- function(x, ...) {
   
   # validate dates
@@ -297,11 +305,13 @@
 }
 
 
-# Check if contains class "chirps"
-# @param x an object to test
-# @return logical, TRUE for an object of class 'chirps'
-# @examples
-# .is_chirps(airquality)
+#' Check if contains class "chirps"
+#' @param x an object to test
+#' @return logical, TRUE for an object of class 'chirps'
+#' @examples
+#' .is_chirps(airquality)
+#' @noRd
+
 .is_chirps <- function(x) {
   
   c("chirps") %in% class(x)
