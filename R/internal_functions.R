@@ -113,8 +113,7 @@
            intervaltype = 0,
            operationtype = 5,
            geometry = NULL) {
-    requestpath <-
-      "https://climateserv.servirglobal.net/chirps/submitDataRequest/?"
+    base_url <- "https://climateserv.servirglobal.net/chirps/"
     
     # organise the query
     query <- list(
@@ -123,54 +122,45 @@
       endtime = endtime,
       intervaltype = toString(intervaltype),
       operationtype = toString(operationtype),
-      callback = "successCallback",
       dateType_Category = "default",
       isZip_CurrentDataType = "false",
       geometry = geometry
     )
     
+    # screate a new client and send the query
+    client_request <-
+      crul::HttpClient$new(url = paste0(base_url, "submitDataRequest/?"))
+    
+    # check status
+    status <- client_request$get()
+    status$raise_for_status() # nocov end
+    
     # send the query
-    id <- httr::GET(url = requestpath,
-                    query = query,
-                    httr::accept_json())
+    id <- client_request$get(query = query)
+    id <- id$parse("UTF-8")
     
-    # get content from the query
-    id <- httr::content(id, as = "text", encoding = "UTF-8")
-    
-    id <- strsplit(id, '["]')[[1]][2]
-    
-    return(id)
-    
-  }
+    # clean up ID
+    id <- gsub('\\[\\"', "", id)
+    id <- gsub('\\"]', '', id)
 
-#' Get data from a request to ClimateSERV
-#'
-#' @param returned_id character with the id obtained from \code{send_request}
-#' @return A data frame with requested data
-#' @example
-#' .get_data_from_request(returned_id = "385452af-b09a-4f75-babf-01078811819b")
-#' @noRd
-.get_data_from_request <- function(returned_id) {
-  getdata_path <-
-    "https://climateserv.servirglobal.net/chirps/getDataFromRequest/?"
-  
-  id <- list(id = returned_id)
-  
-  d <- httr::GET(url = getdata_path,
-                 query = id,
-                 httr::accept_json())
-  
-  d <- httr::content(d, as = "text", encoding = "UTF-8")
-  
-  d <- jsonlite::fromJSON(d)
-  
-  d <- data.frame(cbind(date = d$data$date,
-                        d$data$value))
-  
-  d$date <- as.character(d$date)
-  
-  return(d)
-}
+    Sys.sleep(20)
+    
+    # create a new client to fetch the goods
+    client_data <- 
+      crul::HttpClient$new(url = paste0(base_url,  "getDataFromRequest/?"))
+    
+    x <- list(id = id)
+    
+    d <- client_data$get(query = x)
+    
+    d <- jsonlite::fromJSON(d$parse("UTF-8"))
+    
+    d <- data.frame(cbind(date = d$data$date,
+                          d$data$value))
+    
+    d$date <- as.character(d$date)
+    return(d)
+  }
 
 
 # Validate lonlat within an pre-defined bounding box
