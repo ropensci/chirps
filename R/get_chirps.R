@@ -44,7 +44,6 @@
 #' } 
 #' @import sf
 #' @import methods
-#' @importFrom httr accept_json content GET
 #' @importFrom jsonlite fromJSON
 #' @importFrom tibble as_tibble
 #' @export
@@ -53,8 +52,6 @@ get_chirps <- function(object, dates, operation = 5, ...) {
   UseMethod("get_chirps")
   
 }
-
-
 
 #' @rdname get_chirps
 #' @export
@@ -97,29 +94,29 @@ get_chirps.default <-  function(object, dates, operation = 5, ...) {
     
   })
   
-  result <- do.call("rbind", result) 
-  
+  result <- do.call("rbind", result)
+
   # fix ids
   id <- strsplit(row.names(result), "[.]")
   id <- do.call("rbind", id)[,1]
   result$id <- id
-  
+
   # transform dates to the original format as input
   dat <-  strsplit(result$date, "/")
   dat <- do.call("rbind", dat)
   dat <- paste(dat[,3], dat[,1], dat[,2], sep = "-")
   result$date <- as.Date(dat, format = "%Y-%m-%d")
-  
+
   object$id <- rownames(object)
-  
+
   result <- merge(result, object, by = "id")
-  
+
   names(result)[3:5] <- c("chirps","lon","lat")
-  
+
   result <- result[, c("id","lon","lat","date","chirps")]
-  
+
   result <- tibble::as_tibble(result)
-  
+
   class(result) <- c("chirps", class(result))
   
   return(result)
@@ -133,8 +130,12 @@ get_chirps.geojson <- function(object, dates, operation = 5, ...) {
   
   
 }
-# get_chirps.default
-# get_chirps.sf
+
+# get_chirps.json <-  function(object, dates, operation = 5, ...) {
+#   
+#   
+# 
+# }
 
 
 

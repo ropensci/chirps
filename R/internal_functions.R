@@ -63,32 +63,38 @@
   
 }
 
-
-# Set output from ClimateServ data request
-.set_output <- function(x, ids) {
+.sf_to_geojson <- function(lonlat, dist = 0.00001, nQuadSegs = 2L) {
   
-  result <- do.call("rbind", x) 
+  # and then into a geometry list colunm
+  lonlat <- sf::st_sfc(lonlat)
   
-  # fix ids
-  id <- strsplit(row.names(result), "[.]")
-  id <- do.call("rbind", id)[,1]
-  result$id <- id
+  # set the buffer around the points
+  lonlatb <- sf::st_buffer(lonlat, 
+                           dist = dist, 
+                           nQuadSegs = nQuadSegs)
   
-  # transform dates to the original format as input
-  dat <-  strsplit(result$date, "/")
-  dat <- do.call("rbind", dat)
-  dat <- paste(dat[,3], dat[,1], dat[,2], sep = "-")
-  result$date <- as.Date(dat, format = "%Y-%m-%d")
+  # transform into a sf object
+  lonlatb <- sf::st_as_sf(lonlatb)
   
-  lonlat$id <- rownames(lonlat)
+  # write the geojson string
+  tf <- tempfile(fileext = ".geojson")
+  sf::st_write(lonlatb, tf, quiet = TRUE)
   
-  result <- merge(result, lonlat, by = "id")
+  # capture these strings
+  gj <- readLines(tf)
   
-  names(result)[3:5] <- c("chirps","lon","lat")
+  # first 4 lines are for the features and last 2 lines to close features
+  # keep only geojson geometries
+  gj <- gj[5:(n+4)]
   
-  result <- result[, c("id","lon","lat","date","chirps")]
+  gj <- split(gj, 1:n)
   
-  result <- tibble::as_tibble(result)
+  gjson <- lapply(gj, function(x) {
+    gsub(" ", "", x)
+  })
+  
+  return(gjson)
+  
 }
 
 # Sent a request to ClimateSERV
@@ -123,14 +129,13 @@
   
   
   # sent the query
-  id <- httr::GET(url = requestpath, 
-                  query = query, 
-                  httr::accept_json())
+  query <- paste(paste0(names(query),"=",unlist(query)), collapse = "&")
+  
+  request <- paste0(requestpath, query)
+  
+  id <- suppressWarnings(readLines(request))
   
   # get content from the query
-  id <- httr::content(id, as = "text", encoding = "UTF-8")
-  
-
   id <- strsplit(id, '["]')[[1]][2]
   
   return(id)
@@ -148,21 +153,20 @@
   
   getdata_path <- "https://climateserv.servirglobal.net/chirps/getDataFromRequest/?"
   
-  id <- list(id = id)
+  # sent the query
+  request <- paste0(getdata_path, "id=", id)
   
-  d <- httr::GET(url = getdata_path,
-                 query = id, 
-                 httr::accept_json())
-  
-  d <- httr::content(d, as = "text", encoding = "UTF-8")
+  d <- suppressWarnings(readLines(request))
+   
+  class(d) <- c("json", class(d))
   
   d <- jsonlite::fromJSON(d)
-  
+
   d <- data.frame(cbind(date = d$data$date,
                         d$data$value))
-  
+
   d$date <- as.character(d$date)
-  
+
   
   return(d)
   
