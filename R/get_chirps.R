@@ -85,6 +85,8 @@ get_chirps.default <-  function(object, dates, operation = 5, ...) {
     
   })
   
+  Sys.sleep(20)
+  
   # get data from request
   result <- lapply(ids, function(x) {
     
@@ -93,6 +95,7 @@ get_chirps.default <-  function(object, dates, operation = 5, ...) {
     return(d)
     
   })
+
   
   result <- do.call("rbind", result)
 
