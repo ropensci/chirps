@@ -137,7 +137,6 @@
   
 }
 
-
 # Get data from a request to ClimateSERV
 #
 # @param id character with the id obtained from \code{.send_request} 
@@ -168,6 +167,7 @@
   
 }
 
+
 # Validate lonlat within an pre-defined bounding box
 # 
 # @param lonlat a data.frame with geographical coordinates lonlat in that order
@@ -195,10 +195,16 @@
   v3 <- min(lat) < ylim[1]
   v4 <- max(lat) > ylim[2]
   
-  if(any(c(v1,v2,v3,v4))) {
-    stop("Subscript out of bounds. \n lonlat are beyond the accepted bbox, which are: ",
-         paste(paste(xlim[1], ylim[1], sep = " , "),
-               paste(xlim[2], ylim[2], sep = " , "), sep = " , "))
+  if (any(c(v1, v2, v3, v4))) {
+    stop(
+      "Subscript out of bounds. \n lonlat are beyond the accepted bbox, which are: ",
+      paste(
+        paste(xlim[1], ylim[1], sep = " , "),
+        paste(xlim[2], ylim[2], sep = " , "),
+        sep = " , "
+      ),
+      call. = FALSE
+    )
   }
 }
 
@@ -237,7 +243,7 @@
   present <- availability[2]
   
   # generally it takes 45 days to update
-  if(present == "0") {
+  if (present == "0") {
     present <- Sys.Date() - 45
     present <- format(present,  "%Y-%m-%d")
   }
@@ -251,12 +257,17 @@
   # no later then present date
   cond3 <- xmax < present
   
-  if(!all(cond1, cond2, cond3)) {
-    
-    stop("Subscript out of bounds\n 
-         Please check your dates. The dataset is available from ", 
-         as.character(past), " to about ", as.character(present), "\n 
-         Or your dates may be twisted. \n")
+  if (!all(cond1, cond2, cond3)) {
+    stop(
+      "Subscript out of bounds\n
+         Please check your dates. The dataset is available from ",
+      as.character(past),
+      " to about ",
+      as.character(present),
+      "\n
+         Or your dates may be twisted. \n",
+      call. = FALSE
+    )
   }
   
 }
