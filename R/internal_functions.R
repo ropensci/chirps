@@ -1,21 +1,23 @@
-# Concatenate a coordinate point data.frame into a geojson polygon
-#
-# Take single points from geographical coordinates 
-# and convert it into a geojson 'Polygon' string using sf::st_buffer
-# 'Polygon' is the only geojson format accepted by ClimateSERV
-#
-# @param lonlat a data.frame with geographical coordinates lonlat in that order
-# @param dist numeric; buffer distance for all \code{lonlat}
-# @param nQuadSegs integer; number of segments per quadrant 
-# @return A list with geojson strings for each row in \code{lonlat}
-# @examples
-# # random geographic locations around bbox(10, 12, 45, 57)
-# set.seed(123)
-# lonlat <- data.frame(lon = runif(10, 10, 12),
-#                      lat = runif(10, 45, 57))
-# 
-# gjson <- .dataframe_to_geojson(lonlat)
-# 
+#' Concatenate a coordinate point data.frame into a geojson polygon
+#'
+#' Take single points from geographical coordinates 
+#' and convert it into a geojson 'Polygon' string using
+#' \code{\link{sf::st_buffer}} 'Polygon' is the only geojson format accepted by
+#' ClimateSERV
+#'
+#' @param lonlat a data.frame with geographical coordinates lonlat in that order
+#' @param dist numeric; buffer distance for all \code{lonlat}
+#' @param nQuadSegs integer; number of segments per quadrant 
+#' @return A list with geojson strings for each row in \code{lonlat}
+#' @examples
+#' # random geographic locations around bbox(10, 12, 45, 57)
+#' set.seed(123)
+#' lonlat <- data.frame(lon = runif(10, 10, 12),
+#'                      lat = runif(10, 45, 57))
+#' 
+#' gjson <- .dataframe_to_geojson(lonlat)
+#'@noRd
+ 
 .dataframe_to_geojson <- function(lonlat, dist = 0.00001, nQuadSegs = 2L) {
   
   n <- nrow(lonlat)
@@ -51,7 +53,7 @@
   
   # first 4 lines are for the features and last 2 lines to close features
   # keep only geojson geometries
-  gj <- gj[5:(n+4)]
+  gj <- gj[5:(n + 4)]
   
   gj <- split(gj, 1:n)
   
@@ -91,66 +93,71 @@
   result <- tibble::as_tibble(result)
 }
 
-# Sent a request to ClimateSERV
-#
-# @param datatype integer, the unique datatype number for the dataset which this request operates on
-# @param begintime character, start date for processing interval, format ("MM/DD/YYYY")
-# @param endtime character, end date for processing interval, format ("MM/DD/YYYY")
-# @param intervaltype integer, value that represents which type of time interval to process
-# @param operationtype integer, value that represents which type of statistical operation to perform
-# @param geometry a geojson for the geometry that is defined by the user on the current client
-# @return A id to be used in the data request
-# @details 
-# datatype codes are described at https://climateserv.readthedocs.io/en/latest/api.html
-# operation: supported operations are max = 0, min = 1, median = 2, sum = 4, average = 5
-.send_request <- function(datatype = 0, begintime = NULL, endtime = NULL,
-                          intervaltype = 0, operationtype = 5, geometry = NULL) {
-  
-  requestpath <- "https://climateserv.servirglobal.net/chirps/submitDataRequest/?"
-  
-  # organise the query
-  query <- list(
-    datatype = toString(datatype),
-    begintime = begintime,
-    endtime = endtime,
-    intervaltype = toString(intervaltype),
-    operationtype = toString(operationtype),
-    callback = "successCallback",
-    dateType_Category = "default",
-    isZip_CurrentDataType = "false",
-    geometry = geometry
-  )
-  
-  
-  # sent the query
-  id <- httr::GET(url = requestpath, 
-                  query = query, 
-                  httr::accept_json())
-  
-  # get content from the query
-  id <- httr::content(id, as = "text", encoding = "UTF-8")
-  
+#' Send a request to ClimateSERV
+#'
+#' @param datatype integer, the unique datatype number for the dataset which this request operates on
+#' @param begintime character, start date for processing interval, format ("MM/DD/YYYY")
+#' @param endtime character, end date for processing interval, format ("MM/DD/YYYY")
+#' @param intervaltype integer, value that represents which type of time interval to process
+#' @param operationtype integer, value that represents which type of statistical operation to perform
+#' @param geometry a geojson for the geometry that is defined by the user on the current client
+#' @return A id to be used in the data request
+#' @details
+#' datatype codes are described at https://climateserv.readthedocs.io/en/latest/api.html
+#' operation: supported operations are max = 0, min = 1, median = 2, sum = 4, average = 5
+#' @noRd
+.send_request <-
+  function(datatype = 0,
+           begintime = NULL,
+           endtime = NULL,
+           intervaltype = 0,
+           operationtype = 5,
+           geometry = NULL) {
+    requestpath <-
+      "https://climateserv.servirglobal.net/chirps/submitDataRequest/?"
+    
+    # organise the query
+    query <- list(
+      datatype = toString(datatype),
+      begintime = begintime,
+      endtime = endtime,
+      intervaltype = toString(intervaltype),
+      operationtype = toString(operationtype),
+      callback = "successCallback",
+      dateType_Category = "default",
+      isZip_CurrentDataType = "false",
+      geometry = geometry
+    )
+    
+    # send the query
+    id <- httr::GET(url = requestpath,
+                    query = query,
+                    httr::accept_json())
+    
+    # get content from the query
+    id <- httr::content(id, as = "text", encoding = "UTF-8")
+    
+    id <- strsplit(id, '["]')[[1]][2]
+    
+    return(id)
+    
+  }
 
-  id <- strsplit(id, '["]')[[1]][2]
+#' Get data from a request to ClimateSERV
+#'
+#' @param returned_id character with the id obtained from \code{send_request}
+#' @return A data frame with requested data
+#' @example
+#' .get_data_from_request(returned_id = "385452af-b09a-4f75-babf-01078811819b")
+#' @noRd
+.get_data_from_request <- function(returned_id) {
+  getdata_path <-
+    "https://climateserv.servirglobal.net/chirps/getDataFromRequest/?"
   
-  return(id)
-  
-}
-
-# Get data from a request to ClimateSERV
-#
-# @param id character with the id obtained from \code{.send_request} 
-# @return A data frame with requested data
-# @examples
-# .get_data_from_request(id = "385452af-b09a-4f75-babf-01078811819b")
-.get_data_from_request <- function(id) {
-  
-  getdata_path <- "https://climateserv.servirglobal.net/chirps/getDataFromRequest/?"
-  
-  id <- list(id = id)
+  id <- list(id = returned_id)
   
   d <- httr::GET(url = getdata_path,
-                 query = id, 
+                 query = id,
                  httr::accept_json())
   
   d <- httr::content(d, as = "text", encoding = "UTF-8")
@@ -162,9 +169,7 @@
   
   d$date <- as.character(d$date)
   
-  
   return(d)
-  
 }
 
 
