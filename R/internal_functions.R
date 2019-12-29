@@ -153,7 +153,7 @@
   
   getdata_path <- "https://climateserv.servirglobal.net/chirps/getDataFromRequest/?"
   
-  # sent the query
+  # send the query
   request <- paste0(getdata_path, "id=", id)
   
   d <- suppressWarnings(readLines(request))
