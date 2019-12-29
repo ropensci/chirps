@@ -85,7 +85,17 @@ get_chirps.default <-  function(object, dates, operation = 5, ...) {
     
   })
   
-  Sys.sleep(20)
+  # check server progress with data
+  i <- 0
+  client_progress <-
+    "https://climateserv.servirglobal.net/chirps/getDataRequestProgress/?"
+  progress <- paste0(client_progress, "id=", ids[[length(ids)]])
+
+  # repeat checking the server until we're at 100% complete with results
+  repeat {
+    i <- suppressWarnings(readLines(progress))
+    if (jsonlite::fromJSON(i) != -1 & jsonlite::fromJSON(i) == 100) break
+  }
   
   # get data from request
   result <- lapply(ids, function(x) {
