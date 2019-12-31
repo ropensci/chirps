@@ -1,13 +1,15 @@
 Package: chirps
 Type: Package
 Title: API Client for the Climate Hazards Group InfraRed Precipitation with Station Data
-Version: 0.0-2
+Version: 0.0-3
 Authors@R: c(person("Kaue", "de Sousa", 
         email = "kaue.desousa@inn.no", role = c("aut", "cre"),
         comment = c(ORCID = "0000-0002-7571-7845")), 
+        person("Adam", "Sparks", role = c("aut","ctb"),
+        comment = c(ORCID = "0000-0002-0061-8359")),
         person("Billy", "Ashmall", role = "aut",
-        comment = c("API Client implementation")), 
-        person("Jacob", "van Etten", role = c("aut","ths"),
+        comment = c("API Client implementation")),
+        person("Jacob", "van Etten", role = c("ths"),
         comment = c(ORCID = "0000-0001-7554-2558")),
         person("Svein", "Solberg", role = c("ths")))
 Maintainer: Kaue de Sousa <kaue.desousa@inn.no>
@@ -18,7 +20,7 @@ License: GPL-3
 Encoding: UTF-8
 LazyData: true
 Depends: R (>= 2.10)
-Imports:
+Imports: 
     jsonlite,
     methods,
     sf,

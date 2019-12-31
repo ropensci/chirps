@@ -64,10 +64,32 @@
   
 }
 
+
+#' Concatenate a sf coordinates into a geojson polygon
+#'
+#' Take single points from geographical coordinates 
+#' and convert it into a geojson 'Polygon' string using
+#' \code{\link{sf::st_buffer}} 'Polygon' is the only geojson format accepted by
+#' ClimateSERV
+#'
+#' @param lonlat an object of class "sf"
+#' @param dist numeric; buffer distance for all \code{lonlat}
+#' @param nQuadSegs integer; number of segments per quadrant 
+#' @return A list with geojson strings for each row in \code{lonlat}
+#' @examples
+#' # random geographic locations around bbox(10, 12, 45, 57)
+#' library("sf")
+#' set.seed(123)
+#' lonlat <- data.frame(lon = runif(10, 10, 12),
+#'                      lat = runif(10, 45, 57))
+#' 
+#' lonlat <- st_as_sf(lonlat, coords = c("lon","lat"))
+#' 
+#' gjson <- .sf_to_geojson(lonlat)
+#' @noRd
 .sf_to_geojson <- function(lonlat, dist = 0.00001, nQuadSegs = 2L) {
   
-  # and then into a geometry list colunm
-  lonlat <- sf::st_sfc(lonlat)
+  n <- nrow(lonlat)
   
   # set the buffer around the points
   lonlatb <- sf::st_buffer(lonlat, 

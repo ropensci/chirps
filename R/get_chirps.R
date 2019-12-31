@@ -57,7 +57,6 @@ get_chirps <- function(object, dates, operation = 5, ...) {
 }
 
 #' @rdname get_chirps
-#' @export
 get_chirps.default <-  function(object, dates, operation = 5, ...) {
   
   # validate lonlat to check if they are within the CHIRPS range lat -50, 50
@@ -137,12 +136,6 @@ get_chirps.geojson <- function(object, dates, operation = 5, ...) {
   
   
 }
-
-# get_chirps.json <-  function(object, dates, operation = 5, ...) {
-#   
-#   
-# 
-# }
 
 
 
