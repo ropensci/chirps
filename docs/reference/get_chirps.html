@@ -33,9 +33,9 @@
 <meta property="og:title" content="Get CHIRPS precipitation data — get_chirps" />
 
 <meta property="og:description" content="Get the Climate Hazards Group InfraRed Precipitation with Station Data via 
-ClimateSERV API Client. ClimateSERV works with geojson strings of type 'Polygon'. The 
-input 'lonlat' are then transformed into polygons with a small buffer area around 
-the point." />
+ClimateSERV API Client. ClimateSERV works with geojson strings of type
+'Polygon'. The input lonlat is then transformed into polygons with a
+small buffer area around the point." />
 
 <meta property="og:image" content="/logo.png" />
 <meta name="twitter:card" content="summary" />
@@ -68,7 +68,7 @@ the point." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">chirps</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.3</span>
       </span>
     </div>
 
@@ -122,29 +122,34 @@ the point." />
     <div class="ref-description">
     
     <p>Get the Climate Hazards Group InfraRed Precipitation with Station Data via 
-ClimateSERV API Client. ClimateSERV works with geojson strings of type 'Polygon'. The 
-input 'lonlat' are then transformed into polygons with a small buffer area around 
-the point.</p>
+ClimateSERV API Client. ClimateSERV works with geojson strings of type
+'Polygon'. The input <code>lonlat</code> is then transformed into polygons with a
+small buffer area around the point.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>get_chirps</span>(<span class='no'>lonlat</span>, <span class='no'>dates</span>, <span class='kw'>operation</span> <span class='kw'>=</span> <span class='fl'>5</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>get_chirps</span>(<span class='no'>object</span>, <span class='no'>dates</span>, <span class='kw'>operation</span> <span class='kw'>=</span> <span class='fl'>5</span>, <span class='no'>...</span>)
+
+<span class='co'># S3 method for default</span>
+<span class='fu'>get_chirps</span>(<span class='no'>object</span>, <span class='no'>dates</span>, <span class='kw'>operation</span> <span class='kw'>=</span> <span class='fl'>5</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>lonlat</th>
-      <td><p>a data.frame of geographic coordinates of longitude and latitude in that order</p></td>
+      <th>object</th>
+      <td><p>input, an object of class <code>data.frame</code>, geojson (Polygon),
+json (Polygon) or <code>sf</code></p></td>
     </tr>
     <tr>
       <th>dates</th>
-      <td><p>a character of start and end dates in that order in the format YYYY-MM-DD</p></td>
+      <td><p>a character of start and end dates in that order in the format
+YYYY-MM-DD</p></td>
     </tr>
     <tr>
       <th>operation</th>
-      <td><p>optional, an integer that represents which type of statistical operation 
-to perform on the dataset</p></td>
+      <td><p>optional, an integer that represents which type of
+statistical operation to perform on the dataset</p></td>
     </tr>
     <tr>
       <th>...</th>
@@ -170,8 +175,9 @@ to perform on the dataset</p></td>
     
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
-    <p>Funk C. et al. (2015). Scientific Data, 2, 150066. https://doi.org/10.1038/sdata.2015.66</p>
-<p>ClimateSERV https://climateserv.servirglobal.net</p>
+    <p>Funk C. et al. (2015). Scientific Data, 2, 150066.
+ &lt;https://doi.org/10.1038/sdata.2015.66&gt;</p>
+<p>ClimateSERV &lt;https://climateserv.servirglobal.net&gt;</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -184,7 +190,7 @@ to perform on the dataset</p></td>
 <span class='no'>dates</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"2017-12-15"</span>,<span class='st'>"2018-01-31"</span>)
 
 
-<span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'>get_chirps</span>(<span class='no'>lonlat</span>, <span class='no'>dates</span>)</div></pre>
+<span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'>get_chirps</span>(<span class='no'>lonlat</span>, <span class='no'>dates</span>)</div><div class='output co'>#&gt; <span class='error'>Error in UseMethod("get_chirps"): no applicable method for 'get_chirps' applied to an object of class "data.frame"</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -205,7 +211,7 @@ to perform on the dataset</p></td>
 
       <footer>
       <div class="copyright">
-  <p>Developed by Kaue de Sousa, Billy Ashmall, Jacob van Etten.</p>
+  <p>Developed by Kaue de Sousa, Adam Sparks, Billy Ashmall.</p>
 </div>
 
 <div class="pkgdown">
