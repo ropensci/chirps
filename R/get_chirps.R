@@ -1,14 +1,16 @@
 #' Get CHIRPS precipitation data
 #' 
 #' Get the Climate Hazards Group InfraRed Precipitation with Station Data via 
-#' ClimateSERV API Client. ClimateSERV works with geojson strings of type 'Polygon'. The 
-#' input 'lonlat' are then transformed into polygons with a small buffer area around 
-#' the point.
+#' ClimateSERV API Client. ClimateSERV works with geojson strings of type
+#' 'Polygon'. The input \code{lonlat} is then transformed into polygons with a
+#' small buffer area around the point.
 #' 
-#' @param object input, an object of class data.frame, geojson (Polygon), json (Polygon) or sf
-#' @param dates a character of start and end dates in that order in the format YYYY-MM-DD
-#' @param operation optional, an integer that represents which type of statistical operation 
-#' to perform on the dataset
+#' @param object input, an object of class \code{data.frame}, geojson (Polygon),
+#'  json (Polygon) or \code{\link{sf}}
+#' @param dates a character of start and end dates in that order in the format
+#'  YYYY-MM-DD
+#' @param operation optional, an integer that represents which type of
+#'  statistical operation to perform on the dataset
 #' @param ... further arguments passed to \code{sf} methods. See details 
 #' @details  
 #' operation: supported operations are max = 0, min = 1, median = 2, sum = 4, average = 5
@@ -25,9 +27,10 @@
 #' \item{chirps}{the CHIRPS value in mm}
 #' @references 
 #' 
-#' Funk C. et al. (2015). Scientific Data, 2, 150066. https://doi.org/10.1038/sdata.2015.66
+#' Funk C. et al. (2015). Scientific Data, 2, 150066.
+#'  <https://doi.org/10.1038/sdata.2015.66>
 #' 
-#' ClimateSERV https://climateserv.servirglobal.net
+#' ClimateSERV <https://climateserv.servirglobal.net>
 #' 
 #' @examples
 #' \donttest{
@@ -57,8 +60,6 @@ get_chirps <- function(object, dates, operation = 5, ...) {
 #' @export
 get_chirps.default <-  function(object, dates, operation = 5, ...) {
   
-  nr <- nrow(object)
-  
   # validate lonlat to check if they are within the CHIRPS range lat -50, 50
   .validate_lonlat(object, xlim = c(-180, 180), ylim = c(-50, 50))
   
@@ -70,7 +71,8 @@ get_chirps.default <-  function(object, dates, operation = 5, ...) {
   gjson <- .dataframe_to_geojson(object, ...)
   
   # submit data request
-  ids <- lapply(gjson, function(x) {
+  
+  result <- lapply(gjson, function(x) {
     
     i <- .send_request(
       datatype = 0,
@@ -84,6 +86,8 @@ get_chirps.default <-  function(object, dates, operation = 5, ...) {
     return(i)
     
   })
+  
+  result <- do.call("rbind", result) 
   
   Sys.sleep(20)
   
