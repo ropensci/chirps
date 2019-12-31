@@ -69,9 +69,8 @@ get_chirps.default <-  function(object, dates, operation = 5, ...) {
   # get geojson strings from lonlat
   gjson <- .dataframe_to_geojson(object, ...)
   
-  # submit data request
-  
-  result <- lapply(gjson, function(x) {
+  # submit data request and get ids
+  ids <- lapply(gjson, function(x) {
     
     i <- .send_request(
       datatype = 0,
@@ -86,9 +85,23 @@ get_chirps.default <-  function(object, dates, operation = 5, ...) {
     
   })
   
-  result <- do.call("rbind", result) 
+  # check request progress and wait 
+  # until the request is done by the server
+  request_progress <- rep(FALSE, length(ids))
   
-  Sys.sleep(20)
+  while (!all(request_progress)) {
+    
+    request_progress <- lapply(ids, function(x) {
+      
+      p <- .get_request_progress(x)
+      
+    })
+    
+    request_progress <- unlist(request_progress)
+  
+    cat("Getting chirps... patience you must have my young padawan\n")
+    
+  }
   
   # get data from request
   result <- lapply(ids, function(x) {
@@ -98,31 +111,31 @@ get_chirps.default <-  function(object, dates, operation = 5, ...) {
     return(d)
     
   })
-
+  
   
   result <- do.call("rbind", result)
-
+  
   # fix ids
   id <- strsplit(row.names(result), "[.]")
-  id <- do.call("rbind", id)[,1]
+  id <- do.call("rbind", id)[, 1]
   result$id <- id
-
+  
   # transform dates to the original format as input
   dat <-  strsplit(result$date, "/")
   dat <- do.call("rbind", dat)
-  dat <- paste(dat[,3], dat[,1], dat[,2], sep = "-")
+  dat <- paste(dat[, 3], dat[, 1], dat[, 2], sep = "-")
   result$date <- as.Date(dat, format = "%Y-%m-%d")
-
+  
   object$id <- rownames(object)
-
+  
   result <- merge(result, object, by = "id")
-
-  names(result)[3:5] <- c("chirps","lon","lat")
-
-  result <- result[, c("id","lon","lat","date","chirps")]
-
+  
+  names(result)[3:5] <- c("chirps", "lon", "lat")
+  
+  result <- result[, c("id", "lon", "lat", "date", "chirps")]
+  
   result <- tibble::as_tibble(result)
-
+  
   class(result) <- c("chirps", class(result))
   
   return(result)
@@ -136,6 +149,12 @@ get_chirps.geojson <- function(object, dates, operation = 5, ...) {
   
   
 }
+
+# get_chirps.json <-  function(object, dates, operation = 5, ...) {
+#   
+#   
+# 
+# }
 
 
 

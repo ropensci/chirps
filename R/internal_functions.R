@@ -65,7 +65,7 @@
 }
 
 
-#' Concatenate a sf coordinates into a geojson polygon
+#' Concatenate a sf object into a geojson polygon
 #'
 #' Take single points from geographical coordinates 
 #' and convert it into a geojson 'Polygon' string using
@@ -132,11 +132,20 @@
 #' @details
 #' datatype codes are described at https://climateserv.readthedocs.io/en/latest/api.html
 #' operation: supported operations are max = 0, min = 1, median = 2, sum = 4, average = 5
+#' @examples
+#' lonlat <- data.frame(lon = runif(1, 10, 12),
+#'                      lat = runif(1, 45, 57))
+#' 
+#' gjson <- chirps:::.dataframe_to_geojson(lonlat)
+#' 
+#' chirps:::.send_request(begintime = "12/10/2018", 
+#'                        endtime = "12/26/2018", 
+#'                        geometry = gjson)
 #' @noRd
 .send_request <- function(datatype = 0, begintime = NULL, endtime = NULL,
                           intervaltype = 0, operationtype = 5, geometry = NULL) {
   
-  requestpath <- "https://climateserv.servirglobal.net/chirps/submitDataRequest/?"
+  request_path <- "https://climateserv.servirglobal.net/chirps/submitDataRequest/?"
   
   # organise the query
   query <- list(
@@ -155,7 +164,7 @@
   # sent the query
   query <- paste(paste0(names(query),"=",unlist(query)), collapse = "&")
   
-  request <- paste0(requestpath, query)
+  request <- paste0(request_path, query)
   
   id <- suppressWarnings(
     readLines(request)
@@ -168,19 +177,57 @@
   
 }
 
+#' Get request progress
+#'
+#' @param id character with the id obtained from \code{.send_request} 
+#' @return logical value, TRUE when the data is ready to be retrieved
+#' @examples
+#' lonlat <- data.frame(lon = runif(1, 10, 12),
+#'                      lat = runif(1, 45, 57))
+#' 
+#' gjson <- chirps:::.dataframe_to_geojson(lonlat)
+#' 
+#' id <- chirps:::.send_request(begintime = "12/10/2018", 
+#'                        endtime = "12/26/2018", 
+#'                        geometry = gjson)
+#' chirps:::.get_request_progress (id = id)
+#' @noRd
+.get_request_progress <- function(id) {
+  
+  progress_path <- "https://climateserv.servirglobal.net/chirps/getDataRequestProgress/?"
+  
+  # send the query
+  request <- paste0(progress_path, "id=", id)
+  
+  p <- suppressWarnings(
+    readLines(request)
+  )
+  
+  p <- grepl(100, p)
+  
+  return(p)
+}
 
 #' Get data from a request to ClimateSERV
 #'
 #' @param id character with the id obtained from \code{.send_request} 
 #' @return A data frame with requested data
 #' @examples
-#' .get_data_from_request(id = "385452af-b09a-4f75-babf-01078811819b")
+#' lonlat <- data.frame(lon = runif(1, 10, 12),
+#'                      lat = runif(1, 45, 57))
+#' 
+#' gjson <- chirps:::.dataframe_to_geojson(lonlat)
+#' 
+#' id <- chirps:::.send_request(begintime = "12/10/2018", 
+#'                        endtime = "12/26/2018", 
+#'                        geometry = gjson)
+#' chirps:::.get_data_from_request(id = id)
 #' @noRd
 .get_data_from_request <- function(id) {
   
   getdata_path <- "https://climateserv.servirglobal.net/chirps/getDataFromRequest/?"
   
-  # sent the query
+  # send the query
   request <- paste0(getdata_path, "id=", id)
   
   d <- suppressWarnings(
