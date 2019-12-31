@@ -7,7 +7,7 @@
 precip_indices(object, timeseries = FALSE, span = NULL)
 }
 \arguments{
-\item{object}{a data.frame with CHIRPS data as privided by \code{get_chirps}}
+\item{object}{an object of class "chirps" as provided by \code{get_chirps}}
 
 \item{timeseries}{logical, FALSE for a single point time series observation or TRUE for a time series based on a \code{span}}
 

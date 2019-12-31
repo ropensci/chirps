@@ -17,7 +17,6 @@
 #' 
 #' gjson <- .dataframe_to_geojson(lonlat)
 #'@noRd
- 
 .dataframe_to_geojson <- function(lonlat, dist = 0.00001, nQuadSegs = 2L) {
   
   n <- nrow(lonlat)
@@ -65,32 +64,38 @@
   
 }
 
-
-# Set output from ClimateServ data request
-.set_output <- function(x, ids) {
+.sf_to_geojson <- function(lonlat, dist = 0.00001, nQuadSegs = 2L) {
   
-  result <- do.call("rbind", x) 
+  # and then into a geometry list colunm
+  lonlat <- sf::st_sfc(lonlat)
   
-  # fix ids
-  id <- strsplit(row.names(result), "[.]")
-  id <- do.call("rbind", id)[,1]
-  result$id <- id
+  # set the buffer around the points
+  lonlatb <- sf::st_buffer(lonlat, 
+                           dist = dist, 
+                           nQuadSegs = nQuadSegs)
   
-  # transform dates to the original format as input
-  dat <-  strsplit(result$date, "/")
-  dat <- do.call("rbind", dat)
-  dat <- paste(dat[,3], dat[,1], dat[,2], sep = "-")
-  result$date <- as.Date(dat, format = "%Y-%m-%d")
+  # transform into a sf object
+  lonlatb <- sf::st_as_sf(lonlatb)
   
-  lonlat$id <- rownames(lonlat)
+  # write the geojson string
+  tf <- tempfile(fileext = ".geojson")
+  sf::st_write(lonlatb, tf, quiet = TRUE)
   
-  result <- merge(result, lonlat, by = "id")
+  # capture these strings
+  gj <- readLines(tf)
   
-  names(result)[3:5] <- c("chirps","lon","lat")
+  # first 4 lines are for the features and last 2 lines to close features
+  # keep only geojson geometries
+  gj <- gj[5:(n+4)]
   
-  result <- result[, c("id","lon","lat","date","chirps")]
+  gj <- split(gj, 1:n)
   
-  result <- tibble::as_tibble(result)
+  gjson <- lapply(gj, function(x) {
+    gsub(" ", "", x)
+  })
+  
+  return(gjson)
+  
 }
 
 #' Send a request to ClimateSERV
@@ -106,62 +111,73 @@
 #' datatype codes are described at https://climateserv.readthedocs.io/en/latest/api.html
 #' operation: supported operations are max = 0, min = 1, median = 2, sum = 4, average = 5
 #' @noRd
-.send_request <-
-  function(datatype = 0,
-           begintime = NULL,
-           endtime = NULL,
-           intervaltype = 0,
-           operationtype = 5,
-           geometry = NULL) {
-    base_url <- "https://climateserv.servirglobal.net/chirps/"
-    
-    # organise the query
-    query <- list(
-      datatype = toString(datatype),
-      begintime = begintime,
-      endtime = endtime,
-      intervaltype = toString(intervaltype),
-      operationtype = toString(operationtype),
-      dateType_Category = "default",
-      isZip_CurrentDataType = "false",
-      geometry = geometry
-    )
-    
-    # screate a new client and send the query
-    client_request <-
-      crul::HttpClient$new(url = paste0(base_url, "submitDataRequest/?"))
-    
-    # check status
-    status <- client_request$get()
-    status$raise_for_status() # nocov end
-    
-    # send the query
-    id <- client_request$get(query = query)
-    id <- id$parse("UTF-8")
-    
-    # clean up ID
-    id <- gsub('\\[\\"', "", id)
-    id <- gsub('\\"]', '', id)
+.send_request <- function(datatype = 0, begintime = NULL, endtime = NULL,
+                          intervaltype = 0, operationtype = 5, geometry = NULL) {
+  
+  requestpath <- "https://climateserv.servirglobal.net/chirps/submitDataRequest/?"
+  
+  # organise the query
+  query <- list(
+    datatype = toString(datatype),
+    begintime = begintime,
+    endtime = endtime,
+    intervaltype = toString(intervaltype),
+    operationtype = toString(operationtype),
+    callback = "successCallback",
+    dateType_Category = "default",
+    isZip_CurrentDataType = "false",
+    geometry = geometry
+  )
+  
+  
+  # sent the query
+  query <- paste(paste0(names(query),"=",unlist(query)), collapse = "&")
+  
+  request <- paste0(requestpath, query)
+  
+  id <- suppressWarnings(
+    readLines(request)
+  )
+  
+  # get content from the query
+  id <- strsplit(id, '["]')[[1]][2]
+  
+  return(id)
+  
+}
 
-    Sys.sleep(20)
-    
-    # create a new client to fetch the goods
-    client_data <- 
-      crul::HttpClient$new(url = paste0(base_url,  "getDataFromRequest/?"))
-    
-    x <- list(id = id)
-    
-    d <- client_data$get(query = x)
-    
-    d <- jsonlite::fromJSON(d$parse("UTF-8"))
-    
-    d <- data.frame(cbind(date = d$data$date,
-                          d$data$value))
-    
-    d$date <- as.character(d$date)
-    return(d)
-  }
 
+#' Get data from a request to ClimateSERV
+#'
+#' @param id character with the id obtained from \code{.send_request} 
+#' @return A data frame with requested data
+#' @examples
+#' .get_data_from_request(id = "385452af-b09a-4f75-babf-01078811819b")
+#' @noRd
+.get_data_from_request <- function(id) {
+  
+  getdata_path <- "https://climateserv.servirglobal.net/chirps/getDataFromRequest/?"
+  
+  # sent the query
+  request <- paste0(getdata_path, "id=", id)
+  
+  d <- suppressWarnings(
+    readLines(request)
+  )
+   
+  class(d) <- c("json", class(d))
+  
+  d <- jsonlite::fromJSON(d)
+
+  d <- data.frame(cbind(date = d$data$date,
+                        d$data$value))
+
+  d$date <- as.character(d$date)
+
+  
+  return(d)
+  
+}
 
 #' Validate lonlat within an pre-defined bounding box
 #' 
@@ -179,7 +195,6 @@
 #' 
 #' .validate_lonlat(lonlat)
 #' @noRd
-
 .validate_lonlat <- function(lonlat, 
                              xlim = c(-180, 180), 
                              ylim = c(-50, 50)) {

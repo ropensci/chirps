@@ -2,7 +2,7 @@
 #'
 #' Compute precipitation indices over a time series.
 #'
-#' @param object a data.frame with CHIRPS data as privided by \code{get_chirps}
+#' @param object an object of class "chirps" as provided by \code{get_chirps}
 #' @param timeseries logical, FALSE for a single point time series observation or TRUE for a time series based on a \code{span}  
 #' @param span integer no lower than 5, for the days intervals when \code{timeseries} = TRUE
 #' @return A dataframe with selected indices:
