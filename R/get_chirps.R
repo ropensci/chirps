@@ -1,14 +1,16 @@
 #' Get CHIRPS precipitation data
 #' 
 #' Get the Climate Hazards Group InfraRed Precipitation with Station Data via 
-#' ClimateSERV API Client. ClimateSERV works with geojson strings of type 'Polygon'. The 
-#' input 'lonlat' are then transformed into polygons with a small buffer area around 
-#' the point.
+#' ClimateSERV API Client. ClimateSERV works with geojson strings of type
+#' 'Polygon'. The input \code{lonlat} is then transformed into polygons with a
+#' small buffer area around the point.
 #' 
-#' @param object input, an object of class data.frame, geojson (Polygon), json (Polygon) or sf
-#' @param dates a character of start and end dates in that order in the format YYYY-MM-DD
-#' @param operation optional, an integer that represents which type of statistical operation 
-#' to perform on the dataset
+#' @param object input, an object of class \code{data.frame}, geojson (Polygon),
+#'  json (Polygon) or \code{\link{sf}}
+#' @param dates a character of start and end dates in that order in the format
+#'  YYYY-MM-DD
+#' @param operation optional, an integer that represents which type of
+#'  statistical operation to perform on the dataset
 #' @param ... further arguments passed to \code{sf} methods. See details 
 #' @details  
 #' operation: supported operations are max = 0, min = 1, median = 2, sum = 4, average = 5
@@ -25,9 +27,10 @@
 #' \item{chirps}{the CHIRPS value in mm}
 #' @references 
 #' 
-#' Funk C. et al. (2015). Scientific Data, 2, 150066. https://doi.org/10.1038/sdata.2015.66
+#' Funk C. et al. (2015). Scientific Data, 2, 150066.
+#'  <https://doi.org/10.1038/sdata.2015.66>
 #' 
-#' ClimateSERV https://climateserv.servirglobal.net
+#' ClimateSERV <https://climateserv.servirglobal.net>
 #' 
 #' @examples
 #' \donttest{
@@ -54,10 +57,7 @@ get_chirps <- function(object, dates, operation = 5, ...) {
 }
 
 #' @rdname get_chirps
-#' @export
 get_chirps.default <-  function(object, dates, operation = 5, ...) {
-  
-  nr <- nrow(object)
   
   # validate lonlat to check if they are within the CHIRPS range lat -50, 50
   .validate_lonlat(object, xlim = c(-180, 180), ylim = c(-50, 50))
@@ -69,7 +69,7 @@ get_chirps.default <-  function(object, dates, operation = 5, ...) {
   # get geojson strings from lonlat
   gjson <- .dataframe_to_geojson(object, ...)
   
-  # submit data request
+  # submit data request and get ids
   ids <- lapply(gjson, function(x) {
     
     i <- .send_request(
@@ -85,7 +85,23 @@ get_chirps.default <-  function(object, dates, operation = 5, ...) {
     
   })
   
-  Sys.sleep(20)
+  # check request progress and wait 
+  # until the request is done by the server
+  request_progress <- rep(FALSE, length(ids))
+  
+  while (!all(request_progress)) {
+    
+    request_progress <- lapply(ids, function(x) {
+      
+      p <- .get_request_progress(x)
+      
+    })
+    
+    request_progress <- unlist(request_progress)
+  
+    cat("Getting chirps... patience you must have my young padawan\n")
+    
+  }
   
   # get data from request
   result <- lapply(ids, function(x) {
@@ -95,31 +111,31 @@ get_chirps.default <-  function(object, dates, operation = 5, ...) {
     return(d)
     
   })
-
+  
   
   result <- do.call("rbind", result)
-
+  
   # fix ids
   id <- strsplit(row.names(result), "[.]")
-  id <- do.call("rbind", id)[,1]
+  id <- do.call("rbind", id)[, 1]
   result$id <- id
-
+  
   # transform dates to the original format as input
   dat <-  strsplit(result$date, "/")
   dat <- do.call("rbind", dat)
-  dat <- paste(dat[,3], dat[,1], dat[,2], sep = "-")
+  dat <- paste(dat[, 3], dat[, 1], dat[, 2], sep = "-")
   result$date <- as.Date(dat, format = "%Y-%m-%d")
-
+  
   object$id <- rownames(object)
-
+  
   result <- merge(result, object, by = "id")
-
-  names(result)[3:5] <- c("chirps","lon","lat")
-
-  result <- result[, c("id","lon","lat","date","chirps")]
-
+  
+  names(result)[3:5] <- c("chirps", "lon", "lat")
+  
+  result <- result[, c("id", "lon", "lat", "date", "chirps")]
+  
   result <- tibble::as_tibble(result)
-
+  
   class(result) <- c("chirps", class(result))
   
   return(result)
