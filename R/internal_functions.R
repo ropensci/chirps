@@ -165,9 +165,17 @@
   
   request <- paste0(request_path, query)
   
-  id <- suppressWarnings(
-    readLines(request)
+  tryCatch(
+    id <- suppressWarnings(
+      readLines(request)
+    ),
+    error = function(x) {
+      stop("\nThe requested data could not be downloaded.\n
+           \nPlease try your query again later.\n",
+           call. = FALSE)
+    }
   )
+
   
   # get content from the query
   id <- strsplit(id, '["]')[[1]][2]
