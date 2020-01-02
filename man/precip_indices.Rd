@@ -38,13 +38,13 @@ lonlat <- data.frame(lon = c(-55.0281,-54.9857, -55.0714),
 
 dates <- c("2017-12-15","2018-05-31")
  
-df <- get_chirps(lonlat, dates)
+dat <- get_chirps(lonlat, dates)
 
 # take the indices for the entire period 
-precip_indices(df, timeseries = FALSE)
+precip_indices(dat, timeseries = FALSE)
 
 # take the indices for periods of 7 days
-precip_indices(df, timeseries = TRUE, span = 7)
+precip_indices(dat, timeseries = TRUE, span = 7)
 }       
 }
 \references{

@@ -1,12 +1,23 @@
-# chirps 0.0-3
+chirps 0.0.4 (2020-01-03)
+=========================
 
-## New features
+### NEW FEATURES
+
+* Package vignette
+
+* Prepare for submission to ropensci
+
+
+chirps 0.0.3 (2019-12-31)
+=========================
+
+### NEW FEATURES
 
 * `get_esi` is added to retrieve Evaporative Stress Index whith S3 methods for "data.frame" and "sf"
 
 * S3 methods for objects of class "data.frame" and "sf" in `get_chirps`
 
-## Changes in behaviour
+### CHANGES IN BEHAVIOUR
 
 * `.get_request_progress` and a `while` condition are added to check the progress of large requests and prevent the function to fail.
 
@@ -14,12 +25,16 @@
 
 * improvements in internal functions documentation 
 
-# chirps 0.0-2
 
-## New features
+chirps 0.0.2 (2019-12-05)
+=========================
+
+### NEW FEATURES
 
 * Calculate precipitation indices with `precip_indices` over a time span
 
-# chirps 0.0-1
+
+chirps 0.0.1 (2019-12-03)
+=========================
 
 * GitHub-only release of prototype package.
