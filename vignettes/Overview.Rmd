@@ -50,7 +50,7 @@ devtools::install_github("agrobioinfoservices/chirps", build_vignettes = TRUE)
 
 # Usage
 
-The *Tapajos* National Forest, Brazil is a protected area in the Brazilian Amazon. We take two random points across its area to get the precipitation from Jan-2015 to Dec-2016 using `get_chirps`.
+The *Tapajos* National Forest, Brazil is a protected area in the Brazilian Amazon. We take two random points across its area to get the precipitation from Jan-2015 to Dec-2016 using `get_chirps()`.
 
 ```{r get, message=TRUE, eval=TRUE, echo=TRUE}
 library("chirps")
@@ -93,8 +93,8 @@ days <- c("MLDS","MLWS","R10mm","R20mm")
 pi %>% 
   filter(index %in% mm) %>% 
   ggplot() +
-  geom_line(aes(x = date, y = value, group = id)) + 
-  geom_smooth(aes(x = date, y = value), method = "loess") +
+  geom_line(aes(x = bin, y = value, group = id)) + 
+  geom_smooth(aes(x = bin, y = value), method = "loess") +
   facet_wrap(. ~ index) +
   theme_classic() +
   labs(x = "Week", y = "Index (mm)") ->
@@ -111,8 +111,8 @@ Now plot the indices expressed in days.
 pi %>% 
   filter(index %in% days) %>% 
   ggplot() +
-  geom_line(aes(x = date, y = value, group = id)) + 
-  geom_smooth(aes(x = date, y = value), method = "loess") +
+  geom_line(aes(x = bin, y = value, group = id)) + 
+  geom_smooth(aes(x = bin, y = value), method = "loess") +
   facet_wrap(. ~ index) +
   theme_classic() +
   labs(x = "Week", y = "Index (days)") ->
