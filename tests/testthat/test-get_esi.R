@@ -1,4 +1,4 @@
-context("test-get_chirps")
+context("test-get_esi")
 
 library("chirps")
 library("sf")
@@ -13,7 +13,7 @@ test_that("two or more points", {
   dates <- c("2017-12-15","2018-01-20")
 
 
-  df <- get_chirps(lonlat, dates)
+  df <- get_esi(lonlat, dates)
   
   ok <- is.data.frame(df)
   
@@ -28,10 +28,10 @@ test_that("one point and other operation works", {
   lonlat <- data.frame(lon = runif(1, -55, -54),
                        lat = runif(1, -3, -2.7))
   
-  dates <- c("2017-12-15","2018-01-20")
+  dates <- c("2017-12-01","2018-01-20")
   
   
-  df <- get_chirps(lonlat, dates, operation = 2)
+  df <- get_esi(lonlat, dates, dist = 0.5)
   
   ok <- is.data.frame(df)
   
@@ -50,7 +50,7 @@ test_that("sf method", {
   
   dates <- c("2017-12-15","2018-01-20")
   
-  df <- get_chirps(lonlat, dates)
+  df <- get_esi(lonlat, dates)
   
   ok <- is.data.frame(df)
   
@@ -68,7 +68,7 @@ test_that("sf method return sf object", {
   
   dates <- c("2017-12-15","2018-01-20")
   
-  df <- get_chirps(lonlat, dates, as.sf = TRUE)
+  df <- get_esi(lonlat, dates, as.sf = TRUE)
   
   ok <- "sf" %in% class(df)
   
@@ -79,33 +79,18 @@ test_that("sf method return sf object", {
 
 
 # Test errors
-test_that("points beyond lims", {
+test_that("cloudy data, need to increase buffer", {
   
   set.seed(123)
   lonlat <- data.frame(lon = runif(1, -55, -54),
-                       lat = runif(1, 55, 57))
+                       lat = runif(1, -3, -2.7))
   
-  dates <- c("2017-12-15","2018-01-20")
-  
+  dates <- c("2017-12-01","2018-01-20")
   
   expect_error(
-    get_chirps(lonlat, dates)
+    get_esi(lonlat, dates)
   ) 
   
 })
 
 
-test_that("wrong dates", {
-  
-  set.seed(123)
-  lonlat <- data.frame(lon = runif(1, -55, -54),
-                       lat = runif(1, -3, -2))
-  
-  dates <- c("2018-12-15","2018-01-20")
-  
-  
-  expect_error(
-    get_chirps(lonlat, dates)
-  ) 
-  
-})

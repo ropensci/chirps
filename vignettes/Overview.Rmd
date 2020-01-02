@@ -1,14 +1,23 @@
 ---
-title: "chirps: API Client for the Climate Hazards Group InfraRed Precipitation with Station Data"
+title: "Introduction to chirps"
 package: chirps
 author:
 - name: Kauê de Sousa
-  affiliation: Department of Agricultural Sciences, Inland Norway University of Applied Sciences, Hamar, Norway; and Bioversity International, Rome, Italy
+  affiliation: Department of Agricultural Sciences, Inland Norway University of Applied Sciences, Hamar, Norway; and The Alliance of Bioversity International and CIAT, Rome, Italy
+- name: Adam Sparks 
+  affiliation: Centre for Crop Health, University of Southern Queensland, Toowoomba, Australia
+- name: William Ashmall 
+  affiliation: Universities Space Research Association, NASA, Huntsville, USA
+- name: Jacob van Etten 
+  affiliation: The Alliance of Bioversity International and CIAT, Rome, Italy
+- name: Svein Ø. Solberg 
+  affiliation: Department of Agricultural Sciences, Inland Norway University of Applied Sciences, Hamar, Norway
 output: html_document
 vignette: >
-  %\VignetteIndexEntry{chirps}
+  %\VignetteIndexEntry{Overview}
   %\VignetteEncoding{UTF-8}
   %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteDepends{tidyverse}
 bibliography: ["chirps.bib"]
 csl: citation_style.csl
 ---
@@ -24,7 +33,155 @@ knitr::opts_chunk$set(
 
 # Summary
 
-The **chirps** package provides functionalities for reproducible analysis using the CHIRPS data [@Funk2015] in R[@RCoreTeam]. CHIRPS is a tool developed by the Climate Hazards Group[@Funk2015] for hight resolution precipitation gridded data. Is a 35+ year quasi-global rainfall data set. Spanning 50°S-50°N (and all longitudes) and ranging from 1981 to near-present, CHIRPS incorporates 0.05° resolution satellite imagery, and in-situ station data to create gridded rainfall time series for trend analysis and seasonal drought monitoring[@Funk2015]. 
+The **chirps** package provides functionalities for reproducible analysis using the CHIRPS data[@Funk2015] in R[@RCoreTeam]. CHIRPS is daily precipitation data set developed by the Climate Hazards Group[@Funk2015] for high resolution precipitation gridded data. Spanning 50°S-50°N (and all longitudes) and ranging from 1981 to near-present, CHIRPS incorporates 0.05 arc-degree resolution satellite imagery, and in-situ station data to create gridded precipitation time series for trend analysis and seasonal drought monitoring[@Funk2015]. Other functionalies of **chirps** are the computation of precipitation indices and the Evaporative Stress Index (ESI) which describes temporal anomalies in evapotranspiration produced weekly at 0.25 arc-degree resolution for the entire globe.
+
+
+# Installation
+
+The development version can be installed via
+
+```{r install, message=FALSE, eval=FALSE, echo=TRUE}
+library("devtools")
+
+devtools::install_github("agrobioinfoservices/chirps", build_vignettes = TRUE)
+
+```
+
+
+# Usage
+
+The *Tapajos* National Forest, Brazil is a protected area in the Brazilian Amazon. We take two random points across its area to get the precipitation from Jan-2015 to Dec-2016 using `get_chirps`.
+
+```{r get, message=TRUE, eval=TRUE, echo=TRUE}
+library("chirps")
+
+set.seed(12)
+lonlat <- data.frame(lon = runif(2, -55, -54),
+                     lat = runif(2, -3, -2))
+
+dates <- c("2015-01-01","2016-12-31")
+
+dat <- get_chirps(lonlat, dates)
+
+head(dat)
+
+```
+
+
+The function `get_chirps` returns a data.frame which inherits the class 'chirps', where each id represents the index for the rows in the inputted 'object'. 
+
+With `precip_indices` is possible to track how the precipitation changes across a time series using precipitation variability indices[@Aguilar2005]. Here, we take the indices for periods of 7 days and compute the indices the time series (from Jan-2015 to Dec-2016).
+
+```{r indices, message=TRUE, eval=TRUE, echo=TRUE}
+pi <- precip_indices(dat, timeseries = TRUE, span = 7)
+
+head(pi)
+
+```
+
+The function `precip_indices` returns a data.frame with the precipitation indices. Each date corresponds to the first day in the time series intervals as defined by the argument 'span'. When 'timeseries = FALSE' the function returns a single precipitation index for the entire time series.
+
+There are two main types of indices. Those that are expressed in days ("MLDS","MLWS","R10mm","R20mm") and those that are expressed in mm ("R95p","R99p","Rx5day","SDII"). We split these indices to visualise the time series.
+
+
+```{r mm, message=FALSE, eval=TRUE, echo=TRUE}
+library("tidyverse")
+
+mm <- c("R95p","R99p","Rx5day","SDII")
+days <- c("MLDS","MLWS","R10mm","R20mm")
+
+pi %>% 
+  filter(index %in% mm) %>% 
+  ggplot() +
+  geom_line(aes(x = date, y = value, group = id)) + 
+  geom_smooth(aes(x = date, y = value), method = "loess") +
+  facet_wrap(. ~ index) +
+  theme_classic() +
+  labs(x = "Week", y = "Index (mm)") ->
+  gg1
+
+plot(gg1)
+
+```
+
+
+Now plot the indices expressed in days.
+
+```{r days, message=TRUE, eval=TRUE, echo=TRUE}
+pi %>% 
+  filter(index %in% days) %>% 
+  ggplot() +
+  geom_line(aes(x = date, y = value, group = id)) + 
+  geom_smooth(aes(x = date, y = value), method = "loess") +
+  facet_wrap(. ~ index) +
+  theme_classic() +
+  labs(x = "Week", y = "Index (days)") ->
+  gg2
+
+plot(gg2)
+
+```
+
+Here we see how these indices are changing across the time series. It is possible to see that the maximum precipitation in consecutive 5-days (Rx5day) is higher in the first weeks of each year. Which agree with the beginning of the rainy season in this region. In the other chart we note an increasing extent of consecutive dry days (MLDS) across the time series, with also a decrease in the number of consecutive rainy days (MLWS). If used carefully and with scientific rigor, these indices are a good proxy to evaluate the climate variability using precipitation data[@Aguilar2005; @DeSousa2018].  
+
+# Going further
+
+## Evapotranspiration 
+
+The **chirps** package also retrieves the Evaporative Stress Index (ESI) using the function `get_esi` which behaves similarly as `get_chirps`. 
+
+```{r esi, message=FALSE, eval=FALSE, echo=TRUE}
+set.seed(12)
+lonlat <- data.frame(lon = runif(2, -55, -54),
+                     lat = runif(2, -3, -2))
+
+dates <- c("2016-05-01","2016-12-31")
+
+dat <- get_esi(lonlat, dates)
+
+```
+
+The function `get_esi` may return NA's due to cloudiness in the dataset. One way to turn over this is increase the buffer area around the inputted object with the argument 'dist' passed to `sf`.
+
+```{r esi-error, message=FALSE, eval=FALSE, echo=TRUE}
+set.seed(123)
+lonlat <- data.frame(lon = runif(1, -55, -54),
+                     lat = runif(1, -3, -2.7))
+
+dates <- c("2017-12-01","2018-01-20")
+
+# this return a error due to missing data
+get_esi(lonlat, dates)
+
+# this works
+get_esi(lonlat, dates, dist = 0.1)
+
+```
+
+
+## Objects of class sf
+
+Objects of class 'sf' can also be passed directly to both `get_chirps` and `get_esi`.
+
+```{r sf, message=FALSE, eval=FALSE, echo=TRUE}
+lonlat <- data.frame(lon = c(-55.0281,-54.9857, -55.0714),
+                     lat = c(-2.8094, -2.8756, -3.5279))
+
+lonlat <- st_as_sf(lonlat, coords = c("lon","lat"))
+
+dates <- c("2017-12-15","2017-12-31")
+
+get_chirps(lonlat, dates)
+
+```
+
+To return an object with the same class (sf), the argument 'as.sf = TRUE' is used.
+
+
+```{r as.sf, message=FALSE, eval=FALSE, echo=TRUE}
+get_chirps(lonlat, dates, as.sf = TRUE)
+
+```
 
 
 # References

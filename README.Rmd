@@ -34,7 +34,7 @@ The development version can be installed via
 ```{r install, message=FALSE, eval=FALSE, echo=TRUE}
 library("devtools")
 
-devtools::install_github("agrobioinfoservices/chirps")
+devtools::install_github("agrobioinfoservices/chirps", build_vignettes = TRUE)
 
 ```
 

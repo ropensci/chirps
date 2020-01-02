@@ -32,13 +32,13 @@
 #' 
 #' dates <- c("2017-12-15","2018-05-31")
 #'  
-#' df <- get_chirps(lonlat, dates)
+#' dat <- get_chirps(lonlat, dates)
 #' 
 #' # take the indices for the entire period 
-#' precip_indices(df, timeseries = FALSE)
+#' precip_indices(dat, timeseries = FALSE)
 #' 
 #' # take the indices for periods of 7 days
-#' precip_indices(df, timeseries = TRUE, span = 7)
+#' precip_indices(dat, timeseries = TRUE, span = 7)
 #' }       
 #' @importFrom stats quantile        
 #' @export
@@ -60,7 +60,7 @@ precip_indices <- function(object, timeseries = FALSE, span = NULL) {
   # the last values are dropped
   # for example, divide the periods of 7 days in a time series of 53 days
   # in that case, the last four observations are dropped to fit in a vector of
-  # length == 49 (an the maximum integer from dividing days/span)
+  # length == 49 (the maximum integer from dividing days/span)
   if (timeseries) {
     
     bins <- floor(nr/span)
@@ -86,11 +86,10 @@ precip_indices <- function(object, timeseries = FALSE, span = NULL) {
   # keep only chirps data and ids, and add bins
   object <- lapply(object, function(x) { 
     
-    x <- x[,c("id", "chirps")]
+    x <- x[,c("id", "date", "chirps")]
     x <- x[1:length(bins), ]
     x$bin <- bins
     x
-    
   })
   
   object <- do.call("rbind", object)
@@ -113,7 +112,7 @@ precip_indices <- function(object, timeseries = FALSE, span = NULL) {
              .sdii(chr))
     
     ind <- data.frame(id = rep(x$id[1], length(indices)),
-                      bin = rep(x$bin[1], length(indices)),
+                      date = rep(x$date[1], length(indices)),
                       index = indices,
                       value = ind,
                       stringsAsFactors = FALSE)
@@ -125,11 +124,11 @@ precip_indices <- function(object, timeseries = FALSE, span = NULL) {
   # merge with ids and lon lat
   result <- merge(result, lonlat, by = "id")
   
-  result <- result[,c("id","bin","lon","lat","index","value")]
+  result <- result[,c("id","date","lon","lat","index","value")]
   
   result$id <- as.integer(result$id)
   
-  result <- result[order(result$bin), ]
+  result <- result[order(result$date), ]
   
   result <- result[order(result$id), ]
   
@@ -140,15 +139,16 @@ precip_indices <- function(object, timeseries = FALSE, span = NULL) {
 
 
 
-# Maximum length of consecutive dry days
-# @param object numeric vector
-# @return the MLDS index, which is the maximum length of consecutive dry days
-# precipitation < 1 mm
-# @examples
-# set.seed(12)
-# r <- runif(20, 0, 9)
-# r[c(1,4,9:12,17)] <- 0
-# .dryspell(r)
+#' Maximum length of consecutive dry days
+#' @param object numeric vector
+#' @return the MLDS index, which is the maximum length of consecutive dry days
+#' precipitation < 1 mm
+#' @examples
+#' set.seed(12)
+#' r <- runif(20, 0, 9)
+#' r[c(1,4,9:12,17)] <- 0
+#' chirps:::.dryspell(r)
+#' @noRd
 .dryspell <- function(object)
 {
   # the function rle is applied
@@ -180,15 +180,16 @@ precip_indices <- function(object, timeseries = FALSE, span = NULL) {
   
 }
 
-# Maximum length of consecutive wet days
-# @param object numeric vector
-# @return the MLWS index, which is the maximum length of consecutive wet days
-# precipitation > 1 mm
-# @examples
-# set.seed(12)
-# r <- runif(20, 0, 9)
-# r[c(1,4,9:11)] <- 0.1
-# .wetspell(r)
+#' Maximum length of consecutive wet days
+#' @param object numeric vector
+#' @return the MLWS index, which is the maximum length of consecutive wet days
+#' precipitation > 1 mm
+#' @examples
+#' set.seed(12)
+#' r <- runif(20, 0, 9)
+#' r[c(1,4,9:11)] <- 0.1
+#' chirps:::.wetspell(r)
+#' @noRd
 .wetspell <- function(object)
 {
   # the function rle is applied
@@ -217,14 +218,15 @@ precip_indices <- function(object, timeseries = FALSE, span = NULL) {
   return(ws)
 }
 
-# Heavy precipitation days (10 >= r < 20 mm)
-# @param object numeric vector
-# @return the R10mm index, which is number of heavy precipitation days (10 >= r < 20 mm)
-# @examples
-# set.seed(12)
-# r <- runif(20, 0, 12)
-# r[c(1,4,9:11)] <- 0.1
-# .r_ten_mm(r)
+#' Heavy precipitation days (10 >= r < 20 mm)
+#' @param object numeric vector
+#' @return the R10mm index, which is number of heavy precipitation days (10 >= r < 20 mm)
+#' @examples
+#' set.seed(12)
+#' r <- runif(20, 0, 12)
+#' r[c(1,4,9:11)] <- 0.1
+#' chirps:::.r_ten_mm(r)
+#' @noRd
 .r_ten_mm <- function(object) {
   
   rt <- sum(object >= 10 & object < 20, na.rm = TRUE)
@@ -233,14 +235,15 @@ precip_indices <- function(object, timeseries = FALSE, span = NULL) {
 
 }
 
-# Very heavy precipitation days (r >= 20)
-# @param object numeric vector
-# @return the R20mm index, which is number of very heavy precipitation days (r >= 20)
-# @examples
-# set.seed(12)
-# r <- runif(20, 10, 23)
-# r[c(1,4,9:11)] <- 0.1
-# .r_twenty_mm(r)
+#' Very heavy precipitation days (r >= 20)
+#' @param object numeric vector
+#' @return the R20mm index, which is number of very heavy precipitation days (r >= 20)
+#' @examples
+#' set.seed(12)
+#' r <- runif(20, 10, 23)
+#' r[c(1,4,9:11)] <- 0.1
+#' chirps:::.r_twenty_mm(r)
+#' @noRd
 .r_twenty_mm <- function(object) {
   
   rtw <- sum(object >= 20, na.rm = TRUE)
@@ -249,19 +252,20 @@ precip_indices <- function(object, timeseries = FALSE, span = NULL) {
   
 }
 
-# Simple rainfall intensity index
-# @param object numeric vector
-# @return the SDII index, which is the simple daily intensity 
-# index total precipitation divided by the number of wet days (r >= 1.0mm)
-# @examples
-# set.seed(12)
-# r <- runif(20, 0, 9)
-#
-# r[c(1,4,9:11)] <- 0.1
-#
-# .sdii(r)
-#
-# .sdii(rep(0.1, 9))
+#' Simple rainfall intensity index
+#' @param object numeric vector
+#' @return the SDII index, which is the simple daily intensity 
+#' index total precipitation divided by the number of wet days (r >= 1.0mm)
+#' @examples
+#' set.seed(12)
+#' r <- runif(20, 0, 9)
+#'
+#' r[c(1,4,9:11)] <- 0.1
+#'
+#' .sdii(r)
+#'
+#' chirps:::.sdii(rep(0.1, 9))
+#' @noRd
 .sdii <- function(object) {
   
   # total precipitation
@@ -281,15 +285,16 @@ precip_indices <- function(object, timeseries = FALSE, span = NULL) {
   
 }
 
-# Compute Rx5day rainfall index
-# @param object numeric vector
-# @return the Rx5day index, which is the maximun sum 
-# of rain in consecutive 5 days
-# @examples
-# set.seed(12)
-# r <- runif(20, 0, 9)
-# r[c(1,4,9:12,17)] <- 0
-# .r_five_day(r)
+#' Compute Rx5day rainfall index
+#' @param object numeric vector
+#' @return the Rx5day index, which is the maximun sum 
+#' of rain in consecutive 5 days
+#' @examples
+#' set.seed(12)
+#' r <- runif(20, 0, 9)
+#' r[c(1,4,9:12,17)] <- 0
+#' chirps:::.r_five_day(r)
+#' @noRd
 .r_five_day <- function(object)
 {
   # this look for the maximum sum of rain in
@@ -310,14 +315,15 @@ precip_indices <- function(object, timeseries = FALSE, span = NULL) {
   
 }
 
-# Maximum 1-day rainfall
-# @param object numeric vector
-# @return the Rx1day index, which is the 1-day rainfall
-# @examples
-# set.seed(12)
-# r <- runif(20, 0, 9)
-# r[c(1,4,9:12,17)] <- 0
-# .r_one_day(r)
+#' Maximum 1-day rainfall
+#' @param object numeric vector
+#' @return the Rx1day index, which is the 1-day rainfall
+#' @examples
+#' set.seed(12)
+#' r <- runif(20, 0, 9)
+#' r[c(1,4,9:12,17)] <- 0
+#' chirps:::.r_one_day(r)
+#' @noRd
 .r_one_day <- function(object) {
   
   ro <- max(object, na.rm = TRUE)
@@ -326,14 +332,15 @@ precip_indices <- function(object, timeseries = FALSE, span = NULL) {
   
 }
 
-# Total rainfall (mm) in wet days (r >= 1)
-# @param object numeric vector
-# @return the Rtotal index, which is sum of rainfall (mm) in wet days (r >= 1)
-# @examples
-# set.seed(12)
-# r <- runif(20, 0, 9)
-# r[c(1,4,9:12,17)] <- 0
-# .r_total(r)
+#' Total rainfall (mm) in wet days (r >= 1)
+#' @param object numeric vector
+#' @return the Rtotal index, which is sum of rainfall (mm) in wet days (r >= 1)
+#' @examples
+#' set.seed(12)
+#' r <- runif(20, 0, 9)
+#' r[c(1,4,9:12,17)] <- 0
+#' chirps:::.r_total(r)
+#' @noRd
 .r_total <- function(object) {
   
   rt <- object[object >= 1]
@@ -345,14 +352,15 @@ precip_indices <- function(object, timeseries = FALSE, span = NULL) {
 }
 
 
-# Very wet days
-# @param object numeric vector
-# @return the R95p index, annual total PRCP when rain > 95th percentile
-# @examples
-# set.seed(12)
-# r <- runif(20, 0, 9)
-# r[c(1,4,9:12,17)] <- 0
-# .very_wet_days(r)
+#' Very wet days
+#' @param object numeric vector
+#' @return the R95p index, annual total PRCP when rain > 95th percentile
+#' @examples
+#' set.seed(12)
+#' r <- runif(20, 0, 9)
+#' r[c(1,4,9:12,17)] <- 0
+#' chirps:::.very_wet_days(r)
+#' @noRd
 .very_wet_days <- function(object) {
   
   q <- stats::quantile(object, probs = seq(0, 1, 0.05), na.rm = TRUE)
@@ -366,14 +374,15 @@ precip_indices <- function(object, timeseries = FALSE, span = NULL) {
   
 }
 
-# Very wet days
-# @param object numeric vector
-# @return the R95p index, annual total PRCP when rain > 95th percentile
-# @examples
-# set.seed(12)
-# r <- runif(20, 0, 9)
-# r[c(1,4,9:12,17)] <- 0
-# .extrem_wet_days(r)
+#' Very wet days
+#' @param object numeric vector
+#' @return the R95p index, annual total PRCP when rain > 95th percentile
+#' @examples
+#' set.seed(12)
+#' r <- runif(20, 0, 9)
+#' r[c(1,4,9:12,17)] <- 0
+#' chirps:::.extrem_wet_days(r)
+#' @noRd
 .extrem_wet_days <- function(object) {
   
   q <- stats::quantile(object, probs = seq(0, 1, 0.01), na.rm = TRUE)
