@@ -63,7 +63,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">chirps</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.4</span>
       </span>
     </div>
 
@@ -120,8 +120,8 @@
 <h2 class="hasAnchor">
 <a href="#new-features" class="anchor"></a>New features</h2>
 <ul>
-<li>S3 methods for objects of class “data.frame”, “sf” and “geojson” in <code>get_chirps</code>
-</li>
+<li><p><code>get_esi</code> is added to retrieve Evaporative Stress Index whith S3 methods for “data.frame” and “sf”</p></li>
+<li><p>S3 methods for objects of class “data.frame” and “sf” in <code>get_chirps</code></p></li>
 </ul>
 </div>
 <div id="changes-in-behaviour" class="section level2">
@@ -129,6 +129,7 @@
 <a href="#changes-in-behaviour" class="anchor"></a>Changes in behaviour</h2>
 <ul>
 <li><p><code>.get_request_progress</code> and a <code>while</code> condition are added to check the progress of large requests and prevent the function to fail.</p></li>
+<li><p><code>.GET</code> is added as a general function to retrieve other datasets from ClimateSERV</p></li>
 <li><p>improvements in internal functions documentation</p></li>
 </ul>
 </div>

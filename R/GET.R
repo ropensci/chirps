@@ -9,6 +9,7 @@
 #' operation: supported operations are max = 0, min = 1, median = 2, sum = 4, average = 5
 #' 
 #' datatype: supported datatypes are Global CHIRPS = 0, Global ESI 4 Week = 29
+#' datatype codes are described at https://climateserv.readthedocs.io/en/latest/api.html
 #' 
 #' @examples
 #' # random geographic locations around bbox(10, 12, 45, 57)
@@ -16,13 +17,16 @@
 #' lonlat <- data.frame(lon = runif(3, 10, 12),
 #'                      lat = runif(3, 45, 57))
 #' 
-#' dates <- c("12/01/2017", "01/31/2018")
+#' dates <- c("05/01/2017", "01/31/2018")
 #' 
 #' gjson <- chirps:::.dataframe_to_geojson(lonlat)
 #' 
 #' operation <- 5
 #' 
-#' datatype <- 0
+#' datatype <- 29
+#' 
+#' chirps:::.GET(gjson, dates, operation, datatype)
+#' 
 #'@noRd
 .GET <- function(gjson, dates, operation = NULL, datatype = NULL) {
   
@@ -59,7 +63,7 @@
     
     request_progress <- unlist(request_progress)
     
-    cat("Getting your request... patience you must have my young padawan\n")
+    cat("Getting your request...\n")
     
   }
   
@@ -72,8 +76,11 @@
     
   })
   
-  
   result <- do.call("rbind", result)
+  
+  if (nrow(result) == 0) {
+    stop("Fail to get valid values, try to increase the buffer area with 'dist' \n")
+  }
   
   # fix ids
   id <- strsplit(row.names(result), "[.]")

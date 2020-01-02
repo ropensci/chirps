@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Precipitation indices — precip_indices • chirps</title>
+<title>Get Evaporative Stress Index (ESI) data — get_esi • chirps</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -30,9 +30,13 @@
 
 
 
-<meta property="og:title" content="Precipitation indices — precip_indices" />
+<meta property="og:title" content="Get Evaporative Stress Index (ESI) data — get_esi" />
 
-<meta property="og:description" content="Compute precipitation indices over a time series." />
+<meta property="og:description" content="Get Evaporative Stress Index (ESI) from SERVIR Global
+via ClimateSERV API Client. ESI is available every four (or twelve) weeks from 2001 to present.
+The dataset may contain cloudy data which is returned as NAs.
+ClimateSERV works with geojson of type 'Polygon'. The input object is then 
+transformed into polygons with a small buffer area around the point." />
 
 <meta property="og:image" content="/logo.png" />
 <meta name="twitter:card" content="summary" />
@@ -111,78 +115,103 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Precipitation indices</h1>
+    <h1>Get Evaporative Stress Index (ESI) data</h1>
     
-    <div class="hidden name"><code>precip_indices.Rd</code></div>
+    <div class="hidden name"><code>get_esi.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Compute precipitation indices over a time series.</p>
+    <p>Get Evaporative Stress Index (ESI) from SERVIR Global
+via ClimateSERV API Client. ESI is available every four (or twelve) weeks from 2001 to present.
+The dataset may contain cloudy data which is returned as NAs.
+ClimateSERV works with geojson of type 'Polygon'. The input <code>object</code> is then 
+transformed into polygons with a small buffer area around the point.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>precip_indices</span>(<span class='no'>object</span>, <span class='kw'>timeseries</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>span</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    <pre class="usage"><span class='fu'>get_esi</span>(<span class='no'>object</span>, <span class='no'>dates</span>, <span class='kw'>operation</span> <span class='kw'>=</span> <span class='fl'>5</span>, <span class='kw'>period</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='no'>...</span>)
+
+<span class='co'># S3 method for default</span>
+<span class='fu'>get_esi</span>(<span class='no'>object</span>, <span class='no'>dates</span>, <span class='kw'>operation</span> <span class='kw'>=</span> <span class='fl'>5</span>, <span class='kw'>period</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='no'>...</span>)
+
+<span class='co'># S3 method for sf</span>
+<span class='fu'>get_esi</span>(<span class='no'>object</span>, <span class='no'>dates</span>, <span class='kw'>operation</span> <span class='kw'>=</span> <span class='fl'>5</span>, <span class='kw'>period</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>as.sf</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>object</th>
-      <td><p>an object of class "chirps" as provided by <code>get_chirps</code></p></td>
+      <td><p>input, an object of class <code><a href='https://www.rdocumentation.org/packages/base/topics/data.frame'>data.frame</a></code> or <code>sf</code></p></td>
     </tr>
     <tr>
-      <th>timeseries</th>
-      <td><p>logical, FALSE for a single point time series observation or TRUE for a time series based on a <code>span</code></p></td>
+      <th>dates</th>
+      <td><p>a character of start and end dates in that order in the format
+YYYY-MM-DD</p></td>
     </tr>
     <tr>
-      <th>span</th>
-      <td><p>integer no lower than 5, for the days intervals when <code>timeseries</code> = TRUE</p></td>
+      <th>operation</th>
+      <td><p>optional, an integer that represents which type of
+statistical operation to perform on the dataset</p></td>
+    </tr>
+    <tr>
+      <th>period</th>
+      <td><p>an integer value for the period of ESI data, four weeks period = 1, twelve weeks = 2</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>further arguments passed to <code>sf</code> methods. See details</p></td>
+    </tr>
+    <tr>
+      <th>as.sf</th>
+      <td><p>logical, returns an object of class "sf" for S3 method of class <code>sf</code></p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A dataframe with selected indices:</p>
-<dt>MLDS</dt><dd><p>maximum length of consecutive dry day, rain &lt;  1 mm (days)</p></dd>
-<dt>MLWS</dt><dd><p>maximum length of consecutive wet days, rain &gt;= 1 mm (days)</p></dd>
-<dt>R10mm</dt><dd><p>number of heavy precipitation days 10 &gt;= rain &lt; 20 mm (days)</p></dd>
-<dt>R20mm</dt><dd><p>number of very heavy precipitation days rain &gt;= 20 (days)</p></dd>
-<dt>Rx1day</dt><dd><p>maximum 1-day precipitation (mm)</p></dd>
-<dt>Rx5day</dt><dd><p>maximum 5-day precipitation (mm)</p></dd>
-<dt>R95p</dt><dd><p>total precipitation when rain &gt; 95th percentile (mm)</p></dd>
-<dt>R99p</dt><dd><p>total precipitation when rain &gt; 99th percentile (mm)</p></dd>
-<dt>Rtotal</dt><dd><p>total precipitation (mm) in wet days, rain &gt;= 1 (mm)</p></dd>
-<dt>SDII</dt><dd><p>simple daily intensity index, total precipitation divided by the number of wet days (mm/days)</p></dd>
+    <p>A data frame of ESI data:</p>
+<dt>id</dt><dd><p>the index for the rows in <code>object</code></p></dd>
+<dt>dates</dt><dd><p>the dates from which ESI was requested</p></dd>
+<dt>lon</dt><dd><p>the longitude as provided in <code>object</code></p></dd>
+<dt>lat</dt><dd><p>the latitude as provided in <code>object</code></p></dd>
+<dt>esi</dt><dd><p>the ESI value</p></dd>
 
+    
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>operation: supported operations are max = 0, min = 1, median = 2, sum = 4, average = 5</p>
+<p>dist: numeric, buffer distance for each <code>object</code> coordinate</p>
+<p>nQuadSegs: integer, number of segments per buffer quadrant</p>
     
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
-    <p>Aguilar E., et al. (2005). Journal of Geophysical Research, 110(D23), D23107. https://doi.org/10.1029/2005JD006119</p>
-<p>Kehel Z., et al. (2016). In: Applied Mathematics and Omics to Assess Crop Genetic Resources for Climate Change Adaptive Traits (eds Bari A., Damania A. B., Mackay M., Dayanandan S.), pp. 151–174. CRC Press.</p>
-    
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
-
-    <div class='dont-index'><p><code><a href='https://tidyr.tidyverse.org/reference/pivot_wider.html'>pivot_wider</a></code></p></div>
+    <p>ClimateSERV &lt;https://climateserv.servirglobal.net&gt;</p>
+<p>Evaporative Stress Index &lt;http://catalogue.servirglobal.net/Product?product_id=198&gt;</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"># NOT RUN {
-# }
-<span class='co'># NOT RUN {</span>
-<span class='co'># Three points in the Tapajos National Forest, Brazil</span>
+    <pre class="examples"><span class='co'># NOT RUN {</span>
+<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>library</a></span>(<span class='st'>"chirps"</span>)
+
 <span class='no'>lonlat</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/data.frame'>data.frame</a></span>(<span class='kw'>lon</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(-<span class='fl'>55.0281</span>,-<span class='fl'>54.9857</span>, -<span class='fl'>55.0714</span>),
                      <span class='kw'>lat</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(-<span class='fl'>2.8094</span>, -<span class='fl'>2.8756</span>, -<span class='fl'>3.5279</span>))
 
-<span class='no'>dates</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"2017-12-15"</span>,<span class='st'>"2018-05-31"</span>)
+<span class='no'>dates</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"2017-12-15"</span>,<span class='st'>"2018-06-20"</span>)
 
-<span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='get_chirps.html'>get_chirps</a></span>(<span class='no'>lonlat</span>, <span class='no'>dates</span>)
+<span class='co'># by default the function set a very small buffer around the points</span>
+<span class='co'># which can return NAs due to cloudiness in ESI data</span>
 
-<span class='co'># take the indices for the entire period </span>
-<span class='fu'>precip_indices</span>(<span class='no'>df</span>, <span class='kw'>timeseries</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+<span class='no'>dat</span> <span class='kw'>&lt;-</span> <span class='fu'>get_esi</span>(<span class='no'>lonlat</span>, <span class='kw'>dates</span> <span class='kw'>=</span> <span class='no'>dates</span>)
 
-<span class='co'># take the indices for periods of 7 days</span>
-<span class='fu'>precip_indices</span>(<span class='no'>df</span>, <span class='kw'>timeseries</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>span</span> <span class='kw'>=</span> <span class='fl'>7</span>)
+<span class='no'>dat</span>
+
+<span class='co'># the argument dist passed through sf increase the buffer area</span>
+
+<span class='no'>dat</span> <span class='kw'>&lt;-</span> <span class='fu'>get_esi</span>(<span class='no'>lonlat</span>, <span class='kw'>dates</span> <span class='kw'>=</span> <span class='no'>dates</span>, <span class='kw'>dist</span> <span class='kw'>=</span> <span class='fl'>0.1</span>)
+
+<span class='no'>dat</span>
 <span class='co'># }</span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
@@ -192,9 +221,9 @@
       
       <li><a href="#value">Value</a></li>
 
-      <li><a href="#references">References</a></li>
+      <li><a href="#details">Details</a></li>
 
-      <li><a href="#see-also">See also</a></li>
+      <li><a href="#references">References</a></li>
       
       <li><a href="#examples">Examples</a></li>
     </ul>

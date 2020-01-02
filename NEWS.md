@@ -2,7 +2,9 @@
 
 ## New features
 
-* S3 methods for objects of class "data.frame", "sf" and "geojson" in `get_chirps`
+* `get_esi` is added to retrieve Evaporative Stress Index whith S3 methods for "data.frame" and "sf"
+
+* S3 methods for objects of class "data.frame" and "sf" in `get_chirps`
 
 ## Changes in behaviour
 

@@ -64,7 +64,6 @@
   
 }
 
-
 #' Concatenate a sf object into a geojson polygon
 #'
 #' Take single points from geographical coordinates 
@@ -134,7 +133,7 @@
 #' operation: supported operations are max = 0, min = 1, median = 2, sum = 4, average = 5
 #' @examples
 #' lonlat <- data.frame(lon = runif(1, 10, 12),
-#'                      lat = runif(1, 45, 57))
+#'                      lat = runif(1, 45, 47))
 #' 
 #' gjson <- chirps:::.dataframe_to_geojson(lonlat)
 #' 
@@ -183,7 +182,7 @@
 #' @return logical value, TRUE when the data is ready to be retrieved
 #' @examples
 #' lonlat <- data.frame(lon = runif(1, 10, 12),
-#'                      lat = runif(1, 45, 57))
+#'                      lat = runif(1, 45, 47))
 #' 
 #' gjson <- chirps:::.dataframe_to_geojson(lonlat)
 #' 
@@ -213,15 +212,19 @@
 #' @param id character with the id obtained from \code{.send_request} 
 #' @return A data frame with requested data
 #' @examples
-#' lonlat <- data.frame(lon = runif(1, 10, 12),
-#'                      lat = runif(1, 45, 57))
 #' 
-#' gjson <- chirps:::.dataframe_to_geojson(lonlat)
-#' 
-#' id <- chirps:::.send_request(begintime = "12/10/2018", 
-#'                        endtime = "12/26/2018", 
-#'                        geometry = gjson)
-#' chirps:::.get_data_from_request(id = id)
+# set.seed(12)
+# lonlat <- data.frame(lon = runif(1, 10, 12),
+#                      lat = runif(1, 45, 47))
+# 
+# gjson <- chirps:::.dataframe_to_geojson(lonlat)
+# 
+# id <- chirps:::.send_request(datatype = 29,
+#                              begintime = "09/10/2018",
+#                              endtime = "12/26/2018",
+#                              geometry = gjson)
+# 
+# chirps:::.get_data_from_request(id = id)
 #' @noRd
 .get_data_from_request <- function(id) {
   

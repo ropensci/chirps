@@ -32,10 +32,10 @@
 
 <meta property="og:title" content="Get CHIRPS precipitation data — get_chirps" />
 
-<meta property="og:description" content="Get the Climate Hazards Group InfraRed Precipitation with Station Data via 
-ClimateSERV API Client. ClimateSERV works with geojson strings of type
-'Polygon'. The input lonlat is then transformed into polygons with a
-small buffer area around the point." />
+<meta property="og:description" content="Get daily precipitation data from the &quot;Climate Hazards Group InfraRed Precipitation 
+with Station Data&quot; via ClimateSERV API Client. ClimateSERV works with geojson 
+of type 'Polygon'. The input object is then transformed into polygons
+with a small buffer area around the point." />
 
 <meta property="og:image" content="/logo.png" />
 <meta name="twitter:card" content="summary" />
@@ -68,7 +68,7 @@ small buffer area around the point." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">chirps</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.4</span>
       </span>
     </div>
 
@@ -121,25 +121,27 @@ small buffer area around the point." />
 
     <div class="ref-description">
     
-    <p>Get the Climate Hazards Group InfraRed Precipitation with Station Data via 
-ClimateSERV API Client. ClimateSERV works with geojson strings of type
-'Polygon'. The input <code>lonlat</code> is then transformed into polygons with a
-small buffer area around the point.</p>
+    <p>Get daily precipitation data from the "Climate Hazards Group InfraRed Precipitation 
+with Station Data" via ClimateSERV API Client. ClimateSERV works with geojson 
+of type 'Polygon'. The input <code>object</code> is then transformed into polygons
+with a small buffer area around the point.</p>
     
     </div>
 
     <pre class="usage"><span class='fu'>get_chirps</span>(<span class='no'>object</span>, <span class='no'>dates</span>, <span class='kw'>operation</span> <span class='kw'>=</span> <span class='fl'>5</span>, <span class='no'>...</span>)
 
 <span class='co'># S3 method for default</span>
-<span class='fu'>get_chirps</span>(<span class='no'>object</span>, <span class='no'>dates</span>, <span class='kw'>operation</span> <span class='kw'>=</span> <span class='fl'>5</span>, <span class='no'>...</span>)</pre>
+<span class='fu'>get_chirps</span>(<span class='no'>object</span>, <span class='no'>dates</span>, <span class='kw'>operation</span> <span class='kw'>=</span> <span class='fl'>5</span>, <span class='no'>...</span>)
+
+<span class='co'># S3 method for sf</span>
+<span class='fu'>get_chirps</span>(<span class='no'>object</span>, <span class='no'>dates</span>, <span class='kw'>operation</span> <span class='kw'>=</span> <span class='fl'>5</span>, <span class='kw'>as.sf</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>object</th>
-      <td><p>input, an object of class <code>data.frame</code>, geojson (Polygon),
-json (Polygon) or <code>sf</code></p></td>
+      <td><p>input, an object of class <code><a href='https://www.rdocumentation.org/packages/base/topics/data.frame'>data.frame</a></code> or <code>sf</code></p></td>
     </tr>
     <tr>
       <th>dates</th>
@@ -155,23 +157,27 @@ statistical operation to perform on the dataset</p></td>
       <th>...</th>
       <td><p>further arguments passed to <code>sf</code> methods. See details</p></td>
     </tr>
+    <tr>
+      <th>as.sf</th>
+      <td><p>logical, returns an object of class "sf" for S3 method of class <code>sf</code></p></td>
+    </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A data frame of CHIRPS data including:</p>
-<dt>id</dt><dd><p>the index for the rows in <code>lonlat</code></p></dd>
+    <p>A data frame of CHIRPS data:</p>
+<dt>id</dt><dd><p>the index for the rows in <code>object</code></p></dd>
 <dt>dates</dt><dd><p>the dates from which CHIRPS was requested</p></dd>
-<dt>lon</dt><dd><p>the longitude as provided in <code>lonlat</code></p></dd>
-<dt>lat</dt><dd><p>the latitude as provided in <code>lonlat</code></p></dd>
+<dt>lon</dt><dd><p>the longitude as provided in <code>object</code></p></dd>
+<dt>lat</dt><dd><p>the latitude as provided in <code>object</code></p></dd>
 <dt>chirps</dt><dd><p>the CHIRPS value in mm</p></dd>
 
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>operation: supported operations are max = 0, min = 1, median = 2, sum = 4, average = 5</p>
-<p>dist: numeric, buffer distance for all <code>lonlat</code> coordinates</p>
-<p>nQuadSegs: integer, number of segments per quadrant</p>
+<p>dist: numeric, buffer distance for each <code>object</code> coordinate</p>
+<p>nQuadSegs: integer, number of segments per buffer quadrant</p>
     
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
@@ -181,16 +187,35 @@ statistical operation to perform on the dataset</p></td>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># Three points in the Tapajos National Forest, Brazil</span>
+    <pre class="examples"><span class='co'># NOT RUN {</span>
+
+<span class='co'># Three points in the Tapajos National Forest, Brazil</span>
 <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>library</a></span>(<span class='st'>"chirps"</span>)
 
 <span class='no'>lonlat</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/data.frame'>data.frame</a></span>(<span class='kw'>lon</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(-<span class='fl'>55.0281</span>,-<span class='fl'>54.9857</span>, -<span class='fl'>55.0714</span>),
                      <span class='kw'>lat</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(-<span class='fl'>2.8094</span>, -<span class='fl'>2.8756</span>, -<span class='fl'>3.5279</span>))
 
-<span class='no'>dates</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"2017-12-15"</span>,<span class='st'>"2018-01-31"</span>)
+<span class='no'>dates</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"2017-12-15"</span>,<span class='st'>"2017-12-31"</span>)
 
 
-<span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'>get_chirps</span>(<span class='no'>lonlat</span>, <span class='no'>dates</span>)</div><div class='output co'>#&gt; <span class='error'>Error in UseMethod("get_chirps"): no applicable method for 'get_chirps' applied to an object of class "data.frame"</span></div></pre>
+<span class='fu'>get_chirps</span>(<span class='no'>lonlat</span>, <span class='no'>dates</span>)
+
+
+<span class='co'># S3 method for objects of class 'sf'</span>
+<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>library</a></span>(<span class='st'>"sf"</span>)
+
+<span class='no'>lonlat</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/data.frame'>data.frame</a></span>(<span class='kw'>lon</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(-<span class='fl'>55.0281</span>,-<span class='fl'>54.9857</span>, -<span class='fl'>55.0714</span>),
+                     <span class='kw'>lat</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(-<span class='fl'>2.8094</span>, -<span class='fl'>2.8756</span>, -<span class='fl'>3.5279</span>))
+
+<span class='no'>lonlat</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/sf/topics/st_as_sf'>st_as_sf</a></span>(<span class='no'>lonlat</span>, <span class='kw'>coords</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"lon"</span>,<span class='st'>"lat"</span>))
+
+<span class='no'>dates</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"2017-12-15"</span>,<span class='st'>"2017-12-31"</span>)
+
+<span class='fu'>get_chirps</span>(<span class='no'>lonlat</span>, <span class='no'>dates</span>)
+
+<span class='co'># as.sf TRUE returns an object of class 'sf'</span>
+<span class='fu'>get_chirps</span>(<span class='no'>lonlat</span>, <span class='no'>dates</span>, <span class='kw'>as.sf</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+<span class='co'># }</span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
