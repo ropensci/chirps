@@ -8,6 +8,8 @@
 
 * `.get_request_progress` and a `while` condition are added to check the progress of large requests and prevent the function to fail.
 
+* `.GET` is added as a general function to retrieve other datasets from ClimateSERV
+
 * improvements in internal functions documentation 
 
 # chirps 0.0-2

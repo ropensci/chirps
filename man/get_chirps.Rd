@@ -3,15 +3,21 @@
 \name{get_chirps}
 \alias{get_chirps}
 \alias{get_chirps.default}
+\alias{get_chirps.sf}
+\alias{get_chirps.geojson}
 \title{Get CHIRPS precipitation data}
 \usage{
 get_chirps(object, dates, operation = 5, ...)
 
 \method{get_chirps}{default}(object, dates, operation = 5, ...)
+
+\method{get_chirps}{sf}(object, dates, operation = 5, as.sf = FALSE, ...)
+
+\method{get_chirps}{geojson}(object, dates, operation = 5, as.geojson = FALSE, ...)
 }
 \arguments{
-\item{object}{input, an object of class \code{data.frame}, geojson (Polygon),
-json (Polygon) or \code{\link{sf}}}
+\item{object}{input, an object of class \code{\link{data.frame}}, geojson (Polygon)
+or \code{\link{sf}}}
 
 \item{dates}{a character of start and end dates in that order in the format
 YYYY-MM-DD}
@@ -20,40 +26,61 @@ YYYY-MM-DD}
 statistical operation to perform on the dataset}
 
 \item{...}{further arguments passed to \code{sf} methods. See details}
+
+\item{as.sf}{logical, returns an object of class "sf" for S3 method of class \code{\link{sf}}}
+
+\item{as.geojson}{logical, returns an object of class "geojson" for S3 method of class geojson}
 }
 \value{
-A data frame of CHIRPS data including:
-\item{id}{the index for the rows in \code{lonlat}}
+A data frame of CHIRPS data:
+\item{id}{the index for the rows in \code{object}}
 \item{dates}{the dates from which CHIRPS was requested}
-\item{lon}{the longitude as provided in \code{lonlat}}
-\item{lat}{the latitude as provided in \code{lonlat}}
+\item{lon}{the longitude as provided in \code{object}}
+\item{lat}{the latitude as provided in \code{object}}
 \item{chirps}{the CHIRPS value in mm}
 }
 \description{
-Get the Climate Hazards Group InfraRed Precipitation with Station Data via 
-ClimateSERV API Client. ClimateSERV works with geojson strings of type
-'Polygon'. The input \code{lonlat} is then transformed into polygons with a
-small buffer area around the point.
+Get precipitation data from the "Climate Hazards Group InfraRed Precipitation 
+with Station Data" via ClimateSERV API Client. ClimateSERV works with geojson 
+of type 'Polygon'. The input \code{object} is then transformed into polygons
+with a small buffer area around the point.
 }
 \details{
 operation: supported operations are max = 0, min = 1, median = 2, sum = 4, average = 5
 
-dist: numeric, buffer distance for all \code{lonlat} coordinates
+dist: numeric, buffer distance for each \code{lonlat} coordinate
 
-nQuadSegs: integer, number of segments per quadrant
+nQuadSegs: integer, number of segments per buffer quadrant
 }
 \examples{
 \donttest{
+ 
 # Three points in the Tapajos National Forest, Brazil
 library("chirps")
 
 lonlat <- data.frame(lon = c(-55.0281,-54.9857, -55.0714),
                      lat = c(-2.8094, -2.8756, -3.5279))
 
-dates <- c("2017-12-15","2018-01-31")
+dates <- c("2017-12-15","2017-12-31")
 
 
-df <- get_chirps(lonlat, dates)
+get_chirps(lonlat, dates)
+
+
+# S3 method for objects of class 'sf'
+library("sf")
+
+lonlat <- data.frame(lon = c(-55.0281,-54.9857, -55.0714),
+                     lat = c(-2.8094, -2.8756, -3.5279))
+
+lonlat <- st_as_sf(lonlat, coords = c("lon","lat"))
+
+dates <- c("2017-12-15","2017-12-31")
+
+get_chirps(lonlat, dates)
+
+# as.sf TRUE returns an object of class 'sf'
+get_chirps(lonlat, dates, as.sf = TRUE)
 } 
 }
 \references{

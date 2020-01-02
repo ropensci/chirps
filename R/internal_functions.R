@@ -138,8 +138,8 @@
 #' 
 #' gjson <- chirps:::.dataframe_to_geojson(lonlat)
 #' 
-#' chirps:::.send_request(begintime = "12/10/2018", 
-#'                        endtime = "12/26/2018", 
+#' chirps:::.send_request(begintime = "12/10/2018",
+#'                        endtime = "12/26/2018",
 #'                        geometry = gjson)
 #' @noRd
 .send_request <- function(datatype = 0, begintime = NULL, endtime = NULL,
