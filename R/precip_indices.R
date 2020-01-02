@@ -3,8 +3,10 @@
 #' Compute precipitation indices over a time series.
 #'
 #' @param object an object of class "chirps" as provided by \code{get_chirps}
-#' @param timeseries logical, FALSE for a single point time series observation or TRUE for a time series based on a \code{span}  
-#' @param span integer no lower than 5, for the days intervals when \code{timeseries} = TRUE
+#' @param timeseries logical, FALSE for a single point time series observation
+#'  or TRUE for a time series based on a \code{span}  
+#' @param span integer no lower than 5, for the days intervals when
+#'  \code{timeseries} = TRUE
 #' @return A dataframe with selected indices:
 #' \item{MLDS}{maximum length of consecutive dry day, rain <  1 mm (days)}
 #' \item{MLWS}{maximum length of consecutive wet days, rain >= 1 mm (days)}
@@ -15,13 +17,17 @@
 #' \item{R95p}{total precipitation when rain > 95th percentile (mm)}
 #' \item{R99p}{total precipitation when rain > 99th percentile (mm)}
 #' \item{Rtotal}{total precipitation (mm) in wet days, rain >= 1 (mm)}
-#' \item{SDII}{simple daily intensity index, total precipitation divided by the number of wet days (mm/days)}
+#' \item{SDII}{simple daily intensity index, total precipitation divided by the
+#'  number of wet days (mm/days)}
 #' @seealso \code{\link[tidyr]{pivot_wider}}
 #' @references 
 #' 
-#' Aguilar E., et al. (2005). Journal of Geophysical Research, 110(D23), D23107. https://doi.org/10.1029/2005JD006119
+#' Aguilar E., et al. (2005). Journal of Geophysical Research, 110(D23), D23107.
+#'  https://doi.org/10.1029/2005JD006119
 #' 
-#' Kehel Z., et al. (2016). In: Applied Mathematics and Omics to Assess Crop Genetic Resources for Climate Change Adaptive Traits (eds Bari A., Damania A. B., Mackay M., Dayanandan S.), pp. 151–174. CRC Press.
+#' Kehel Z., et al. (2016). In: Applied Mathematics and Omics to Assess Crop
+#'  Genetic Resources for Climate Change Adaptive Traits (eds Bari A., Damania
+#'  A. B., Mackay M., Dayanandan S.), pp. 151–174. CRC Press.
 #' 
 #' @examples
 #' 
@@ -39,8 +45,8 @@
 #' 
 #' # take the indices for periods of 7 days
 #' precip_indices(dat, timeseries = TRUE, span = 7)
-#' }       
-#' @importFrom stats quantile        
+#' }
+#' @importFrom stats quantile
 #' @export
 precip_indices <- function(object, timeseries = FALSE, span = NULL) {
   
@@ -220,7 +226,8 @@ precip_indices <- function(object, timeseries = FALSE, span = NULL) {
 
 #' Heavy precipitation days (10 >= r < 20 mm)
 #' @param object numeric vector
-#' @return the R10mm index, which is number of heavy precipitation days (10 >= r < 20 mm)
+#' @return the R10mm index, which is number of heavy precipitation days (10 >= r
+#'  < 20 mm)
 #' @examples
 #' set.seed(12)
 #' r <- runif(20, 0, 12)
@@ -237,7 +244,8 @@ precip_indices <- function(object, timeseries = FALSE, span = NULL) {
 
 #' Very heavy precipitation days (r >= 20)
 #' @param object numeric vector
-#' @return the R20mm index, which is number of very heavy precipitation days (r >= 20)
+#' @return the R20mm index, which is number of very heavy precipitation days (r
+#'  >= 20)
 #' @examples
 #' set.seed(12)
 #' r <- runif(20, 10, 23)
