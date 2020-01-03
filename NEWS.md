@@ -13,7 +13,7 @@ chirps 0.0.3 (2019-12-31)
 
 ### NEW FEATURES
 
-* `get_esi` is added to retrieve Evaporative Stress Index whith S3 methods for "data.frame" and "sf"
+* `get_esi` is added to retrieve Evaporative Stress Index with S3 methods for "data.frame" and "sf"
 
 * S3 methods for objects of class "data.frame" and "sf" in `get_chirps`
 
