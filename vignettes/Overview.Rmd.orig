@@ -22,7 +22,18 @@ bibliography: ["chirps.bib"]
 csl: citation_style.csl
 ---
 
-
+```{r setup, include=FALSE}
+TRAVIS <- !identical(tolower(Sys.getenv("TRAVIS")), "true")
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  purl = TRAVIS,
+  fig.width = 7,
+  fig.height = 7,
+  fig.align = "center",
+  fig.path = "vignettes/"
+)
+```
 
 # Summary
 
@@ -32,8 +43,7 @@ The **chirps** package provides functionalities for reproducible analysis using 
 
 The development version can be installed via
 
-
-```r
+```{r install, message=FALSE, eval=FALSE, echo=TRUE}
 library("devtools")
 
 devtools::install_github("agrobioinfoservices/chirps", build_vignettes = TRUE)
@@ -45,8 +55,7 @@ devtools::install_github("agrobioinfoservices/chirps", build_vignettes = TRUE)
 
 The *Tapajos* National Forest, Brazil is a protected area in the Brazilian Amazon. We take two random points across its area to get the precipitation from Jan-2015 to Dec-2016 using `get_chirps()`.
 
-
-```r
+```{r get, message=TRUE, eval=TRUE, echo=TRUE}
 library("chirps")
 
 set.seed(12)
@@ -58,15 +67,7 @@ dates <- c("2015-01-01","2016-12-31")
 dat <- get_chirps(lonlat, dates)
 
 head(dat)
-#> # A tibble: 6 x 5
-#>   id      lon   lat date       chirps
-#>   <chr> <dbl> <dbl> <date>      <dbl>
-#> 1 1     -54.9 -2.06 2015-01-01    0  
-#> 2 1     -54.9 -2.06 2015-01-02    0  
-#> 3 1     -54.9 -2.06 2015-01-03    0  
-#> 4 1     -54.9 -2.06 2015-01-04    0  
-#> 5 1     -54.9 -2.06 2015-01-05   11.3
-#> 6 1     -54.9 -2.06 2015-01-06    0
+
 ```
 
 
@@ -74,20 +75,11 @@ The function `get_chirps()` returns a data.frame which inherits the class 'chirp
 
 With `precip_indices()` is possible to track how the precipitation changes across a time series using precipitation variability indices[@Aguilar2005]. Here, we take the indices for periods of 7 days and compute the indices the time series (from Jan-2015 to Dec-2016).
 
-
-```r
+```{r indices, message=TRUE, eval=TRUE, echo=TRUE}
 pi <- precip_indices(dat, timeseries = TRUE, span = 7)
 
 head(pi)
-#> # A tibble: 6 x 6
-#>      id   bin   lon   lat index  value
-#>   <int> <int> <dbl> <dbl> <chr>  <dbl>
-#> 1     1     1 -54.9 -2.06 MLDS     4  
-#> 2     1     1 -54.9 -2.06 MLWS     1  
-#> 3     1     1 -54.9 -2.06 R10mm    1  
-#> 4     1     1 -54.9 -2.06 R20mm    0  
-#> 5     1     1 -54.9 -2.06 Rx1day  11.3
-#> 6     1     1 -54.9 -2.06 Rx5day  11.3
+
 ```
 
 The function `precip_indices()` returns a data.frame with the precipitation indices. Each date corresponds to the first day in the time series intervals as defined by the argument 'span'. When `timeseries = FALSE` the function returns a single precipitation index for the entire time series.
@@ -95,8 +87,7 @@ The function `precip_indices()` returns a data.frame with the precipitation indi
 There are two main types of indices. Those that are expressed in days ("MLDS","MLWS","R10mm","R20mm") and those that are expressed in mm ("R95p","R99p","Rx5day","SDII"). We split these indices to visualise the time series.
 
 
-
-```r
+```{r mm, message=FALSE, eval=TRUE, echo=TRUE}
 library("tidyverse")
 
 mm <- c("R95p","R99p","Rx5day","SDII")
@@ -113,15 +104,13 @@ pi %>%
   gg1
 
 plot(gg1)
-```
 
-<img src="mm-1.png" title="plot of chunk mm" alt="plot of chunk mm" style="display: block; margin: auto;" />
+```
 
 
 Now plot the indices expressed in days.
 
-
-```r
+```{r days, message=TRUE, eval=TRUE, echo=TRUE}
 pi %>% 
   filter(index %in% days) %>% 
   ggplot() +
@@ -133,9 +122,8 @@ pi %>%
   gg2
 
 plot(gg2)
-```
 
-<img src="days-1.png" title="plot of chunk days" alt="plot of chunk days" style="display: block; margin: auto;" />
+```
 
 Here we see how these indices are changing across the time series. It is possible to see that the maximum precipitation in consecutive 5-days (Rx5day) is higher in the first weeks of each year. Which agree with the beginning of the rainy season in this region. In the other chart we note an increasing extent of consecutive dry days (MLDS) across the time series, with also a decrease in the number of consecutive rainy days (MLWS). If used carefully and with scientific rigour, these indices are a good proxy to evaluate the climate variability using precipitation data[@Aguilar2005; @DeSousa2018].  
 
@@ -145,8 +133,7 @@ Here we see how these indices are changing across the time series. It is possibl
 
 The **chirps** package also retrieves the Evaporative Stress Index (ESI) using the function `get_esi()` which behaves similarly as `get_chirps()`. 
 
-
-```r
+```{r esi, message=FALSE, eval=FALSE, echo=TRUE}
 set.seed(12)
 lonlat <- data.frame(lon = runif(2, -55, -54),
                      lat = runif(2, -3, -2))
@@ -159,8 +146,7 @@ dat <- get_esi(lonlat, dates)
 
 The function `get_esi()` may return `NA`s due to cloudiness in the dataset. One way to deal with this is increase the buffer area around the inputted object with the argument `dist` passed to `sf()` methods through the `...` functionality in `get_esi()`.
 
-
-```r
+```{r esi-error, message=FALSE, eval=FALSE, echo=TRUE}
 set.seed(123)
 lonlat <- data.frame(lon = runif(1, -55, -54),
                      lat = runif(1, -3, -2.7))
@@ -180,8 +166,7 @@ get_esi(lonlat, dates, dist = 0.1)
 
 Objects of class `sf` can also be passed directly to both `get_chirps()` and `get_esi()`.
 
-
-```r
+```{r sf, message=FALSE, eval=FALSE, echo=TRUE}
 lonlat <- data.frame(lon = c(-55.0281,-54.9857, -55.0714),
                      lat = c(-2.8094, -2.8756, -3.5279))
 
@@ -195,8 +180,7 @@ get_chirps(lonlat, dates)
 
 To return an object with the same class (`sf`), the argument `as.sf = TRUE` is used.
 
-
-```r
+```{r as.sf, message=FALSE, eval=FALSE, echo=TRUE}
 get_chirps(lonlat, dates, as.sf = TRUE)
 
 ```
