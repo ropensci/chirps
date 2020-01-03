@@ -15,21 +15,25 @@
 <link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
+
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
 
-<!-- sticky kit -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+<!-- headroom.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -37,17 +41,17 @@
 
 
 
-<meta property="og:title" content="Get evaporative stress index (ESI) data — get_esi" />
 
+<meta property="og:title" content="Get evaporative stress index (ESI) data — get_esi" />
 <meta property="og:description" content="Get evaporative stress index (ESI) from SERVIR Global
 via ClimateSERV API Client. ESI is available every four
  (or twelve) weeks from 2001 to present.
 The dataset may contain cloudy data which is returned as NAs.
 ClimateSERV works with geojson of type 'Polygon'. The input object is
  then transformed into polygons with a small buffer area around the point." />
-
 <meta property="og:image" content="/logo.png" />
 <meta name="twitter:card" content="summary" />
+
 
 
 
@@ -59,6 +63,7 @@ ClimateSERV works with geojson of type 'Polygon'. The input object is
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
+
 
 
   </head>
@@ -85,7 +90,7 @@ ClimateSERV works with geojson of type 'Polygon'. The input object is
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fa fa-home fa-lg"></span>
+    <span class="fas fa fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -102,16 +107,12 @@ ClimateSERV works with geojson of type 'Polygon'. The input object is
     <li>
       <a href="../articles/Overview.html">Introduction to chirps</a>
     </li>
-    <li>
-      <a href="../articles/paper.html">chirps: API Client for the Climate Hazards Group InfraRed Precipitation with Station Data</a>
-    </li>
   </ul>
 </li>
 <li>
   <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         
       </ul>
@@ -121,6 +122,7 @@ ClimateSERV works with geojson of type 'Polygon'. The input object is
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
@@ -132,14 +134,12 @@ ClimateSERV works with geojson of type 'Polygon'. The input object is
     </div>
 
     <div class="ref-description">
-    
     <p>Get evaporative stress index (<acronym>ESI</acronym>) from <acronym>SERVIR</acronym> Global
 via ClimateSERV <acronym>API</acronym> Client. <acronym>ESI</acronym> is available every four
  (or twelve) weeks from 2001 to present.
 The dataset may contain cloudy data which is returned as <code>NA</code>s.
 ClimateSERV works with geojson of type 'Polygon'. The input <code>object</code> is
  then transformed into polygons with a small buffer area around the point.</p>
-    
     </div>
 
     <pre class="usage"><span class='fu'>get_esi</span>(<span class='no'>object</span>, <span class='no'>dates</span>, <span class='kw'>operation</span> <span class='kw'>=</span> <span class='fl'>5</span>, <span class='kw'>period</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='no'>...</span>)
@@ -149,14 +149,14 @@ ClimateSERV works with geojson of type 'Polygon'. The input <code>object</code> 
 
 <span class='co'># S3 method for sf</span>
 <span class='fu'>get_esi</span>(<span class='no'>object</span>, <span class='no'>dates</span>, <span class='kw'>operation</span> <span class='kw'>=</span> <span class='fl'>5</span>, <span class='kw'>period</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>as.sf</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)</pre>
-    
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>object</th>
-      <td><p>input, an object of class <code><a href='https://www.rdocumentation.org/packages/base/topics/data.frame'>data.frame</a></code> or
-<code><a href='https://www.rdocumentation.org/packages/sf/topics/sf'>sf</a></code></p></td>
+      <td><p>input, an object of class <code><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></code> or
+<code><a href='https://rdrr.io/pkg/sf/man/sf.html'>sf</a></code></p></td>
     </tr>
     <tr>
       <th>dates</th>
@@ -174,7 +174,7 @@ statistical operation to perform on the dataset</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>further arguments passed to <code><a href='https://www.rdocumentation.org/packages/sf/topics/sf'>sf</a></code> methods.
+      <td><p>further arguments passed to <code><a href='https://rdrr.io/pkg/sf/man/sf.html'>sf</a></code> methods.
 See details</p></td>
     </tr>
     <tr>
@@ -183,7 +183,7 @@ See details</p></td>
 for S3 method of <span class="pkg">chirps</span> class <code>sf</code></p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>A data frame of <acronym>ESI</acronym> data:</p>
@@ -193,71 +193,85 @@ for S3 method of <span class="pkg">chirps</span> class <code>sf</code></p></td>
 <dt>lat</dt><dd><p>the latitude as provided in <code>object</code></p></dd>
 <dt>esi</dt><dd><p>the ESI value</p></dd>
 
-    
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p><b>operation</b>: supported operations are:</p><table class='table'>
-<tr><td></td><td></td><td><b>operation</b></td></tr>
-<tr><td></td><td></td><td></td></tr>
-<tr><td><b>value</b></td><td></td><td></td></tr>
+<tr><td><b>operation</b></td><td></td><td><b>value</b></td></tr>
 <tr><td>max</td><td>=</td><td>0</td></tr>
-<tr><td></td><td>min</td><td>=</td></tr>
-<tr><td>1</td><td></td><td>median</td></tr>
-<tr><td>=</td><td>2</td><td></td></tr>
+<tr><td>min</td><td>=</td><td>1</td></tr>
+<tr><td>median</td><td>=</td><td>2</td></tr>
 <tr><td>sum</td><td>=</td><td>4</td></tr>
-<tr><td></td><td>average</td><td>=</td></tr>
-<tr><td>5 (</td><td><em>default value</em></td><td>)</td></tr>
-<tr><td></td><td></td><td></td></tr>
+<tr><td>average</td><td>=</td><td>5 (<em>default value</em>)</td></tr>
 </table>
-    <p><b>dist</b>: numeric, buffer distance for each <code>object</code> coordinate</p>
+
+
+<p><b>dist</b>: numeric, buffer distance for each <code>object</code> coordinate</p>
 <p><b>nQuadSegs</b>: integer, number of segments per buffer quadrant</p>
-    
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>ClimateSERV <a href='https://climateserv.servirglobal.net'>https://climateserv.servirglobal.net</a></p>
 <p>Evaporative Stress Index
 <a href='http://catalogue.servirglobal.net/Product?product_id=198'>http://catalogue.servirglobal.net/Product?product_id=198</a></p>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><span class='co'># NOT RUN {</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>library</a></span>(<span class='st'>"chirps"</span>)
+    <pre class="examples"><div class='input'><span class='co'># \donttest{</span>
+<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='st'>"chirps"</span>)
 
-<span class='no'>lonlat</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/data.frame'>data.frame</a></span>(<span class='kw'>lon</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(-<span class='fl'>55.0281</span>,-<span class='fl'>54.9857</span>, -<span class='fl'>55.0714</span>),
-                     <span class='kw'>lat</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(-<span class='fl'>2.8094</span>, -<span class='fl'>2.8756</span>, -<span class='fl'>3.5279</span>))
+<span class='no'>lonlat</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='kw'>lon</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(-<span class='fl'>55.0281</span>,-<span class='fl'>54.9857</span>, -<span class='fl'>55.0714</span>),
+                     <span class='kw'>lat</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(-<span class='fl'>2.8094</span>, -<span class='fl'>2.8756</span>, -<span class='fl'>3.5279</span>))
 
-<span class='no'>dates</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"2017-12-15"</span>,<span class='st'>"2018-06-20"</span>)
+<span class='no'>dates</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"2017-12-15"</span>,<span class='st'>"2018-06-20"</span>)
 
 <span class='co'># by default the function set a very small buffer around the points</span>
 <span class='co'># which can return NAs due to cloudiness in ESI data</span>
 
-<span class='no'>dat</span> <span class='kw'>&lt;-</span> <span class='fu'>get_esi</span>(<span class='no'>lonlat</span>, <span class='kw'>dates</span> <span class='kw'>=</span> <span class='no'>dates</span>)
-
-<span class='no'>dat</span>
-
+<span class='no'>dat</span> <span class='kw'>&lt;-</span> <span class='fu'>get_esi</span>(<span class='no'>lonlat</span>, <span class='kw'>dates</span> <span class='kw'>=</span> <span class='no'>dates</span>)</div><div class='output co'>#&gt; Getting your request...</div><div class='input'>
+<span class='no'>dat</span></div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 41 x 5</span><span>
+#&gt;    id      lon   lat date           esi
+#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>       </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #555555;'> 1</span><span> 1     -</span><span style='color: #BB0000;'>55.0</span><span> -</span><span style='color: #BB0000;'>2.81</span><span> </span><span style='color: #BB0000;'>NA</span><span>         </span><span style='color: #BB0000;'>NA</span><span>     
+#&gt; </span><span style='color: #555555;'> 2</span><span> 2     -</span><span style='color: #BB0000;'>55.0</span><span> -</span><span style='color: #BB0000;'>2.88</span><span> 2017-12-11 -</span><span style='color: #BB0000;'>0.844</span><span> 
+#&gt; </span><span style='color: #555555;'> 3</span><span> 2     -</span><span style='color: #BB0000;'>55.0</span><span> -</span><span style='color: #BB0000;'>2.88</span><span> 2018-01-01 -</span><span style='color: #BB0000;'>1.51</span><span>  
+#&gt; </span><span style='color: #555555;'> 4</span><span> 2     -</span><span style='color: #BB0000;'>55.0</span><span> -</span><span style='color: #BB0000;'>2.88</span><span> 2018-01-09 -</span><span style='color: #BB0000;'>0.536</span><span> 
+#&gt; </span><span style='color: #555555;'> 5</span><span> 2     -</span><span style='color: #BB0000;'>55.0</span><span> -</span><span style='color: #BB0000;'>2.88</span><span> 2018-01-17 -</span><span style='color: #BB0000;'>0.935</span><span> 
+#&gt; </span><span style='color: #555555;'> 6</span><span> 2     -</span><span style='color: #BB0000;'>55.0</span><span> -</span><span style='color: #BB0000;'>2.88</span><span> 2018-01-25 -</span><span style='color: #BB0000;'>0.838</span><span> 
+#&gt; </span><span style='color: #555555;'> 7</span><span> 2     -</span><span style='color: #BB0000;'>55.0</span><span> -</span><span style='color: #BB0000;'>2.88</span><span> 2018-02-02 -</span><span style='color: #BB0000;'>0.073</span><span style='color: #BB0000;text-decoration: underline;'>1</span><span>
+#&gt; </span><span style='color: #555555;'> 8</span><span> 2     -</span><span style='color: #BB0000;'>55.0</span><span> -</span><span style='color: #BB0000;'>2.88</span><span> 2018-03-06  1.27  
+#&gt; </span><span style='color: #555555;'> 9</span><span> 2     -</span><span style='color: #BB0000;'>55.0</span><span> -</span><span style='color: #BB0000;'>2.88</span><span> 2018-03-14  1.10  
+#&gt; </span><span style='color: #555555;'>10</span><span> 2     -</span><span style='color: #BB0000;'>55.0</span><span> -</span><span style='color: #BB0000;'>2.88</span><span> 2018-03-22  0.792 
+#&gt; </span><span style='color: #555555;'># … with 31 more rows</span><span></div><div class='input'>
 <span class='co'># the argument dist passed through sf increase the buffer area</span>
 
-<span class='no'>dat</span> <span class='kw'>&lt;-</span> <span class='fu'>get_esi</span>(<span class='no'>lonlat</span>, <span class='kw'>dates</span> <span class='kw'>=</span> <span class='no'>dates</span>, <span class='kw'>dist</span> <span class='kw'>=</span> <span class='fl'>0.1</span>)
-
-<span class='no'>dat</span>
-<span class='co'># }</span></pre>
+<span class='no'>dat</span> <span class='kw'>&lt;-</span> <span class='fu'>get_esi</span>(<span class='no'>lonlat</span>, <span class='kw'>dates</span> <span class='kw'>=</span> <span class='no'>dates</span>, <span class='kw'>dist</span> <span class='kw'>=</span> <span class='fl'>0.1</span>)</div><div class='output co'>#&gt; Getting your request...</div><div class='input'>
+<span class='no'>dat</span></div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 69 x 5</span><span>
+#&gt;    id      lon   lat date           esi
+#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>       </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #555555;'> 1</span><span> 1     -</span><span style='color: #BB0000;'>55.0</span><span> -</span><span style='color: #BB0000;'>2.81</span><span> 2017-12-11 -</span><span style='color: #BB0000;'>1.98</span><span>  
+#&gt; </span><span style='color: #555555;'> 2</span><span> 1     -</span><span style='color: #BB0000;'>55.0</span><span> -</span><span style='color: #BB0000;'>2.81</span><span> 2018-01-01 -</span><span style='color: #BB0000;'>1.49</span><span>  
+#&gt; </span><span style='color: #555555;'> 3</span><span> 1     -</span><span style='color: #BB0000;'>55.0</span><span> -</span><span style='color: #BB0000;'>2.81</span><span> 2018-01-09 -</span><span style='color: #BB0000;'>0.219</span><span> 
+#&gt; </span><span style='color: #555555;'> 4</span><span> 1     -</span><span style='color: #BB0000;'>55.0</span><span> -</span><span style='color: #BB0000;'>2.81</span><span> 2018-01-17 -</span><span style='color: #BB0000;'>0.423</span><span> 
+#&gt; </span><span style='color: #555555;'> 5</span><span> 1     -</span><span style='color: #BB0000;'>55.0</span><span> -</span><span style='color: #BB0000;'>2.81</span><span> 2018-01-25 -</span><span style='color: #BB0000;'>0.239</span><span> 
+#&gt; </span><span style='color: #555555;'> 6</span><span> 1     -</span><span style='color: #BB0000;'>55.0</span><span> -</span><span style='color: #BB0000;'>2.81</span><span> 2018-02-02  0.418 
+#&gt; </span><span style='color: #555555;'> 7</span><span> 1     -</span><span style='color: #BB0000;'>55.0</span><span> -</span><span style='color: #BB0000;'>2.81</span><span> 2018-02-10  0.435 
+#&gt; </span><span style='color: #555555;'> 8</span><span> 1     -</span><span style='color: #BB0000;'>55.0</span><span> -</span><span style='color: #BB0000;'>2.81</span><span> 2018-02-18  0.473 
+#&gt; </span><span style='color: #555555;'> 9</span><span> 1     -</span><span style='color: #BB0000;'>55.0</span><span> -</span><span style='color: #BB0000;'>2.81</span><span> 2018-02-26  0.126 
+#&gt; </span><span style='color: #555555;'>10</span><span> 1     -</span><span style='color: #BB0000;'>55.0</span><span> -</span><span style='color: #BB0000;'>2.81</span><span> 2018-03-06  0.057</span><span style='text-decoration: underline;'>0</span><span>
+#&gt; </span><span style='color: #555555;'># … with 59 more rows</span><span></div><div class='input'># } 
+</div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
       <li><a href="#value">Value</a></li>
-
       <li><a href="#details">Details</a></li>
-
       <li><a href="#references">References</a></li>
-      
       <li><a href="#examples">Examples</a></li>
     </ul>
 
   </div>
 </div>
+
 
       <footer>
       <div class="copyright">
@@ -265,13 +279,16 @@ for S3 method of <span class="pkg">chirps</span> class <code>sf</code></p></td>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
 </div>
+
       </footer>
    </div>
 
   
 
+
   </body>
 </html>
+
 
