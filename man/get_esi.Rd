@@ -17,19 +17,16 @@ get_esi(object, dates, operation = 5, period = 1, ...)
 \code{\link[sf]{sf}}}
 
 \item{dates}{a character of start and end dates in that order in the format
-YYYY-MM-DD}
+"YYYY-MM-DD"}
 
 \item{operation}{optional, an integer that represents which type of
 statistical operation to perform on the dataset}
 
-\item{period}{an integer value for the period of ESI data, four weeks period
-= 1, twelve weeks = 2}
+\item{...}{further arguments passed to \code{\link[sf]{sf}} methods.
+See details}
 
-\item{...}{further arguments passed to \code{\link[sf]{sf}} methods. See
-details}
-
-\item{as.sf}{logical, returns an object of class \code{sf} for S3 method of
-class \code{\link[sf]{sf}}}
+\item{as.sf}{logical, returns an object of class \code{[sf]{sf}}
+for S3 method of \pkg{chirps} class \code{sf}}
 }
 \value{
 A data frame of \acronym{ESI} data:
@@ -40,20 +37,27 @@ A data frame of \acronym{ESI} data:
 \item{esi}{the ESI value}
 }
 \description{
-Get evaporative stress index (\acronym{ESI}) from SERVIR Global
+Get evaporative stress index (\acronym{ESI}) from \acronym{SERVIR} Global
 via ClimateSERV \acronym{API} Client. \acronym{ESI} is available every four
  (or twelve) weeks from 2001 to present.
-The dataset may contain cloudy data which is returned as NAs.
+The dataset may contain cloudy data which is returned as \code{NA}s.
 ClimateSERV works with geojson of type 'Polygon'. The input \code{object} is
  then transformed into polygons with a small buffer area around the point.
 }
 \details{
-operation: supported operations are max = 0, min = 1, median = 2, sum = 4,
- average = 5
+\bold{operation}: supported operations are:  
+ \tabular{rll}{
+ \bold{operation}      \tab    \tab \bold{value}\cr
+ max                   \tab =  \tab 0\cr
+ min                   \tab =  \tab 1\cr
+ median                \tab =  \tab 2\cr
+ sum                   \tab =  \tab 4\cr
+ average               \tab =  \tab 5 (\emph{default value})\cr
+ }
 
-dist: numeric, buffer distance for each \code{object} coordinate
+\bold{dist}: numeric, buffer distance for each \code{object} coordinate
 
-nQuadSegs: integer, number of segments per buffer quadrant
+\bold{nQuadSegs}: integer, number of segments per buffer quadrant
 }
 \examples{
 \donttest{

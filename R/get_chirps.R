@@ -11,24 +11,34 @@
 #'  "YYYY-MM-DD"
 #' @param operation optional, an integer that represents which type of
 #' statistical operation to perform on the dataset
-#' @param as.sf logical, returns an object of class "sf" for S3 method of class
-#'  \code{\link[sf]{sf}}
-#' @param ... further arguments passed to \code{\link[sf]{sf}} methods. See
-#'  details 
-#' @details  
-#' operation: supported operations are max = 0, min = 1, median = 2, sum = 4,
-#'  average = 5
+#' @param as.sf logical, returns an object of class \code{[sf]{sf}}
+#'  for S3 method of \pkg{chirps} class \code{sf}
+#' @param ... further arguments passed to \code{\link[sf]{sf}} methods.
+#'  See details 
+#'  
+#' @details
+#'  \bold{operation}: supported operations are:
+#'  \tabular{rll}{
+#'  \bold{operation}      \tab    \tab \bold{value}\cr
+#'  max                   \tab =  \tab 0\cr
+#'  min                   \tab =  \tab 1\cr
+#'  median                \tab =  \tab 2\cr
+#'  sum                   \tab =  \tab 4\cr
+#'  average               \tab =  \tab 5 (\emph{default value})\cr
+#'  }
 #' 
-#' dist: numeric, buffer distance for each \code{object} coordinate
+#' \bold{dist}: numeric, buffer distance for each \code{object} coordinate
 #' 
-#' nQuadSegs: integer, number of segments per buffer quadrant
+#' \bold{nQuadSegs}: integer, number of segments per buffer quadrant
 #' 
-#' @return A data frame of CHIRPS data:
-#' \item{id}{the index for the rows in \code{object}}
-#' \item{dates}{the dates from which CHIRPS was requested}
-#' \item{lon}{the longitude as provided in \code{object}}
-#' \item{lat}{the latitude as provided in \code{object}}
-#' \item{chirps}{the CHIRPS value in mm}
+#' @return A data frame of \acronym{CHIRPS} data:
+#' \describe{
+#'   \item{id}{the index for the rows in \code{object}}
+#'   \item{dates}{the dates from which \acronym{CHIRPS} was requested}
+#'   \item{lon}{the longitude as provided in \code{object}}
+#'   \item{lat}{the latitude as provided in \code{object}}
+#'   \item{chirps}{the \acronym{CHIRPS} value in mm}
+#' }
 #' @references 
 #' 
 #' Funk C. et al. (2015). Scientific Data, 2, 150066.

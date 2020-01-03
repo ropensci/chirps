@@ -11,14 +11,14 @@ precip_indices(object, timeseries = FALSE, span = NULL)
 \code{\link{get_chirps}}}
 
 \item{timeseries}{logical, \code{FALSE} for a single point time series
-observation or \code{TRUE} for a time series based on a \code{span}}
+observation or \code{TRUE} for a time series based on a \var{span}}
 
 \item{span}{integer no lower than 5, for the days intervals when
-\code{timeseries} = TRUE}
+\var{timeseries} = \code{TRUE}}
 }
 \value{
 A dataframe with selected indices:
-\item{MLDS}{maximum length of consecutive dry day, rain <  1 mm (days)}
+\item{MLDS}{maximum length of consecutive dry day, rain < 1 mm (days)}
 \item{MLWS}{maximum length of consecutive wet days, rain >= 1 mm (days)}
 \item{R10mm}{number of heavy precipitation days 10 >= rain < 20 mm (days)}
 \item{R20mm}{number of very heavy precipitation days rain >= 20 (days)}

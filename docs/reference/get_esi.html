@@ -137,10 +137,10 @@ ClimateSERV works with geojson of type 'Polygon'. The input object is
     </div>
 
     <div class="ref-description">
-    <p>Get evaporative stress index (<acronym>ESI</acronym>) from SERVIR Global
+    <p>Get evaporative stress index (<acronym>ESI</acronym>) from <acronym>SERVIR</acronym> Global
 via ClimateSERV <acronym>API</acronym> Client. <acronym>ESI</acronym> is available every four
  (or twelve) weeks from 2001 to present.
-The dataset may contain cloudy data which is returned as NAs.
+The dataset may contain cloudy data which is returned as <code>NA</code>s.
 ClimateSERV works with geojson of type 'Polygon'. The input <code>object</code> is
  then transformed into polygons with a small buffer area around the point.</p>
     </div>
@@ -164,7 +164,7 @@ ClimateSERV works with geojson of type 'Polygon'. The input <code>object</code> 
     <tr>
       <th>dates</th>
       <td><p>a character of start and end dates in that order in the format
-YYYY-MM-DD</p></td>
+"YYYY-MM-DD"</p></td>
     </tr>
     <tr>
       <th>operation</th>
@@ -172,19 +172,14 @@ YYYY-MM-DD</p></td>
 statistical operation to perform on the dataset</p></td>
     </tr>
     <tr>
-      <th>period</th>
-      <td><p>an integer value for the period of ESI data, four weeks period
-= 1, twelve weeks = 2</p></td>
-    </tr>
-    <tr>
       <th>...</th>
-      <td><p>further arguments passed to <code><a href='https://rdrr.io/pkg/sf/man/sf.html'>sf</a></code> methods. See
-details</p></td>
+      <td><p>further arguments passed to <code><a href='https://rdrr.io/pkg/sf/man/sf.html'>sf</a></code> methods.
+See details</p></td>
     </tr>
     <tr>
       <th>as.sf</th>
-      <td><p>logical, returns an object of class <code>sf</code> for S3 method of
-class <code><a href='https://rdrr.io/pkg/sf/man/sf.html'>sf</a></code></p></td>
+      <td><p>logical, returns an object of class <code>[sf]{sf}</code>
+for S3 method of <span class="pkg">chirps</span> class <code>sf</code></p></td>
     </tr>
     </table>
 
@@ -199,14 +194,23 @@ class <code><a href='https://rdrr.io/pkg/sf/man/sf.html'>sf</a></code></p></td>
 
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>operation: supported operations are max = 0, min = 1, median = 2, sum = 4,
- average = 5</p>
-<p>dist: numeric, buffer distance for each <code>object</code> coordinate</p>
-<p>nQuadSegs: integer, number of segments per buffer quadrant</p>
+    <p><b>operation</b>: supported operations are:</p><table class='table'>
+<tr><td><b>operation</b></td><td></td><td><b>value</b></td></tr>
+<tr><td>max</td><td>=</td><td>0</td></tr>
+<tr><td>min</td><td>=</td><td>1</td></tr>
+<tr><td>median</td><td>=</td><td>2</td></tr>
+<tr><td>sum</td><td>=</td><td>4</td></tr>
+<tr><td>average</td><td>=</td><td>5 (<em>default value</em>)</td></tr>
+</table>
+
+
+<p><b>dist</b>: numeric, buffer distance for each <code>object</code> coordinate</p>
+<p><b>nQuadSegs</b>: integer, number of segments per buffer quadrant</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
-    <p>ClimateSERV &lt;https://climateserv.servirglobal.net&gt;</p>
-<p>Evaporative Stress Index &lt;http://catalogue.servirglobal.net/Product?product_id=198&gt;</p>
+    <p>ClimateSERV <a href='https://climateserv.servirglobal.net'>https://climateserv.servirglobal.net</a></p>
+<p>Evaporative Stress Index
+<a href='http://catalogue.servirglobal.net/Product?product_id=198'>http://catalogue.servirglobal.net/Product?product_id=198</a></p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># \donttest{</span>

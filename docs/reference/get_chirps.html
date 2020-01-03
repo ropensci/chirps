@@ -169,36 +169,46 @@ statistical operation to perform on the dataset</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>further arguments passed to <code><a href='https://rdrr.io/pkg/sf/man/sf.html'>sf</a></code> methods. See
-details</p></td>
+      <td><p>further arguments passed to <code><a href='https://rdrr.io/pkg/sf/man/sf.html'>sf</a></code> methods.
+See details</p></td>
     </tr>
     <tr>
       <th>as.sf</th>
-      <td><p>logical, returns an object of class "sf" for S3 method of class
-<code><a href='https://rdrr.io/pkg/sf/man/sf.html'>sf</a></code></p></td>
+      <td><p>logical, returns an object of class <code>[sf]{sf}</code>
+for S3 method of <span class="pkg">chirps</span> class <code>sf</code></p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A data frame of CHIRPS data:</p>
-<dt>id</dt><dd><p>the index for the rows in <code>object</code></p></dd>
-<dt>dates</dt><dd><p>the dates from which CHIRPS was requested</p></dd>
-<dt>lon</dt><dd><p>the longitude as provided in <code>object</code></p></dd>
-<dt>lat</dt><dd><p>the latitude as provided in <code>object</code></p></dd>
-<dt>chirps</dt><dd><p>the CHIRPS value in mm</p></dd>
+    <p>A data frame of <acronym>CHIRPS</acronym> data:</p><dl class='dl-horizontal'>
+  <dt>id</dt><dd><p>the index for the rows in <code>object</code></p></dd>
+  <dt>dates</dt><dd><p>the dates from which <acronym>CHIRPS</acronym> was requested</p></dd>
+  <dt>lon</dt><dd><p>the longitude as provided in <code>object</code></p></dd>
+  <dt>lat</dt><dd><p>the latitude as provided in <code>object</code></p></dd>
+  <dt>chirps</dt><dd><p>the <acronym>CHIRPS</acronym> value in mm</p></dd>
+
+</dl>
 
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>operation: supported operations are max = 0, min = 1, median = 2, sum = 4,
- average = 5</p>
-<p>dist: numeric, buffer distance for each <code>object</code> coordinate</p>
-<p>nQuadSegs: integer, number of segments per buffer quadrant</p>
+    <p><b>operation</b>: supported operations are:</p><table class='table'>
+<tr><td><b>operation</b></td><td></td><td><b>value</b></td></tr>
+<tr><td>max</td><td>=</td><td>0</td></tr>
+<tr><td>min</td><td>=</td><td>1</td></tr>
+<tr><td>median</td><td>=</td><td>2</td></tr>
+<tr><td>sum</td><td>=</td><td>4</td></tr>
+<tr><td>average</td><td>=</td><td>5 (<em>default value</em>)</td></tr>
+</table>
+
+
+<p><b>dist</b>: numeric, buffer distance for each <code>object</code> coordinate</p>
+<p><b>nQuadSegs</b>: integer, number of segments per buffer quadrant</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Funk C. et al. (2015). Scientific Data, 2, 150066.
- &lt;https://doi.org/10.1038/sdata.2015.66&gt;</p>
-<p>ClimateSERV &lt;https://climateserv.servirglobal.net&gt;</p>
+ <br /><a href='https://doi.org/10.1038/sdata.2015.66'>https://doi.org/10.1038/sdata.2015.66</a></p>
+<p>ClimateSERV <a href='https://climateserv.servirglobal.net'>https://climateserv.servirglobal.net</a></p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># \donttest{</span>
