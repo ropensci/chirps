@@ -37,6 +37,6 @@ vignettes/*.tex
 .Rproj.user
 
 logo.svg
-dev
+/dev
 doc
 Meta

@@ -35,8 +35,7 @@ Imports:
 Suggests:
     knitr,
     rmarkdown,
-    testthat (>= 2.1.0),
-    tidyverse
+    testthat (>= 2.1.0)
 Language: en-GB
 RoxygenNote: 7.0.2
 VignetteBuilder: knitr

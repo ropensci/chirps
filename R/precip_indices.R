@@ -52,7 +52,7 @@ precip_indices <- function(object, timeseries = FALSE, span = NULL) {
   if (!.is_chirps(object)) {
     stop("object must be a data.frame with class 'chirps'\n")
   }
-   
+  
   indices <- c("MLDS","MLWS","R10mm","R20mm","Rx1day",
                "Rx5day","R95p","R99p","Rtotal","SDII")
   
@@ -141,8 +141,6 @@ precip_indices <- function(object, timeseries = FALSE, span = NULL) {
   
   return(result)
 }
-
-
 
 #' Maximum length of consecutive dry days
 #' @param object numeric vector
