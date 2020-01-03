@@ -8,7 +8,7 @@
 #'  then transformed into polygons with a small buffer area around the point.
 #' 
 #' @inheritParams get_chirps
-#'  
+#' @param period an integer value for the period of ESI data, four weeks period = 1, twelve weeks = 2
 #' @details
 #'  \bold{operation}: supported operations are:  
 #'  \tabular{rll}{

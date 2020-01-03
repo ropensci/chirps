@@ -1,12 +1,9 @@
 {
-  "@context": [
-    "https://doi.org/10.5063/schema/codemeta-2.0",
-    "http://schema.org"
-  ],
+  "@context": ["https://doi.org/10.5063/schema/codemeta-2.0", "http://schema.org"],
   "@type": "SoftwareSourceCode",
   "identifier": "chirps",
   "description": "API Client for the Climate Hazards Group InfraRed Precipitation\n  with Station Data 'CHIRPS'. The 'CHIRPS' data is a 35+ year quasi-global\n  rainfall data set, which incorporates 0.05 arc-degrees resolution satellite\n  imagery, and in-situ station data to create gridded rainfall time series for\n  trend analysis and seasonal drought monitoring. For more details on 'CHIRPS'\n  data please visit its official home page\n  <https://www.chc.ucsb.edu/data/chirps>. ",
-  "name": "chirps: API Client for the Climate Hazards Group InfraRed Precipitation with Station Data",
+  "name": "chirps: API Client for CHIRPS",
   "codeRepository": "https://agrobioinfoservices.github.io/chirps/",
   "issueTracker": "https://github.com/agrobioinfoservices/chirps/issues",
   "license": "https://spdx.org/licenses/GPL-3.0",
@@ -14,10 +11,10 @@
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
-    "version": "3.6.2",
+    "version": "3.5.3",
     "url": "https://r-project.org"
   },
-  "runtimePlatform": "R version 3.6.2 (2019-12-12)",
+  "runtimePlatform": "R version 3.5.3 (2019-03-11)",
   "author": [
     {
       "@type": "Person",
@@ -34,7 +31,7 @@
     },
     {
       "@type": "Person",
-      "givenName": "Billy",
+      "givenName": "William",
       "familyName": "Ashmall"
     }
   ],
@@ -48,7 +45,8 @@
     {
       "@type": "Person",
       "givenName": "Svein",
-      "familyName": "Solberg"
+      "familyName": "Solberg",
+      "@id": "https://orcid.org/0000-0002-4491-4483"
     }
   ],
   "copyrightHolder": {},
@@ -99,18 +97,6 @@
         "url": "https://cran.r-project.org"
       },
       "sameAs": "https://CRAN.R-project.org/package=testthat"
-    },
-    {
-      "@type": "SoftwareApplication",
-      "identifier": "tidyverse",
-      "name": "tidyverse",
-      "provider": {
-        "@id": "https://cran.r-project.org",
-        "@type": "Organization",
-        "name": "Comprehensive R Archive Network (CRAN)",
-        "url": "https://cran.r-project.org"
-      },
-      "sameAs": "https://CRAN.R-project.org/package=tidyverse"
     }
   ],
   "softwareRequirements": [
@@ -119,6 +105,18 @@
       "identifier": "R",
       "name": "R",
       "version": ">= 2.10"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "crul",
+      "name": "crul",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=crul"
     },
     {
       "@type": "SoftwareApplication",
@@ -166,12 +164,5 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=tibble"
     }
-  ],
-  "releaseNotes": "https://github.com/agrobioinfoservices/chirps/blob/master/NEWS.md",
-  "readme": "https://github.com/agrobioinfoservices/chirps/blob/master/README.md",
-  "contIntegration": [
-    "https://ci.appveyor.com/project/kauedesousa/chirps",
-    "https://travis-ci.org/agrobioinfoservices/chirps",
-    "https://codecov.io/github/agrobioinfoservices/chirps?branch=master"
   ]
 }

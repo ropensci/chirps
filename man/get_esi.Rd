@@ -22,6 +22,8 @@ get_esi(object, dates, operation = 5, period = 1, ...)
 \item{operation}{optional, an integer that represents which type of
 statistical operation to perform on the dataset}
 
+\item{period}{an integer value for the period of ESI data, four weeks period = 1, twelve weeks = 2}
+
 \item{...}{further arguments passed to \code{\link[sf]{sf}} methods.
 See details}
 

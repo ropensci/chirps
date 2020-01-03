@@ -145,11 +145,12 @@
 #' chirps:::.send_request(begintime = "12/10/2018",
 #'                        endtime = "12/26/2018",
 #'                        geometry = gjson)
+#' @import crul
 #' @noRd
 .send_request <- function(datatype = 0, begintime = NULL, endtime = NULL,
                           intervaltype = 0, operationtype = 5, geometry = NULL) {
   
-  request_path <- "https://climateserv.servirglobal.net/chirps/submitDataRequest/?"
+  base_url <- "https://climateserv.servirglobal.net/chirps/"
   
   # organise the query
   query <- list(
@@ -164,16 +165,18 @@
     geometry = geometry
   )
   
+  client_request <-
+    crul::HttpClient$new(url = paste0(base_url, "submitDataRequest/?"))
   
-  # sent the query
-  query <- paste(paste0(names(query),"=",unlist(query)), collapse = "&")
+  # check status
+  status <- client_request$get()
+  status$raise_for_status()
   
-  request <- paste0(request_path, query)
-  
+  # send the query
   tryCatch(
-    id <- suppressWarnings(
-      readLines(request)
-    ),
+    
+    id <- client_request$get(query = query),
+    
     error = function(x) {
       stop("\nThe requested data could not be downloaded.\n
            \nPlease try your query again later.\n",
@@ -181,6 +184,7 @@
     }
   )
 
+  id <- id$parse("UTF-8")
   
   # get content from the query
   id <- strsplit(id, '["]')[[1]][2]
@@ -199,21 +203,31 @@
 #' 
 #' gjson <- chirps:::.dataframe_to_geojson(lonlat)
 #' 
-#' id <- chirps:::.send_request(begintime = "12/10/2018", 
-#'                        endtime = "12/26/2018", 
+#' id <- chirps:::.send_request(begintime = "12/10/2018",
+#'                        endtime = "12/26/2018",
 #'                        geometry = gjson)
 #' chirps:::.get_request_progress (id = id)
 #' @noRd
 .get_request_progress <- function(id) {
   
-  progress_path <- "https://climateserv.servirglobal.net/chirps/getDataRequestProgress/?"
+  base_url <- "https://climateserv.servirglobal.net/chirps/"
   
-  # send the query
-  request <- paste0(progress_path, "id=", id)
+  client_request <-
+    crul::HttpClient$new(url = paste0(base_url, "getDataRequestProgress/?"))
   
-  p <- suppressWarnings(
-    readLines(request)
-  )
+  
+  # organise the query
+  query <- list(id = id)
+  
+  # check status
+  status <- client_request$get()
+
+  # send query
+  client_request$get(query = query)
+    
+  p <- client_request$get(query = query)
+  
+  p <- p$parse("UTF-8")
   
   p <- grepl(100, p)
   
@@ -241,19 +255,28 @@
 #' @noRd
 .get_data_from_request <- function(id) {
   
-  getdata_path <- "https://climateserv.servirglobal.net/chirps/getDataFromRequest/?"
+  base_url <- "https://climateserv.servirglobal.net/chirps/"
   
-  # send the query
-  request <- paste0(getdata_path, "id=", id)
+  client_request <-
+    crul::HttpClient$new(url = paste0(base_url, "getDataFromRequest/?"))
   
-  d <- suppressWarnings(
-    readLines(request)
-  )
-   
-  class(d) <- c("json", class(d))
+  
+  # organise the query
+  query <- list(id = id)
+  
+  # check status
+  status <- client_request$get()
+  status$raise_for_status()
+  
+  client_request$get(query = query)
+  
+  # send query
+  d <- client_request$get(query = query)
+  
+  d <- d$parse("UTF-8")
   
   d <- jsonlite::fromJSON(d)
-
+  
   d <- data.frame(cbind(date = d$data$date,
                         d$data$value))
 
