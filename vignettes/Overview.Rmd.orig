@@ -53,16 +53,16 @@ devtools::install_github("agrobioinfoservices/chirps", build_vignettes = TRUE)
 
 # Usage
 
-The *Tapajos* National Forest, Brazil is a protected area in the Brazilian Amazon. We take two random points across its area to get the precipitation from Jan-2015 to Dec-2016 using `get_chirps()`.
+The *Tapajos* National Forest, Brazil is a protected area in the Brazilian Amazon. We take two random points across its area to get the precipitation from Jan-2013 to Dec-2018 using `get_chirps()`.
 
-```{r get, message=TRUE, eval=TRUE, echo=TRUE}
+```{r get, message=FALSE, eval=TRUE, echo=TRUE}
 library("chirps")
 
 set.seed(12)
 lonlat <- data.frame(lon = runif(2, -55, -54),
                      lat = runif(2, -3, -2))
 
-dates <- c("2015-01-01","2016-12-31")
+dates <- c("2013-01-01","2018-12-31")
 
 dat <- get_chirps(lonlat, dates)
 
@@ -73,7 +73,7 @@ head(dat)
 
 The function `get_chirps()` returns a data.frame which inherits the class 'chirps', where each id represents the index for the rows in the in-putted 'object'. 
 
-With `precip_indices()` is possible to track how the precipitation changes across a time series using precipitation variability indices[@Aguilar2005]. Here, we take the indices for periods of 7 days and compute the indices the time series (from Jan-2015 to Dec-2016).
+With `precip_indices()` is possible to track how the precipitation changes across a time series using precipitation variability indices[@Aguilar2005]. Here, we take the indices for periods of 7 days and compute the indices the time series (from Jan-2013 to Dec-2018).
 
 ```{r indices, message=TRUE, eval=TRUE, echo=TRUE}
 pi <- precip_indices(dat, timeseries = TRUE, span = 7)
@@ -100,10 +100,10 @@ pi %>%
   geom_smooth(aes(x = date, y = value), method = "loess") +
   facet_wrap(. ~ index) +
   theme_classic() +
-  labs(x = "Week", y = "Index (mm)") ->
+  labs(x = "Year", y = "Index (mm)") ->
   gg1
 
-gg1
+plot(gg1)
 
 ```
 
@@ -118,14 +118,14 @@ pi %>%
   geom_smooth(aes(x = date, y = value), method = "loess") +
   facet_wrap(. ~ index) +
   theme_classic() +
-  labs(x = "Week", y = "Index (days)") ->
+  labs(x = "Year", y = "Index (days)") ->
   gg2
 
-gg2
+plot(gg2)
 
 ```
 
-Here we see how these indices are changing across the time series. It is possible to see that the maximum precipitation in consecutive 5-days (Rx5day) is higher in the first weeks of each year. Which agree with the beginning of the rainy season in this region. In the other chart we note an increasing extent of consecutive dry days (MLDS) across the time series, with also a decrease in the number of consecutive rainy days (MLWS). If used carefully and with scientific rigour, these indices are a good proxy to evaluate the climate variability using precipitation data[@Aguilar2005; @DeSousa2018].  
+Here we see how these indices are changing across the time series. If used carefully and with scientific rigour, these indices are a good proxy to evaluate the climate variability using precipitation data[@Aguilar2005; @DeSousa2018]. In this quick assessment, it is possible to see that the maximum precipitation in consecutive 5-days (Rx5day) is higher in the first weeks of each year, which agree with the beginning of the rainy season in this region. However, the trend shows a decreasing in Rx5day across the years. In the other chart we note an increasing extent of consecutive dry days (MLDS) across the time series, with also a decrease in the number of consecutive rainy days (MLWS).  
 
 # Going further
 
@@ -144,7 +144,7 @@ dat <- get_esi(lonlat, dates)
 
 ```
 
-The function `get_esi()` may return `NA`s due to cloudiness in the dataset. One way to deal with this is increase the buffer area around the in-putted object with the argument `dist` passed to `sf()` methods through the `...` functionality in `get_esi()`.
+The function `get_esi()` may return `NA`s due to cloudiness in the dataset. Which will return an error message:
 
 ```{r esi-error, message=FALSE, eval=FALSE, echo=TRUE}
 set.seed(123)
@@ -153,20 +153,24 @@ lonlat <- data.frame(lon = runif(1, -55, -54),
 
 dates <- c("2017-12-01","2018-01-20")
 
-# this return a error due to missing data
 get_esi(lonlat, dates)
-
-# this works
-get_esi(lonlat, dates, dist = 0.1)
 
 ```
 
+One way to deal with this is increase the buffer area around the in-putted object with the argument `dist` passed to `sf()` methods through the `...` functionality in `get_esi()`.
+
+```{r esi-ok, message=FALSE, eval=FALSE, echo=TRUE}
+get_esi(lonlat, dates, dist = 0.1)
+
+```
 
 ## Objects of class sf
 
 Objects of class `sf` can also be passed directly to both `get_chirps()` and `get_esi()`.
 
 ```{r sf, message=FALSE, eval=FALSE, echo=TRUE}
+library("sf")
+
 lonlat <- data.frame(lon = c(-55.0281,-54.9857, -55.0714),
                      lat = c(-2.8094, -2.8756, -3.5279))
 

@@ -193,35 +193,35 @@ observation or <code>TRUE</code> for a time series based on a <var>span</var></p
 
 <span class='no'>dat</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='get_chirps.html'>get_chirps</a></span>(<span class='no'>lonlat</span>, <span class='no'>dates</span>)</div><div class='output co'>#&gt; Getting your request...</div><div class='input'>
 <span class='co'># take the indices for the entire period </span>
-<span class='fu'>precip_indices</span>(<span class='no'>dat</span>, <span class='kw'>timeseries</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 30 x 6</span><span>
+<span class='fu'>precip_indices</span>(<span class='no'>dat</span>, <span class='kw'>timeseries</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; # A tibble: 30 x 6
 #&gt;       id date         lon   lat index   value
-#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #555555;'> 1</span><span>     1 2017-12-15 -</span><span style='color: #BB0000;'>55.0</span><span> -</span><span style='color: #BB0000;'>2.81</span><span> MLDS      6  
-#&gt; </span><span style='color: #555555;'> 2</span><span>     1 2017-12-15 -</span><span style='color: #BB0000;'>55.0</span><span> -</span><span style='color: #BB0000;'>2.81</span><span> MLWS     11  
-#&gt; </span><span style='color: #555555;'> 3</span><span>     1 2017-12-15 -</span><span style='color: #BB0000;'>55.0</span><span> -</span><span style='color: #BB0000;'>2.81</span><span> R10mm    25  
-#&gt; </span><span style='color: #555555;'> 4</span><span>     1 2017-12-15 -</span><span style='color: #BB0000;'>55.0</span><span> -</span><span style='color: #BB0000;'>2.81</span><span> R20mm    30  
-#&gt; </span><span style='color: #555555;'> 5</span><span>     1 2017-12-15 -</span><span style='color: #BB0000;'>55.0</span><span> -</span><span style='color: #BB0000;'>2.81</span><span> Rx1day   72.1
-#&gt; </span><span style='color: #555555;'> 6</span><span>     1 2017-12-15 -</span><span style='color: #BB0000;'>55.0</span><span> -</span><span style='color: #BB0000;'>2.81</span><span> Rx5day  174. 
-#&gt; </span><span style='color: #555555;'> 7</span><span>     1 2017-12-15 -</span><span style='color: #BB0000;'>55.0</span><span> -</span><span style='color: #BB0000;'>2.81</span><span> R95p    464. 
-#&gt; </span><span style='color: #555555;'> 8</span><span>     1 2017-12-15 -</span><span style='color: #BB0000;'>55.0</span><span> -</span><span style='color: #BB0000;'>2.81</span><span> R99p    133. 
-#&gt; </span><span style='color: #555555;'> 9</span><span>     1 2017-12-15 -</span><span style='color: #BB0000;'>55.0</span><span> -</span><span style='color: #BB0000;'>2.81</span><span> Rtotal </span><span style='text-decoration: underline;'>1</span><span>585. 
-#&gt; </span><span style='color: #555555;'>10</span><span>     1 2017-12-15 -</span><span style='color: #BB0000;'>55.0</span><span> -</span><span style='color: #BB0000;'>2.81</span><span> SDII     20.1
-#&gt; </span><span style='color: #555555;'># ... with 20 more rows</span><span></div><div class='input'>
+#&gt;    &lt;int&gt; &lt;date&gt;     &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;   &lt;dbl&gt;
+#&gt;  1     1 2017-12-15 -55.0 -2.81 MLDS      6  
+#&gt;  2     1 2017-12-15 -55.0 -2.81 MLWS     11  
+#&gt;  3     1 2017-12-15 -55.0 -2.81 R10mm    25  
+#&gt;  4     1 2017-12-15 -55.0 -2.81 R20mm    30  
+#&gt;  5     1 2017-12-15 -55.0 -2.81 Rx1day   72.1
+#&gt;  6     1 2017-12-15 -55.0 -2.81 Rx5day  174. 
+#&gt;  7     1 2017-12-15 -55.0 -2.81 R95p    464. 
+#&gt;  8     1 2017-12-15 -55.0 -2.81 R99p    133. 
+#&gt;  9     1 2017-12-15 -55.0 -2.81 Rtotal 1585. 
+#&gt; 10     1 2017-12-15 -55.0 -2.81 SDII     20.1
+#&gt; # ... with 20 more rows</div><div class='input'>
 <span class='co'># take the indices for periods of 7 days</span>
-<span class='fu'>precip_indices</span>(<span class='no'>dat</span>, <span class='kw'>timeseries</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>span</span> <span class='kw'>=</span> <span class='fl'>7</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 720 x 6</span><span>
+<span class='fu'>precip_indices</span>(<span class='no'>dat</span>, <span class='kw'>timeseries</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>span</span> <span class='kw'>=</span> <span class='fl'>7</span>)</div><div class='output co'>#&gt; # A tibble: 720 x 6
 #&gt;       id date         lon   lat index  value
-#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #555555;'> 1</span><span>     1 2017-12-15 -</span><span style='color: #BB0000;'>55.0</span><span> -</span><span style='color: #BB0000;'>2.81</span><span> MLDS     3  
-#&gt; </span><span style='color: #555555;'> 2</span><span>     1 2017-12-15 -</span><span style='color: #BB0000;'>55.0</span><span> -</span><span style='color: #BB0000;'>2.81</span><span> MLWS     2  
-#&gt; </span><span style='color: #555555;'> 3</span><span>     1 2017-12-15 -</span><span style='color: #BB0000;'>55.0</span><span> -</span><span style='color: #BB0000;'>2.81</span><span> R10mm    2  
-#&gt; </span><span style='color: #555555;'> 4</span><span>     1 2017-12-15 -</span><span style='color: #BB0000;'>55.0</span><span> -</span><span style='color: #BB0000;'>2.81</span><span> R20mm    0  
-#&gt; </span><span style='color: #555555;'> 5</span><span>     1 2017-12-15 -</span><span style='color: #BB0000;'>55.0</span><span> -</span><span style='color: #BB0000;'>2.81</span><span> Rx1day  13.7
-#&gt; </span><span style='color: #555555;'> 6</span><span>     1 2017-12-15 -</span><span style='color: #BB0000;'>55.0</span><span> -</span><span style='color: #BB0000;'>2.81</span><span> Rx5day  27.4
-#&gt; </span><span style='color: #555555;'> 7</span><span>     1 2017-12-15 -</span><span style='color: #BB0000;'>55.0</span><span> -</span><span style='color: #BB0000;'>2.81</span><span> R95p     0  
-#&gt; </span><span style='color: #555555;'> 8</span><span>     1 2017-12-15 -</span><span style='color: #BB0000;'>55.0</span><span> -</span><span style='color: #BB0000;'>2.81</span><span> R99p     0  
-#&gt; </span><span style='color: #555555;'> 9</span><span>     1 2017-12-15 -</span><span style='color: #BB0000;'>55.0</span><span> -</span><span style='color: #BB0000;'>2.81</span><span> Rtotal  27.4
-#&gt; </span><span style='color: #555555;'>10</span><span>     1 2017-12-15 -</span><span style='color: #BB0000;'>55.0</span><span> -</span><span style='color: #BB0000;'>2.81</span><span> SDII    13.7
-#&gt; </span><span style='color: #555555;'># ... with 710 more rows</span><span></div></span></pre>
+#&gt;    &lt;int&gt; &lt;date&gt;     &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;  &lt;dbl&gt;
+#&gt;  1     1 2017-12-15 -55.0 -2.81 MLDS     3  
+#&gt;  2     1 2017-12-15 -55.0 -2.81 MLWS     2  
+#&gt;  3     1 2017-12-15 -55.0 -2.81 R10mm    2  
+#&gt;  4     1 2017-12-15 -55.0 -2.81 R20mm    0  
+#&gt;  5     1 2017-12-15 -55.0 -2.81 Rx1day  13.7
+#&gt;  6     1 2017-12-15 -55.0 -2.81 Rx5day  27.4
+#&gt;  7     1 2017-12-15 -55.0 -2.81 R95p     0  
+#&gt;  8     1 2017-12-15 -55.0 -2.81 R99p     0  
+#&gt;  9     1 2017-12-15 -55.0 -2.81 Rtotal  27.4
+#&gt; 10     1 2017-12-15 -55.0 -2.81 SDII    13.7
+#&gt; # ... with 710 more rows</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
