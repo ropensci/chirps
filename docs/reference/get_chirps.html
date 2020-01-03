@@ -243,7 +243,8 @@ for S3 method of <span class="pkg">chirps</span> class <code>sf</code></p></td>
 
 <span class='no'>dates</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"2017-12-15"</span>,<span class='st'>"2017-12-31"</span>)
 
-<span class='fu'>get_chirps</span>(<span class='no'>lonlat</span>, <span class='no'>dates</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: dist is assumed to be in decimal degrees (arc_degrees)</span></div><div class='output co'>#&gt; Getting your request...</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 51 x 5</span><span>
+<span class='fu'>get_chirps</span>(<span class='no'>lonlat</span>, <span class='no'>dates</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: dist is assumed to be in decimal degrees (arc_degrees)</span></div><div class='output co'>#&gt; Getting your request...
+#&gt; Getting your request...</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 51 x 5</span><span>
 #&gt;    id      lon   lat date       chirps
 #&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>      </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
 #&gt; </span><span style='color: #555555;'> 1</span><span> 1     -</span><span style='color: #BB0000;'>55.0</span><span> -</span><span style='color: #BB0000;'>2.81</span><span> 2017-12-15   0   
@@ -258,24 +259,8 @@ for S3 method of <span class="pkg">chirps</span> class <code>sf</code></p></td>
 #&gt; </span><span style='color: #555555;'>10</span><span> 1     -</span><span style='color: #BB0000;'>55.0</span><span> -</span><span style='color: #BB0000;'>2.81</span><span> 2017-12-24   7.37
 #&gt; </span><span style='color: #555555;'># … with 41 more rows</span><span></div><div class='input'>
 <span class='co'># as.sf TRUE returns an object of class 'sf'</span>
-<span class='fu'>get_chirps</span>(<span class='no'>lonlat</span>, <span class='no'>dates</span>, <span class='kw'>as.sf</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: dist is assumed to be in decimal degrees (arc_degrees)</span></div><div class='output co'>#&gt; Getting your request...</div><div class='output co'>#&gt; Simple feature collection with 3 features and 17 fields
-#&gt; geometry type:  POINT
-#&gt; dimension:      XY
-#&gt; bbox:           xmin: -55.0714 ymin: -3.5279 xmax: -54.9857 ymax: -2.8094
-#&gt; epsg (SRID):    NA
-#&gt; proj4string:    NA
-#&gt;   d_17515 d_17516  d_17517  d_17518 d_17519 d_17520 d_17521 d_17522 d_17523
-#&gt; 1       0       0 13.68630 13.68630       0       0       0       0       0
-#&gt; 2       0       0 29.59562 14.79781       0       0       0       0       0
-#&gt; 3       0       0 11.06336 22.12671       0       0       0       0       0
-#&gt;    d_17524  d_17525  d_17526  d_17527   d_17528 d_17529   d_17530   d_17531
-#&gt; 1 7.373443 0.000000 0.000000 37.68985 18.844923       0  9.422462  9.422462
-#&gt; 2 0.000000 0.000000 9.385599 37.54240 18.771198       0  9.385599  9.385599
-#&gt; 3 0.000000 6.649946 0.000000 22.16965  5.542412       0 11.084825 11.084825
-#&gt;                   geometry
-#&gt; 1 POINT (-55.0281 -2.8094)
-#&gt; 2 POINT (-54.9857 -2.8756)
-#&gt; 3 POINT (-55.0714 -3.5279)</div><div class='input'># } 
+<span class='fu'>get_chirps</span>(<span class='no'>lonlat</span>, <span class='no'>dates</span>, <span class='kw'>as.sf</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: dist is assumed to be in decimal degrees (arc_degrees)</span></div><div class='output co'>#&gt; Getting your request...
+#&gt; Getting your request...</div><div class='output co'>#&gt; <span class='error'>Error in curl::curl_fetch_memory(x$url$url, handle = x$url$handle): Timeout was reached: [climateserv.servirglobal.net] Connection timed out after 10003 milliseconds</span></div><div class='input'># } 
 </div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
