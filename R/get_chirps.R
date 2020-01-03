@@ -152,7 +152,8 @@ get_chirps.sf <- function(object, dates, operation = 5, as.sf = FALSE, ...) {
   dates_inter <- .reformat_dates(dates, availability = c("1981-01-01", "0"))
   
   # get geojson strings from data.frame
-  gj <- .sf_to_geojson(object, ...)
+  warning("dist is assumed to be in decimal degrees (arc_degrees)\n")
+  gj <- .dataframe_to_geojson(lonlat, ...)
   
   result <- .GET(gjson = gj, 
                  dates = dates_inter, 

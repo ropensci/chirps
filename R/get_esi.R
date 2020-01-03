@@ -122,7 +122,6 @@ get_esi.sf <- function(object, dates, operation = 5, period = 1, as.sf = FALSE,
   # unlist the sf_column
   lonlat <- unlist(object[[sf_column]])
   
-  # put into a matrix
   lonlat <- matrix(lonlat,
                    nrow = n,
                    ncol = 2, 
@@ -134,11 +133,12 @@ get_esi.sf <- function(object, dates, operation = 5, period = 1, as.sf = FALSE,
   # validate lonlat to check if they are within the CHIRPS range lat -50, 50
   .validate_lonlat(lonlat, xlim = c(-180, 180), ylim = c(-50, 50))
   
-  # validate dates
-  dates_inter <- .reformat_dates(dates, availability = c("1981-01-01", "0"))
+  # validate and reformat dates
+  dates_inter <- .reformat_dates(dates, availability = c("2001-01-01", "0"))
   
   # get geojson strings from data.frame
-  gj <- .sf_to_geojson(object, ...)
+  warning("dist is assumed to be in decimal degrees (arc_degrees)\n")
+  gj <- .dataframe_to_geojson(lonlat, ...)
   
   if (period == 1) {
     datatype <- 29
