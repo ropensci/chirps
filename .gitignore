@@ -36,7 +36,6 @@ vignettes/*.tex
 *.knit.md
 .Rproj.user
 
-logo.svg
 /dev
 doc
 Meta
