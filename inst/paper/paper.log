@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.999991 (TeX Live 2019/W32TeX) (preloaded format=xelatex 2020.1.3)  3 JAN 2020 23:45
+This is XeTeX, Version 3.14159265-2.6-0.999991 (TeX Live 2019/W32TeX) (preloaded format=xelatex 2020.1.3)  4 JAN 2020 00:33
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1522,11 +1522,11 @@ ss_article/resources/JOSS-logo.png Graphic file (type bmp)
 <C:/Users/kaued/Documents/R/win-library/3.5/rticles/rmarkdown/templates/joss_ar
 ticle/resources/JOSS-logo.png>
 [3]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 431.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 431.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 455.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 455.
 (./paper.aux)
-Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 431.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 431.
+Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 455.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 455.
 Package rerunfilecheck Info: File `paper.out' has not changed.
 (rerunfilecheck)             Checksum: 0CF2DBCFAC5982A5BFBCB2EE7DD15C41;293.
 Package logreq Info: Writing requests to 'paper.run.xml'.
@@ -1536,10 +1536,10 @@ Package logreq Info: Writing requests to 'paper.run.xml'.
 Here is how much of TeX's memory you used:
  43457 strings out of 494458
  863455 string characters out of 6172053
- 1335185 words of memory out of 5000000
+ 1336183 words of memory out of 5000000
  47271 multiletter control sequences out of 15000+600000
  539194 words of font info for 70 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 60i,13n,75p,791b,788s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 60i,12n,75p,791b,788s stack positions out of 5000i,500n,10000p,200000b,80000s
 
 Output written on paper.pdf (3 pages).
