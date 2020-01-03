@@ -1,6 +1,6 @@
 # vignettes that depend on internet access need to be precompiled and take a
 # while to run
-library(knitr)
+library("knitr")
 knit("vignettes/Overview.Rmd.orig", "vignettes/Overview.Rmd")
 
 # remove file path such that vignettes will build with figures
@@ -12,7 +12,7 @@ close(fileConn)
 
 
 # build vignettes
-library(devtools)
+library("devtools")
 build_vignettes()
 
 # move resource files to /doc
