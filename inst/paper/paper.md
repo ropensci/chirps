@@ -55,6 +55,20 @@ CHIRPS is daily precipitation data set developed by the Climate Hazards Group [@
 
 # A case study in the Tapajós National Forest
 
+The *Tapajós* National Forest, Brazil is a protected area in the Brazilian Amazon. Located within the coordinates -55.4$^{\circ}$ and -54.8$^{\circ}$ E and -4.1$^{\circ}$ and -2.7$^{\circ}$ S, with 527 thousand ha of multiple ecosystems. Using `get_chirps()`, we take twenty random points across its area to get the precipitation from Jan-2010 to Dec-2018. Then, we compute the precipitation indices for this timeseries with intervals of 30 days using `precip_indices()`.
+
+```r
+library(chirps)
+
+dat <- get_chirps(p, dates = c("2010-01-01","2018-01-31"))
+
+pi <- precip_indices(dat, timeseries = TRUE, span = 30)
+
+```
+
+
+
+
 
 # Acknowledgments
 
