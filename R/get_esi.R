@@ -35,9 +35,10 @@
 #' \item{esi}{the ESI value}
 #' @references 
 #' 
-#' ClimateSERV <https://climateserv.servirglobal.net>
+#' ClimateSERV \url{https://climateserv.servirglobal.net}
 #' 
-#' Evaporative Stress Index <http://catalogue.servirglobal.net/Product?product_id=198>
+#' Evaporative Stress Index
+#' \url{http://catalogue.servirglobal.net/Product?product_id=198}
 #' 
 #' @examples
 #' \donttest{

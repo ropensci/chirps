@@ -32,9 +32,9 @@
 #' @references 
 #' 
 #' Funk C. et al. (2015). Scientific Data, 2, 150066.
-#'  <https://doi.org/10.1038/sdata.2015.66>
+#'  \cr\url{https://doi.org/10.1038/sdata.2015.66}
 #' 
-#' ClimateSERV <https://climateserv.servirglobal.net>
+#' ClimateSERV \url{https://climateserv.servirglobal.net}
 #' 
 #' @examples
 #' \donttest{
