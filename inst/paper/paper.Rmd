@@ -72,7 +72,10 @@ pi <- precip_indices(dat, timeseries = TRUE, intervals = 30)
 We selected four indices for the visualization using *tidyverse* [@tidyverse]. Here we see how these indices are changing across the time series. In this quick assessment, it is possible to see that an increasing extent of consecutive dry days (MLDS) across the time series, with also a decrease in the number of consecutive rainy days (MLWS), which stays above the historical average for MLDS and bellow the historical average for MLWS. The trends also shows a decrease in the total rainfall in the 30-days intervals, staying bellow the average after 2014. Finally we see a decrease in maximum consecutive 5-days precipitation, which also stays bellow the average. When used carefully and with scientific rigour, these indices are a good proxy to evaluate the climate variability using precipitation data [@DeSousa2018] the effects of climate change [@Aguilar2005], and to define strategies for climate adaptation [@vanEtten2019].
 
 
-<img src="Fig1.png" title="kklkl" alt="plot of chunk days" style="display: block; margin: auto;" />
+  
+```{r, fig.cap="Trends in precipitation variability across the Tapajós National Forest, Brazil, for the period of 01-Jan-2010 to 31-Dec-2018 with four precipitation indices. MLDS, maximum length of consecutive dry days (days), MLWS, maximum length of consecutive wet days (days), Rtotal, total precipitation (mm), Rx5day, maximum consecutive 5-days precipitation. Red lines indicates the historial mean of each index in the time series. Blue line indicates the smoothed trends in each index", fig.margin=TRUE, echo=FALSE, fig.height=5, fig.width=5}
+knitr::include_graphics("Fig1.png")
+```
 
 
 # Acknowledgments
