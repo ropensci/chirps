@@ -16,7 +16,6 @@ output: html_document
 vignette: >
   %\VignetteIndexEntry{Overview}
   %\VignetteEncoding{UTF-8}
-  %\VignetteDepends{tidyverse}
   %\VignetteEngine{knitr::rmarkdown_notangle}
 bibliography: ["chirps.bib"]
 csl: citation_style.csl
@@ -115,8 +114,8 @@ pi %>%
   theme_classic() +
   labs(x = "Year", y = "Index (mm)") ->
   gg1
-
-plot(gg1)
+  
+  gg1
 ```
 
 <img src="mm-1.png" title="plot of chunk mm" alt="plot of chunk mm" style="display: block; margin: auto;" />
@@ -135,8 +134,8 @@ pi %>%
   theme_classic() +
   labs(x = "Year", y = "Index (days)") ->
   gg2
-
-plot(gg2)
+  
+  gg2
 ```
 
 <img src="days-1.png" title="plot of chunk days" alt="plot of chunk days" style="display: block; margin: auto;" />

@@ -16,7 +16,6 @@ output: html_document
 vignette: >
   %\VignetteIndexEntry{Overview}
   %\VignetteEncoding{UTF-8}
-  %\VignetteDepends{tidyverse}
   %\VignetteEngine{knitr::rmarkdown_notangle}
 bibliography: ["chirps.bib"]
 csl: citation_style.csl
@@ -28,7 +27,7 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
   purl = TRAVIS,
-  fig.width = 7,
+  fig.width = 10,
   fig.height = 7,
   fig.align = "center",
   fig.path = "vignettes/"
@@ -102,8 +101,8 @@ pi %>%
   theme_classic() +
   labs(x = "Year", y = "Index (mm)") ->
   gg1
-
-plot(gg1)
+  
+  gg1
 
 ```
 
@@ -120,8 +119,8 @@ pi %>%
   theme_classic() +
   labs(x = "Year", y = "Index (days)") ->
   gg2
-
-plot(gg2)
+  
+  gg2
 
 ```
 

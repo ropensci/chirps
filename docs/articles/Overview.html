@@ -176,8 +176,8 @@
 <a class="sourceLine" id="cb4-12" title="12"><span class="st">  </span><span class="kw">theme_classic</span>() <span class="op">+</span></a>
 <a class="sourceLine" id="cb4-13" title="13"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">"Year"</span>, <span class="dt">y =</span> <span class="st">"Index (mm)"</span>) -&gt;</a>
 <a class="sourceLine" id="cb4-14" title="14"><span class="st">  </span>gg1</a>
-<a class="sourceLine" id="cb4-15" title="15"></a>
-<a class="sourceLine" id="cb4-16" title="16"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(gg1)</a></code></pre></div>
+<a class="sourceLine" id="cb4-15" title="15">  </a>
+<a class="sourceLine" id="cb4-16" title="16">  gg1</a></code></pre></div>
 <p><img src="../../../../Dropbox%20(Bioversity%20CR)/Rcode/chirps/vignettes/mm-1.png" title="plot of chunk mm" alt="plot of chunk mm" style="display: block; margin: auto;"></p>
 <p>Now plot the indices expressed in days.</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" title="1">pi <span class="op">%&gt;%</span><span class="st"> </span></a>
@@ -189,8 +189,8 @@
 <a class="sourceLine" id="cb5-7" title="7"><span class="st">  </span><span class="kw">theme_classic</span>() <span class="op">+</span></a>
 <a class="sourceLine" id="cb5-8" title="8"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">"Year"</span>, <span class="dt">y =</span> <span class="st">"Index (days)"</span>) -&gt;</a>
 <a class="sourceLine" id="cb5-9" title="9"><span class="st">  </span>gg2</a>
-<a class="sourceLine" id="cb5-10" title="10"></a>
-<a class="sourceLine" id="cb5-11" title="11"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(gg2)</a></code></pre></div>
+<a class="sourceLine" id="cb5-10" title="10">  </a>
+<a class="sourceLine" id="cb5-11" title="11">  gg2</a></code></pre></div>
 <p><img src="../../../../Dropbox%20(Bioversity%20CR)/Rcode/chirps/vignettes/days-1.png" title="plot of chunk days" alt="plot of chunk days" style="display: block; margin: auto;"></p>
 <p>Here we see how these indices are changing across the time series. If used carefully and with scientific rigour, these indices are a good proxy to evaluate the climate variability using precipitation data<span class="citation"><sup>2,3</sup></span>. In this quick assessment, it is possible to see that the maximum precipitation in consecutive 5-days (Rx5day) is higher in the first weeks of each year, which agree with the beginning of the rainy season in this region. However, the trend shows a decreasing in Rx5day across the years. In the other chart we note an increasing extent of consecutive dry days (MLDS) across the time series, with also a decrease in the number of consecutive rainy days (MLWS).</p>
 </div>
