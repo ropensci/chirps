@@ -43,10 +43,10 @@
 
 
 <meta property="og:title" content="Get CHIRPS precipitation data — get_chirps" />
-<meta property="og:description" content="Get daily precipitation data from the &quot;Climate Hazards Group InfraRed Precipitation 
-with Station Data&quot; via ClimateSERV API Client. ClimateSERV works with geojson 
-of type 'Polygon'. The input object is then transformed into polygons
-with a small buffer area around the point." />
+<meta property="og:description" content="Get daily precipitation data from the &quot;Climate Hazards Group InfraRed
+ Precipitation with Station Data&quot; via ClimateSERV API client.
+ ClimateSERV works with geojson of type 'Polygon'. The input object
+ is then transformed into polygons with a small buffer area around the point." />
 <meta property="og:image" content="/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -135,10 +135,10 @@ with a small buffer area around the point." />
     </div>
 
     <div class="ref-description">
-    <p>Get daily precipitation data from the "Climate Hazards Group InfraRed Precipitation 
-with Station Data" via ClimateSERV API Client. ClimateSERV works with geojson 
-of type 'Polygon'. The input <code>object</code> is then transformed into polygons
-with a small buffer area around the point.</p>
+    <p>Get daily precipitation data from the "Climate Hazards Group InfraRed
+ Precipitation with Station Data" via ClimateSERV <acronym>API</acronym> client.
+ ClimateSERV works with geojson of type 'Polygon'. The input <code>object</code>
+ is then transformed into polygons with a small buffer area around the point.</p>
     </div>
 
     <pre class="usage"><span class='fu'>get_chirps</span>(<span class='no'>object</span>, <span class='no'>dates</span>, <span class='kw'>operation</span> <span class='kw'>=</span> <span class='fl'>5</span>, <span class='no'>...</span>)
@@ -154,12 +154,13 @@ with a small buffer area around the point.</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>object</th>
-      <td><p>input, an object of class <code><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></code> or <code>sf</code></p></td>
+      <td><p>input, an object of class <code><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></code> or
+<code><a href='https://rdrr.io/pkg/sf/man/sf.html'>sf</a></code></p></td>
     </tr>
     <tr>
       <th>dates</th>
       <td><p>a character of start and end dates in that order in the format
-YYYY-MM-DD</p></td>
+"YYYY-MM-DD"</p></td>
     </tr>
     <tr>
       <th>operation</th>
@@ -168,11 +169,13 @@ statistical operation to perform on the dataset</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>further arguments passed to <code>sf</code> methods. See details</p></td>
+      <td><p>further arguments passed to <code><a href='https://rdrr.io/pkg/sf/man/sf.html'>sf</a></code> methods. See
+details</p></td>
     </tr>
     <tr>
       <th>as.sf</th>
-      <td><p>logical, returns an object of class "sf" for S3 method of class <code>sf</code></p></td>
+      <td><p>logical, returns an object of class "sf" for S3 method of class
+<code><a href='https://rdrr.io/pkg/sf/man/sf.html'>sf</a></code></p></td>
     </tr>
     </table>
 
@@ -187,7 +190,8 @@ statistical operation to perform on the dataset</p></td>
 
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>operation: supported operations are max = 0, min = 1, median = 2, sum = 4, average = 5</p>
+    <p>operation: supported operations are max = 0, min = 1, median = 2, sum = 4,
+ average = 5</p>
 <p>dist: numeric, buffer distance for each <code>object</code> coordinate</p>
 <p>nQuadSegs: integer, number of segments per buffer quadrant</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>

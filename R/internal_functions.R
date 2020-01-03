@@ -1,9 +1,8 @@
 #' Concatenate a coordinate point data.frame into a geojson polygon
 #'
-#' Take single points from geographical coordinates 
-#' and convert it into a geojson 'Polygon' string using
-#' \code{\link{sf::st_buffer}} 'Polygon' is the only geojson format accepted by
-#' ClimateSERV
+#' Take single points from geographical coordinates and convert it into a
+#'  geojson 'Polygon' string using \code{\link[sf]{st_buffer}} 'Polygon' is the
+#'  only geojson format accepted by ClimateSERV
 #'
 #' @param lonlat a data.frame with geographical coordinates lonlat in that order
 #' @param dist numeric; buffer distance for all \code{lonlat}
@@ -68,7 +67,7 @@
 #'
 #' Take single points from geographical coordinates 
 #' and convert it into a geojson 'Polygon' string using
-#' \code{\link{sf::st_buffer}} 'Polygon' is the only geojson format accepted by
+#' \code{\link[sf]{st_buffer}} 'Polygon' is the only geojson format accepted by
 #' ClimateSERV
 #'
 #' @param lonlat an object of class "sf"
@@ -107,7 +106,7 @@
   
   # first 4 lines are for the features and last 2 lines to close features
   # keep only geojson geometries
-  gj <- gj[5:(n+4)]
+  gj <- gj[5:(n + 4)]
   
   gj <- split(gj, 1:n)
   
@@ -121,12 +120,18 @@
 
 #' Send a request to ClimateSERV
 #'
-#' @param datatype integer, the unique datatype number for the dataset which this request operates on
-#' @param begintime character, start date for processing interval, format ("MM/DD/YYYY")
-#' @param endtime character, end date for processing interval, format ("MM/DD/YYYY")
-#' @param intervaltype integer, value that represents which type of time interval to process
-#' @param operationtype integer, value that represents which type of statistical operation to perform
-#' @param geometry a geojson for the geometry that is defined by the user on the current client
+#' @param datatype integer, the unique datatype number for the dataset which
+#'  this request operates on
+#' @param begintime character, start date for processing interval, format
+#'  ("MM/DD/YYYY")
+#' @param endtime character, end date for processing interval, format
+#'  ("MM/DD/YYYY")
+#' @param intervaltype integer, value that represents which type of time
+#'  interval to process
+#' @param operationtype integer, value that represents which type of statistical
+#'  operation to perform. Defaults to \code{5}.
+#' @param geometry a geojson for the geometry that is defined by the user on the
+#'  current client
 #' @return A id to be used in the data request
 #' @details
 #' datatype codes are described at https://climateserv.readthedocs.io/en/latest/api.html
@@ -187,7 +192,7 @@
 #' Get request progress
 #'
 #' @param id character with the id obtained from \code{.send_request} 
-#' @return logical value, TRUE when the data is ready to be retrieved
+#' @return logical value, \code{TRUE} when the data is ready to be retrieved
 #' @examples
 #' lonlat <- data.frame(lon = runif(1, 10, 12),
 #'                      lat = runif(1, 45, 47))
@@ -261,7 +266,8 @@
 
 #' Validate lonlat within an pre-defined bounding box
 #' 
-#' @param lonlat a data.frame with geographical coordinates lonlat in that order
+#' @param lonlat a \code{\link[base]{data.frame}} with geographical coordinates
+#'  lonlat in that order
 #' @param xlim a numeric vector for the min and max accepted range in the
 #'  longitude in that order
 #' @param ylim a numeric vector for the min and max accepted range in the
@@ -305,7 +311,7 @@
 #' Validate dates within an accepted range
 #'
 #' @param x a character of start and end dates in that order in the format
-#'  YYYY-MM-DD
+#'  "YYYY-MM-DD"
 #' @param availability a character for the dates the dataset is available
 #' @return nothing
 #' @examples
@@ -371,9 +377,10 @@
 
 #' Reformat dates as required by ClimateServ
 #'
-#' @param x a character of start and end dates in that order in the format YYYY-MM-DD
-#' @param ... further arguments passed to .validate_dates
-#' @return a character with reformated dates as MM/DD/YYYY
+#' @param x a character of start and end dates in that order in the format 
+#'  "YYYY-MM-DD"
+#' @param ... further arguments passed to \code{\link{.validate_dates}}
+#' @return a character with reformated dates as "MM/DD/YYYY"
 #' @examples
 #' x <- c("2016-01-31","2017-12-01")
 #' 
@@ -402,7 +409,7 @@
 
 #' Check if contains class "chirps"
 #' @param x an object to test
-#' @return logical, TRUE for an object of class 'chirps'
+#' @return logical, \code{TRUE} for an object of class 'chirps'
 #' @examples
 #' .is_chirps(airquality)
 #' @noRd

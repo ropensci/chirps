@@ -1,19 +1,23 @@
 #' Get CHIRPS precipitation data
 #' 
-#' Get daily precipitation data from the "Climate Hazards Group InfraRed Precipitation 
-#' with Station Data" via ClimateSERV API Client. ClimateSERV works with geojson 
-#' of type 'Polygon'. The input \code{object} is then transformed into polygons
-#' with a small buffer area around the point.
+#' Get daily precipitation data from the "Climate Hazards Group InfraRed
+#'  Precipitation with Station Data" via ClimateSERV \acronym{API} client.
+#'  ClimateSERV works with geojson of type 'Polygon'. The input \code{object}
+#'  is then transformed into polygons with a small buffer area around the point.
 #' 
-#' @param object input, an object of class \code{\link{data.frame}} or \code{\link{sf}}
+#' @param object input, an object of class \code{\link[base]{data.frame}} or
+#'  \code{\link[sf]{sf}}
 #' @param dates a character of start and end dates in that order in the format
-#'  YYYY-MM-DD
+#'  "YYYY-MM-DD"
 #' @param operation optional, an integer that represents which type of
 #' statistical operation to perform on the dataset
-#' @param as.sf logical, returns an object of class "sf" for S3 method of class \code{\link{sf}}
-#' @param ... further arguments passed to \code{sf} methods. See details 
+#' @param as.sf logical, returns an object of class "sf" for S3 method of class
+#'  \code{\link[sf]{sf}}
+#' @param ... further arguments passed to \code{\link[sf]{sf}} methods. See
+#'  details 
 #' @details  
-#' operation: supported operations are max = 0, min = 1, median = 2, sum = 4, average = 5
+#' operation: supported operations are max = 0, min = 1, median = 2, sum = 4,
+#'  average = 5
 #' 
 #' dist: numeric, buffer distance for each \code{object} coordinate
 #' 
@@ -148,7 +152,7 @@ get_chirps.sf <- function(object, dates, operation = 5, as.sf = FALSE, ...) {
     
     result <- split(result, result$date)
     
-    result <-lapply(result, function(x) {
+    result <- lapply(result, function(x) {
       x <- x[order(x$id), ]
       x <- x[, "value"] 
     })

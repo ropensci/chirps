@@ -2,15 +2,16 @@
 % Please edit documentation in R/precip_indices.R
 \name{precip_indices}
 \alias{precip_indices}
-\title{Precipitation indices}
+\title{Compute precipitation indices over a time series.}
 \usage{
 precip_indices(object, timeseries = FALSE, span = NULL)
 }
 \arguments{
-\item{object}{an object of class "chirps" as provided by \code{get_chirps}}
+\item{object}{an object of class \code{chirps} as provided by
+\code{\link{get_chirps}}}
 
-\item{timeseries}{logical, FALSE for a single point time series observation
-or TRUE for a time series based on a \code{span}}
+\item{timeseries}{logical, \code{FALSE} for a single point time series
+observation or \code{TRUE} for a time series based on a \code{span}}
 
 \item{span}{integer no lower than 5, for the days intervals when
 \code{timeseries} = TRUE}
@@ -52,7 +53,7 @@ precip_indices(dat, timeseries = TRUE, span = 7)
 }
 \references{
 Aguilar E., et al. (2005). Journal of Geophysical Research, 110(D23), D23107.
- https://doi.org/10.1029/2005JD006119
+ <https://doi.org/10.1029/2005JD006119>
 
 Kehel Z., et al. (2016). In: Applied Mathematics and Omics to Assess Crop
  Genetic Resources for Climate Change Adaptive Traits (eds Bari A., Damania

@@ -44,8 +44,8 @@
 
 <meta property="og:title" content="Get evaporative stress index (ESI) data — get_esi" />
 <meta property="og:description" content="Get evaporative stress index (ESI) from SERVIR Global
-via ClimateSERV API Client. ESI is available every four (or twelve) weeks
- from 2001 to present.
+via ClimateSERV API Client. ESI is available every four
+ (or twelve) weeks from 2001 to present.
 The dataset may contain cloudy data which is returned as NAs.
 ClimateSERV works with geojson of type 'Polygon'. The input object is
  then transformed into polygons with a small buffer area around the point." />
@@ -137,9 +137,9 @@ ClimateSERV works with geojson of type 'Polygon'. The input object is
     </div>
 
     <div class="ref-description">
-    <p>Get evaporative stress index (ESI) from SERVIR Global
-via ClimateSERV API Client. ESI is available every four (or twelve) weeks
- from 2001 to present.
+    <p>Get evaporative stress index (<acronym>ESI</acronym>) from SERVIR Global
+via ClimateSERV <acronym>API</acronym> Client. <acronym>ESI</acronym> is available every four
+ (or twelve) weeks from 2001 to present.
 The dataset may contain cloudy data which is returned as NAs.
 ClimateSERV works with geojson of type 'Polygon'. The input <code>object</code> is
  then transformed into polygons with a small buffer area around the point.</p>
@@ -159,7 +159,7 @@ ClimateSERV works with geojson of type 'Polygon'. The input <code>object</code> 
     <tr>
       <th>object</th>
       <td><p>input, an object of class <code><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></code> or
-<code>sf</code></p></td>
+<code><a href='https://rdrr.io/pkg/sf/man/sf.html'>sf</a></code></p></td>
     </tr>
     <tr>
       <th>dates</th>
@@ -178,18 +178,19 @@ statistical operation to perform on the dataset</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>further arguments passed to <code>sf</code> methods. See details</p></td>
+      <td><p>further arguments passed to <code><a href='https://rdrr.io/pkg/sf/man/sf.html'>sf</a></code> methods. See
+details</p></td>
     </tr>
     <tr>
       <th>as.sf</th>
       <td><p>logical, returns an object of class <code>sf</code> for S3 method of
-class <code>sf</code></p></td>
+class <code><a href='https://rdrr.io/pkg/sf/man/sf.html'>sf</a></code></p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A data frame of ESI data:</p>
+    <p>A data frame of <acronym>ESI</acronym> data:</p>
 <dt>id</dt><dd><p>the index for the rows in <code>object</code></p></dd>
 <dt>dates</dt><dd><p>the dates from which ESI was requested</p></dd>
 <dt>lon</dt><dd><p>the longitude as provided in <code>object</code></p></dd>

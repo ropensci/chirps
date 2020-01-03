@@ -13,17 +13,20 @@ get_chirps(object, dates, operation = 5, ...)
 \method{get_chirps}{sf}(object, dates, operation = 5, as.sf = FALSE, ...)
 }
 \arguments{
-\item{object}{input, an object of class \code{\link{data.frame}} or \code{\link{sf}}}
+\item{object}{input, an object of class \code{\link[base]{data.frame}} or
+\code{\link[sf]{sf}}}
 
 \item{dates}{a character of start and end dates in that order in the format
-YYYY-MM-DD}
+"YYYY-MM-DD"}
 
 \item{operation}{optional, an integer that represents which type of
 statistical operation to perform on the dataset}
 
-\item{...}{further arguments passed to \code{sf} methods. See details}
+\item{...}{further arguments passed to \code{\link[sf]{sf}} methods. See
+details}
 
-\item{as.sf}{logical, returns an object of class "sf" for S3 method of class \code{\link{sf}}}
+\item{as.sf}{logical, returns an object of class "sf" for S3 method of class
+\code{\link[sf]{sf}}}
 }
 \value{
 A data frame of CHIRPS data:
@@ -34,13 +37,14 @@ A data frame of CHIRPS data:
 \item{chirps}{the CHIRPS value in mm}
 }
 \description{
-Get daily precipitation data from the "Climate Hazards Group InfraRed Precipitation 
-with Station Data" via ClimateSERV API Client. ClimateSERV works with geojson 
-of type 'Polygon'. The input \code{object} is then transformed into polygons
-with a small buffer area around the point.
+Get daily precipitation data from the "Climate Hazards Group InfraRed
+ Precipitation with Station Data" via ClimateSERV \acronym{API} client.
+ ClimateSERV works with geojson of type 'Polygon'. The input \code{object}
+ is then transformed into polygons with a small buffer area around the point.
 }
 \details{
-operation: supported operations are max = 0, min = 1, median = 2, sum = 4, average = 5
+operation: supported operations are max = 0, min = 1, median = 2, sum = 4,
+ average = 5
 
 dist: numeric, buffer distance for each \code{object} coordinate
 

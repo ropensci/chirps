@@ -13,8 +13,8 @@ get_esi(object, dates, operation = 5, period = 1, ...)
 \method{get_esi}{sf}(object, dates, operation = 5, period = 1, as.sf = FALSE, ...)
 }
 \arguments{
-\item{object}{input, an object of class \code{\link{data.frame}} or
-\code{\link{sf}}}
+\item{object}{input, an object of class \code{\link[base]{data.frame}} or
+\code{\link[sf]{sf}}}
 
 \item{dates}{a character of start and end dates in that order in the format
 YYYY-MM-DD}
@@ -25,13 +25,14 @@ statistical operation to perform on the dataset}
 \item{period}{an integer value for the period of ESI data, four weeks period
 = 1, twelve weeks = 2}
 
-\item{...}{further arguments passed to \code{\link{sf}} methods. See details}
+\item{...}{further arguments passed to \code{\link[sf]{sf}} methods. See
+details}
 
 \item{as.sf}{logical, returns an object of class \code{sf} for S3 method of
-class \code{\link{sf}}}
+class \code{\link[sf]{sf}}}
 }
 \value{
-A data frame of ESI data:
+A data frame of \acronym{ESI} data:
 \item{id}{the index for the rows in \code{object}}
 \item{dates}{the dates from which ESI was requested}
 \item{lon}{the longitude as provided in \code{object}}
@@ -39,9 +40,9 @@ A data frame of ESI data:
 \item{esi}{the ESI value}
 }
 \description{
-Get evaporative stress index (ESI) from SERVIR Global
-via ClimateSERV API Client. ESI is available every four (or twelve) weeks
- from 2001 to present.
+Get evaporative stress index (\acronym{ESI}) from SERVIR Global
+via ClimateSERV \acronym{API} Client. \acronym{ESI} is available every four
+ (or twelve) weeks from 2001 to present.
 The dataset may contain cloudy data which is returned as NAs.
 ClimateSERV works with geojson of type 'Polygon'. The input \code{object} is
  then transformed into polygons with a small buffer area around the point.

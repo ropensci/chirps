@@ -1,14 +1,14 @@
 #' Get evaporative stress index (ESI) data
 #' 
-#' Get evaporative stress index (ESI) from SERVIR Global
-#' via ClimateSERV API Client. ESI is available every four (or twelve) weeks
-#'  from 2001 to present.
+#' Get evaporative stress index (\acronym{ESI}) from SERVIR Global
+#' via ClimateSERV \acronym{API} Client. \acronym{ESI} is available every four
+#'  (or twelve) weeks from 2001 to present.
 #' The dataset may contain cloudy data which is returned as NAs.
 #' ClimateSERV works with geojson of type 'Polygon'. The input \code{object} is
 #'  then transformed into polygons with a small buffer area around the point.
 #' 
-#' @param object input, an object of class \code{\link{data.frame}} or
-#'  \code{\link{sf}}
+#' @param object input, an object of class \code{\link[base]{data.frame}} or
+#'  \code{\link[sf]{sf}}
 #' @param dates a character of start and end dates in that order in the format
 #'  YYYY-MM-DD
 #' @param operation optional, an integer that represents which type of
@@ -16,8 +16,9 @@
 #' @param period an integer value for the period of ESI data, four weeks period
 #'  = 1, twelve weeks = 2
 #' @param as.sf logical, returns an object of class \code{sf} for S3 method of
-#'  class \code{\link{sf}}
-#' @param ... further arguments passed to \code{\link{sf}} methods. See details 
+#'  class \code{\link[sf]{sf}}
+#' @param ... further arguments passed to \code{\link[sf]{sf}} methods. See
+#'  details 
 #' @details  
 #' operation: supported operations are max = 0, min = 1, median = 2, sum = 4,
 #'  average = 5
@@ -26,7 +27,7 @@
 #' 
 #' nQuadSegs: integer, number of segments per buffer quadrant
 #' 
-#' @return A data frame of ESI data:
+#' @return A data frame of \acronym{ESI} data:
 #' \item{id}{the index for the rows in \code{object}}
 #' \item{dates}{the dates from which ESI was requested}
 #' \item{lon}{the longitude as provided in \code{object}}

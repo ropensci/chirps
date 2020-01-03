@@ -1,10 +1,9 @@
-#' Precipitation indices
-#'
 #' Compute precipitation indices over a time series.
 #'
-#' @param object an object of class "chirps" as provided by \code{get_chirps}
-#' @param timeseries logical, FALSE for a single point time series observation
-#'  or TRUE for a time series based on a \code{span}  
+#' @param object an object of class \code{chirps} as provided by
+#'  \code{\link{get_chirps}}
+#' @param timeseries logical, \code{FALSE} for a single point time series
+#'  observation or \code{TRUE} for a time series based on a \code{span}
 #' @param span integer no lower than 5, for the days intervals when
 #'  \code{timeseries} = TRUE
 #' @return A dataframe with selected indices:
@@ -23,7 +22,7 @@
 #' @references 
 #' 
 #' Aguilar E., et al. (2005). Journal of Geophysical Research, 110(D23), D23107.
-#'  https://doi.org/10.1029/2005JD006119
+#'  <https://doi.org/10.1029/2005JD006119>
 #' 
 #' Kehel Z., et al. (2016). In: Applied Mathematics and Omics to Assess Crop
 #'  Genetic Resources for Climate Change Adaptive Traits (eds Bari A., Damania
@@ -311,7 +310,7 @@ precip_indices <- function(object, timeseries = FALSE, span = NULL) {
   
   r5day <- NULL
   
-  for(i in 1:(l-4)){
+  for (i in 1:(l-4)){
     
     r5day <- cbind(r5day, sum(object[i:(i + 4)], na.rm = TRUE))
     
