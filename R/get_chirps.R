@@ -131,7 +131,11 @@ get_chirps.sf <- function(object, dates, operation = 5, as.sf = FALSE, ...) {
   # convert sf into a data.frame
   n <- nrow(object)
   
-  lonlat <- unlist(object$geometry)
+  # find the sf_column
+  sf_column <- attr(object, "sf_column")
+  
+  # unlist the sf_column
+  lonlat <- unlist(object[[sf_column]])
   
   lonlat <- matrix(lonlat,
                    nrow = n,
@@ -144,7 +148,7 @@ get_chirps.sf <- function(object, dates, operation = 5, as.sf = FALSE, ...) {
   # validate lonlat to check if they are within the CHIRPS range lat -50, 50
   .validate_lonlat(lonlat, xlim = c(-180, 180), ylim = c(-50, 50))
   
-  # validate dates
+  # validate and reformat dates
   dates_inter <- .reformat_dates(dates, availability = c("1981-01-01", "0"))
   
   # get geojson strings from data.frame

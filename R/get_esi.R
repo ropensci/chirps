@@ -116,8 +116,13 @@ get_esi.sf <- function(object, dates, operation = 5, period = 1, as.sf = FALSE,
   # convert sf into a data.frame
   n <- nrow(object)
   
-  lonlat <- unlist(object$geometry)
+  # find the sf_column
+  sf_column <- attr(object, "sf_column")
   
+  # unlist the sf_column
+  lonlat <- unlist(object[[sf_column]])
+  
+  # put into a matrix
   lonlat <- matrix(lonlat,
                    nrow = n,
                    ncol = 2, 

@@ -5,6 +5,7 @@ tags:
 - climate data
 - climatology
 - earth science
+- evapotranspiration
 - precipitation data
 - R
 - reproducibility
@@ -43,6 +44,21 @@ journal: JOSS
 
 # Summary
 
-The **chirps** package provides functionalities for reproducible analysis using the CHIRPS data[@Funk2015]. CHIRPS is daily precipitation data set developed by the Climate Hazards Group[@Funk2015] for high resolution precipitation gridded data. Spanning 50°S-50°N (and all longitudes) and ranging from 1981 to near-present, CHIRPS incorporates 0.05 arc-degree resolution satellite imagery, and in-situ station data to create gridded precipitation time series for trend analysis and seasonal drought monitoring[@Funk2015]. Other functionalities of **chirps** are the computation of precipitation indices and the evaporative stress index (ESI) which describes temporal anomalies in evapotranspiration produced weekly at 0.25 arc-degree resolution for the entire globe.
+The *chirps* package provides functionalities for reproducible analysis in R [@RCoreTeam] using the CHIRPS data [@Funk2015]. Three main functions are provided, `get_chirps()`, `get_esi()` and `precip_indices()`. The `get_chirps()` function provides access to CHIRPS data via the ClimateSERV API Client [@ClimateSERV] with methods to handle objects of class 'data.frame', 'geojson' and 'sf' via the package *methods* [@RCoreTeam]. To accept the query, ClimateSERV requires a geojson object of type 'Polygon' (one single polygon per request). Using the package *sf* [@sf] internally, the input provided in `get_chirps()` is transformed into a list of polygons with a small buffer area (0.0001 arc-sec by default) around the point and transformed into a list of geojson strings. If multiple points are required, `get_chirps()` does this process with a `lapply()` internal process. *chirps* uses *crul* [@crul] to interface with ClimateSERV API. The query returns a json object parsed to *jsonlite* [@jsonlite] to obtain the data frame for the time series required. `get_chirps()` returns a *tibble* data frame [@tibble], which also inherits the class 'chirps', where each id represents the index for the rows in the in-putted 'object'. The function `get_esi()` behaves similarly to `get_chirps()` and returns the Evaporative Stress Index (ESI) data [@Anderson2011], but the output does not inherits the class 'chirps'. Users providing objects of class 'sf' and 'geojson' in `get_chiprs()` and `get_esi()` can also opt to return an object with the same class as the object provided using the arguments 'as.sf = TRUE' or 'as.geojson = TRUE'. With the function `precip_indices()` it is possible to track how the precipitation changes across the requested time series using precipitation variability indices [@Aguilar2005], computed using *stats* [@RCoreTeam]. Extended documentation is provided with examples on how to increase the buffer area and draw quadrants for the geojson polygon using *sf* [@sf].
+
+This process can be integrated into workflows like @vanEtten2019 to track how crop varieties responds to seasonal climate variability, and @DeSousa2018 to assess how extreme precipitation events are changing in a regional time series analysis. 
+
+# About CHIRPS and ESI data
+
+CHIRPS is daily precipitation data set developed by the Climate Hazards Group [@Funk2015] for high resolution precipitation gridded data. Spanning 50$^{\circ}$ S to 50$^{\circ}$ N (and all longitudes) and ranging from 1981 to near-present, CHIRPS incorporates 0.05 arc-degree resolution satellite imagery, and in-situ station data to create gridded precipitation time series for trend analysis and seasonal drought monitoring [@Funk2015]. The Evaporative Stress Index (ESI) data describes temporal anomalies in evapotranspiration produced weekly at 0.25 arc-degree resolution for the entire globe [@Anderson2011]. The ESI data is based on satellite observations of land surface temperature, which are used to estimate water loss due to evapotranspiration (the sum of evaporation and plant transpiration from the Earth's land and ocean surface to the atmosphere). When using these data sets in publications please cite @Funk2015 for CHIRPS and @esi for ESI.
+
+
+# A case study in the Tapajós National Forest
+
+
+# Acknowledgments
+
+This work is supported by the The Nordic Council of Ministers.
+
 
 # References
