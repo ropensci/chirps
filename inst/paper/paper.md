@@ -35,7 +35,7 @@ affiliations:
   - name: Universities Space Research Association, National Aeronautics and Space Administration (NASA), Huntsville, USA
     index: 4
 citation_author: de Sousa et. al.
-date: "03 January 2020"
+date: "04 January 2020"
 year: 2020
 bibliography: paper.bib
 output: rticles::joss_article
@@ -55,19 +55,24 @@ CHIRPS is daily precipitation data set developed by the Climate Hazards Group [@
 
 # A case study in the Tapajós National Forest
 
-The *Tapajós* National Forest, Brazil is a protected area in the Brazilian Amazon. Located within the coordinates -55.4$^{\circ}$ and -54.8$^{\circ}$ E and -4.1$^{\circ}$ and -2.7$^{\circ}$ S, with 527 thousand ha of multiple ecosystems. Using `get_chirps()`, we take twenty random points across its area to get the precipitation from Jan-2010 to Dec-2018. Then, we compute the precipitation indices for this timeseries with intervals of 30 days using `precip_indices()`.
+The *Tapajós* National Forest is a protected area in the Brazilian Amazon. Located within the coordinates -55.4$^{\circ}$ and -54.8$^{\circ}$ E and -4.1$^{\circ}$ and -2.7$^{\circ}$ S with ~ 527,400 ha of multiple Amazonian ecosystems. Using `get_chirps()`, we take twenty random points across its area to get the precipitation from Jan-2010 to Dec-2018. Then, we compute the precipitation indices for the time series with intervals of 30 days using `precip_indices()`.
 
 ```r
-library(chirps)
+library("chirps")
+library("sf")
 
-dat <- get_chirps(p, dates = c("2010-01-01","2018-01-31"))
+tapajos <- chirps:::tapajos
 
-pi <- precip_indices(dat, timeseries = TRUE, span = 30)
+dat <- get_chirps(tapajos, dates = c("2010-01-01","2018-01-31"))
+
+pi <- precip_indices(dat, timeseries = TRUE, intervals = 30)
 
 ```
 
+We selected four indices for the visualization using *tidyverse* [@tidyverse]. Here we see how these indices are changing across the time series. In this quick assessment, it is possible to see that an increasing extent of consecutive dry days (MLDS) across the time series, with also a decrease in the number of consecutive rainy days (MLWS), which stays above the historical average for MLDS and bellow the historical average for MLWS. The trends also shows a decrease in the total rainfall in the 30-days intervals, staying bellow the average after 2014. Finally we see a decrease in maximum consecutive 5-days precipitation, which also stays bellow the average. When used carefully and with scientific rigour, these indices are a good proxy to evaluate the climate variability using precipitation data [@DeSousa2018] the effects of climate change [@Aguilar2005], and to define strategies for climate adaptation [@vanEtten2019].
 
 
+<img src="Fig1.png" title="kklkl" alt="plot of chunk days" style="display: block; margin: auto;" />
 
 
 # Acknowledgments
