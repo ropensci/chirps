@@ -4,7 +4,7 @@
 \alias{get_esi}
 \alias{get_esi.default}
 \alias{get_esi.sf}
-\title{Get Evaporative Stress Index (ESI) data}
+\title{Get evaporative stress index (ESI) data}
 \usage{
 get_esi(object, dates, operation = 5, period = 1, ...)
 
@@ -13,7 +13,8 @@ get_esi(object, dates, operation = 5, period = 1, ...)
 \method{get_esi}{sf}(object, dates, operation = 5, period = 1, as.sf = FALSE, ...)
 }
 \arguments{
-\item{object}{input, an object of class \code{\link{data.frame}} or \code{\link{sf}}}
+\item{object}{input, an object of class \code{\link{data.frame}} or
+\code{\link{sf}}}
 
 \item{dates}{a character of start and end dates in that order in the format
 YYYY-MM-DD}
@@ -21,11 +22,13 @@ YYYY-MM-DD}
 \item{operation}{optional, an integer that represents which type of
 statistical operation to perform on the dataset}
 
-\item{period}{an integer value for the period of ESI data, four weeks period = 1, twelve weeks = 2}
+\item{period}{an integer value for the period of ESI data, four weeks period
+= 1, twelve weeks = 2}
 
-\item{...}{further arguments passed to \code{sf} methods. See details}
+\item{...}{further arguments passed to \code{\link{sf}} methods. See details}
 
-\item{as.sf}{logical, returns an object of class "sf" for S3 method of class \code{\link{sf}}}
+\item{as.sf}{logical, returns an object of class \code{sf} for S3 method of
+class \code{\link{sf}}}
 }
 \value{
 A data frame of ESI data:
@@ -36,14 +39,16 @@ A data frame of ESI data:
 \item{esi}{the ESI value}
 }
 \description{
-Get Evaporative Stress Index (ESI) from SERVIR Global
-via ClimateSERV API Client. ESI is available every four (or twelve) weeks from 2001 to present.
+Get evaporative stress index (ESI) from SERVIR Global
+via ClimateSERV API Client. ESI is available every four (or twelve) weeks
+ from 2001 to present.
 The dataset may contain cloudy data which is returned as NAs.
-ClimateSERV works with geojson of type 'Polygon'. The input \code{object} is then 
-transformed into polygons with a small buffer area around the point.
+ClimateSERV works with geojson of type 'Polygon'. The input \code{object} is
+ then transformed into polygons with a small buffer area around the point.
 }
 \details{
-operation: supported operations are max = 0, min = 1, median = 2, sum = 4, average = 5
+operation: supported operations are max = 0, min = 1, median = 2, sum = 4,
+ average = 5
 
 dist: numeric, buffer distance for each \code{object} coordinate
 

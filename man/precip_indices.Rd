@@ -9,9 +9,11 @@ precip_indices(object, timeseries = FALSE, span = NULL)
 \arguments{
 \item{object}{an object of class "chirps" as provided by \code{get_chirps}}
 
-\item{timeseries}{logical, FALSE for a single point time series observation or TRUE for a time series based on a \code{span}}
+\item{timeseries}{logical, FALSE for a single point time series observation
+or TRUE for a time series based on a \code{span}}
 
-\item{span}{integer no lower than 5, for the days intervals when \code{timeseries} = TRUE}
+\item{span}{integer no lower than 5, for the days intervals when
+\code{timeseries} = TRUE}
 }
 \value{
 A dataframe with selected indices:
@@ -24,7 +26,8 @@ A dataframe with selected indices:
 \item{R95p}{total precipitation when rain > 95th percentile (mm)}
 \item{R99p}{total precipitation when rain > 99th percentile (mm)}
 \item{Rtotal}{total precipitation (mm) in wet days, rain >= 1 (mm)}
-\item{SDII}{simple daily intensity index, total precipitation divided by the number of wet days (mm/days)}
+\item{SDII}{simple daily intensity index, total precipitation divided by the
+ number of wet days (mm/days)}
 }
 \description{
 Compute precipitation indices over a time series.
@@ -45,12 +48,15 @@ precip_indices(dat, timeseries = FALSE)
 
 # take the indices for periods of 7 days
 precip_indices(dat, timeseries = TRUE, span = 7)
-}       
+}
 }
 \references{
-Aguilar E., et al. (2005). Journal of Geophysical Research, 110(D23), D23107. https://doi.org/10.1029/2005JD006119
+Aguilar E., et al. (2005). Journal of Geophysical Research, 110(D23), D23107.
+ https://doi.org/10.1029/2005JD006119
 
-Kehel Z., et al. (2016). In: Applied Mathematics and Omics to Assess Crop Genetic Resources for Climate Change Adaptive Traits (eds Bari A., Damania A. B., Mackay M., Dayanandan S.), pp. 151–174. CRC Press.
+Kehel Z., et al. (2016). In: Applied Mathematics and Omics to Assess Crop
+ Genetic Resources for Climate Change Adaptive Traits (eds Bari A., Damania
+ A. B., Mackay M., Dayanandan S.), pp. 151–174. CRC Press.
 }
 \seealso{
 \code{\link[tidyr]{pivot_wider}}
