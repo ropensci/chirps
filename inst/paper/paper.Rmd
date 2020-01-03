@@ -1,0 +1,48 @@
+---
+title: 'chirps: API Client for the CHIRPS Precipitation Data in R'
+tags:
+- CHIRPS
+- climate data
+- climatology
+- earth science
+- precipitation data
+- R
+- reproducibility
+- weather data
+authors:
+  - name: Kauê de Sousa
+    orcid: 0000-0002-7571-7845
+    affiliation: "1, 2"
+  - name: Adam H. Sparks
+    orcid: 0000-0002-0061-8359
+    affiliation: 3
+  - name: William Ashmall
+    affiliation: 4
+  - name: Jacob van Etten
+    orcid: 0000-0001-7554-2558
+    affiliation: 2
+  - name: Svein Ø. Solberg
+    orcid: 0000-0002-4491-4483
+    affiliation: 1
+affiliations:
+  - name: Department of Agricultural Sciences, Inland Norway University of Applied Sciences, Hamar, Norway
+    index: 1
+  - name: The Alliance of Bioversity International and CIAT, Rome, Italy
+    index: 2
+  - name: Centre for Crop Health, University of Southern Queensland, Toowoomba, Australia
+    index: 3
+  - name: Universities Space Research Association, National Aeronautics and Space Administration (NASA), Huntsville, USA
+    index: 4
+citation_author: de Sousa et. al.
+date: "`r format(Sys.time(), '%d %B %Y')`"
+year: 2020
+bibliography: paper.bib
+output: rticles::joss_article
+journal: JOSS
+---
+
+# Summary
+
+The **chirps** package provides functionalities for reproducible analysis using the CHIRPS data[@Funk2015]. CHIRPS is daily precipitation data set developed by the Climate Hazards Group[@Funk2015] for high resolution precipitation gridded data. Spanning 50°S-50°N (and all longitudes) and ranging from 1981 to near-present, CHIRPS incorporates 0.05 arc-degree resolution satellite imagery, and in-situ station data to create gridded precipitation time series for trend analysis and seasonal drought monitoring[@Funk2015]. Other functionalities of **chirps** are the computation of precipitation indices and the evaporative stress index (ESI) which describes temporal anomalies in evapotranspiration produced weekly at 0.25 arc-degree resolution for the entire globe.
+
+# References
