@@ -6,9 +6,16 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Introduction to chirps • chirps</title>
+<!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png">
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png">
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png">
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png">
 <!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous">
-<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- sticky kit --><script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous">
+<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
 <script src="../pkgdown.js"></script><meta property="og:title" content="Introduction to chirps">
 <meta property="og:description" content="">
 <meta property="og:image" content="/logo.png">
@@ -39,7 +46,7 @@
       <ul class="nav navbar-nav">
 <li>
   <a href="../index.html">
-    <span class="fa fa-home fa-lg"></span>
+    <span class="fas fa fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -74,6 +81,7 @@
 <!--/.navbar -->
 
       
+
       </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
@@ -102,88 +110,87 @@
 <div id="summary" class="section level1">
 <h1 class="hasAnchor">
 <a href="#summary" class="anchor"></a>Summary</h1>
-<p>The <strong>chirps</strong> package provides functionalities for reproducible analysis using the CHIRPS data<span class="citation"><sup>1</sup></span> in R<span class="citation"><sup>2</sup></span>. CHIRPS is daily precipitation data set developed by the Climate Hazards Group<span class="citation"><sup>1</sup></span> for high resolution precipitation gridded data. Spanning 50°S-50°N (and all longitudes) and ranging from 1981 to near-present, CHIRPS incorporates 0.05 arc-degree resolution satellite imagery, and in-situ station data to create gridded precipitation time series for trend analysis and seasonal drought monitoring<span class="citation"><sup>1</sup></span>. Other functionalies of <strong>chirps</strong> are the computation of precipitation indices and the Evaporative Stress Index (ESI) which describes temporal anomalies in evapotranspiration produced weekly at 0.25 arc-degree resolution for the entire globe.</p>
+<p>The <strong>chirps</strong> package provides functionalities for reproducible analysis using the CHIRPS data<span class="citation"><sup>1</sup></span>. CHIRPS is daily precipitation data set developed by the Climate Hazards Group<span class="citation"><sup>1</sup></span> for high resolution precipitation gridded data. Spanning 50°S-50°N (and all longitudes) and ranging from 1981 to near-present, CHIRPS incorporates 0.05 arc-degree resolution satellite imagery, and in-situ station data to create gridded precipitation time series for trend analysis and seasonal drought monitoring<span class="citation"><sup>1</sup></span>. Other functionalies of <strong>chirps</strong> are the computation of precipitation indices and the evaporative stress index (ESI) which describes temporal anomalies in evapotranspiration produced weekly at 0.25 arc-degree resolution for the entire globe.</p>
 </div>
 <div id="installation" class="section level1">
 <h1 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h1>
 <p>The development version can be installed via</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(<span class="st">"devtools"</span>)</a>
-<a class="sourceLine" id="cb1-2" title="2"></a>
-<a class="sourceLine" id="cb1-3" title="3">devtools<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/devtools/topics/remote-reexports">install_github</a></span>(<span class="st">"agrobioinfoservices/chirps"</span>, <span class="dt">build_vignettes =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="st">"devtools"</span>)</a>
+<a class="sourceLine" id="cb1-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb1-3" data-line-number="3">devtools<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/devtools/man/remote-reexports.html">install_github</a></span>(<span class="st">"agrobioinfoservices/chirps"</span>, <span class="dt">build_vignettes =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
 </div>
 <div id="usage" class="section level1">
 <h1 class="hasAnchor">
 <a href="#usage" class="anchor"></a>Usage</h1>
-<p>The <em>Tapajos</em> National Forest, Brazil is a protected area in the Brazilian Amazon. We take two random points across its area to get the precipitation from Jan-2015 to Dec-2016 using <code>get_chirps</code>.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(<span class="st">"chirps"</span>)</a>
-<a class="sourceLine" id="cb2-2" title="2"></a>
-<a class="sourceLine" id="cb2-3" title="3"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Random">set.seed</a></span>(<span class="dv">12</span>)</a>
-<a class="sourceLine" id="cb2-4" title="4">lonlat &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/data.frame">data.frame</a></span>(<span class="dt">lon =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/Uniform">runif</a></span>(<span class="dv">2</span>, <span class="dv">-55</span>, <span class="dv">-54</span>),</a>
-<a class="sourceLine" id="cb2-5" title="5">                     <span class="dt">lat =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/Uniform">runif</a></span>(<span class="dv">2</span>, <span class="dv">-3</span>, <span class="dv">-2</span>))</a>
-<a class="sourceLine" id="cb2-6" title="6"></a>
-<a class="sourceLine" id="cb2-7" title="7">dates &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"2015-01-01"</span>,<span class="st">"2016-12-31"</span>)</a>
-<a class="sourceLine" id="cb2-8" title="8"></a>
-<a class="sourceLine" id="cb2-9" title="9">dat &lt;-<span class="st"> </span><span class="kw"><a href="../reference/get_chirps.html">get_chirps</a></span>(lonlat, dates)</a>
-<a class="sourceLine" id="cb2-10" title="10"><span class="co">#&gt; Getting your request...</span></a>
-<a class="sourceLine" id="cb2-11" title="11"></a>
-<a class="sourceLine" id="cb2-12" title="12"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/head">head</a></span>(dat)</a>
-<a class="sourceLine" id="cb2-13" title="13"><span class="co">#&gt; # A tibble: 6 x 5</span></a>
-<a class="sourceLine" id="cb2-14" title="14"><span class="co">#&gt;   id      lon   lat date       chirps</span></a>
-<a class="sourceLine" id="cb2-15" title="15"><span class="co">#&gt;   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;date&gt;      &lt;dbl&gt;</span></a>
-<a class="sourceLine" id="cb2-16" title="16"><span class="co">#&gt; 1 1     -54.9 -2.06 2015-01-01    0  </span></a>
-<a class="sourceLine" id="cb2-17" title="17"><span class="co">#&gt; 2 1     -54.9 -2.06 2015-01-02    0  </span></a>
-<a class="sourceLine" id="cb2-18" title="18"><span class="co">#&gt; 3 1     -54.9 -2.06 2015-01-03    0  </span></a>
-<a class="sourceLine" id="cb2-19" title="19"><span class="co">#&gt; 4 1     -54.9 -2.06 2015-01-04    0  </span></a>
-<a class="sourceLine" id="cb2-20" title="20"><span class="co">#&gt; 5 1     -54.9 -2.06 2015-01-05   11.3</span></a>
-<a class="sourceLine" id="cb2-21" title="21"><span class="co">#&gt; 6 1     -54.9 -2.06 2015-01-06    0</span></a></code></pre></div>
-<p>The function <code>get_chirps</code> returns a data.frame which inherits the class ‘chirps’, where each id represents the index for the rows in the inputted ‘object’.</p>
-<p>With <code>precip_indices</code> is possible to track how the precipitation changes across a time series using precipitation variability indices<span class="citation"><sup>3</sup></span>. Here, we take the indices for periods of 7 days and compute the indices the time series (from Jan-2015 to Dec-2016).</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1">pi &lt;-<span class="st"> </span><span class="kw"><a href="../reference/precip_indices.html">precip_indices</a></span>(dat, <span class="dt">timeseries =</span> <span class="ot">TRUE</span>, <span class="dt">span =</span> <span class="dv">7</span>)</a>
-<a class="sourceLine" id="cb3-2" title="2"></a>
-<a class="sourceLine" id="cb3-3" title="3"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/head">head</a></span>(pi)</a>
-<a class="sourceLine" id="cb3-4" title="4"><span class="co">#&gt; # A tibble: 6 x 6</span></a>
-<a class="sourceLine" id="cb3-5" title="5"><span class="co">#&gt;      id date         lon   lat index  value</span></a>
-<a class="sourceLine" id="cb3-6" title="6"><span class="co">#&gt;   &lt;int&gt; &lt;date&gt;     &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;  &lt;dbl&gt;</span></a>
-<a class="sourceLine" id="cb3-7" title="7"><span class="co">#&gt; 1     1 2015-01-01 -54.9 -2.06 MLDS     4  </span></a>
-<a class="sourceLine" id="cb3-8" title="8"><span class="co">#&gt; 2     1 2015-01-01 -54.9 -2.06 MLWS     1  </span></a>
-<a class="sourceLine" id="cb3-9" title="9"><span class="co">#&gt; 3     1 2015-01-01 -54.9 -2.06 R10mm    1  </span></a>
-<a class="sourceLine" id="cb3-10" title="10"><span class="co">#&gt; 4     1 2015-01-01 -54.9 -2.06 R20mm    0  </span></a>
-<a class="sourceLine" id="cb3-11" title="11"><span class="co">#&gt; 5     1 2015-01-01 -54.9 -2.06 Rx1day  11.3</span></a>
-<a class="sourceLine" id="cb3-12" title="12"><span class="co">#&gt; 6     1 2015-01-01 -54.9 -2.06 Rx5day  11.3</span></a></code></pre></div>
-<p>The function <code>precip_indices</code> returns a data.frame with the precipitation indices. Each date corresponds to the first day in the time series intervals as defined by the argument ‘span’. When ‘timeseries = FALSE’ the function returns a single precipitation index for the entire time series.</p>
+<p>The <em>Tapajos</em> National Forest, Brazil is a protected area in the Brazilian Amazon. We take two random points across its area to get the precipitation from Jan-2015 to Dec-2016 using <code><a href="../reference/get_chirps.html">get_chirps()</a></code>.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="st">"chirps"</span>)</a>
+<a class="sourceLine" id="cb2-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb2-3" data-line-number="3"><span class="kw"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span>(<span class="dv">12</span>)</a>
+<a class="sourceLine" id="cb2-4" data-line-number="4">lonlat &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(<span class="dt">lon =</span> <span class="kw"><a href="https://rdrr.io/r/stats/Uniform.html">runif</a></span>(<span class="dv">2</span>, <span class="dv">-55</span>, <span class="dv">-54</span>),</a>
+<a class="sourceLine" id="cb2-5" data-line-number="5">                     <span class="dt">lat =</span> <span class="kw"><a href="https://rdrr.io/r/stats/Uniform.html">runif</a></span>(<span class="dv">2</span>, <span class="dv">-3</span>, <span class="dv">-2</span>))</a>
+<a class="sourceLine" id="cb2-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb2-7" data-line-number="7">dates &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"2015-01-01"</span>,<span class="st">"2016-12-31"</span>)</a>
+<a class="sourceLine" id="cb2-8" data-line-number="8"></a>
+<a class="sourceLine" id="cb2-9" data-line-number="9">dat &lt;-<span class="st"> </span><span class="kw"><a href="../reference/get_chirps.html">get_chirps</a></span>(lonlat, dates)</a>
+<a class="sourceLine" id="cb2-10" data-line-number="10"></a>
+<a class="sourceLine" id="cb2-11" data-line-number="11"><span class="kw"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(dat)</a>
+<a class="sourceLine" id="cb2-12" data-line-number="12"><span class="co">#&gt; # A tibble: 6 x 5</span></a>
+<a class="sourceLine" id="cb2-13" data-line-number="13"><span class="co">#&gt;   id      lon   lat date       chirps</span></a>
+<a class="sourceLine" id="cb2-14" data-line-number="14"><span class="co">#&gt;   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;date&gt;      &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb2-15" data-line-number="15"><span class="co">#&gt; 1 1     -54.9 -2.06 2015-01-01    0  </span></a>
+<a class="sourceLine" id="cb2-16" data-line-number="16"><span class="co">#&gt; 2 1     -54.9 -2.06 2015-01-02    0  </span></a>
+<a class="sourceLine" id="cb2-17" data-line-number="17"><span class="co">#&gt; 3 1     -54.9 -2.06 2015-01-03    0  </span></a>
+<a class="sourceLine" id="cb2-18" data-line-number="18"><span class="co">#&gt; 4 1     -54.9 -2.06 2015-01-04    0  </span></a>
+<a class="sourceLine" id="cb2-19" data-line-number="19"><span class="co">#&gt; 5 1     -54.9 -2.06 2015-01-05   11.3</span></a>
+<a class="sourceLine" id="cb2-20" data-line-number="20"><span class="co">#&gt; 6 1     -54.9 -2.06 2015-01-06    0</span></a></code></pre></div>
+<p>The function <code><a href="../reference/get_chirps.html">get_chirps()</a></code> returns a data.frame which inherits the class ‘chirps’, where each id represents the index for the rows in the in-putted ‘object’.</p>
+<p>With <code><a href="../reference/precip_indices.html">precip_indices()</a></code> is possible to track how the precipitation changes across a time series using precipitation variability indices<span class="citation"><sup>2</sup></span>. Here, we take the indices for periods of 7 days and compute the indices the time series (from Jan-2015 to Dec-2016).</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">pi &lt;-<span class="st"> </span><span class="kw"><a href="../reference/precip_indices.html">precip_indices</a></span>(dat, <span class="dt">timeseries =</span> <span class="ot">TRUE</span>, <span class="dt">span =</span> <span class="dv">7</span>)</a>
+<a class="sourceLine" id="cb3-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb3-3" data-line-number="3"><span class="kw"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(pi)</a>
+<a class="sourceLine" id="cb3-4" data-line-number="4"><span class="co">#&gt; # A tibble: 6 x 6</span></a>
+<a class="sourceLine" id="cb3-5" data-line-number="5"><span class="co">#&gt;      id   bin   lon   lat index  value</span></a>
+<a class="sourceLine" id="cb3-6" data-line-number="6"><span class="co">#&gt;   &lt;int&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;  &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb3-7" data-line-number="7"><span class="co">#&gt; 1     1     1 -54.9 -2.06 MLDS     4  </span></a>
+<a class="sourceLine" id="cb3-8" data-line-number="8"><span class="co">#&gt; 2     1     1 -54.9 -2.06 MLWS     1  </span></a>
+<a class="sourceLine" id="cb3-9" data-line-number="9"><span class="co">#&gt; 3     1     1 -54.9 -2.06 R10mm    1  </span></a>
+<a class="sourceLine" id="cb3-10" data-line-number="10"><span class="co">#&gt; 4     1     1 -54.9 -2.06 R20mm    0  </span></a>
+<a class="sourceLine" id="cb3-11" data-line-number="11"><span class="co">#&gt; 5     1     1 -54.9 -2.06 Rx1day  11.3</span></a>
+<a class="sourceLine" id="cb3-12" data-line-number="12"><span class="co">#&gt; 6     1     1 -54.9 -2.06 Rx5day  11.3</span></a></code></pre></div>
+<p>The function <code><a href="../reference/precip_indices.html">precip_indices()</a></code> returns a data.frame with the precipitation indices. Each date corresponds to the first day in the time series intervals as defined by the argument ‘span’. When <code>timeseries = FALSE</code> the function returns a single precipitation index for the entire time series.</p>
 <p>There are two main types of indices. Those that are expressed in days (“MLDS”,“MLWS”,“R10mm”,“R20mm”) and those that are expressed in mm (“R95p”,“R99p”,“Rx5day”,“SDII”). We split these indices to visualise the time series.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(<span class="st">"tidyverse"</span>)</a>
-<a class="sourceLine" id="cb4-2" title="2"></a>
-<a class="sourceLine" id="cb4-3" title="3">mm &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"R95p"</span>,<span class="st">"R99p"</span>,<span class="st">"Rx5day"</span>,<span class="st">"SDII"</span>)</a>
-<a class="sourceLine" id="cb4-4" title="4">days &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"MLDS"</span>,<span class="st">"MLWS"</span>,<span class="st">"R10mm"</span>,<span class="st">"R20mm"</span>)</a>
-<a class="sourceLine" id="cb4-5" title="5"></a>
-<a class="sourceLine" id="cb4-6" title="6">pi <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb4-7" title="7"><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/filter">filter</a></span>(index <span class="op">%in%</span><span class="st"> </span>mm) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb4-8" title="8"><span class="st">  </span><span class="kw">ggplot</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb4-9" title="9"><span class="st">  </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">x =</span> date, <span class="dt">y =</span> value, <span class="dt">group =</span> id)) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb4-10" title="10"><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="kw">aes</span>(<span class="dt">x =</span> date, <span class="dt">y =</span> value), <span class="dt">method =</span> <span class="st">"loess"</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb4-11" title="11"><span class="st">  </span><span class="kw">facet_wrap</span>(. <span class="op">~</span><span class="st"> </span>index) <span class="op">+</span></a>
-<a class="sourceLine" id="cb4-12" title="12"><span class="st">  </span><span class="kw">theme_classic</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb4-13" title="13"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">"Week"</span>, <span class="dt">y =</span> <span class="st">"Index (mm)"</span>) -&gt;</a>
-<a class="sourceLine" id="cb4-14" title="14"><span class="st">  </span>gg1</a>
-<a class="sourceLine" id="cb4-15" title="15"></a>
-<a class="sourceLine" id="cb4-16" title="16"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(gg1)</a></code></pre></div>
-<p><img src="Overview_files/figure-html/mm-1.png" width="700"></p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="st">"tidyverse"</span>)</a>
+<a class="sourceLine" id="cb4-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb4-3" data-line-number="3">mm &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"R95p"</span>,<span class="st">"R99p"</span>,<span class="st">"Rx5day"</span>,<span class="st">"SDII"</span>)</a>
+<a class="sourceLine" id="cb4-4" data-line-number="4">days &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"MLDS"</span>,<span class="st">"MLWS"</span>,<span class="st">"R10mm"</span>,<span class="st">"R20mm"</span>)</a>
+<a class="sourceLine" id="cb4-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb4-6" data-line-number="6">pi <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb4-7" data-line-number="7"><span class="st">  </span><span class="kw"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span>(index <span class="op">%in%</span><span class="st"> </span>mm) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb4-8" data-line-number="8"><span class="st">  </span><span class="kw">ggplot</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb4-9" data-line-number="9"><span class="st">  </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">x =</span> bin, <span class="dt">y =</span> value, <span class="dt">group =</span> id)) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb4-10" data-line-number="10"><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="kw">aes</span>(<span class="dt">x =</span> bin, <span class="dt">y =</span> value), <span class="dt">method =</span> <span class="st">"loess"</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb4-11" data-line-number="11"><span class="st">  </span><span class="kw">facet_wrap</span>(. <span class="op">~</span><span class="st"> </span>index) <span class="op">+</span></a>
+<a class="sourceLine" id="cb4-12" data-line-number="12"><span class="st">  </span><span class="kw">theme_classic</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb4-13" data-line-number="13"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">"Week"</span>, <span class="dt">y =</span> <span class="st">"Index (mm)"</span>) -&gt;</a>
+<a class="sourceLine" id="cb4-14" data-line-number="14"><span class="st">  </span>gg1</a>
+<a class="sourceLine" id="cb4-15" data-line-number="15"></a>
+<a class="sourceLine" id="cb4-16" data-line-number="16"><span class="kw"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(gg1)</a></code></pre></div>
+<p><img src="mm-1.png" title="plot of chunk mm" alt="plot of chunk mm" style="display: block; margin: auto;"></p>
 <p>Now plot the indices expressed in days.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" title="1">pi <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb5-2" title="2"><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/filter">filter</a></span>(index <span class="op">%in%</span><span class="st"> </span>days) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb5-3" title="3"><span class="st">  </span><span class="kw">ggplot</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb5-4" title="4"><span class="st">  </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">x =</span> date, <span class="dt">y =</span> value, <span class="dt">group =</span> id)) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb5-5" title="5"><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="kw">aes</span>(<span class="dt">x =</span> date, <span class="dt">y =</span> value), <span class="dt">method =</span> <span class="st">"loess"</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb5-6" title="6"><span class="st">  </span><span class="kw">facet_wrap</span>(. <span class="op">~</span><span class="st"> </span>index) <span class="op">+</span></a>
-<a class="sourceLine" id="cb5-7" title="7"><span class="st">  </span><span class="kw">theme_classic</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb5-8" title="8"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">"Week"</span>, <span class="dt">y =</span> <span class="st">"Index (days)"</span>) -&gt;</a>
-<a class="sourceLine" id="cb5-9" title="9"><span class="st">  </span>gg2</a>
-<a class="sourceLine" id="cb5-10" title="10"></a>
-<a class="sourceLine" id="cb5-11" title="11"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(gg2)</a></code></pre></div>
-<p><img src="Overview_files/figure-html/days-1.png" width="700"></p>
-<p>Here we see how these indices are changing across the time series. It is possible to see that the maximum precipitation in consecutive 5-days (Rx5day) is higher in the first weeks of each year. Which agree with the beginning of the rainy season in this region. In the other chart we note an increasing extent of consecutive dry days (MLDS) across the time series, with also a decrease in the number of consecutive rainy days (MLWS). If used carefully and with scientific rigor, these indices are a good proxy to evaluate the climate variability using precipitation data<span class="citation"><sup>3,4</sup></span>.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1">pi <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb5-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span>(index <span class="op">%in%</span><span class="st"> </span>days) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb5-3" data-line-number="3"><span class="st">  </span><span class="kw">ggplot</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb5-4" data-line-number="4"><span class="st">  </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">x =</span> bin, <span class="dt">y =</span> value, <span class="dt">group =</span> id)) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb5-5" data-line-number="5"><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="kw">aes</span>(<span class="dt">x =</span> bin, <span class="dt">y =</span> value), <span class="dt">method =</span> <span class="st">"loess"</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb5-6" data-line-number="6"><span class="st">  </span><span class="kw">facet_wrap</span>(. <span class="op">~</span><span class="st"> </span>index) <span class="op">+</span></a>
+<a class="sourceLine" id="cb5-7" data-line-number="7"><span class="st">  </span><span class="kw">theme_classic</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb5-8" data-line-number="8"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">"Week"</span>, <span class="dt">y =</span> <span class="st">"Index (days)"</span>) -&gt;</a>
+<a class="sourceLine" id="cb5-9" data-line-number="9"><span class="st">  </span>gg2</a>
+<a class="sourceLine" id="cb5-10" data-line-number="10"></a>
+<a class="sourceLine" id="cb5-11" data-line-number="11"><span class="kw"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(gg2)</a></code></pre></div>
+<p><img src="days-1.png" title="plot of chunk days" alt="plot of chunk days" style="display: block; margin: auto;"></p>
+<p>Here we see how these indices are changing across the time series. It is possible to see that the maximum precipitation in consecutive 5-days (Rx5day) is higher in the first weeks of each year. Which agree with the beginning of the rainy season in this region. In the other chart we note an increasing extent of consecutive dry days (MLDS) across the time series, with also a decrease in the number of consecutive rainy days (MLWS). If used carefully and with scientific rigour, these indices are a good proxy to evaluate the climate variability using precipitation data<span class="citation"><sup>2,3</sup></span>.</p>
 </div>
 <div id="going-further" class="section level1">
 <h1 class="hasAnchor">
@@ -191,41 +198,41 @@
 <div id="evapotranspiration" class="section level2">
 <h2 class="hasAnchor">
 <a href="#evapotranspiration" class="anchor"></a>Evapotranspiration</h2>
-<p>The <strong>chirps</strong> package also retrieves the Evaporative Stress Index (ESI) using the function <code>get_esi</code> which behaves similarly as <code>get_chirps</code>.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Random">set.seed</a></span>(<span class="dv">12</span>)</a>
-<a class="sourceLine" id="cb6-2" title="2">lonlat &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/data.frame">data.frame</a></span>(<span class="dt">lon =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/Uniform">runif</a></span>(<span class="dv">2</span>, <span class="dv">-55</span>, <span class="dv">-54</span>),</a>
-<a class="sourceLine" id="cb6-3" title="3">                     <span class="dt">lat =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/Uniform">runif</a></span>(<span class="dv">2</span>, <span class="dv">-3</span>, <span class="dv">-2</span>))</a>
-<a class="sourceLine" id="cb6-4" title="4"></a>
-<a class="sourceLine" id="cb6-5" title="5">dates &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"2016-05-01"</span>,<span class="st">"2016-12-31"</span>)</a>
-<a class="sourceLine" id="cb6-6" title="6"></a>
-<a class="sourceLine" id="cb6-7" title="7">dat &lt;-<span class="st"> </span><span class="kw"><a href="../reference/get_esi.html">get_esi</a></span>(lonlat, dates)</a></code></pre></div>
-<p>The function <code>get_esi</code> may return NA’s due to cloudiness in the dataset. One way to turn over this is increase the buffer area around the inputted object with the argument ‘dist’ passed to <code>sf</code>.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Random">set.seed</a></span>(<span class="dv">123</span>)</a>
-<a class="sourceLine" id="cb7-2" title="2">lonlat &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/data.frame">data.frame</a></span>(<span class="dt">lon =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/Uniform">runif</a></span>(<span class="dv">1</span>, <span class="dv">-55</span>, <span class="dv">-54</span>),</a>
-<a class="sourceLine" id="cb7-3" title="3">                     <span class="dt">lat =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/Uniform">runif</a></span>(<span class="dv">1</span>, <span class="dv">-3</span>, <span class="fl">-2.7</span>))</a>
-<a class="sourceLine" id="cb7-4" title="4"></a>
-<a class="sourceLine" id="cb7-5" title="5">dates &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"2017-12-01"</span>,<span class="st">"2018-01-20"</span>)</a>
-<a class="sourceLine" id="cb7-6" title="6"></a>
-<a class="sourceLine" id="cb7-7" title="7"><span class="co"># this return a error due to missing data</span></a>
-<a class="sourceLine" id="cb7-8" title="8"><span class="kw"><a href="../reference/get_esi.html">get_esi</a></span>(lonlat, dates)</a>
-<a class="sourceLine" id="cb7-9" title="9"></a>
-<a class="sourceLine" id="cb7-10" title="10"><span class="co"># this works</span></a>
-<a class="sourceLine" id="cb7-11" title="11"><span class="kw"><a href="../reference/get_esi.html">get_esi</a></span>(lonlat, dates, <span class="dt">dist =</span> <span class="fl">0.1</span>)</a></code></pre></div>
+<p>The <strong>chirps</strong> package also retrieves the Evaporative Stress Index (ESI) using the function <code><a href="../reference/get_esi.html">get_esi()</a></code> which behaves similarly as <code><a href="../reference/get_chirps.html">get_chirps()</a></code>.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span>(<span class="dv">12</span>)</a>
+<a class="sourceLine" id="cb6-2" data-line-number="2">lonlat &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(<span class="dt">lon =</span> <span class="kw"><a href="https://rdrr.io/r/stats/Uniform.html">runif</a></span>(<span class="dv">2</span>, <span class="dv">-55</span>, <span class="dv">-54</span>),</a>
+<a class="sourceLine" id="cb6-3" data-line-number="3">                     <span class="dt">lat =</span> <span class="kw"><a href="https://rdrr.io/r/stats/Uniform.html">runif</a></span>(<span class="dv">2</span>, <span class="dv">-3</span>, <span class="dv">-2</span>))</a>
+<a class="sourceLine" id="cb6-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb6-5" data-line-number="5">dates &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"2016-05-01"</span>,<span class="st">"2016-12-31"</span>)</a>
+<a class="sourceLine" id="cb6-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb6-7" data-line-number="7">dat &lt;-<span class="st"> </span><span class="kw"><a href="../reference/get_esi.html">get_esi</a></span>(lonlat, dates)</a></code></pre></div>
+<p>The function <code><a href="../reference/get_esi.html">get_esi()</a></code> may return <code>NA</code>s due to cloudiness in the dataset. One way to deal with this is increase the buffer area around the inputted object with the argument <code>dist</code> passed to <code>sf()</code> methods through the <code>...</code> functionality in <code><a href="../reference/get_esi.html">get_esi()</a></code>.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span>(<span class="dv">123</span>)</a>
+<a class="sourceLine" id="cb7-2" data-line-number="2">lonlat &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(<span class="dt">lon =</span> <span class="kw"><a href="https://rdrr.io/r/stats/Uniform.html">runif</a></span>(<span class="dv">1</span>, <span class="dv">-55</span>, <span class="dv">-54</span>),</a>
+<a class="sourceLine" id="cb7-3" data-line-number="3">                     <span class="dt">lat =</span> <span class="kw"><a href="https://rdrr.io/r/stats/Uniform.html">runif</a></span>(<span class="dv">1</span>, <span class="dv">-3</span>, <span class="fl">-2.7</span>))</a>
+<a class="sourceLine" id="cb7-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb7-5" data-line-number="5">dates &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"2017-12-01"</span>,<span class="st">"2018-01-20"</span>)</a>
+<a class="sourceLine" id="cb7-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb7-7" data-line-number="7"><span class="co"># this return a error due to missing data</span></a>
+<a class="sourceLine" id="cb7-8" data-line-number="8"><span class="kw"><a href="../reference/get_esi.html">get_esi</a></span>(lonlat, dates)</a>
+<a class="sourceLine" id="cb7-9" data-line-number="9"></a>
+<a class="sourceLine" id="cb7-10" data-line-number="10"><span class="co"># this works</span></a>
+<a class="sourceLine" id="cb7-11" data-line-number="11"><span class="kw"><a href="../reference/get_esi.html">get_esi</a></span>(lonlat, dates, <span class="dt">dist =</span> <span class="fl">0.1</span>)</a></code></pre></div>
 </div>
 <div id="objects-of-class-sf" class="section level2">
 <h2 class="hasAnchor">
 <a href="#objects-of-class-sf" class="anchor"></a>Objects of class sf</h2>
-<p>Objects of class ‘sf’ can also be passed directly to both <code>get_chirps</code> and <code>get_esi</code>.</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" title="1">lonlat &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/data.frame">data.frame</a></span>(<span class="dt">lon =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="op">-</span><span class="fl">55.0281</span>,<span class="op">-</span><span class="fl">54.9857</span>, <span class="fl">-55.0714</span>),</a>
-<a class="sourceLine" id="cb8-2" title="2">                     <span class="dt">lat =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="op">-</span><span class="fl">2.8094</span>, <span class="fl">-2.8756</span>, <span class="fl">-3.5279</span>))</a>
-<a class="sourceLine" id="cb8-3" title="3"></a>
-<a class="sourceLine" id="cb8-4" title="4">lonlat &lt;-<span class="st"> </span><span class="kw">st_as_sf</span>(lonlat, <span class="dt">coords =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"lon"</span>,<span class="st">"lat"</span>))</a>
-<a class="sourceLine" id="cb8-5" title="5"></a>
-<a class="sourceLine" id="cb8-6" title="6">dates &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"2017-12-15"</span>,<span class="st">"2017-12-31"</span>)</a>
-<a class="sourceLine" id="cb8-7" title="7"></a>
-<a class="sourceLine" id="cb8-8" title="8"><span class="kw"><a href="../reference/get_chirps.html">get_chirps</a></span>(lonlat, dates)</a></code></pre></div>
-<p>To return an object with the same class (sf), the argument ‘as.sf = TRUE’ is used.</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" title="1"><span class="kw"><a href="../reference/get_chirps.html">get_chirps</a></span>(lonlat, dates, <span class="dt">as.sf =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<p>Objects of class <code>sf</code> can also be passed directly to both <code><a href="../reference/get_chirps.html">get_chirps()</a></code> and <code><a href="../reference/get_esi.html">get_esi()</a></code>.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1">lonlat &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(<span class="dt">lon =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="op">-</span><span class="fl">55.0281</span>,<span class="op">-</span><span class="fl">54.9857</span>, <span class="fl">-55.0714</span>),</a>
+<a class="sourceLine" id="cb8-2" data-line-number="2">                     <span class="dt">lat =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="op">-</span><span class="fl">2.8094</span>, <span class="fl">-2.8756</span>, <span class="fl">-3.5279</span>))</a>
+<a class="sourceLine" id="cb8-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb8-4" data-line-number="4">lonlat &lt;-<span class="st"> </span><span class="kw">st_as_sf</span>(lonlat, <span class="dt">coords =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"lon"</span>,<span class="st">"lat"</span>))</a>
+<a class="sourceLine" id="cb8-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb8-6" data-line-number="6">dates &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"2017-12-15"</span>,<span class="st">"2017-12-31"</span>)</a>
+<a class="sourceLine" id="cb8-7" data-line-number="7"></a>
+<a class="sourceLine" id="cb8-8" data-line-number="8"><span class="kw"><a href="../reference/get_chirps.html">get_chirps</a></span>(lonlat, dates)</a></code></pre></div>
+<p>To return an object with the same class (<code>sf</code>), the argument <code>as.sf = TRUE</code> is used.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="kw"><a href="../reference/get_chirps.html">get_chirps</a></span>(lonlat, dates, <span class="dt">as.sf =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
 </div>
 </div>
 <div id="references" class="section level1 unnumbered">
@@ -235,20 +242,18 @@
 <div id="ref-Funk2015">
 <p>1. Funk, C., Peterson, P., Landsfeld, M. &amp; Pedreros, D. <em>et al.</em> The climate hazards infrared precipitation with stations—a new environmental record for monitoring extremes. <em>Scientific Data</em> <strong>2</strong>, 150066 (2015).</p>
 </div>
-<div id="ref-RCoreTeam">
-<p>2. R Core Team. R: A language and environment for statistical computing. version 3.3.3. (2017).</p>
-</div>
 <div id="ref-Aguilar2005">
-<p>3. Aguilar, E., Peterson, T. C., Obando, P. R. &amp; Frutos, R. <em>et al.</em> Changes in precipitation and temperature extremes in Central America and northern South America, 1961–2003. <em>Journal of Geophysical Research</em> <strong>110</strong>, D23107 (2005).</p>
+<p>2. Aguilar, E., Peterson, T. C., Obando, P. R. &amp; Frutos, R. <em>et al.</em> Changes in precipitation and temperature extremes in Central America and northern South America, 1961–2003. <em>Journal of Geophysical Research</em> <strong>110</strong>, D23107 (2005).</p>
 </div>
 <div id="ref-DeSousa2018">
-<p>4. de Sousa, K., Casanoves, F., Sellare, J. &amp; Ospina, A. <em>et al.</em> How climate awareness influences farmers’ adaptation decisions in Central America? <em>Journal of Rural Studies</em> <strong>64</strong>, 11–19 (2018).</p>
+<p>3. de Sousa, K., Casanoves, F., Sellare, J. &amp; Ospina, A. <em>et al.</em> How climate awareness influences farmers’ adaptation decisions in Central America? <em>Journal of Rural Studies</em> <strong>64</strong>, 11–19 (2018).</p>
 </div>
 </div>
 </div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+
         <div id="tocnav">
       <h2 class="hasAnchor">
 <a href="#tocnav" class="anchor"></a>Contents</h2>
@@ -270,17 +275,20 @@
 </div>
 
 
+
       <footer><div class="copyright">
   <p>Developed by Kaue de Sousa, Adam Sparks, Billy Ashmall.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
 </div>
+
       </footer>
 </div>
 
   
+
 
   </body>
 </html>
