@@ -1,5 +1,8 @@
 {
-  "@context": ["https://doi.org/10.5063/schema/codemeta-2.0", "http://schema.org"],
+  "@context": [
+    "https://doi.org/10.5063/schema/codemeta-2.0",
+    "http://schema.org"
+  ],
   "@type": "SoftwareSourceCode",
   "identifier": "chirps",
   "description": "API Client for the Climate Hazards Group InfraRed Precipitation with Station Data 'CHIRPS'. The 'CHIRPS' data is a 35+ year quasi-global rainfall data set which incorporates 0.05 arc-degrees resolution satellite imagery, and in-situ station data to create gridded rainfall time series for trend analysis and seasonal drought monitoring. For more details on 'CHIRPS' data please visit its official home page <https://www.chc.ucsb.edu/data/chirps>. ",
@@ -25,7 +28,7 @@
     },
     {
       "@type": "Person",
-      "givenName": "Adam",
+      "givenName": "Adam H.",
       "familyName": "Sparks",
       "@id": "https://orcid.org/0000-0002-0061-8359"
     },
@@ -38,7 +41,7 @@
   "contributor": [
     {
       "@type": "Person",
-      "givenName": "Adam",
+      "givenName": "Adam H.",
       "familyName": "Sparks",
       "@id": "https://orcid.org/0000-0002-0061-8359"
     },
@@ -172,5 +175,9 @@
   ],
   "releaseNotes": "https://github.com/agrobioinfoservices/chirps/blob/master/NEWS.md",
   "readme": "https://github.com/agrobioinfoservices/chirps/blob/master/README.md",
-  "contIntegration": ["https://ci.appveyor.com/project/kauedesousa/chirps", "https://travis-ci.org/agrobioinfoservices/chirps", "https://codecov.io/github/agrobioinfoservices/chirps?branch=master"]
+  "contIntegration": [
+    "https://ci.appveyor.com/project/kauedesousa/chirps",
+    "https://travis-ci.org/agrobioinfoservices/chirps",
+    "https://codecov.io/github/agrobioinfoservices/chirps?branch=master"
+  ]
 }

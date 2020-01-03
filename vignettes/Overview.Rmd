@@ -4,7 +4,7 @@ package: chirps
 author:
 - name: Kauê de Sousa
   affiliation: Department of Agricultural Sciences, Inland Norway University of Applied Sciences, Hamar, Norway; and The Alliance of Bioversity International and CIAT, Rome, Italy
-- name: Adam Sparks 
+- name: Adam H. Sparks 
   affiliation: Centre for Crop Health, University of Southern Queensland, Toowoomba, Australia
 - name: William Ashmall 
   affiliation: Universities Space Research Association, NASA, Huntsville, USA
@@ -92,7 +92,7 @@ head(pi)
 
 The function `precip_indices()` returns a data.frame with the precipitation indices. Each date corresponds to the first day in the time series intervals as defined by the argument 'span'. When `timeseries = FALSE` the function returns a single precipitation index for the entire time series.
 
-There are two main types of indices. Those that are expressed in days ("MLDS","MLWS","R10mm","R20mm") and those that are expressed in mm ("R95p","R99p","Rx5day","SDII"). We split these indices to visualise the time series.
+There are two main types of indices. Those that are expressed in days ("MLDS", "MLWS", "R10mm", "R20mm") and those that are expressed in mm ("R95p", "R99p", "Rx5day", "SDII"). We split these indices to visualise the time series.
 
 
 
