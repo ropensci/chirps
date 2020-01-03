@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.999991 (TeX Live 2019/W32TeX) (preloaded format=xelatex 2020.1.3)  4 JAN 2020 00:33
+This is XeTeX, Version 3.14159265-2.6-0.999991 (TeX Live 2019/W32TeX) (preloaded format=xelatex 2020.1.3)  4 JAN 2020 00:43
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1512,6 +1512,13 @@ LaTeX Font Info:    Font shape `TU/lmss/m/it' in size <8> not available
 ]
 LaTeX Font Info:    Font shape `TU/lmtt/bx/n' in size <10> not available
 (Font)              Font shape `TU/lmtt/b/n' tried instead on input line 344.
+File: Fig1.png Graphic file (type bmp)
+<Fig1.png>
+
+Overfull \hbox (181.66696pt too wide) in paragraph at lines 371--371
+[][] 
+ []
+
 File: C:/Users/kaued/Documents/R/win-library/3.5/rticles/rmarkdown/templates/jo
 ss_article/resources/JOSS-logo.png Graphic file (type bmp)
 <C:/Users/kaued/Documents/R/win-library/3.5/rticles/rmarkdown/templates/joss_ar
@@ -1522,24 +1529,29 @@ ss_article/resources/JOSS-logo.png Graphic file (type bmp)
 <C:/Users/kaued/Documents/R/win-library/3.5/rticles/rmarkdown/templates/joss_ar
 ticle/resources/JOSS-logo.png>
 [3]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 455.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 455.
+File: C:/Users/kaued/Documents/R/win-library/3.5/rticles/rmarkdown/templates/jo
+ss_article/resources/JOSS-logo.png Graphic file (type bmp)
+<C:/Users/kaued/Documents/R/win-library/3.5/rticles/rmarkdown/templates/joss_ar
+ticle/resources/JOSS-logo.png>
+[4]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 459.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 459.
 (./paper.aux)
-Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 455.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 455.
+Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 459.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 459.
 Package rerunfilecheck Info: File `paper.out' has not changed.
-(rerunfilecheck)             Checksum: 0CF2DBCFAC5982A5BFBCB2EE7DD15C41;293.
+(rerunfilecheck)             Checksum: D641A516F1757B76155B5D43DC44ED0C;293.
 Package logreq Info: Writing requests to 'paper.run.xml'.
 \openout1 = `paper.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 43457 strings out of 494458
- 863455 string characters out of 6172053
- 1336183 words of memory out of 5000000
- 47271 multiletter control sequences out of 15000+600000
- 539194 words of font info for 70 fonts, out of 8000000 for 9000
+ 43487 strings out of 494458
+ 863845 string characters out of 6172053
+ 1336699 words of memory out of 5000000
+ 47296 multiletter control sequences out of 15000+600000
+ 539202 words of font info for 71 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 60i,12n,75p,791b,788s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 60i,12n,77p,791b,788s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on paper.pdf (3 pages).
+Output written on paper.pdf (4 pages).
