@@ -14,7 +14,7 @@ Status](https://travis-ci.org/agrobioinfoservices/chirps.svg?branch=master)](htt
 license](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.r-project.org/Licenses/GPL-3)
 <!-- badges: end -->
 
-# *chirps*: API Client for the Climate Hazards Group InfraRed Precipitation with Station Data <img align="right" src="man/figures/logo.png">
+# *chirps*: API Client for CHIRPS <img align="right" src="man/figures/logo.png">
 
 ## Overview
 

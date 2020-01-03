@@ -1,6 +1,6 @@
 Package: chirps
 Type: Package
-Title: API Client for the Climate Hazards Group InfraRed Precipitation with Station Data
+Title: API Client for CHIRPS
 Version: 0.0.4
 Authors@R: c(person("Kaue", "de Sousa", 
         email = "kaue.desousa@inn.no", role = c("aut", "cre"),
