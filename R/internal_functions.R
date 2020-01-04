@@ -6,73 +6,75 @@
 #'
 #' @param lonlat a data.frame with geographical coordinates lonlat in that order
 #' @param dist numeric; buffer distance for all \code{lonlat}
-#' @param nQuadSegs integer; number of segments per quadrant 
+#' @param nQuadSegs integer; number of segments per quadrant
 #' @return A list with geojson strings for each row in \code{lonlat}
 #' @examples
 #' # random geographic locations around bbox(10, 12, 45, 57)
 #' set.seed(123)
 #' lonlat <- data.frame(lon = runif(10, 10, 12),
 #'                      lat = runif(10, 45, 57))
-#' 
+#'
 #' gjson <- .dataframe_to_geojson(lonlat)
 #'@noRd
-.dataframe_to_geojson <- function(lonlat, dist = 0.00001, nQuadSegs = 2L) {
-  
-  n <- nrow(lonlat)
-  
-  # lonlat into matrix
-  lonlat <- as.matrix(lonlat)
-  
-  # split lonlat by rows
-  lonlat <- split(lonlat, 1:nrow(lonlat))
-  
-  # transform into sf points
-  lonlat <- lapply(lonlat, function(l) {
-    sf::st_point(l)
-  })
-  
-  # and then into a geometry list colunm
-  lonlat <- sf::st_sfc(lonlat)
-  
-  # set the buffer around the points
-  lonlatb <- sf::st_buffer(lonlat, 
-                           dist = dist, 
-                           nQuadSegs = nQuadSegs)
-  
-  # transform into a sf object
-  lonlatb <- sf::st_as_sf(lonlatb)
-  
-  # write the geojson string
-  tf <- tempfile(fileext = ".geojson")
-  sf::st_write(lonlatb, tf, quiet = TRUE)
-  
-  # capture these strings
-  gj <- readLines(tf)
-  
-  # first 4 lines are for the features and last 2 lines to close features
-  # keep only geojson geometries
-  gj <- gj[5:(n + 4)]
-  
-  gj <- split(gj, 1:n)
-  
-  gjson <- lapply(gj, function(x) {
-    gsub(" ", "", x)
-  })
-  
-  return(gjson)
-  
-}
+.dataframe_to_geojson <-
+  function(lonlat,
+           dist = 0.00001,
+           nQuadSegs = 2L) {
+    n <- nrow(lonlat)
+    
+    # lonlat into matrix
+    lonlat <- as.matrix(lonlat)
+    
+    # split lonlat by rows
+    lonlat <- split(lonlat, 1:nrow(lonlat))
+    
+    # transform into sf points
+    lonlat <- lapply(lonlat, function(l) {
+      sf::st_point(l)
+    })
+    
+    # and then into a geometry list colunm
+    lonlat <- sf::st_sfc(lonlat)
+    
+    # set the buffer around the points
+    lonlatb <- sf::st_buffer(lonlat,
+                             dist = dist,
+                             nQuadSegs = nQuadSegs)
+    
+    # transform into a sf object
+    lonlatb <- sf::st_as_sf(lonlatb)
+    
+    # write the geojson string
+    tf <- tempfile(fileext = ".geojson")
+    sf::st_write(lonlatb, tf, quiet = TRUE)
+    
+    # capture these strings
+    gj <- readLines(tf)
+    
+    # first 4 lines are for the features and last 2 lines to close features
+    # keep only geojson geometries
+    gj <- gj[5:(n + 4)]
+    
+    gj <- split(gj, 1:n)
+    
+    gjson <- lapply(gj, function(x) {
+      gsub(" ", "", x)
+    })
+    
+    return(gjson)
+    
+  }
 
 #' Concatenate a sf object into a geojson polygon
 #'
-#' Take single points from geographical coordinates 
+#' Take single points from geographical coordinates
 #' and convert it into a geojson 'Polygon' string using
 #' \code{\link[sf]{st_buffer}} 'Polygon' is the only geojson format accepted by
 #' ClimateSERV
 #'
 #' @param lonlat an object of class "sf"
 #' @param dist numeric; buffer distance for all \code{lonlat}
-#' @param nQuadSegs integer; number of segments per quadrant 
+#' @param nQuadSegs integer; number of segments per quadrant
 #' @return A list with geojson strings for each row in \code{lonlat}
 #' @examples
 #' # random geographic locations around bbox(10, 12, 45, 57)
@@ -80,18 +82,19 @@
 #' set.seed(123)
 #' lonlat <- data.frame(lon = runif(10, 10, 12),
 #'                      lat = runif(10, 45, 57))
-#' 
+#'
 #' lonlat <- st_as_sf(lonlat, coords = c("lon","lat"))
-#' 
+#'
 #' gjson <- .sf_to_geojson(lonlat)
 #' @noRd
-.sf_to_geojson <- function(lonlat, dist = 0.00001, nQuadSegs = 2L) {
-  
+.sf_to_geojson <- function(lonlat,
+                           dist = 0.00001,
+                           nQuadSegs = 2L) {
   n <- nrow(lonlat)
   
   # set the buffer around the points
-  lonlatb <- sf::st_buffer(lonlat, 
-                           dist = dist, 
+  lonlatb <- sf::st_buffer(lonlat,
+                           dist = dist,
                            nQuadSegs = nQuadSegs)
   
   # transform into a sf object
@@ -139,95 +142,114 @@
 #' @examples
 #' lonlat <- data.frame(lon = runif(1, 10, 12),
 #'                      lat = runif(1, 45, 47))
-#' 
+#'
 #' gjson <- chirps:::.dataframe_to_geojson(lonlat)
-#' 
+#'
 #' chirps:::.send_request(begintime = "12/10/2018",
 #'                        endtime = "12/26/2018",
 #'                        geometry = gjson)
 #' @import crul
 #' @noRd
-.send_request <- function(datatype = 0, begintime = NULL, endtime = NULL,
-                          intervaltype = 0, operationtype = 5, geometry = NULL) {
-  
-  base_url <- "https://climateserv.servirglobal.net/chirps/"
-  
-  # organise the query
-  query <- list(
-    datatype = toString(datatype),
-    begintime = begintime,
-    endtime = endtime,
-    intervaltype = toString(intervaltype),
-    operationtype = toString(operationtype),
-    callback = "successCallback",
-    dateType_Category = "default",
-    isZip_CurrentDataType = "false",
-    geometry = geometry
-  )
-  
-  client_request <-
-    crul::HttpClient$new(url = paste0(base_url, "submitDataRequest/?"))
-  
-  # check status
-  status <- client_request$get()
-  status$raise_for_status()
-  
-  # send the query
-  tryCatch(
+.send_request <-
+  function(datatype = 0,
+           begintime = NULL,
+           endtime = NULL,
+           intervaltype = 0,
+           operationtype = 5,
+           geometry = NULL) {
+    base_url <- "https://climateserv.servirglobal.net/chirps/"
     
-    id <- client_request$get(query = query),
+    # organise the query
+    query <- list(
+      datatype = toString(datatype),
+      begintime = begintime,
+      endtime = endtime,
+      intervaltype = toString(intervaltype),
+      operationtype = toString(operationtype),
+      callback = "successCallback",
+      dateType_Category = "default",
+      isZip_CurrentDataType = "false",
+      geometry = geometry
+    )
     
-    error = function(x) {
-      stop("\nThe requested data could not be downloaded.\n
-           \nPlease try your query again later.\n",
-           call. = FALSE)
-    }
-  )
-
-  id <- id$parse("UTF-8")
-  
-  # get content from the query
-  id <- strsplit(id, '["]')[[1]][2]
-  
-  return(id)
-  
-}
+    client_request <-
+      crul::HttpClient$new(url = paste0(base_url, "submitDataRequest/?"))
+    
+    # check status
+    status <- client_request$get()
+    status$raise_for_status()
+    
+    # send the query
+    tryCatch(
+      id <- client_request$get(query = query),
+      # nocov start
+      error = function(e) {
+        e$message <-
+          paste(
+            "\nSomething went wrong with the query, no data were returned.",
+            "Please see <https://climateserv.servirglobal.net/> for potential",
+            "server issues.\n"
+          )
+        # Otherwise refers to open.connection
+        e$call <- NULL
+        stop(e)
+      }
+    ) # nocov end
+    
+    id <- id$parse("UTF-8")
+    
+    # get content from the query
+    id <- strsplit(id, '["]')[[1]][2]
+    
+    return(id)
+    
+  }
 
 #' Get request progress
 #'
-#' @param id character with the id obtained from \code{.send_request} 
+#' @param id character with the id obtained from \code{.send_request}
 #' @return logical value, \code{TRUE} when the data is ready to be retrieved
 #' @examples
 #' lonlat <- data.frame(lon = runif(1, 10, 12),
 #'                      lat = runif(1, 45, 47))
-#' 
+#'
 #' gjson <- chirps:::.dataframe_to_geojson(lonlat)
-#' 
+#'
 #' id <- chirps:::.send_request(begintime = "12/10/2018",
 #'                        endtime = "12/26/2018",
 #'                        geometry = gjson)
 #' chirps:::.get_request_progress (id = id)
 #' @noRd
 .get_request_progress <- function(id) {
-  
   base_url <- "https://climateserv.servirglobal.net/chirps/"
   
-  client_request <-
+  client_progress <-
     crul::HttpClient$new(url = paste0(base_url, "getDataRequestProgress/?"))
   
   
   # organise the query
-  query <- list(id = id)
+  progress_query <- list(id = id)
   
   # check status
-  status <- client_request$get()
-
+  status <- client_progress$get()
+  
   # send query
-  client_request$get(query = query)
-    
-  p <- client_request$get(query = query)
+  client_progress$get(query = progress_query, retry = 6)
+  
+  p <- client_progress$get(query = progress_query)
   
   p <- p$parse("UTF-8")
+  
+  # account for the chance that the server returns an error message and stop
+  # the process with a (hopefully) useful error message
+
+  if (p == -1) { #nocov start
+    stop(call. = FALSE,
+    "\nSomething went wrong with the query, no data were returned.",
+    "Please see <https://climateserv.servirglobal.net/> for potential",
+    "server issues.\n"
+    )
+  } #nocov end
   
   p <- grepl(100, p)
   
@@ -236,43 +258,41 @@
 
 #' Get data from a request to ClimateSERV
 #'
-#' @param id character with the id obtained from \code{.send_request} 
+#' @param id character with the id obtained from \code{.send_request}
 #' @return A data frame with requested data
 #' @examples
-#' 
+#'
 # set.seed(12)
 # lonlat <- data.frame(lon = runif(1, 10, 12),
 #                      lat = runif(1, 45, 47))
-# 
+#
 # gjson <- chirps:::.dataframe_to_geojson(lonlat)
-# 
+#
 # id <- chirps:::.send_request(datatype = 29,
 #                              begintime = "09/10/2018",
 #                              endtime = "12/26/2018",
 #                              geometry = gjson)
-# 
+#
 # chirps:::.get_data_from_request(id = id)
 #' @noRd
 .get_data_from_request <- function(id) {
-  
   base_url <- "https://climateserv.servirglobal.net/chirps/"
   
-  client_request <-
+  client_data <-
     crul::HttpClient$new(url = paste0(base_url, "getDataFromRequest/?"))
-  
   
   # organise the query
   query <- list(id = id)
   
   # check status
-  status <- client_request$get()
+  status <- client_data$get()
   status$raise_for_status()
   
   tryCatch({
-    client_request$get(query = query, retry = 6)
+    client_data$get(query = query, retry = 6)
     
     # send query
-    d <- client_request$get(query = query)
+    d <- client_data$get(query = query)
     
     d <- d$parse("UTF-8")
     
@@ -292,38 +312,37 @@
   
   d <- data.frame(cbind(date = d$data$date,
                         d$data$value))
-
+  
   d$date <- as.character(d$date)
-
+  
   
   return(d)
   
 }
 
 #' Validate lonlat within an pre-defined bounding box
-#' 
+#'
 #' @param lonlat a \code{\link[base]{data.frame}} with geographical coordinates
 #'  lonlat in that order
 #' @param xlim a numeric vector for the min and max accepted range in the
 #'  longitude in that order
 #' @param ylim a numeric vector for the min and max accepted range in the
-#'  latitude in that order 
+#'  latitude in that order
 #' @return If lonlat are valid (within the bounding box) returns nothing
 #' @examples
 #' # random geographic locations around bbox(10, 12, 45, 57)
 #' set.seed(123)
 #' lonlat <- data.frame(lon = runif(10, 10, 12),
 #'                      lat = runif(10, 45, 49))
-#' 
+#'
 #' .validate_lonlat(lonlat)
 #' @noRd
-.validate_lonlat <- function(lonlat, 
-                             xlim = c(-180, 180), 
+.validate_lonlat <- function(lonlat,
+                             xlim = c(-180, 180),
                              ylim = c(-50, 50)) {
+  lon <- lonlat[, 1]
   
-  lon <- lonlat[,1]
-  
-  lat <- lonlat[,2]
+  lat <- lonlat[, 2]
   
   v1 <- min(lon) < xlim[1]
   v2 <- max(lon) > xlim[2]
@@ -352,85 +371,85 @@
 #' @return nothing
 #' @examples
 #' dates <- c("2016-01-31","2017-12-01")
-#' 
+#'
 #' .validate_dates(dates)
-#' 
+#'
 #' dates <- c("2018-01-31","2017-12-01")
-#' 
+#'
 #' .validate_dates(dates)
-#' 
+#'
 #' dates <- c("2018-01-31", as.character(Sys.Date()))
-#' 
+#'
 #' .validate_dates(dates)
-#' 
+#'
 #' dates <- c("1980-12-31", "2018-01-31")
-#' 
+#'
 #' .validate_dates(dates)
 #' @noRd
 
-.validate_dates <- function(x, availability = c("1981-01-01", "0")) {
-  
-  xmin <- as.Date(x[1], format = "%Y-%m-%d")
-  
-  xmax <- as.Date(x[2], format = "%Y-%m-%d")
-  
-  # the first day from which the dataset is available
-  past <- as.Date(availability[1], origin = "1970-01-01")
-  
-  # the most recent date from which the dataset is available
-  present <- availability[2]
-  
-  # generally it takes 45 days to update
-  if (present == "0") {
-    present <- Sys.Date() - 45
-    present <- format(present,  "%Y-%m-%d")
-  }
-  
-  # last given date should be higher than first
-  cond1 <- as.integer(xmax - xmin) > 1
-  
-  # no older than past date
-  cond2 <- xmin > past
-  
-  # no later then present date
-  cond3 <- xmax < present
-  
-  if (!all(cond1, cond2, cond3)) {
-    stop(
-      "Subscript out of bounds\n
+.validate_dates <-
+  function(x, availability = c("1981-01-01", "0")) {
+    xmin <- as.Date(x[1], format = "%Y-%m-%d")
+    
+    xmax <- as.Date(x[2], format = "%Y-%m-%d")
+    
+    # the first day from which the dataset is available
+    past <- as.Date(availability[1], origin = "1970-01-01")
+    
+    # the most recent date from which the dataset is available
+    present <- availability[2]
+    
+    # generally it takes 45 days to update
+    if (present == "0") {
+      present <- Sys.Date() - 45
+      present <- format(present,  "%Y-%m-%d")
+    }
+    
+    # last given date should be higher than first
+    cond1 <- as.integer(xmax - xmin) > 1
+    
+    # no older than past date
+    cond2 <- xmin > past
+    
+    # no later then present date
+    cond3 <- xmax < present
+    
+    if (!all(cond1, cond2, cond3)) {
+      stop(
+        "Subscript out of bounds\n
          Please check your dates. The dataset is available from ",
-      as.character(past),
-      " to about ",
-      as.character(present),
-      "\n
+        as.character(past),
+        " to about ",
+        as.character(present),
+        "\n
          Or your dates may be twisted. \n",
-      call. = FALSE
-    )
+        call. = FALSE
+      )
+    }
+    
   }
-  
-}
 
 
 #' Reformat dates as required by ClimateServ
 #'
-#' @param x a character of start and end dates in that order in the format 
+#' @param x a character of start and end dates in that order in the format
 #'  "YYYY-MM-DD"
 #' @param ... further arguments passed to \code{\link{.validate_dates}}
 #' @return a character with reformated dates as "MM/DD/YYYY"
 #' @examples
 #' x <- c("2016-01-31","2017-12-01")
-#' 
+#'
 #' .reformat_dates(x)
 #' @noRd
 
 .reformat_dates <- function(x, ...) {
-  
   # validate dates
   .validate_dates(x, ...)
-
+  
   begindate <- x[1]
   begindate <- strsplit(begindate, "-")[[1]]
-  begindate <- paste(begindate[2], begindate[3], begindate[1], sep = "/")
+  begindate <-
+    paste(begindate[2], begindate[3], begindate[1], sep = "/")
   
   enddate <- x[2]
   enddate <- strsplit(enddate, "-")[[1]]
@@ -451,7 +470,6 @@
 #' @noRd
 
 .is_chirps <- function(x) {
-  
   c("chirps") %in% class(x)
   
 }
