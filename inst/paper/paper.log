@@ -1,13 +1,13 @@
-This is XeTeX, Version 3.14159265-2.6-0.999991 (TeX Live 2019) (preloaded format=xelatex 2020.1.3)  4 JAN 2020 09:59
+This is XeTeX, Version 3.14159265-2.6-0.999991 (TeX Live 2019/W32TeX) (preloaded format=xelatex 2020.1.3)  4 JAN 2020 12:21
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
 **paper.tex
 (./paper.tex
 LaTeX2e <2019-10-01> patch level 3
-(/Users/adamsparks/Library/TinyTeX/texmf-dist/tex/latex/base/article.cls
+(c:/Users/kaued/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/base/article.cls
 Document Class: article 2019/10/25 v1.4k Standard LaTeX document class
-(/Users/adamsparks/Library/TinyTeX/texmf-dist/tex/latex/base/size10.clo
+(c:/Users/kaued/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/base/size10.clo
 File: size10.clo 2019/10/25 v1.4k Standard LaTeX file (size option)
 )
 \c@part=\count80
@@ -22,33 +22,44 @@ File: size10.clo 2019/10/25 v1.4k Standard LaTeX file (size option)
 \belowcaptionskip=\skip42
 \bibindent=\dimen102
 )
-(/Users/adamsparks/Library/TinyTeX/texmf-dist/tex/latex/marginnote/marginnote.s
-ty
+(c:/Users/kaued/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/marginnote/marginn
+ote.sty
 Package: marginnote 2018/08/09 v1.4b non floating margin notes for LaTeX
 \c@mn@abspage=\count88
-) (/Users/adamsparks/Library/TinyTeX/texmf-dist/tex/latex/graphics/graphicx.sty
+)
+(c:/Users/kaued/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/graphics/graphicx.
+sty
 Package: graphicx 2017/06/01 v1.1a Enhanced LaTeX Graphics (DPC,SPQR)
-(/Users/adamsparks/Library/TinyTeX/texmf-dist/tex/latex/graphics/keyval.sty
+
+(c:/Users/kaued/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/graphics/keyval.st
+y
 Package: keyval 2014/10/28 v1.15 key=value parser (DPC)
 \KV@toks@=\toks14
-) (/Users/adamsparks/Library/TinyTeX/texmf-dist/tex/latex/graphics/graphics.sty
+)
+(c:/Users/kaued/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/graphics/graphics.
+sty
 Package: graphics 2019/11/01 v1.3d Standard LaTeX Graphics (DPC,SPQR)
-(/Users/adamsparks/Library/TinyTeX/texmf-dist/tex/latex/graphics/trig.sty
+(c:/Users/kaued/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/graphics/trig.sty
 Package: trig 2016/01/03 v1.10 sin cos tan (DPC)
 )
-(/Users/adamsparks/Library/TinyTeX/texmf-dist/tex/latex/graphics-cfg/graphics.c
-fg
+(c:/Users/kaued/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/graphics-cfg/graph
+ics.cfg
 File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
 )
 Package graphics Info: Driver file: xetex.def on input line 105.
-(/Users/adamsparks/Library/TinyTeX/texmf-dist/tex/latex/graphics-def/xetex.def
+
+(c:/Users/kaued/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/graphics-def/xetex
+.def
 File: xetex.def 2017/06/24 v5.0h Graphics/color driver for xetex
 ))
 \Gin@req@height=\dimen103
 \Gin@req@width=\dimen104
-) (/Users/adamsparks/Library/TinyTeX/texmf-dist/tex/latex/xcolor/xcolor.sty
+) (c:/Users/kaued/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/xcolor/xcolor.st
+y
 Package: xcolor 2016/05/11 v2.12 LaTeX color extensions (UK)
-(/Users/adamsparks/Library/TinyTeX/texmf-dist/tex/latex/graphics-cfg/color.cfg
+
+(c:/Users/kaued/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/graphics-cfg/color
+.cfg
 File: color.cfg 2016/01/02 v1.6 sample color configuration
 )
 Package xcolor Info: Driver file: xetex.def on input line 225.
@@ -60,17 +71,23 @@ Package xcolor Info: Model `tHsb' substituted by `hsb' on input line 1368.
 Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1369.
 Package xcolor Info: Model `Gray' substituted by `gray' on input line 1370.
 Package xcolor Info: Model `wave' substituted by `hsb' on input line 1371.
-) (/Users/adamsparks/Library/TinyTeX/texmf-dist/tex/latex/preprint/authblk.sty
+)
+(c:/Users/kaued/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/preprint/authblk.s
+ty
 Package: authblk 2001/02/27 1.3 (PWD)
 \affilsep=\skip43
 \@affilsep=\skip44
 \c@Maxaffil=\count89
 \c@authors=\count90
 \c@affil=\count91
-) (/Users/adamsparks/Library/TinyTeX/texmf-dist/tex/latex/etoolbox/etoolbox.sty
+)
+(c:/Users/kaued/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/etoolbox/etoolbox.
+sty
 Package: etoolbox 2019/09/21 v2.5h e-TeX tools for LaTeX (JAW)
 \etb@tempcnta=\count92
-) (/Users/adamsparks/Library/TinyTeX/texmf-dist/tex/latex/titlesec/titlesec.sty
+)
+(c:/Users/kaued/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/titlesec/titlesec.
+sty
 Package: titlesec 2019/10/16 v2.13 Sectioning titles
 \ttl@box=\box27
 \beforetitleunit=\skip45
@@ -81,7 +98,7 @@ Package: titlesec 2019/10/16 v2.13 Sectioning titles
 \titlewidth=\dimen107
 \titlewidthlast=\dimen108
 \titlewidthfirst=\dimen109
-) (/Users/adamsparks/Library/TinyTeX/texmf-dist/tex/latex/tools/calc.sty
+) (c:/Users/kaued/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/tools/calc.sty
 Package: calc 2017/05/25 v4.3 Infix arithmetic (KKT,FJ)
 \calc@Acount=\count93
 \calc@Bcount=\count94
@@ -94,47 +111,49 @@ LaTeX Info: Redefining \addtolength on input line 81.
 \calc@Ccount=\count95
 \calc@Cskip=\skip49
 )
-(/Users/adamsparks/Library/TinyTeX/texmf-dist/tex/latex/pgf/frontendlayer/tikz.
-sty (/Users/adamsparks/Library/TinyTeX/texmf-dist/tex/latex/pgf/basiclayer/pgf.
-sty
-(/Users/adamsparks/Library/TinyTeX/texmf-dist/tex/latex/pgf/utilities/pgfrcs.st
-y
-(/Users/adamsparks/Library/TinyTeX/texmf-dist/tex/generic/pgf/utilities/pgfutil
--common.tex
+(c:/Users/kaued/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/pgf/frontendlayer/
+tikz.sty
+(c:/Users/kaued/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/pgf/basiclayer/pgf
+.sty
+(c:/Users/kaued/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/pgf/utilities/pgfr
+cs.sty
+(c:/Users/kaued/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/pgf/utilities/pg
+futil-common.tex
 \pgfutil@everybye=\toks16
 \pgfutil@tempdima=\dimen112
 \pgfutil@tempdimb=\dimen113
 
-(/Users/adamsparks/Library/TinyTeX/texmf-dist/tex/generic/pgf/utilities/pgfutil
--common-lists.tex))
-(/Users/adamsparks/Library/TinyTeX/texmf-dist/tex/generic/pgf/utilities/pgfutil
--latex.def
+(c:/Users/kaued/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/pgf/utilities/pg
+futil-common-lists.tex))
+(c:/Users/kaued/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/pgf/utilities/pg
+futil-latex.def
 \pgfutil@abb=\box28
-(/Users/adamsparks/Library/TinyTeX/texmf-dist/tex/latex/ms/everyshi.sty
+(c:/Users/kaued/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/ms/everyshi.sty
 Package: everyshi 2001/05/15 v3.00 EveryShipout Package (MS)
 ))
-(/Users/adamsparks/Library/TinyTeX/texmf-dist/tex/generic/pgf/utilities/pgfrcs.
-code.tex (/Users/adamsparks/Library/TinyTeX/texmf-dist/tex/generic/pgf/pgf.revi
-sion.tex)
+(c:/Users/kaued/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/pgf/utilities/pg
+frcs.code.tex
+(c:/Users/kaued/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/pgf/pgf.revision
+.tex)
 Package: pgfrcs 2019/12/21 v3.1.5a (3.1.5a)
 ))
 Package: pgf 2019/12/21 v3.1.5a (3.1.5a)
 
-(/Users/adamsparks/Library/TinyTeX/texmf-dist/tex/latex/pgf/basiclayer/pgfcore.
-sty
-(/Users/adamsparks/Library/TinyTeX/texmf-dist/tex/latex/pgf/systemlayer/pgfsys.
-sty
-(/Users/adamsparks/Library/TinyTeX/texmf-dist/tex/generic/pgf/systemlayer/pgfsy
-s.code.tex
+(c:/Users/kaued/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/pgf/basiclayer/pgf
+core.sty
+(c:/Users/kaued/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/pgf/systemlayer/pg
+fsys.sty
+(c:/Users/kaued/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/pgf/systemlayer/
+pgfsys.code.tex
 Package: pgfsys 2019/12/21 v3.1.5a (3.1.5a)
 
-(/Users/adamsparks/Library/TinyTeX/texmf-dist/tex/generic/pgf/utilities/pgfkeys
-.code.tex
+(c:/Users/kaued/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/pgf/utilities/pg
+fkeys.code.tex
 \pgfkeys@pathtoks=\toks17
 \pgfkeys@temptoks=\toks18
 
-(/Users/adamsparks/Library/TinyTeX/texmf-dist/tex/generic/pgf/utilities/pgfkeys
-filtered.code.tex
+(c:/Users/kaued/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/pgf/utilities/pg
+fkeysfiltered.code.tex
 \pgfkeys@tmptoks=\toks19
 ))
 \pgf@x=\dimen114
@@ -158,48 +177,48 @@ filtered.code.tex
 \t@pgf@tokc=\toks22
 \pgf@sys@id@count=\count100
 
-(/Users/adamsparks/Library/TinyTeX/texmf-dist/tex/generic/pgf/systemlayer/pgf.c
-fg
+(c:/Users/kaued/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/pgf/systemlayer/
+pgf.cfg
 File: pgf.cfg 2019/12/21 v3.1.5a (3.1.5a)
 )
 Driver file for pgf: pgfsys-xetex.def
 
-(/Users/adamsparks/Library/TinyTeX/texmf-dist/tex/generic/pgf/systemlayer/pgfsy
-s-xetex.def
+(c:/Users/kaued/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/pgf/systemlayer/
+pgfsys-xetex.def
 File: pgfsys-xetex.def 2019/12/21 v3.1.5a (3.1.5a)
 
-(/Users/adamsparks/Library/TinyTeX/texmf-dist/tex/generic/pgf/systemlayer/pgfsy
-s-dvipdfmx.def
+(c:/Users/kaued/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/pgf/systemlayer/
+pgfsys-dvipdfmx.def
 File: pgfsys-dvipdfmx.def 2019/12/21 v3.1.5a (3.1.5a)
 
-(/Users/adamsparks/Library/TinyTeX/texmf-dist/tex/generic/pgf/systemlayer/pgfsy
-s-common-pdf.def
+(c:/Users/kaued/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/pgf/systemlayer/
+pgfsys-common-pdf.def
 File: pgfsys-common-pdf.def 2019/12/21 v3.1.5a (3.1.5a)
 )
 \pgfsys@objnum=\count101
 )))
-(/Users/adamsparks/Library/TinyTeX/texmf-dist/tex/generic/pgf/systemlayer/pgfsy
-ssoftpath.code.tex
+(c:/Users/kaued/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/pgf/systemlayer/
+pgfsyssoftpath.code.tex
 File: pgfsyssoftpath.code.tex 2019/12/21 v3.1.5a (3.1.5a)
 \pgfsyssoftpath@smallbuffer@items=\count102
 \pgfsyssoftpath@bigbuffer@items=\count103
 )
-(/Users/adamsparks/Library/TinyTeX/texmf-dist/tex/generic/pgf/systemlayer/pgfsy
-sprotocol.code.tex
+(c:/Users/kaued/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/pgf/systemlayer/
+pgfsysprotocol.code.tex
 File: pgfsysprotocol.code.tex 2019/12/21 v3.1.5a (3.1.5a)
 ))
-(/Users/adamsparks/Library/TinyTeX/texmf-dist/tex/generic/pgf/basiclayer/pgfcor
-e.code.tex
+(c:/Users/kaued/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/pgf/basiclayer/p
+gfcore.code.tex
 Package: pgfcore 2019/12/21 v3.1.5a (3.1.5a)
 
-(/Users/adamsparks/Library/TinyTeX/texmf-dist/tex/generic/pgf/math/pgfmath.code
-.tex
-(/Users/adamsparks/Library/TinyTeX/texmf-dist/tex/generic/pgf/math/pgfmathcalc.
-code.tex
-(/Users/adamsparks/Library/TinyTeX/texmf-dist/tex/generic/pgf/math/pgfmathutil.
-code.tex)
-(/Users/adamsparks/Library/TinyTeX/texmf-dist/tex/generic/pgf/math/pgfmathparse
-r.code.tex
+(c:/Users/kaued/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/pgf/math/pgfmath
+.code.tex
+(c:/Users/kaued/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/pgf/math/pgfmath
+calc.code.tex
+(c:/Users/kaued/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/pgf/math/pgfmath
+util.code.tex)
+(c:/Users/kaued/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/pgf/math/pgfmath
+parser.code.tex
 \pgfmath@dimen=\dimen124
 \pgfmath@count=\count104
 \pgfmath@box=\box29
@@ -207,32 +226,32 @@ r.code.tex
 \pgfmath@stack@operand=\toks24
 \pgfmath@stack@operation=\toks25
 )
-(/Users/adamsparks/Library/TinyTeX/texmf-dist/tex/generic/pgf/math/pgfmathfunct
-ions.code.tex
-(/Users/adamsparks/Library/TinyTeX/texmf-dist/tex/generic/pgf/math/pgfmathfunct
-ions.basic.code.tex)
-(/Users/adamsparks/Library/TinyTeX/texmf-dist/tex/generic/pgf/math/pgfmathfunct
-ions.trigonometric.code.tex)
-(/Users/adamsparks/Library/TinyTeX/texmf-dist/tex/generic/pgf/math/pgfmathfunct
-ions.random.code.tex)
-(/Users/adamsparks/Library/TinyTeX/texmf-dist/tex/generic/pgf/math/pgfmathfunct
-ions.comparison.code.tex)
-(/Users/adamsparks/Library/TinyTeX/texmf-dist/tex/generic/pgf/math/pgfmathfunct
-ions.base.code.tex)
-(/Users/adamsparks/Library/TinyTeX/texmf-dist/tex/generic/pgf/math/pgfmathfunct
-ions.round.code.tex)
-(/Users/adamsparks/Library/TinyTeX/texmf-dist/tex/generic/pgf/math/pgfmathfunct
-ions.misc.code.tex)
-(/Users/adamsparks/Library/TinyTeX/texmf-dist/tex/generic/pgf/math/pgfmathfunct
-ions.integerarithmetics.code.tex)))
-(/Users/adamsparks/Library/TinyTeX/texmf-dist/tex/generic/pgf/math/pgfmathfloat
-.code.tex
+(c:/Users/kaued/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/pgf/math/pgfmath
+functions.code.tex
+(c:/Users/kaued/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/pgf/math/pgfmath
+functions.basic.code.tex)
+(c:/Users/kaued/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/pgf/math/pgfmath
+functions.trigonometric.code.tex)
+(c:/Users/kaued/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/pgf/math/pgfmath
+functions.random.code.tex)
+(c:/Users/kaued/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/pgf/math/pgfmath
+functions.comparison.code.tex)
+(c:/Users/kaued/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/pgf/math/pgfmath
+functions.base.code.tex)
+(c:/Users/kaued/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/pgf/math/pgfmath
+functions.round.code.tex)
+(c:/Users/kaued/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/pgf/math/pgfmath
+functions.misc.code.tex)
+(c:/Users/kaued/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/pgf/math/pgfmath
+functions.integerarithmetics.code.tex)))
+(c:/Users/kaued/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/pgf/math/pgfmath
+float.code.tex
 \c@pgfmathroundto@lastzeros=\count105
 ))
-(/Users/adamsparks/Library/TinyTeX/texmf-dist/tex/generic/pgf/math/pgfint.code.
-tex)
-(/Users/adamsparks/Library/TinyTeX/texmf-dist/tex/generic/pgf/basiclayer/pgfcor
-epoints.code.tex
+(c:/Users/kaued/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/pgf/math/pgfint.
+code.tex)
+(c:/Users/kaued/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/pgf/basiclayer/p
+gfcorepoints.code.tex
 File: pgfcorepoints.code.tex 2019/12/21 v3.1.5a (3.1.5a)
 \pgf@picminx=\dimen125
 \pgf@picmaxx=\dimen126
@@ -249,132 +268,133 @@ File: pgfcorepoints.code.tex 2019/12/21 v3.1.5a (3.1.5a)
 \pgf@zx=\dimen137
 \pgf@zy=\dimen138
 )
-(/Users/adamsparks/Library/TinyTeX/texmf-dist/tex/generic/pgf/basiclayer/pgfcor
-epathconstruct.code.tex
+(c:/Users/kaued/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/pgf/basiclayer/p
+gfcorepathconstruct.code.tex
 File: pgfcorepathconstruct.code.tex 2019/12/21 v3.1.5a (3.1.5a)
 \pgf@path@lastx=\dimen139
 \pgf@path@lasty=\dimen140
 )
-(/Users/adamsparks/Library/TinyTeX/texmf-dist/tex/generic/pgf/basiclayer/pgfcor
-epathusage.code.tex
+(c:/Users/kaued/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/pgf/basiclayer/p
+gfcorepathusage.code.tex
 File: pgfcorepathusage.code.tex 2019/12/21 v3.1.5a (3.1.5a)
 \pgf@shorten@end@additional=\dimen141
 \pgf@shorten@start@additional=\dimen142
 )
-(/Users/adamsparks/Library/TinyTeX/texmf-dist/tex/generic/pgf/basiclayer/pgfcor
-escopes.code.tex
+(c:/Users/kaued/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/pgf/basiclayer/p
+gfcorescopes.code.tex
 File: pgfcorescopes.code.tex 2019/12/21 v3.1.5a (3.1.5a)
 \pgfpic=\box30
 \pgf@hbox=\box31
 \pgf@layerbox@main=\box32
 \pgf@picture@serial@count=\count106
 )
-(/Users/adamsparks/Library/TinyTeX/texmf-dist/tex/generic/pgf/basiclayer/pgfcor
-egraphicstate.code.tex
+(c:/Users/kaued/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/pgf/basiclayer/p
+gfcoregraphicstate.code.tex
 File: pgfcoregraphicstate.code.tex 2019/12/21 v3.1.5a (3.1.5a)
 \pgflinewidth=\dimen143
 )
-(/Users/adamsparks/Library/TinyTeX/texmf-dist/tex/generic/pgf/basiclayer/pgfcor
-etransformations.code.tex
+(c:/Users/kaued/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/pgf/basiclayer/p
+gfcoretransformations.code.tex
 File: pgfcoretransformations.code.tex 2019/12/21 v3.1.5a (3.1.5a)
 \pgf@pt@x=\dimen144
 \pgf@pt@y=\dimen145
 \pgf@pt@temp=\dimen146
 )
-(/Users/adamsparks/Library/TinyTeX/texmf-dist/tex/generic/pgf/basiclayer/pgfcor
-equick.code.tex
+(c:/Users/kaued/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/pgf/basiclayer/p
+gfcorequick.code.tex
 File: pgfcorequick.code.tex 2019/12/21 v3.1.5a (3.1.5a)
 )
-(/Users/adamsparks/Library/TinyTeX/texmf-dist/tex/generic/pgf/basiclayer/pgfcor
-eobjects.code.tex
+(c:/Users/kaued/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/pgf/basiclayer/p
+gfcoreobjects.code.tex
 File: pgfcoreobjects.code.tex 2019/12/21 v3.1.5a (3.1.5a)
 )
-(/Users/adamsparks/Library/TinyTeX/texmf-dist/tex/generic/pgf/basiclayer/pgfcor
-epathprocessing.code.tex
+(c:/Users/kaued/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/pgf/basiclayer/p
+gfcorepathprocessing.code.tex
 File: pgfcorepathprocessing.code.tex 2019/12/21 v3.1.5a (3.1.5a)
 )
-(/Users/adamsparks/Library/TinyTeX/texmf-dist/tex/generic/pgf/basiclayer/pgfcor
-earrows.code.tex
+(c:/Users/kaued/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/pgf/basiclayer/p
+gfcorearrows.code.tex
 File: pgfcorearrows.code.tex 2019/12/21 v3.1.5a (3.1.5a)
 \pgfarrowsep=\dimen147
 )
-(/Users/adamsparks/Library/TinyTeX/texmf-dist/tex/generic/pgf/basiclayer/pgfcor
-eshade.code.tex
+(c:/Users/kaued/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/pgf/basiclayer/p
+gfcoreshade.code.tex
 File: pgfcoreshade.code.tex 2019/12/21 v3.1.5a (3.1.5a)
 \pgf@max=\dimen148
 \pgf@sys@shading@range@num=\count107
 \pgf@shadingcount=\count108
 )
-(/Users/adamsparks/Library/TinyTeX/texmf-dist/tex/generic/pgf/basiclayer/pgfcor
-eimage.code.tex
+(c:/Users/kaued/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/pgf/basiclayer/p
+gfcoreimage.code.tex
 File: pgfcoreimage.code.tex 2019/12/21 v3.1.5a (3.1.5a)
 
-(/Users/adamsparks/Library/TinyTeX/texmf-dist/tex/generic/pgf/basiclayer/pgfcor
-eexternal.code.tex
+(c:/Users/kaued/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/pgf/basiclayer/p
+gfcoreexternal.code.tex
 File: pgfcoreexternal.code.tex 2019/12/21 v3.1.5a (3.1.5a)
 \pgfexternal@startupbox=\box33
 ))
-(/Users/adamsparks/Library/TinyTeX/texmf-dist/tex/generic/pgf/basiclayer/pgfcor
-elayers.code.tex
+(c:/Users/kaued/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/pgf/basiclayer/p
+gfcorelayers.code.tex
 File: pgfcorelayers.code.tex 2019/12/21 v3.1.5a (3.1.5a)
 )
-(/Users/adamsparks/Library/TinyTeX/texmf-dist/tex/generic/pgf/basiclayer/pgfcor
-etransparency.code.tex
+(c:/Users/kaued/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/pgf/basiclayer/p
+gfcoretransparency.code.tex
 File: pgfcoretransparency.code.tex 2019/12/21 v3.1.5a (3.1.5a)
 )
-(/Users/adamsparks/Library/TinyTeX/texmf-dist/tex/generic/pgf/basiclayer/pgfcor
-epatterns.code.tex
+(c:/Users/kaued/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/pgf/basiclayer/p
+gfcorepatterns.code.tex
 File: pgfcorepatterns.code.tex 2019/12/21 v3.1.5a (3.1.5a)
 )
-(/Users/adamsparks/Library/TinyTeX/texmf-dist/tex/generic/pgf/basiclayer/pgfcor
-erdf.code.tex
+(c:/Users/kaued/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/pgf/basiclayer/p
+gfcorerdf.code.tex
 File: pgfcorerdf.code.tex 2019/12/21 v3.1.5a (3.1.5a)
 )))
-(/Users/adamsparks/Library/TinyTeX/texmf-dist/tex/generic/pgf/modules/pgfmodule
-shapes.code.tex
+(c:/Users/kaued/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/pgf/modules/pgfm
+oduleshapes.code.tex
 File: pgfmoduleshapes.code.tex 2019/12/21 v3.1.5a (3.1.5a)
 \pgfnodeparttextbox=\box34
 )
-(/Users/adamsparks/Library/TinyTeX/texmf-dist/tex/generic/pgf/modules/pgfmodule
-plot.code.tex
+(c:/Users/kaued/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/pgf/modules/pgfm
+oduleplot.code.tex
 File: pgfmoduleplot.code.tex 2019/12/21 v3.1.5a (3.1.5a)
 )
-(/Users/adamsparks/Library/TinyTeX/texmf-dist/tex/latex/pgf/compatibility/pgfco
-mp-version-0-65.sty
+(c:/Users/kaued/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/pgf/compatibility/
+pgfcomp-version-0-65.sty
 Package: pgfcomp-version-0-65 2019/12/21 v3.1.5a (3.1.5a)
 \pgf@nodesepstart=\dimen149
 \pgf@nodesepend=\dimen150
 )
-(/Users/adamsparks/Library/TinyTeX/texmf-dist/tex/latex/pgf/compatibility/pgfco
-mp-version-1-18.sty
+(c:/Users/kaued/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/pgf/compatibility/
+pgfcomp-version-1-18.sty
 Package: pgfcomp-version-1-18 2019/12/21 v3.1.5a (3.1.5a)
 ))
-(/Users/adamsparks/Library/TinyTeX/texmf-dist/tex/latex/pgf/utilities/pgffor.st
-y
-(/Users/adamsparks/Library/TinyTeX/texmf-dist/tex/latex/pgf/utilities/pgfkeys.s
+(c:/Users/kaued/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/pgf/utilities/pgff
+or.sty
+(c:/Users/kaued/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/pgf/utilities/pgfk
+eys.sty
+(c:/Users/kaued/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/pgf/utilities/pg
+fkeys.code.tex))
+(c:/Users/kaued/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/pgf/math/pgfmath.s
 ty
-(/Users/adamsparks/Library/TinyTeX/texmf-dist/tex/generic/pgf/utilities/pgfkeys
-.code.tex)) (/Users/adamsparks/Library/TinyTeX/texmf-dist/tex/latex/pgf/math/pg
-fmath.sty
-(/Users/adamsparks/Library/TinyTeX/texmf-dist/tex/generic/pgf/math/pgfmath.code
-.tex))
-(/Users/adamsparks/Library/TinyTeX/texmf-dist/tex/generic/pgf/utilities/pgffor.
-code.tex
+(c:/Users/kaued/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/pgf/math/pgfmath
+.code.tex))
+(c:/Users/kaued/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/pgf/utilities/pg
+ffor.code.tex
 Package: pgffor 2019/12/21 v3.1.5a (3.1.5a)
 
-(/Users/adamsparks/Library/TinyTeX/texmf-dist/tex/generic/pgf/math/pgfmath.code
-.tex)
+(c:/Users/kaued/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/pgf/math/pgfmath
+.code.tex)
 \pgffor@iter=\dimen151
 \pgffor@skip=\dimen152
 \pgffor@stack=\toks26
 \pgffor@toks=\toks27
 ))
-(/Users/adamsparks/Library/TinyTeX/texmf-dist/tex/generic/pgf/frontendlayer/tik
-z/tikz.code.tex
+(c:/Users/kaued/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/pgf/frontendlaye
+r/tikz/tikz.code.tex
 Package: tikz 2019/12/21 v3.1.5a (3.1.5a)
 
-(/Users/adamsparks/Library/TinyTeX/texmf-dist/tex/generic/pgf/libraries/pgflibr
-aryplothandlers.code.tex
+(c:/Users/kaued/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/pgf/libraries/pg
+flibraryplothandlers.code.tex
 File: pgflibraryplothandlers.code.tex 2019/12/21 v3.1.5a (3.1.5a)
 \pgf@plot@mark@count=\count109
 \pgfplotmarksize=\dimen153
@@ -396,8 +416,8 @@ File: pgflibraryplothandlers.code.tex 2019/12/21 v3.1.5a (3.1.5a)
 \tikznumberofcurrentchild=\count112
 \tikz@fig@count=\count113
 
-(/Users/adamsparks/Library/TinyTeX/texmf-dist/tex/generic/pgf/modules/pgfmodule
-matrix.code.tex
+(c:/Users/kaued/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/pgf/modules/pgfm
+odulematrix.code.tex
 File: pgfmodulematrix.code.tex 2019/12/21 v3.1.5a (3.1.5a)
 \pgfmatrixcurrentrow=\count114
 \pgfmatrixcurrentcolumn=\count115
@@ -405,74 +425,90 @@ File: pgfmodulematrix.code.tex 2019/12/21 v3.1.5a (3.1.5a)
 )
 \tikz@expandcount=\count117
 
-(/Users/adamsparks/Library/TinyTeX/texmf-dist/tex/generic/pgf/frontendlayer/tik
-z/libraries/tikzlibrarytopaths.code.tex
+(c:/Users/kaued/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/pgf/frontendlaye
+r/tikz/libraries/tikzlibrarytopaths.code.tex
 File: tikzlibrarytopaths.code.tex 2019/12/21 v3.1.5a (3.1.5a)
-))) (/Users/adamsparks/Library/TinyTeX/texmf-dist/tex/latex/hyperref/hyperref.s
-ty
+)))
+(c:/Users/kaued/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/hyperref/hyperref.
+sty
 Package: hyperref 2019/11/10 v7.00c Hypertext links for LaTeX
-(/Users/adamsparks/Library/TinyTeX/texmf-dist/tex/generic/ltxcmds/ltxcmds.sty
+
+(c:/Users/kaued/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/ltxcmds/ltxcmds.
+sty
 Package: ltxcmds 2019/12/15 v1.24 LaTeX kernel commands for general use (HO)
-) (/Users/adamsparks/Library/TinyTeX/texmf-dist/tex/generic/iftex/iftex.sty
+) (c:/Users/kaued/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/iftex/iftex.st
+y
 Package: iftex 2019/11/07 v1.0c TeX engine tests
 )
-(/Users/adamsparks/Library/TinyTeX/texmf-dist/tex/latex/pdftexcmds/pdftexcmds.s
-ty
+(c:/Users/kaued/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/pdftexcmds/pdftexc
+mds.sty
 Package: pdftexcmds 2019/11/24 v0.31 Utility functions of pdfTeX for LuaTeX (HO
 )
 
-(/Users/adamsparks/Library/TinyTeX/texmf-dist/tex/generic/infwarerr/infwarerr.s
-ty
+(c:/Users/kaued/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/infwarerr/infwar
+err.sty
 Package: infwarerr 2019/12/03 v1.5 Providing info/warning/error messages (HO)
 )
 Package pdftexcmds Info: \pdf@primitive is available.
 Package pdftexcmds Info: \pdf@ifprimitive is available.
 Package pdftexcmds Info: \pdfdraftmode not found.
 )
-(/Users/adamsparks/Library/TinyTeX/texmf-dist/tex/generic/kvsetkeys/kvsetkeys.s
-ty
+(c:/Users/kaued/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/kvsetkeys/kvsetk
+eys.sty
 Package: kvsetkeys 2019/12/15 v1.18 Key value parser (HO)
 )
-(/Users/adamsparks/Library/TinyTeX/texmf-dist/tex/generic/kvdefinekeys/kvdefine
-keys.sty
+(c:/Users/kaued/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/kvdefinekeys/kvd
+efinekeys.sty
 Package: kvdefinekeys 2019-12-19 v1.6 Define keys (HO)
 )
-(/Users/adamsparks/Library/TinyTeX/texmf-dist/tex/generic/pdfescape/pdfescape.s
-ty
+(c:/Users/kaued/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/pdfescape/pdfesc
+ape.sty
 Package: pdfescape 2019/12/09 v1.15 Implements pdfTeX's escape features (HO)
-) (/Users/adamsparks/Library/TinyTeX/texmf-dist/tex/latex/hycolor/hycolor.sty
+)
+(c:/Users/kaued/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/hycolor/hycolor.st
+y
 Package: hycolor 2019/12/15 v1.9 Color options for hyperref/bookmark (HO)
 
-(/Users/adamsparks/Library/TinyTeX/texmf-dist/tex/latex/hycolor/xcolor-patch.st
-y
+(c:/Users/kaued/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/hycolor/xcolor-pat
+ch.sty
 Package: xcolor-patch 2019/12/15 xcolor patch
-(/Users/adamsparks/Library/TinyTeX/texmf-dist/tex/latex/oberdiek/hopatch.sty
+
+(c:/Users/kaued/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/oberdiek/hopatch.s
+ty
 Package: hopatch 2016/05/16 v1.3 Wrapper for package hooks (HO)
 )))
-(/Users/adamsparks/Library/TinyTeX/texmf-dist/tex/latex/letltxmacro/letltxmacro
-.sty
+(c:/Users/kaued/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/letltxmacro/letltx
+macro.sty
 Package: letltxmacro 2019/12/03 v1.6 Let assignment for LaTeX macros (HO)
-) (/Users/adamsparks/Library/TinyTeX/texmf-dist/tex/latex/auxhook/auxhook.sty
+)
+(c:/Users/kaued/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/auxhook/auxhook.st
+y
 Package: auxhook 2019-12-17 v1.6 Hooks for auxiliary files (HO)
 )
-(/Users/adamsparks/Library/TinyTeX/texmf-dist/tex/latex/kvoptions/kvoptions.sty
+(c:/Users/kaued/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/kvoptions/kvoption
+s.sty
 Package: kvoptions 2019/11/29 v3.13 Key value format for package options (HO)
 )
 \@linkdim=\dimen162
 \Hy@linkcounter=\count118
 \Hy@pagecounter=\count119
-(/Users/adamsparks/Library/TinyTeX/texmf-dist/tex/latex/hyperref/pd1enc.def
+
+(c:/Users/kaued/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/hyperref/pd1enc.de
+f
 File: pd1enc.def 2019/11/10 v7.00c Hyperref: PDFDocEncoding definition (HO)
-) (/Users/adamsparks/Library/TinyTeX/texmf-dist/tex/generic/intcalc/intcalc.sty
+)
+(c:/Users/kaued/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/intcalc/intcalc.
+sty
 Package: intcalc 2019/12/15 v1.3 Expandable calculations with integers (HO)
 )
-(/Users/adamsparks/Library/TinyTeX/texmf-dist/tex/generic/etexcmds/etexcmds.sty
+(c:/Users/kaued/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/etexcmds/etexcmd
+s.sty
 Package: etexcmds 2019/12/15 v1.7 Avoid name clashes with e-TeX commands (HO)
 )
 \Hy@SavedSpaceFactor=\count120
 
-(/Users/adamsparks/Library/TinyTeX/texmf-dist/tex/latex/latexconfig/hyperref.cf
-g
+(c:/Users/kaued/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/latexconfig/hyperr
+ef.cfg
 File: hyperref.cfg 2002/06/06 v1.2 hyperref configuration of TeXLive
 )
 Package hyperref Info: Hyper figures OFF on input line 4535.
@@ -483,17 +519,19 @@ Package hyperref Info: Backreferencing OFF on input line 4555.
 Package hyperref Info: Implicit mode ON; LaTeX internals redefined.
 Package hyperref Info: Bookmarks ON on input line 4788.
 \c@Hy@tempcnt=\count121
-(/Users/adamsparks/Library/TinyTeX/texmf-dist/tex/latex/url/url.sty
+(c:/Users/kaued/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/url/url.sty
 \Urlmuskip=\muskip10
 Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
 )
 LaTeX Info: Redefining \url on input line 5147.
 \XeTeXLinkMargin=\dimen163
-(/Users/adamsparks/Library/TinyTeX/texmf-dist/tex/generic/bitset/bitset.sty
+
+(c:/Users/kaued/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/bitset/bitset.st
+y
 Package: bitset 2019/12/09 v1.3 Handle bit-vector datatype (HO)
 
-(/Users/adamsparks/Library/TinyTeX/texmf-dist/tex/generic/bigintcalc/bigintcalc
-.sty
+(c:/Users/kaued/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/bigintcalc/bigin
+tcalc.sty
 Package: bigintcalc 2019/12/15 v1.5 Expandable calculations on big integers (HO
 )
 ))
@@ -510,7 +548,8 @@ Package hyperref Info: PDF/A mode OFF on input line 6448.
 LaTeX Info: Redefining \ref on input line 6488.
 LaTeX Info: Redefining \pageref on input line 6492.
 
-(/Users/adamsparks/Library/TinyTeX/texmf-dist/tex/generic/atbegshi/atbegshi.sty
+(c:/Users/kaued/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/atbegshi/atbegsh
+i.sty
 Package: atbegshi 2019/12/05 v1.19 At begin shipout hook (HO)
 )
 \Hy@abspage=\count123
@@ -518,13 +557,16 @@ Package: atbegshi 2019/12/05 v1.19 At begin shipout hook (HO)
 \c@Hfootnote=\count125
 )
 Package hyperref Info: Driver (autodetected): hxetex.
-(/Users/adamsparks/Library/TinyTeX/texmf-dist/tex/latex/hyperref/hxetex.def
+
+(c:/Users/kaued/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/hyperref/hxetex.de
+f
 File: hxetex.def 2019/11/10 v7.00c Hyperref driver for XeTeX
-(/Users/adamsparks/Library/TinyTeX/texmf-dist/tex/latex/hyperref/puenc.def
+
+(c:/Users/kaued/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/hyperref/puenc.def
 File: puenc.def 2019/11/10 v7.00c Hyperref: PDF Unicode definition (HO)
 )
-(/Users/adamsparks/Library/TinyTeX/texmf-dist/tex/generic/stringenc/stringenc.s
-ty
+(c:/Users/kaued/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/stringenc/string
+enc.sty
 Package: stringenc 2019/11/29 v1.12 Convert strings between diff. encodings (HO
 )
 )
@@ -534,15 +576,16 @@ Package: stringenc 2019/11/29 v1.12 Convert strings between diff. encodings (HO
 \Fld@listcount=\count128
 \c@bookmark@seq@number=\count129
 
-(/Users/adamsparks/Library/TinyTeX/texmf-dist/tex/latex/rerunfilecheck/rerunfil
-echeck.sty
+(c:/Users/kaued/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/rerunfilecheck/rer
+unfilecheck.sty
 Package: rerunfilecheck 2019/12/05 v1.9 Rerun checks for auxiliary files (HO)
 
-(/Users/adamsparks/Library/TinyTeX/texmf-dist/tex/latex/atveryend/atveryend.sty
+(c:/Users/kaued/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/atveryend/atveryen
+d.sty
 Package: atveryend 2019-12-11 v1.11 Hooks at the very end of document (HO)
 )
-(/Users/adamsparks/Library/TinyTeX/texmf-dist/tex/generic/uniquecounter/uniquec
-ounter.sty
+(c:/Users/kaued/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/uniquecounter/un
+iquecounter.sty
 Package: uniquecounter 2019/12/15 v1.4 Provide unlimited unique counter (HO)
 )
 Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
@@ -552,9 +595,13 @@ Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
 )
 Package hyperref Info: Option `colorlinks' set `true' on input line 12.
 Package hyperref Info: Option `breaklinks' set `true' on input line 12.
-(/Users/adamsparks/Library/TinyTeX/texmf-dist/tex/latex/caption/caption.sty
+
+(c:/Users/kaued/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/caption/caption.st
+y
 Package: caption 2020/01/01 v3.4c Customizing captions (AR)
-(/Users/adamsparks/Library/TinyTeX/texmf-dist/tex/latex/caption/caption3.sty
+
+(c:/Users/kaued/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/caption/caption3.s
+ty
 Package: caption3 2019/12/31 v1.8f caption3 kernel (AR)
 Package caption3 Info: TeX engine: e-TeX on input line 61.
 \captionmargin=\dimen166
@@ -570,18 +617,22 @@ Package caption Info: Standard document class detected.
 \c@continuedfloat=\count131
 Package caption Info: hyperref package is loaded.
 )
-(/Users/adamsparks/Library/TinyTeX/texmf-dist/tex/latex/tcolorbox/tcolorbox.sty
+(c:/Users/kaued/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/tcolorbox/tcolorbo
+x.sty
 Package: tcolorbox 2019/11/15 version 4.22 text color boxes
-(/Users/adamsparks/Library/TinyTeX/texmf-dist/tex/latex/tools/verbatim.sty
+
+(c:/Users/kaued/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/tools/verbatim.sty
 Package: verbatim 2019/11/10 v1.5r LaTeX2e package for verbatim enhancements
 \every@verbatim=\toks28
 \verbatim@line=\toks29
 \verbatim@in@stream=\read2
-) (/Users/adamsparks/Library/TinyTeX/texmf-dist/tex/latex/environ/environ.sty
+)
+(c:/Users/kaued/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/environ/environ.st
+y
 Package: environ 2014/05/04 v0.3 A new way to define environments
 
-(/Users/adamsparks/Library/TinyTeX/texmf-dist/tex/latex/trimspaces/trimspaces.s
-ty
+(c:/Users/kaued/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/trimspaces/trimspa
+ces.sty
 Package: trimspaces 2009/09/17 v1.1 Trim spaces around a token list
 )
 \@envbody=\toks30
@@ -599,9 +650,13 @@ Package: trimspaces 2009/09/17 v1.1 Trim spaces around a token list
 \tcb@temp=\box47
 \tcb@out=\write4
 \tcb@record@out=\write5
-) (/Users/adamsparks/Library/TinyTeX/texmf-dist/tex/latex/amsfonts/amssymb.sty
+)
+(c:/Users/kaued/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/amsfonts/amssymb.s
+ty
 Package: amssymb 2013/01/14 v3.01 AMS font symbols
-(/Users/adamsparks/Library/TinyTeX/texmf-dist/tex/latex/amsfonts/amsfonts.sty
+
+(c:/Users/kaued/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/amsfonts/amsfonts.
+sty
 Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
 \@emptytoks=\toks31
 \symAMSa=\mathgroup4
@@ -609,20 +664,27 @@ Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
 LaTeX Font Info:    Redeclaring math symbol \hbar on input line 98.
 LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
 (Font)                  U/euf/m/n --> U/euf/b/n on input line 106.
-)) (/Users/adamsparks/Library/TinyTeX/texmf-dist/tex/latex/amsmath/amsmath.sty
+))
+(c:/Users/kaued/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/amsmath/amsmath.st
+y
 Package: amsmath 2019/11/16 v2.17d AMS math features
 \@mathmargin=\skip51
 For additional information on amsmath, use the `?' option.
-(/Users/adamsparks/Library/TinyTeX/texmf-dist/tex/latex/amsmath/amstext.sty
+
+(c:/Users/kaued/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/amsmath/amstext.st
+y
 Package: amstext 2000/06/29 v2.01 AMS text
-(/Users/adamsparks/Library/TinyTeX/texmf-dist/tex/latex/amsmath/amsgen.sty
+
+(c:/Users/kaued/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/amsmath/amsgen.sty
 File: amsgen.sty 1999/11/30 v2.0 generic functions
 \@emptytoks=\toks32
 \ex@=\dimen173
-)) (/Users/adamsparks/Library/TinyTeX/texmf-dist/tex/latex/amsmath/amsbsy.sty
+))
+(c:/Users/kaued/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/amsmath/amsbsy.sty
 Package: amsbsy 1999/11/29 v1.2d Bold Symbols
 \pmbraise@=\dimen174
-) (/Users/adamsparks/Library/TinyTeX/texmf-dist/tex/latex/amsmath/amsopn.sty
+)
+(c:/Users/kaued/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/amsmath/amsopn.sty
 Package: amsopn 2016/03/08 v2.02 operator names
 )
 \inf@bad=\count135
@@ -662,14 +724,21 @@ LaTeX Font Info:    Redeclaring font encoding OMS on input line 734.
 \mathdisplay@stack=\toks36
 LaTeX Info: Redefining \[ on input line 2858.
 LaTeX Info: Redefining \] on input line 2859.
-) (/Users/adamsparks/Library/TinyTeX/texmf-dist/tex/generic/iftex/ifxetex.sty
+)
+(c:/Users/kaued/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/iftex/ifxetex.st
+y
 Package: ifxetex 2019/10/25 v0.7 ifxetex legacy package. Use iftex instead.
-) (/Users/adamsparks/Library/TinyTeX/texmf-dist/tex/generic/iftex/ifluatex.sty
+)
+(c:/Users/kaued/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/iftex/ifluatex.s
+ty
 Package: ifluatex 2019/10/25 v1.5 ifluatex legacy package. Use iftex instead.
-) (/Users/adamsparks/Library/TinyTeX/texmf-dist/tex/latex/seqsplit/seqsplit.sty
+)
+(c:/Users/kaued/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/seqsplit/seqsplit.
+sty
 Package: seqsplit 2006/08/07 v0.1 Splitting long sequences (DNA, RNA, proteins,
  etc.) 
-) (/Users/adamsparks/Library/TinyTeX/texmf-dist/tex/latex/base/fixltx2e.sty
+) (c:/Users/kaued/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/base/fixltx2e.st
+y
 Package: fixltx2e 2016/12/29 v2.1a fixes to LaTeX (obsolete)
 Applying: [2015/01/01] Old fixltx2e package on input line 46.
 
@@ -678,14 +747,16 @@ Package fixltx2e Warning: fixltx2e is not required with releases after 2015
 (fixltx2e)                See the latexrelease package for details.
 
 Already applied: [0000/00/00] Old fixltx2e package on input line 53.
-) (/Users/adamsparks/Library/TinyTeX/texmf-dist/tex/latex/biblatex/biblatex.sty
+)
+(c:/Users/kaued/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/biblatex/biblatex.
+sty
 Package: biblatex 2019/12/01 v3.14 programmable bibliographies (PK/MW)
-(/Users/adamsparks/Library/TinyTeX/texmf-dist/tex/latex/logreq/logreq.sty
+(c:/Users/kaued/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/logreq/logreq.sty
 Package: logreq 2010/08/04 v1.0 xml request logger
 \lrq@indent=\count147
-(/Users/adamsparks/Library/TinyTeX/texmf-dist/tex/latex/logreq/logreq.def
+(c:/Users/kaued/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/logreq/logreq.def
 File: logreq.def 2010/08/04 v1.0 logreq spec v1.0
-)) (/Users/adamsparks/Library/TinyTeX/texmf-dist/tex/latex/base/ifthen.sty
+)) (c:/Users/kaued/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/base/ifthen.sty
 Package: ifthen 2014/09/29 v1.1c Standard LaTeX ifthen package (DPC)
 )
 \c@tabx@nest=\count148
@@ -745,7 +816,9 @@ Package: ifthen 2014/09/29 v1.1c Standard LaTeX ifthen package (DPC)
 \c@mincompwidth=\count191
 Package biblatex Info: Trying to load biblatex default data model...
 Package biblatex Info: ... file 'blx-dm.def' found.
-(/Users/adamsparks/Library/TinyTeX/texmf-dist/tex/latex/biblatex/blx-dm.def
+
+(c:/Users/kaued/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/biblatex/blx-dm.de
+f
 File: blx-dm.def 2019/12/01 v3.14 biblatex localization (PK/MW)
 )
 Package biblatex Info: Trying to load biblatex custom data model...
@@ -835,17 +908,20 @@ Package biblatex Info: ... file 'biblatex-dm.cfg' not found.
 Package biblatex Info: Trying to load enhanced support for Unicode engines...
 Package biblatex Info: ... file 'blx-unicode.def' found.
 
-(/Users/adamsparks/Library/TinyTeX/texmf-dist/tex/latex/biblatex/blx-unicode.de
-f)
+(c:/Users/kaued/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/biblatex/blx-unico
+de.def)
 Package biblatex Info: Trying to load compatibility code...
 Package biblatex Info: ... file 'blx-compat.def' found.
 
-(/Users/adamsparks/Library/TinyTeX/texmf-dist/tex/latex/biblatex/blx-compat.def
+(c:/Users/kaued/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/biblatex/blx-compa
+t.def
 File: blx-compat.def 2019/12/01 v3.14 biblatex compatibility (PK/MW)
 )
 Package biblatex Info: Trying to load generic definitions...
 Package biblatex Info: ... file 'biblatex.def' found.
-(/Users/adamsparks/Library/TinyTeX/texmf-dist/tex/latex/biblatex/biblatex.def
+
+(c:/Users/kaued/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/biblatex/biblatex.
+def
 File: biblatex.def 2019/12/01 v3.14 biblatex compatibility (PK/MW)
 \c@textcitecount=\count326
 \c@textcitetotal=\count327
@@ -864,14 +940,14 @@ File: biblatex.def 2019/12/01 v3.14 biblatex compatibility (PK/MW)
 Package biblatex Info: Trying to load bibliography style 'numeric'...
 Package biblatex Info: ... file 'numeric.bbx' found.
 
-(/Users/adamsparks/Library/TinyTeX/texmf-dist/tex/latex/biblatex/bbx/numeric.bb
-x
+(c:/Users/kaued/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/biblatex/bbx/numer
+ic.bbx
 File: numeric.bbx 2019/12/01 v3.14 biblatex bibliography style (PK/MW)
 Package biblatex Info: Trying to load bibliography style 'standard'...
 Package biblatex Info: ... file 'standard.bbx' found.
 
-(/Users/adamsparks/Library/TinyTeX/texmf-dist/tex/latex/biblatex/bbx/standard.b
-bx
+(c:/Users/kaued/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/biblatex/bbx/stand
+ard.bbx
 File: standard.bbx 2019/12/01 v3.14 biblatex bibliography style (PK/MW)
 \c@bbx:relatedcount=\count335
 \c@bbx:relatedtotal=\count336
@@ -879,8 +955,8 @@ File: standard.bbx 2019/12/01 v3.14 biblatex bibliography style (PK/MW)
 Package biblatex Info: Trying to load citation style 'numeric'...
 Package biblatex Info: ... file 'numeric.cbx' found.
 
-(/Users/adamsparks/Library/TinyTeX/texmf-dist/tex/latex/biblatex/cbx/numeric.cb
-x
+(c:/Users/kaued/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/biblatex/cbx/numer
+ic.cbx
 File: numeric.cbx 2019/12/01 v3.14 biblatex citation style (PK/MW)
 Package biblatex Info: Redefining '\cite'.
 Package biblatex Info: Redefining '\parencite'.
@@ -896,12 +972,16 @@ Package biblatex Info: Redefining '\smartcites'.
 )
 Package biblatex Info: Trying to load configuration file...
 Package biblatex Info: ... file 'biblatex.cfg' found.
-(/Users/adamsparks/Library/TinyTeX/texmf-dist/tex/latex/biblatex/biblatex.cfg
+
+(c:/Users/kaued/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/biblatex/biblatex.
+cfg
 File: biblatex.cfg 
-)) (/Users/adamsparks/Library/TinyTeX/texmf-dist/tex/latex/geometry/geometry.st
-y
+))
+(c:/Users/kaued/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/geometry/geometry.
+sty
 Package: geometry 2020/01/02 v5.9 Page Geometry
-(/Users/adamsparks/Library/TinyTeX/texmf-dist/tex/generic/iftex/ifvtex.sty
+
+(c:/Users/kaued/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/iftex/ifvtex.sty
 Package: ifvtex 2019/10/25 v1.7 ifvtex legacy package. Use iftex instead.
 )
 \Gm@cnth=\count337
@@ -916,7 +996,9 @@ Package: ifvtex 2019/10/25 v1.7 ifvtex legacy package. Use iftex instead.
 \Gm@layouthoffset=\dimen188
 \Gm@layoutvoffset=\dimen189
 \Gm@dimlist=\toks37
-) (/Users/adamsparks/Library/TinyTeX/texmf-dist/tex/latex/fancyhdr/fancyhdr.sty
+)
+(c:/Users/kaued/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/fancyhdr/fancyhdr.
+sty
 Package: fancyhdr 2019/01/31 v3.10 Extensive control of page headers and footer
 s
 \f@nch@headwidth=\skip76
@@ -929,16 +1011,20 @@ s
 \f@nch@O@olf=\skip83
 \f@nch@O@orf=\skip84
 )
-(/Users/adamsparks/Library/TinyTeX/texmf-dist/tex/xelatex/mathspec/mathspec.sty
+(c:/Users/kaued/AppData/Roaming/TinyTeX/texmf-dist/tex/xelatex/mathspec/mathspe
+c.sty
 Package: mathspec 2016/12/22 v0.2b LaTeX Package (Mathematics font selection fo
 r XeLaTeX)
-(/Users/adamsparks/Library/TinyTeX/texmf-dist/tex/latex/fontspec/fontspec.sty
-(/Users/adamsparks/Library/TinyTeX/texmf-dist/tex/latex/l3packages/xparse/xpars
-e.sty (/Users/adamsparks/Library/TinyTeX/texmf-dist/tex/latex/l3kernel/expl3.st
-y
+
+(c:/Users/kaued/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/fontspec/fontspec.
+sty
+(c:/Users/kaued/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/l3packages/xparse/
+xparse.sty
+(c:/Users/kaued/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/l3kernel/expl3.sty
 Package: expl3 2019-11-07 L3 programming layer (loader) 
 
-(/Users/adamsparks/Library/TinyTeX/texmf-dist/tex/latex/l3kernel/expl3-code.tex
+(c:/Users/kaued/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/l3kernel/expl3-cod
+e.tex
 Package: expl3 2019-11-07 L3 programming layer (code)
 \c_max_int=\count340
 \l_tmpa_int=\count341
@@ -1087,12 +1173,12 @@ Package: expl3 2019-11-07 L3 programming layer (code)
 \l__coffin_display_y_dim=\dimen277
 \g__char_data_ior=\read4
 
-(/Users/adamsparks/Library/TinyTeX/texmf-dist/tex/latex/l3kernel/l3deprecation.
-def
+(c:/Users/kaued/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/l3kernel/l3depreca
+tion.def
 File: l3deprecation.def 2019-04-06 v L3 Deprecated functions
 ))
-(/Users/adamsparks/Library/TinyTeX/texmf-dist/tex/latex/l3backend/l3backend-xdv
-ipdfmx.def
+(c:/Users/kaued/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/l3backend/l3backen
+d-xdvipdfmx.def
 File: l3backend-xdvipdfmx.def 2019-04-06 L3 backend support: xdvipdfmx
 \g__graphics_track_int=\count423
 \l__pdf_internal_box=\box68
@@ -1107,8 +1193,8 @@ Package: xparse 2019-10-11 L3 Experimental document command parser
 )
 Package: fontspec 2019/10/19 v2.7d Font selection for XeLaTeX and LuaLaTeX
 
-(/Users/adamsparks/Library/TinyTeX/texmf-dist/tex/latex/fontspec/fontspec-xetex
-.sty
+(c:/Users/kaued/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/fontspec/fontspec-
+xetex.sty
 Package: fontspec-xetex 2019/10/19 v2.7d Font selection for XeLaTeX and LuaLaTe
 X
 \l__fontspec_script_int=\count430
@@ -1125,23 +1211,29 @@ X
 \l__fontspec_tmpa_dim=\dimen278
 \l__fontspec_tmpb_dim=\dimen279
 \l__fontspec_tmpc_dim=\dimen280
-(/Users/adamsparks/Library/TinyTeX/texmf-dist/tex/latex/base/fontenc.sty
+(c:/Users/kaued/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/base/fontenc.sty
 Package: fontenc 2018/08/11 v2.0j Standard LaTeX package
-(/Users/adamsparks/Library/TinyTeX/texmf-dist/tex/latex/base/tuenc.def
+(c:/Users/kaued/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/base/tuenc.def
 File: tuenc.def 2018/08/11 v2.0j Standard LaTeX file
 LaTeX Font Info:    Redeclaring font encoding TU on input line 82.
-)) (/Users/adamsparks/Library/TinyTeX/texmf-dist/tex/latex/fontspec/fontspec.cf
-g)
+))
+(c:/Users/kaued/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/fontspec/fontspec.
+cfg)
 LaTeX Info: Redefining \itshape on input line 4047.
 LaTeX Info: Redefining \slshape on input line 4052.
 LaTeX Info: Redefining \scshape on input line 4057.
 LaTeX Info: Redefining \upshape on input line 4062.
 LaTeX Info: Redefining \em on input line 4092.
 LaTeX Info: Redefining \emph on input line 4117.
-)) (/Users/adamsparks/Library/TinyTeX/texmf-dist/tex/latex/xkeyval/xkeyval.sty
+))
+(c:/Users/kaued/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/xkeyval/xkeyval.st
+y
 Package: xkeyval 2014/12/03 v2.7a package option processing (HA)
-(/Users/adamsparks/Library/TinyTeX/texmf-dist/tex/generic/xkeyval/xkeyval.tex (
-/Users/adamsparks/Library/TinyTeX/texmf-dist/tex/generic/xkeyval/xkvutils.tex
+
+(c:/Users/kaued/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/xkeyval/xkeyval.
+tex
+(c:/Users/kaued/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/xkeyval/xkvutils
+.tex
 \XKV@toks=\toks38
 \XKV@tempa@toks=\toks39
 )
@@ -1151,10 +1243,12 @@ File: xkeyval.tex 2014/12/03 v2.7a key=value parser (HA)
 \c@eu@=\count442
 \c@eu@i=\count443
 \c@mkern=\count444
-) (/Users/adamsparks/Library/TinyTeX/texmf-dist/tex/latex/upquote/upquote.sty
+)
+(c:/Users/kaued/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/upquote/upquote.st
+y
 Package: upquote 2012/04/19 v1.3 upright-quote and grave-accent glyphs in verba
 tim
-(/Users/adamsparks/Library/TinyTeX/texmf-dist/tex/latex/base/textcomp.sty
+(c:/Users/kaued/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/base/textcomp.sty
 Package: textcomp 2018/08/11 v2.0j Standard LaTeX package
 Package textcomp Info: Sub-encoding information:
 (textcomp)               5 = only ISO-Adobe without \textcurrency
@@ -1168,7 +1262,7 @@ Package textcomp Info: Sub-encoding information:
 (textcomp)             Family '?' is the default used for unknown fonts.
 (textcomp)             See the documentation for details.
 Package textcomp Info: Setting ? sub-encoding to TS1/1 on input line 79.
-(/Users/adamsparks/Library/TinyTeX/texmf-dist/tex/latex/base/ts1enc.def
+(c:/Users/kaued/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/base/ts1enc.def
 File: ts1enc.def 2001/06/05 v3.0e (jk/car/fm) Standard LaTeX file
 )
 LaTeX Info: Redefining \oldstylenums on input line 334.
@@ -1237,13 +1331,15 @@ Package textcomp Info: Setting ptmj sub-encoding to TS1/4 on input line 409.
 ))
 Package hyperref Info: Option `unicode' set `true' on input line 151.
 
-(/Users/adamsparks/Library/TinyTeX/texmf-dist/tex/generic/stringenc/se-ascii-pr
-int.def
+(c:/Users/kaued/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/stringenc/se-asc
+ii-print.def
 File: se-ascii-print.def 2019/11/29 v1.12 stringenc: Printable ASCII characters
 
 )
 Package hyperref Info: Option `breaklinks' set `true' on input line 151.
-(/Users/adamsparks/Library/TinyTeX/texmf-dist/tex/latex/fancyvrb/fancyvrb.sty
+
+(c:/Users/kaued/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/fancyvrb/fancyvrb.
+sty
 Package: fancyvrb 2019/11/09
 Style option: `fancyvrb' v3.4 <2019/11/09> (tvz)
 \FV@CodeLineNo=\count445
@@ -1252,14 +1348,17 @@ Style option: `fancyvrb' v3.4 <2019/11/09> (tvz)
 \c@FancyVerbLine=\count446
 \FV@StepNumber=\count447
 \FV@OutFile=\write7
-) (/Users/adamsparks/Library/TinyTeX/texmf-dist/tex/latex/framed/framed.sty
+) (c:/Users/kaued/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/framed/framed.st
+y
 Package: framed 2011/10/22 v 0.96: framed or shaded text with page breaks
 \OuterFrameSep=\skip91
 \fb@frw=\dimen281
 \fb@frh=\dimen282
 \FrameRule=\dimen283
 \FrameSep=\dimen284
-) (/Users/adamsparks/Library/TinyTeX/texmf-dist/tex/latex/grffile/grffile.sty
+)
+(c:/Users/kaued/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/grffile/grffile.st
+y
 Package: grffile 2019/11/11 v2.1 Extended file name support for graphics (legac
 y)
 Package grffile Info: This package is an empty stub for compatibility on input 
@@ -1292,20 +1391,24 @@ LaTeX Font Info:    ... okay on input line 248.
 LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 248.
 LaTeX Font Info:    Trying to load font information for TS1+cmr on input line 2
 48.
-(/Users/adamsparks/Library/TinyTeX/texmf-dist/tex/latex/base/ts1cmr.fd
+(c:/Users/kaued/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/base/ts1cmr.fd
 File: ts1cmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    ... okay on input line 248.
 ABD: EveryShipout initializing macros
 \AtBeginShipoutBox=\box70
 Package hyperref Info: Link coloring ON on input line 248.
-(/Users/adamsparks/Library/TinyTeX/texmf-dist/tex/latex/hyperref/nameref.sty
+
+(c:/Users/kaued/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/hyperref/nameref.s
+ty
 Package: nameref 2019/09/16 v2.46 Cross-referencing by name of section
-(/Users/adamsparks/Library/TinyTeX/texmf-dist/tex/latex/refcount/refcount.sty
+
+(c:/Users/kaued/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/refcount/refcount.
+sty
 Package: refcount 2019/12/15 v3.6 Data extraction from label references (HO)
 )
-(/Users/adamsparks/Library/TinyTeX/texmf-dist/tex/generic/gettitlestring/gettit
-lestring.sty
+(c:/Users/kaued/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/gettitlestring/g
+ettitlestring.sty
 Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 )
 \c@section@level=\count450
@@ -1322,8 +1425,8 @@ Package caption Info: End \AtBeginDocument code.
 Package biblatex Info: Trying to load language 'english'...
 Package biblatex Info: ... file 'english.lbx' found.
 
-(/Users/adamsparks/Library/TinyTeX/texmf-dist/tex/latex/biblatex/lbx/english.lb
-x
+(c:/Users/kaued/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/biblatex/lbx/engli
+sh.lbx
 File: english.lbx 2019/12/01 v3.14 biblatex localization (PK/MW)
 )
 Package biblatex Info: XeTeX detected.
@@ -1373,12 +1476,12 @@ Package biblatex Info: Reference segment=0 on input line 248.
 
 LaTeX Font Info:    Trying to load font information for U+msa on input line 249
 .
-(/Users/adamsparks/Library/TinyTeX/texmf-dist/tex/latex/amsfonts/umsa.fd
+(c:/Users/kaued/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
 LaTeX Font Info:    Trying to load font information for U+msb on input line 249
 .
-(/Users/adamsparks/Library/TinyTeX/texmf-dist/tex/latex/amsfonts/umsb.fd
+(c:/Users/kaued/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
 
@@ -1393,10 +1496,10 @@ Package hyperref Warning: Suppressing link with empty target on input line 275.
 Package hyperref Warning: Suppressing link with empty target on input line 275.
 
 
-File: /Library/Frameworks/R.framework/Versions/3.6/Resources/library/rticles/rm
-arkdown/templates/joss_article/resources/JOSS-logo.png Graphic file (type bmp)
-</Library/Frameworks/R.framework/Versions/3.6/Resources/library/rticles/rmarkdo
-wn/templates/joss_article/resources/JOSS-logo.png>
+File: C:/Users/kaued/Documents/R/win-library/3.5/rticles/rmarkdown/templates/jo
+ss_article/resources/JOSS-logo.png Graphic file (type bmp)
+<C:/Users/kaued/Documents/R/win-library/3.5/rticles/rmarkdown/templates/joss_ar
+ticle/resources/JOSS-logo.png>
 
 Package Fancyhdr Warning: \headheight is too small (62.59596pt): 
 Make it at least 63.55022pt.
@@ -1404,34 +1507,39 @@ We now make it that large for the rest of the document.
 This may cause the page layout to be inconsistent, however.
 
 LaTeX Font Info:    Font shape `TU/lmss/m/it' in size <8> not available
-(Font)              Font shape `TU/lmss/m/sl' tried instead on input line 337.
+(Font)              Font shape `TU/lmss/m/sl' tried instead on input line 338.
 [1
 
 ]
 LaTeX Font Info:    Font shape `TU/lmtt/bx/n' in size <10> not available
-(Font)              Font shape `TU/lmtt/b/n' tried instead on input line 353.
+(Font)              Font shape `TU/lmtt/b/n' tried instead on input line 355.
 File: Fig1.png Graphic file (type bmp)
 <Fig1.png>
-File: /Library/Frameworks/R.framework/Versions/3.6/Resources/library/rticles/rm
-arkdown/templates/joss_article/resources/JOSS-logo.png Graphic file (type bmp)
-</Library/Frameworks/R.framework/Versions/3.6/Resources/library/rticles/rmarkdo
-wn/templates/joss_article/resources/JOSS-logo.png>
+File: C:/Users/kaued/Documents/R/win-library/3.5/rticles/rmarkdown/templates/jo
+ss_article/resources/JOSS-logo.png Graphic file (type bmp)
+<C:/Users/kaued/Documents/R/win-library/3.5/rticles/rmarkdown/templates/joss_ar
+ticle/resources/JOSS-logo.png>
 [2]
-File: /Library/Frameworks/R.framework/Versions/3.6/Resources/library/rticles/rm
-arkdown/templates/joss_article/resources/JOSS-logo.png Graphic file (type bmp)
-</Library/Frameworks/R.framework/Versions/3.6/Resources/library/rticles/rmarkdo
-wn/templates/joss_article/resources/JOSS-logo.png>
+File: C:/Users/kaued/Documents/R/win-library/3.5/rticles/rmarkdown/templates/jo
+ss_article/resources/JOSS-logo.png Graphic file (type bmp)
+<C:/Users/kaued/Documents/R/win-library/3.5/rticles/rmarkdown/templates/joss_ar
+ticle/resources/JOSS-logo.png>
 [3]
-File: /Library/Frameworks/R.framework/Versions/3.6/Resources/library/rticles/rm
-arkdown/templates/joss_article/resources/JOSS-logo.png Graphic file (type bmp)
-</Library/Frameworks/R.framework/Versions/3.6/Resources/library/rticles/rmarkdo
-wn/templates/joss_article/resources/JOSS-logo.png>
+File: C:/Users/kaued/Documents/R/win-library/3.5/rticles/rmarkdown/templates/jo
+ss_article/resources/JOSS-logo.png Graphic file (type bmp)
+<C:/Users/kaued/Documents/R/win-library/3.5/rticles/rmarkdown/templates/joss_ar
+ticle/resources/JOSS-logo.png>
 [4]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 478.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 478.
+File: C:/Users/kaued/Documents/R/win-library/3.5/rticles/rmarkdown/templates/jo
+ss_article/resources/JOSS-logo.png Graphic file (type bmp)
+<C:/Users/kaued/Documents/R/win-library/3.5/rticles/rmarkdown/templates/joss_ar
+ticle/resources/JOSS-logo.png>
+[5]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 489.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 489.
 (./paper.aux)
-Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 478.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 478.
+Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 489.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 489.
 Package rerunfilecheck Info: File `paper.out' has not changed.
 (rerunfilecheck)             Checksum: 223B2F51E4F21ACFF02D31E9FF39A26C;294.
 Package logreq Info: Writing requests to 'paper.run.xml'.
@@ -1439,12 +1547,12 @@ Package logreq Info: Writing requests to 'paper.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 43481 strings out of 494458
- 861763 string characters out of 6172403
- 1335249 words of memory out of 5000000
- 47293 multiletter control sequences out of 15000+600000
+ 43490 strings out of 494458
+ 863888 string characters out of 6172053
+ 1338749 words of memory out of 5000000
+ 47299 multiletter control sequences out of 15000+600000
  539202 words of font info for 71 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  60i,12n,77p,791b,788s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on paper.pdf (4 pages).
+Output written on paper.pdf (5 pages).
