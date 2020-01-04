@@ -268,14 +268,27 @@
   status <- client_request$get()
   status$raise_for_status()
   
-  client_request$get(query = query)
-  
-  # send query
-  d <- client_request$get(query = query)
-  
-  d <- d$parse("UTF-8")
-  
-  d <- jsonlite::fromJSON(d)
+  tryCatch({
+    client_request$get(query = query, retry = 6)
+    
+    # send query
+    d <- client_request$get(query = query)
+    
+    d <- d$parse("UTF-8")
+    
+    d <- jsonlite::fromJSON(d)
+  }, # nocov start
+  error = function(e) {
+    e$message <-
+      paste(
+        "\nSomething went wrong with the query, no data were returned.",
+        "Please see <https://climateserv.servirglobal.net/> for potential",
+        "server issues.\n"
+      )
+    # Otherwise refers to open.connection
+    e$call <- NULL
+    stop(e)
+  }) # nocov end
   
   d <- data.frame(cbind(date = d$data$date,
                         d$data$value))
