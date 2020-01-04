@@ -24,7 +24,7 @@ test_that("timespan FALSE", {
 test_that("timespan TRUE", {
   
   # take the indices for the entire period 
-  p <- precip_indices(df, timeseries = TRUE, span = 10)
+  p <- precip_indices(df, timeseries = TRUE, intervals = 10)
   d <- dim(p)
   
   expect_equal(d, c(80, 6))

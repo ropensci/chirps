@@ -4,16 +4,16 @@
 \alias{precip_indices}
 \title{Compute precipitation indices over a time series.}
 \usage{
-precip_indices(object, timeseries = FALSE, span = NULL)
+precip_indices(object, timeseries = FALSE, intervals = NULL)
 }
 \arguments{
 \item{object}{an object of class \code{chirps} as provided by
 \code{\link{get_chirps}}}
 
 \item{timeseries}{logical, \code{FALSE} for a single point time series
-observation or \code{TRUE} for a time series based on a \var{span}}
+observation or \code{TRUE} for a time series based on \var{intervals}}
 
-\item{span}{integer no lower than 5, for the days intervals when
+\item{intervals}{integer no lower than 5, for the days intervals when
 \var{timeseries} = \code{TRUE}}
 }
 \value{
@@ -48,7 +48,7 @@ dat <- get_chirps(lonlat, dates)
 precip_indices(dat, timeseries = FALSE)
 
 # take the indices for periods of 7 days
-precip_indices(dat, timeseries = TRUE, span = 7)
+precip_indices(dat, timeseries = TRUE, intervals = 7)
 }
 }
 \references{

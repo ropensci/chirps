@@ -3,8 +3,8 @@
 #' @param object an object of class \code{chirps} as provided by
 #'  \code{\link{get_chirps}}
 #' @param timeseries logical, \code{FALSE} for a single point time series
-#'  observation or \code{TRUE} for a time series based on a \var{span}
-#' @param span integer no lower than 5, for the days intervals when
+#'  observation or \code{TRUE} for a time series based on \var{intervals}
+#' @param intervals integer no lower than 5, for the days intervals when
 #'  \var{timeseries} = \code{TRUE}
 #' @return A dataframe with selected indices:
 #' \item{MLDS}{maximum length of consecutive dry day, rain < 1 mm (days)}
@@ -43,11 +43,11 @@
 #' precip_indices(dat, timeseries = FALSE)
 #' 
 #' # take the indices for periods of 7 days
-#' precip_indices(dat, timeseries = TRUE, span = 7)
+#' precip_indices(dat, timeseries = TRUE, intervals = 7)
 #' }
 #' @importFrom stats quantile
 #' @export
-precip_indices <- function(object, timeseries = FALSE, span = NULL) {
+precip_indices <- function(object, timeseries = FALSE, intervals = NULL) {
   
   if (!.is_chirps(object)) {
     stop("object must be a data.frame with class 'chirps'\n")
@@ -65,12 +65,12 @@ precip_indices <- function(object, timeseries = FALSE, span = NULL) {
   # the last values are dropped
   # for example, divide the periods of 7 days in a time series of 53 days
   # in that case, the last four observations are dropped to fit in a vector of
-  # length == 49 (the maximum integer from dividing days/span)
+  # length == 49 (the maximum integer from dividing days/intervals)
   if (timeseries) {
     
-    bins <- floor(nr/span)
+    bins <- floor(nr/intervals)
     
-    bins <- rep(1:bins, each = span, length.out = NA)
+    bins <- rep(1:bins, each = intervals, length.out = NA)
     
   } 
   
