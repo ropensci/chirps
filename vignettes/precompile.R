@@ -18,5 +18,5 @@ build_vignettes()
 resources <-
   list.files("vignettes/", pattern = ".png$", full.names = TRUE)
 file.copy(from = resources,
-          to = "doc",
+          to = "docs",
           overwrite =  TRUE)
