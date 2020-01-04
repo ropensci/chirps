@@ -11,15 +11,14 @@
 #' @examples
 #' # random geographic locations around bbox(10, 12, 45, 57)
 #' set.seed(123)
-#' lonlat <- data.frame(lon = runif(10, 10, 12),
-#'                      lat = runif(10, 45, 57))
-#'
+#' lonlat <- data.frame(lon = runif(2, 10, 12),
+#'                      lat = runif(2, 45, 57))
+#' 
 #' gjson <- .dataframe_to_geojson(lonlat)
 #'@noRd
-.dataframe_to_geojson <-
-  function(lonlat,
-           dist = 0.00001,
-           nQuadSegs = 2L) {
+.dataframe_to_geojson <- function(lonlat,
+                                  dist = 0.00001,
+                                  nQuadSegs = 2L) {
     n <- nrow(lonlat)
     
     # lonlat into matrix
@@ -57,9 +56,14 @@
     
     gj <- split(gj, 1:n)
     
-    gjson <- lapply(gj, function(x) {
+    gj <- lapply(gj, function(x) {
       gsub(" ", "", x)
     })
+    
+    gjson <- lapply(gj, function(x) {
+      x <- gsub("}},", "}}", x)
+    })
+    
     
     return(gjson)
     
@@ -471,5 +475,56 @@
 
 .is_chirps <- function(x) {
   c("chirps") %in% class(x)
+  
+}
+
+
+#' Build a geojson file 
+#' 
+#' @param geometry a geojson geometry
+#' @param properties a data.frame with feature properties
+#' @return a object of class geojson
+#' @examples
+#' set.seed(123)
+#' lonlat <- data.frame(lon = 1,
+#'                      lat = 1)
+#' 
+#' gjson <- .dataframe_to_geojson(lonlat)
+#' 
+#' prop <- data.frame(x = LETTERS[1:3],
+#'                    a = as.character(1:3),
+#'                    z = colors()[1:3])
+#' 
+#' geo <- .build_geojson(gjson, prop)
+#' 
+#' sf::st_read(geo)
+#' @noRd
+.build_geojson <- function(geometry, properties) {
+  
+  g <- geometry
+  
+  p <- properties
+  
+  p[1:ncol(p)] <- lapply(p[1:ncol(p)], as.character)
+  
+  p <- split(p, rownames(p))
+  
+  p <- jsonlite::toJSON(p)
+  
+  p <- gsub("[[]", "", p)
+  
+  p <- gsub("[]]", "", p)
+  
+  header <-"{\"type\":\"FeatureCollection\",\"name\":\"chirps\",\"features\":[{\"type\":\"Feature\",\"properties\":"
+  
+  header2 <- ",\"geometry\":"
+  
+  end <- "}]}"
+  
+  gjson <- paste0(header,x, header2, o, end)
+  
+  class(gjson) <- c("geojson", "json")
+  
+  return(gjson)
   
 }

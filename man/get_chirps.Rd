@@ -4,6 +4,7 @@
 \alias{get_chirps}
 \alias{get_chirps.default}
 \alias{get_chirps.sf}
+\alias{get_chirps.geojson}
 \title{Get CHIRPS precipitation data}
 \usage{
 get_chirps(object, dates, operation = 5, ...)
@@ -11,9 +12,11 @@ get_chirps(object, dates, operation = 5, ...)
 \method{get_chirps}{default}(object, dates, operation = 5, ...)
 
 \method{get_chirps}{sf}(object, dates, operation = 5, as.sf = FALSE, ...)
+
+\method{get_chirps}{geojson}(object, dates, operation = 5, as.geojson = FALSE, ...)
 }
 \arguments{
-\item{object}{input, an object of class \code{\link[base]{data.frame}} or
+\item{object}{input, an object of class \code{\link[base]{data.frame}},\code{geojson} or
 \code{\link[sf]{sf}}}
 
 \item{dates}{a character of start and end dates in that order in the format
@@ -27,6 +30,9 @@ See details}
 
 \item{as.sf}{logical, returns an object of class \code{[sf]{sf}}
 for S3 method of \pkg{chirps} class \code{sf}}
+
+\item{as.geojson}{logical, returns an object of class \code{geojson}
+for S3 method of \pkg{chirps} class \code{geojson}}
 }
 \value{
 A data frame of \acronym{CHIRPS} data:
@@ -60,19 +66,18 @@ Get daily precipitation data from the "Climate Hazards Group InfraRed
 \bold{nQuadSegs}: integer, number of segments per buffer quadrant
 }
 \examples{
-\donttest{
- 
-# Three points in the Tapajos National Forest, Brazil
+\donttest{ 
 library("chirps")
 
 lonlat <- data.frame(lon = c(-55.0281,-54.9857, -55.0714),
                      lat = c(-2.8094, -2.8756, -3.5279))
 
-dates <- c("2017-12-15","2017-12-31")
+dates <- c("2017-12-15", "2017-12-31")
 
 
 get_chirps(lonlat, dates)
 
+############################################
 
 # S3 method for objects of class 'sf'
 library("sf")
@@ -82,12 +87,33 @@ lonlat <- data.frame(lon = c(-55.0281,-54.9857, -55.0714),
 
 lonlat <- st_as_sf(lonlat, coords = c("lon","lat"))
 
-dates <- c("2017-12-15","2017-12-31")
+dates <- c("2017-12-15", "2017-12-31")
 
 get_chirps(lonlat, dates)
 
-# as.sf TRUE returns an object of class 'sf'
+# as.sf = TRUE returns an object of class 'sf'
 get_chirps(lonlat, dates, as.sf = TRUE)
+
+############################################
+
+# S3 method for objects of class 'geojson'
+library("geojsonsf")
+library("sf")
+
+tapajos <- chirps:::tapajos_geom
+
+set.seed(1234)
+tapajos <- st_sample(tapajos, 2)
+
+object <- geojsonsf::sfc_geojson(tapajos)
+
+dates <- c("2018-01-01","2018-01-20")
+
+get_chirps(object, dates)
+
+# as.geojson = TRUE returns an object of class 'geojson'
+get_chirps(object, dates, as.geojson = TRUE)
+
 } 
 }
 \references{

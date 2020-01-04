@@ -13,7 +13,7 @@ get_esi(object, dates, operation = 5, period = 1, ...)
 \method{get_esi}{sf}(object, dates, operation = 5, period = 1, as.sf = FALSE, ...)
 }
 \arguments{
-\item{object}{input, an object of class \code{\link[base]{data.frame}} or
+\item{object}{input, an object of class \code{\link[base]{data.frame}},\code{geojson} or
 \code{\link[sf]{sf}}}
 
 \item{dates}{a character of start and end dates in that order in the format

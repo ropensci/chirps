@@ -5,7 +5,7 @@
 #'  ClimateSERV works with geojson of type 'Polygon'. The input \code{object}
 #'  is then transformed into polygons with a small buffer area around the point.
 #' 
-#' @param object input, an object of class \code{\link[base]{data.frame}} or
+#' @param object input, an object of class \code{\link[base]{data.frame}},\code{geojson} or
 #'  \code{\link[sf]{sf}}
 #' @param dates a character of start and end dates in that order in the format
 #'  "YYYY-MM-DD"
@@ -13,6 +13,8 @@
 #' statistical operation to perform on the dataset
 #' @param as.sf logical, returns an object of class \code{[sf]{sf}}
 #'  for S3 method of \pkg{chirps} class \code{sf}
+#' @param as.geojson logical, returns an object of class \code{geojson}
+#'  for S3 method of \pkg{chirps} class \code{geojson}
 #' @param ... further arguments passed to \code{\link[sf]{sf}} methods.
 #'  See details 
 #'  
@@ -47,19 +49,18 @@
 #' ClimateSERV \url{https://climateserv.servirglobal.net}
 #' 
 #' @examples
-#' \donttest{
-#'  
-#' # Three points in the Tapajos National Forest, Brazil
+#' \donttest{ 
 #' library("chirps")
 #' 
 #' lonlat <- data.frame(lon = c(-55.0281,-54.9857, -55.0714),
 #'                      lat = c(-2.8094, -2.8756, -3.5279))
 #' 
-#' dates <- c("2017-12-15","2017-12-31")
+#' dates <- c("2017-12-15", "2017-12-31")
 #' 
 #' 
 #' get_chirps(lonlat, dates)
 #' 
+#' ############################################
 #' 
 #' # S3 method for objects of class 'sf'
 #' library("sf")
@@ -69,16 +70,37 @@
 #' 
 #' lonlat <- st_as_sf(lonlat, coords = c("lon","lat"))
 #' 
-#' dates <- c("2017-12-15","2017-12-31")
+#' dates <- c("2017-12-15", "2017-12-31")
 #' 
 #' get_chirps(lonlat, dates)
 #' 
-#' # as.sf TRUE returns an object of class 'sf'
+#' # as.sf = TRUE returns an object of class 'sf'
 #' get_chirps(lonlat, dates, as.sf = TRUE)
+#' 
+#' ############################################
+#' 
+#' # S3 method for objects of class 'geojson'
+#' library("geojsonsf")
+#' library("sf")
+#' 
+#' tapajos <- chirps:::tapajos_geom
+#' 
+#' set.seed(1234)
+#' tapajos <- st_sample(tapajos, 2)
+#' 
+#' object <- geojsonsf::sfc_geojson(tapajos)
+#' 
+#' dates <- c("2018-01-01","2018-01-20")
+#' 
+#' get_chirps(object, dates)
+#' 
+#' # as.geojson = TRUE returns an object of class 'geojson'
+#' get_chirps(object, dates, as.geojson = TRUE)
+#' 
 #' } 
 #' @import sf
 #' @import methods
-#' @importFrom jsonlite fromJSON
+#' @import jsonlite
 #' @importFrom tibble as_tibble
 #' @export
 get_chirps <- function(object, dates, operation = 5, ...) {
@@ -176,7 +198,9 @@ get_chirps.sf <- function(object, dates, operation = 5, as.sf = FALSE, ...) {
     
     result <- cbind(object, result)
     
-  } else {
+  } 
+  
+  if (!as.sf) {
     
     lonlat$id <- rownames(lonlat)
     
@@ -195,3 +219,142 @@ get_chirps.sf <- function(object, dates, operation = 5, as.sf = FALSE, ...) {
   return(result)
   
 }
+
+#' @rdname get_chirps
+#' @method get_chirps geojson
+#' @export
+get_chirps.geojson <- function(object, dates, operation = 5, as.geojson = FALSE, ...) {
+  
+  type <- c("type\":\"Point", "type\":\"Polygon")
+  
+  # check for supported types 
+  supp_type <- c(all(grepl(type[[1]], object)),
+                 all(grepl(type[[2]], object)))
+  
+  if (!any(supp_type)) {
+    stop("The geojson geometry type is not supported. 
+         Please provide a geojson of geometry type Point or Polygon\n")
+  }
+  
+  # if type Point
+  if (all(grepl(type[[1]], object))) {
+    
+    # get matrix with lonlat to validate later
+    lonlat <- lapply(object, function (x) {
+      
+      # read as sf
+      x <- sf::read_sf(x)
+      
+      # find the sf_column
+      index <- attr(x, "sf_column")
+       
+      # unlist the sf_column
+      x <- unlist(x[[index]])
+
+    })
+    
+    # put all together
+    lonlat <- do.call("rbind", lonlat)
+    
+    lonlat <- as.data.frame(lonlat)
+    
+    # lonlat into a geojson Polygon
+    gjson <- .dataframe_to_geojson(lonlat, ...)
+    
+  }
+  
+  # if Polygon
+  if (all(grepl(type[[2]], object))) {
+    
+    # take the centroid from geojson Polygons
+    # to validate lonlat coordinates
+    lonlat <- lapply(object, function (x) {
+      
+      x <- sf::read_sf(x)
+      
+      x <- sf::st_centroid(x$geometry)
+      
+      x <- unlist(x)
+    })
+    
+    # put all together
+    lonlat <- do.call("rbind", lonlat)
+    
+    lonlat <- as.data.frame(lonlat)
+    
+    gjson <- split(object, 1:length(object))
+    
+  }
+  
+  # validate lonlat to check if they are within the CHIRPS range lat -50, 50
+  .validate_lonlat(lonlat, xlim = c(-180, 180), ylim = c(-50, 50))
+  
+  # validate dates
+  dates_inter <- .reformat_dates(dates, availability = c("1981-01-01", "0"))
+  
+  result <- .GET(gjson = gjson,
+                 dates = dates_inter,
+                 operation = operation,
+                 datatype = 0)
+  
+  
+  if(as.geojson){
+    
+    as.geojson <- FALSE
+    
+    warning("as.geojson not supported yet\n")
+    
+  }
+  
+  if (!as.geojson) {
+    
+    lonlat$id <- rownames(lonlat)
+    
+    result <- merge(result, lonlat, by = "id")
+    
+    names(result)[3:5] <- c("chirps", "lon", "lat")
+    
+    result <- result[, c("id", "lon", "lat", "date", "chirps")]
+    
+    result <- tibble::as_tibble(result)
+    
+    class(result) <- c("chirps", class(result))
+    
+  }
+  
+  return(result)
+  
+}
+
+
+
+
+# # if MultiPolygon
+# if (all(grepl(type[[3]], object))) {
+#   
+#   pol <- sf::read_sf(object)
+#   
+#   pol <- sf::st_cast(pol, "POLYGON")
+#   
+#   index <- attr(pol, "sf_column")
+#   
+#   pol <- split(pol[[index]], 1:nrow(pol))
+#   
+#   # take the centroid from geojson Polygons
+#   # to validate lonlat coordinates
+#   lonlat <- lapply(pol, function (x) {
+#     
+#     x <- sf::st_centroid(x)
+#     
+#     x <- unlist(x)
+#     
+#   })
+#   
+#   # put all together
+#   lonlat <- do.call("rbind", lonlat)
+#   
+#   lonlat <- as.data.frame(lonlat)
+#   
+#   gjson <- object
+#   
+# }
