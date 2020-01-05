@@ -100,12 +100,13 @@ get_chirps(lonlat, dates, as.sf = TRUE)
 library("geojsonsf")
 library("sf")
 
-tapajos <- chirps:::tapajos_geom
+tapajos <- chirps:::tapajos
 
-set.seed(1234)
-tapajos <- st_sample(tapajos, 2)
+object <- chirps:::.sf_to_geojson(tapajos[1:2,])
 
-object <- geojsonsf::sfc_geojson(tapajos)
+object <- unlist(object)
+
+class(object) <- c("geojson", "json", class(object))
 
 dates <- c("2018-01-01","2018-01-20")
 

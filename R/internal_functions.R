@@ -50,12 +50,12 @@
     # capture these strings
     gj <- readLines(tf)
     
-    # first 4 lines are for the features and last 2 lines to close features
-    # keep only geojson geometries
-    gj <- gj[5:(n + 4)]
+    # keep only the geometry vectors
+    index <- which(grepl("geometry", unlist(gj)))
     
-    gj <- split(gj, 1:n)
+    gj <- gj[index]
     
+    # remove spaces and extra commas 
     gj <- lapply(gj, function(x) {
       gsub(" ", "", x)
     })
@@ -76,7 +76,7 @@
 #' \code{\link[sf]{st_buffer}} 'Polygon' is the only geojson format accepted by
 #' ClimateSERV
 #'
-#' @param lonlat an object of class "sf"
+#' @param lonlat an object of class "sf" and geometry type "POINT"
 #' @param dist numeric; buffer distance for all \code{lonlat}
 #' @param nQuadSegs integer; number of segments per quadrant
 #' @return A list with geojson strings for each row in \code{lonlat}
@@ -84,11 +84,11 @@
 #' # random geographic locations around bbox(10, 12, 45, 57)
 #' library("sf")
 #' set.seed(123)
-#' lonlat <- data.frame(lon = runif(10, 10, 12),
-#'                      lat = runif(10, 45, 57))
-#'
+#' lonlat <- data.frame(lon = runif(2, 10, 12),
+#'                      lat = runif(2, 45, 57))
+#' 
 #' lonlat <- st_as_sf(lonlat, coords = c("lon","lat"))
-#'
+#' 
 #' gjson <- .sf_to_geojson(lonlat)
 #' @noRd
 .sf_to_geojson <- function(lonlat,
@@ -111,14 +111,18 @@
   # capture these strings
   gj <- readLines(tf)
   
-  # first 4 lines are for the features and last 2 lines to close features
-  # keep only geojson geometries
-  gj <- gj[5:(n + 4)]
+  # keep only the geometry vectors
+  index <- which(grepl("geometry", unlist(gj)))
   
-  gj <- split(gj, 1:n)
+  gj <- gj[index]
+  
+  # remove spaces and extra commas 
+  gj <- lapply(gj, function(x) {
+    gsub(" ", "", x)
+  })
   
   gjson <- lapply(gj, function(x) {
-    gsub(" ", "", x)
+    x <- gsub("}},", "}}", x)
   })
   
   return(gjson)
@@ -479,32 +483,54 @@
 }
 
 
-#' Build a geojson file 
+#' Add feature properties to a geojson geometry 
 #' 
 #' @param geometry a geojson geometry
 #' @param properties a data.frame with feature properties
-#' @return a object of class geojson
+#' @param name a characer for the feature properties name
+#' @return a object of class geojson with FeatureCollection
 #' @examples
 #' set.seed(123)
 #' lonlat <- data.frame(lon = 1,
 #'                      lat = 1)
 #' 
-#' gjson <- .dataframe_to_geojson(lonlat)
+#' geometry <- .dataframe_to_geojson(lonlat)[[1]]
 #' 
-#' prop <- data.frame(x = LETTERS[1:3],
-#'                    a = as.character(1:3),
-#'                    z = colors()[1:3])
+#' properties <- data.frame(x = LETTERS[1:3],
+#'                          a = as.character(1:3),
+#'                          z = colors()[1:3])
 #' 
-#' geo <- .build_geojson(gjson, prop)
+#' name <- "chirps"
 #' 
-#' sf::st_read(geo)
+#' gjson <- .add_geojson_properties(geometry, properties, name)
+#' 
+#' gjson
+#' 
+#' # check if it can be parsed to sf
+#' sf::st_read(gjson)
+#' 
+#' # check if it can be parsed to jsonlite
+#' jsonlite::fromJSON(gjson)
+#' 
 #' @noRd
-.build_geojson <- function(geometry, properties) {
+.add_geojson_properties <- function(geometry, properties, name) {
   
+  # extract the geometry
   g <- geometry
   
+  g <- jsonlite::fromJSON(g)
+  
+  # coerce coordinates to character to prevent toJSON to 
+  # suppress floating numbers
+  g$geometry$coordinates <- as.character(g$geometry$coordinates)
+  
+  # coerce the geometries back to json
+  g <- jsonlite::toJSON(g$geometry)
+  
+  # now convert the properties into json
   p <- properties
   
+  # coerce values into characters
   p[1:ncol(p)] <- lapply(p[1:ncol(p)], as.character)
   
   p <- split(p, rownames(p))
@@ -515,13 +541,15 @@
   
   p <- gsub("[]]", "", p)
   
-  header <-"{\"type\":\"FeatureCollection\",\"name\":\"chirps\",\"features\":[{\"type\":\"Feature\",\"properties\":"
+  header <- paste0("{\"type\":\"FeatureCollection\",\"name\":\"",
+                   name,
+                   "\",\"features\":[{\"type\":\"Feature\",\"properties\":")
   
   header2 <- ",\"geometry\":"
   
   end <- "}]}"
   
-  gjson <- paste0(header,x, header2, o, end)
+  gjson <- paste0(header, p, header2, g, end)
   
   class(gjson) <- c("geojson", "json")
   

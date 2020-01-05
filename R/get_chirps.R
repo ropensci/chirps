@@ -83,12 +83,13 @@
 #' library("geojsonsf")
 #' library("sf")
 #' 
-#' tapajos <- chirps:::tapajos_geom
+#' tapajos <- chirps:::tapajos
 #' 
-#' set.seed(1234)
-#' tapajos <- st_sample(tapajos, 2)
+#' object <- chirps:::.sf_to_geojson(tapajos[1:2,])
 #' 
-#' object <- geojsonsf::sfc_geojson(tapajos)
+#' object <- unlist(object)
+#' 
+#' class(object) <- c("geojson", "json", class(object))
 #' 
 #' dates <- c("2018-01-01","2018-01-20")
 #' 
@@ -148,7 +149,9 @@ get_chirps.default <- function(object, dates, operation = 5, ...) {
 #' @rdname get_chirps
 #' @method get_chirps sf
 #' @export
-get_chirps.sf <- function(object, dates, operation = 5, as.sf = FALSE, ...) {
+get_chirps.sf <- function(object, dates, operation = 5, 
+                          as.sf = FALSE, 
+                          ...) {
 
   # convert sf into a data.frame
   n <- nrow(object)
@@ -223,7 +226,14 @@ get_chirps.sf <- function(object, dates, operation = 5, as.sf = FALSE, ...) {
 #' @rdname get_chirps
 #' @method get_chirps geojson
 #' @export
-get_chirps.geojson <- function(object, dates, operation = 5, as.geojson = FALSE, ...) {
+get_chirps.geojson <- function(object, dates, operation = 5, 
+                               as.geojson = FALSE,
+                               ...) {
+  
+  # check for the geometry tag
+  if (!grepl("geometry", object[[1]])) {
+    stop("geometry tag is missing in the geojson object\n")
+  }
   
   type <- c("type\":\"Point", "type\":\"Polygon")
   
@@ -233,7 +243,7 @@ get_chirps.geojson <- function(object, dates, operation = 5, as.geojson = FALSE,
   
   if (!any(supp_type)) {
     stop("The geojson geometry type is not supported. 
-         Please provide a geojson of geometry type Point or Polygon\n")
+         Please provide a geojson of geometry type 'Point' or 'Polygon'\n")
   }
   
   # if type Point
@@ -300,9 +310,21 @@ get_chirps.geojson <- function(object, dates, operation = 5, as.geojson = FALSE,
   
   if(as.geojson){
     
-    as.geojson <- FALSE
+    result <- split(result, result$id)
     
-    warning("as.geojson not supported yet\n")
+    object <- split(object, 1:length(object))
+    
+    # add geojson properties
+    result <- mapply(function(X, Y) {
+      
+      .add_geojson_properties(geometry = X,
+                              properties = Y,
+                              name = "chirps")
+      
+    }, X = object, Y = result[])
+    
+    class(result) <- c("geojson", "json", class(result))
+    
     
   }
   
@@ -325,36 +347,3 @@ get_chirps.geojson <- function(object, dates, operation = 5, as.geojson = FALSE,
   return(result)
   
 }
-
-
-
-
-# # if MultiPolygon
-# if (all(grepl(type[[3]], object))) {
-#   
-#   pol <- sf::read_sf(object)
-#   
-#   pol <- sf::st_cast(pol, "POLYGON")
-#   
-#   index <- attr(pol, "sf_column")
-#   
-#   pol <- split(pol[[index]], 1:nrow(pol))
-#   
-#   # take the centroid from geojson Polygons
-#   # to validate lonlat coordinates
-#   lonlat <- lapply(pol, function (x) {
-#     
-#     x <- sf::st_centroid(x)
-#     
-#     x <- unlist(x)
-#     
-#   })
-#   
-#   # put all together
-#   lonlat <- do.call("rbind", lonlat)
-#   
-#   lonlat <- as.data.frame(lonlat)
-#   
-#   gjson <- object
-#   
-# }

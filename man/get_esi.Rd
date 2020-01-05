@@ -4,6 +4,7 @@
 \alias{get_esi}
 \alias{get_esi.default}
 \alias{get_esi.sf}
+\alias{get_esi.geojson}
 \title{Get evaporative stress index (ESI) data}
 \usage{
 get_esi(object, dates, operation = 5, period = 1, ...)
@@ -11,6 +12,8 @@ get_esi(object, dates, operation = 5, period = 1, ...)
 \method{get_esi}{default}(object, dates, operation = 5, period = 1, ...)
 
 \method{get_esi}{sf}(object, dates, operation = 5, period = 1, as.sf = FALSE, ...)
+
+\method{get_esi}{geojson}(object, dates, operation = 5, period = 1, as.geojson = FALSE, ...)
 }
 \arguments{
 \item{object}{input, an object of class \code{\link[base]{data.frame}},\code{geojson} or
@@ -29,6 +32,9 @@ See details}
 
 \item{as.sf}{logical, returns an object of class \code{[sf]{sf}}
 for S3 method of \pkg{chirps} class \code{sf}}
+
+\item{as.geojson}{logical, returns an object of class \code{geojson}
+for S3 method of \pkg{chirps} class \code{geojson}}
 }
 \value{
 A data frame of \acronym{ESI} data:
@@ -82,6 +88,44 @@ dat
 dat <- get_esi(lonlat, dates = dates, dist = 0.1)
 
 dat
+
+############################################
+
+# S3 method for objects of class 'sf'
+library("sf")
+
+lonlat <- data.frame(lon = c(-55.0281,-54.9857, -55.0714),
+                     lat = c(-2.8094, -2.8756, -3.5279))
+
+lonlat <- st_as_sf(lonlat, coords = c("lon","lat"))
+
+dates <- c("2017-12-15", "2017-12-31")
+
+get_esi(lonlat, dates)
+
+# as.sf = TRUE returns an object of class 'sf'
+get_esi(lonlat, dates, as.sf = TRUE)
+
+############################################
+
+# S3 method for objects of class 'geojson'
+library("geojsonsf")
+library("sf")
+
+tapajos <- chirps:::tapajos
+
+object <- chirps:::.sf_to_geojson(tapajos[1:2,])
+
+object <- unlist(object)
+
+class(object) <- c("geojson", "json", class(object))
+
+dates <- c("2018-01-01","2018-01-20")
+
+get_esi(object, dates)
+
+# as.geojson = TRUE returns an object of class 'geojson'
+get_esi(object, dates, as.geojson = TRUE)
 } 
 }
 \references{
