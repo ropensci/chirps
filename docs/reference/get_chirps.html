@@ -216,7 +216,7 @@ for S3 method of <span class="pkg">chirps</span> class <code>geojson</code></p><
 <p>ClimateSERV <a href='https://climateserv.servirglobal.net'>https://climateserv.servirglobal.net</a></p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># \donttest{ </span>
+    <pre class="examples"><span class='co'># \donttest{ </span>
 <span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='st'>"chirps"</span>)
 
 <span class='no'>lonlat</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='kw'>lon</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(-<span class='fl'>55.0281</span>,-<span class='fl'>54.9857</span>, -<span class='fl'>55.0714</span>),
@@ -225,16 +225,14 @@ for S3 method of <span class="pkg">chirps</span> class <code>geojson</code></p><
 <span class='no'>dates</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"2017-12-15"</span>, <span class='st'>"2017-12-31"</span>)
 
 
-<span class='fu'>get_chirps</span>(<span class='no'>lonlat</span>, <span class='no'>dates</span>)</div><div class='output co'>#&gt; Getting your request...</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 3 x 5</span><span>
-#&gt;   id      lon   lat date       chirps
-#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>      </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #555555;'>1</span><span> 1     -</span><span style='color: #BB0000;'>55.0</span><span> -</span><span style='color: #BB0000;'>2.81</span><span> 2017-12-15    0  
-#&gt; </span><span style='color: #555555;'>2</span><span> 2     -</span><span style='color: #BB0000;'>55.0</span><span> -</span><span style='color: #BB0000;'>2.88</span><span> 2017-12-16    0  
-#&gt; </span><span style='color: #555555;'>3</span><span> 3     -</span><span style='color: #BB0000;'>55.1</span><span> -</span><span style='color: #BB0000;'>3.53</span><span> 2017-12-17   13.7</div><div class='input'>
+<span class='fu'>get_chirps</span>(<span class='no'>lonlat</span>, <span class='no'>dates</span>)
+
 <span class='co'>############################################</span>
 
 <span class='co'># S3 method for objects of class 'sf'</span>
-<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='st'>"sf"</span>)</div><div class='output co'>#&gt; <span class='message'>Linking to GEOS 3.7.2, GDAL 2.4.2, PROJ 5.2.0</span></div><div class='input'>
+<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='st'>"sf"</span>)
+
+<span class='co'># geometry 'POINT'</span>
 <span class='no'>lonlat</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='kw'>lon</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(-<span class='fl'>55.0281</span>,-<span class='fl'>54.9857</span>, -<span class='fl'>55.0714</span>),
                      <span class='kw'>lat</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(-<span class='fl'>2.8094</span>, -<span class='fl'>2.8756</span>, -<span class='fl'>3.5279</span>))
 
@@ -242,63 +240,59 @@ for S3 method of <span class="pkg">chirps</span> class <code>geojson</code></p><
 
 <span class='no'>dates</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"2017-12-15"</span>, <span class='st'>"2017-12-31"</span>)
 
-<span class='fu'>get_chirps</span>(<span class='no'>lonlat</span>, <span class='no'>dates</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: dist is assumed to be in decimal degrees (arc_degrees)</span></div><div class='output co'>#&gt; Getting your request...</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 3 x 5</span><span>
-#&gt;   id      lon   lat date       chirps
-#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>      </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #555555;'>1</span><span> 1     -</span><span style='color: #BB0000;'>55.0</span><span> -</span><span style='color: #BB0000;'>2.81</span><span> 2017-12-15    0  
-#&gt; </span><span style='color: #555555;'>2</span><span> 2     -</span><span style='color: #BB0000;'>55.0</span><span> -</span><span style='color: #BB0000;'>2.88</span><span> 2017-12-16    0  
-#&gt; </span><span style='color: #555555;'>3</span><span> 3     -</span><span style='color: #BB0000;'>55.1</span><span> -</span><span style='color: #BB0000;'>3.53</span><span> 2017-12-17   13.7</div><div class='input'>
+<span class='fu'>get_chirps</span>(<span class='no'>lonlat</span>, <span class='no'>dates</span>)
+
 <span class='co'># as.sf = TRUE returns an object of class 'sf'</span>
-<span class='fu'>get_chirps</span>(<span class='no'>lonlat</span>, <span class='no'>dates</span>, <span class='kw'>as.sf</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: dist is assumed to be in decimal degrees (arc_degrees)</span></div><div class='output co'>#&gt; Getting your request...</div><div class='output co'>#&gt; Simple feature collection with 3 features and 17 fields
-#&gt; geometry type:  POINT
-#&gt; dimension:      XY
-#&gt; bbox:           xmin: -55.0714 ymin: -3.5279 xmax: -54.9857 ymax: -2.8094
-#&gt; epsg (SRID):    NA
-#&gt; proj4string:    NA
-#&gt;   d_17515 d_17516  d_17517  d_17518 d_17519 d_17520 d_17521 d_17522 d_17523
-#&gt; 1       0       0 29.59562 14.79781       0       0       0       0       0
-#&gt; 2       0       0 13.68630 22.12671       0       0       0       0       0
-#&gt; 3       0       0 11.06336 13.68630       0       0       0       0       0
-#&gt;    d_17524  d_17525  d_17526  d_17527   d_17528 d_17529   d_17530   d_17531
-#&gt; 1 7.373443 0.000000 0.000000 37.68985 18.844923       0  9.422462  9.422462
-#&gt; 2 0.000000 0.000000 9.385599 37.54240 18.771198       0  9.385599  9.385599
-#&gt; 3 0.000000 6.649946 0.000000 22.16965  5.542412       0 11.084825 11.084825
-#&gt;                   geometry
-#&gt; 1 POINT (-55.0281 -2.8094)
-#&gt; 2 POINT (-54.9857 -2.8756)
-#&gt; 3 POINT (-55.0714 -3.5279)</div><div class='input'>
+<span class='fu'>get_chirps</span>(<span class='no'>lonlat</span>, <span class='no'>dates</span>, <span class='kw'>as.sf</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+
+<span class='co'># geometry 'POLYGON'</span>
+<span class='no'>p1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>10.67</span>, <span class='fl'>49.90</span>,
+               <span class='fl'>10.57</span>, <span class='fl'>49.80</span>,
+               <span class='fl'>10.47</span>, <span class='fl'>49.90</span>,
+               <span class='fl'>10.57</span>, <span class='fl'>50.00</span>,
+               <span class='fl'>10.67</span>, <span class='fl'>49.90</span>),
+             <span class='kw'>nrow</span> <span class='kw'>=</span> <span class='fl'>5</span>, <span class='kw'>ncol</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>byrow</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+
+<span class='no'>p1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/sf/man/st.html'>st_polygon</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='no'>p1</span>))
+
+<span class='no'>p2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>11.67</span>, <span class='fl'>45.59</span>,
+               <span class='fl'>11.57</span>, <span class='fl'>45.49</span>,
+               <span class='fl'>11.47</span>, <span class='fl'>45.59</span>,
+               <span class='fl'>11.57</span>, <span class='fl'>45.69</span>,
+               <span class='fl'>11.67</span>, <span class='fl'>45.59</span>),
+             <span class='kw'>nrow</span> <span class='kw'>=</span> <span class='fl'>5</span>, <span class='kw'>ncol</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>byrow</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+
+<span class='no'>p2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/sf/man/st.html'>st_polygon</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='no'>p2</span>))
+
+<span class='no'>pol</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>2</span>))
+<span class='no'>pol</span>$<span class='no'>geometry</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/pkg/sf/man/sfc.html'>st_sfc</a></span>(<span class='no'>p1</span>, <span class='no'>p2</span>)
+
+<span class='no'>pol</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/sf/man/st_as_sf.html'>st_as_sf</a></span>(<span class='no'>pol</span>)
+
+<span class='fu'>get_chirps</span>(<span class='no'>pol</span>, <span class='kw'>dates</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"2018-01-01"</span>, <span class='st'>"2018-01-20"</span>))
+
+
 <span class='co'>############################################</span>
 
 <span class='co'># S3 method for objects of class 'geojson'</span>
-<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='st'>"geojsonsf"</span>)</div><div class='output co'>#&gt; <span class='error'>Error in library("geojsonsf"): there is no package called ‘geojsonsf’</span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='st'>"sf"</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='st'>"sf"</span>)
 
 <span class='no'>tapajos</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>chirps</span><span class='kw ns'>:::</span><span class='no'>tapajos</span>
 
-<span class='no'>object</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>chirps</span><span class='kw ns'>:::</span><span class='fu'>.sf_to_geojson</span>(<span class='no'>tapajos</span>[<span class='fl'>1</span>:<span class='fl'>2</span>,])</div><div class='output co'>#&gt; <span class='warning'>Warning: st_buffer does not correctly buffer longitude/latitude data</span></div><div class='output co'>#&gt; <span class='message'>dist is assumed to be in decimal degrees (arc_degrees).</span></div><div class='input'>
+<span class='no'>object</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>chirps</span><span class='kw ns'>:::</span><span class='fu'>.sf_to_geojson</span>(<span class='no'>tapajos</span>[<span class='fl'>1</span>:<span class='fl'>2</span>,])
+
 <span class='no'>object</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/unlist.html'>unlist</a></span>(<span class='no'>object</span>)
 
 <span class='fu'><a href='https://rdrr.io/r/base/class.html'>class</a></span>(<span class='no'>object</span>) <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"geojson"</span>, <span class='st'>"json"</span>, <span class='fu'><a href='https://rdrr.io/r/base/class.html'>class</a></span>(<span class='no'>object</span>))
 
 <span class='no'>dates</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"2018-01-01"</span>,<span class='st'>"2018-01-20"</span>)
 
-<span class='fu'>get_chirps</span>(<span class='no'>object</span>, <span class='no'>dates</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: st_centroid does not give correct centroids for longitude/latitude data</span></div><div class='output co'>#&gt; <span class='warning'>Warning: st_centroid does not give correct centroids for longitude/latitude data</span></div><div class='output co'>#&gt; Getting your request...</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 40 x 5</span><span>
-#&gt;    id      lon   lat date       chirps
-#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>      </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #555555;'> 1</span><span> 1     -</span><span style='color: #BB0000;'>55.0</span><span> -</span><span style='color: #BB0000;'>3.36</span><span> 2018-01-01    0  
-#&gt; </span><span style='color: #555555;'> 2</span><span> 1     -</span><span style='color: #BB0000;'>55.0</span><span> -</span><span style='color: #BB0000;'>3.36</span><span> 2018-01-02    0  
-#&gt; </span><span style='color: #555555;'> 3</span><span> 1     -</span><span style='color: #BB0000;'>55.0</span><span> -</span><span style='color: #BB0000;'>3.36</span><span> 2018-01-03    0  
-#&gt; </span><span style='color: #555555;'> 4</span><span> 1     -</span><span style='color: #BB0000;'>55.0</span><span> -</span><span style='color: #BB0000;'>3.36</span><span> 2018-01-04    0  
-#&gt; </span><span style='color: #555555;'> 5</span><span> 1     -</span><span style='color: #BB0000;'>55.0</span><span> -</span><span style='color: #BB0000;'>3.36</span><span> 2018-01-05    0  
-#&gt; </span><span style='color: #555555;'> 6</span><span> 1     -</span><span style='color: #BB0000;'>55.0</span><span> -</span><span style='color: #BB0000;'>3.36</span><span> 2018-01-06    0  
-#&gt; </span><span style='color: #555555;'> 7</span><span> 1     -</span><span style='color: #BB0000;'>55.0</span><span> -</span><span style='color: #BB0000;'>3.36</span><span> 2018-01-07    0  
-#&gt; </span><span style='color: #555555;'> 8</span><span> 1     -</span><span style='color: #BB0000;'>55.0</span><span> -</span><span style='color: #BB0000;'>3.36</span><span> 2018-01-08   16.7
-#&gt; </span><span style='color: #555555;'> 9</span><span> 1     -</span><span style='color: #BB0000;'>55.0</span><span> -</span><span style='color: #BB0000;'>3.36</span><span> 2018-01-09    0  
-#&gt; </span><span style='color: #555555;'>10</span><span> 1     -</span><span style='color: #BB0000;'>55.0</span><span> -</span><span style='color: #BB0000;'>3.36</span><span> 2018-01-10    0  
-#&gt; </span><span style='color: #555555;'># … with 30 more rows</span><span></div><div class='input'>
+<span class='fu'>get_chirps</span>(<span class='no'>object</span>, <span class='no'>dates</span>)
+
 <span class='co'># as.geojson = TRUE returns an object of class 'geojson'</span>
-<span class='fu'>get_chirps</span>(<span class='no'>object</span>, <span class='no'>dates</span>, <span class='kw'>as.geojson</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: st_centroid does not give correct centroids for longitude/latitude data</span></div><div class='output co'>#&gt; <span class='warning'>Warning: st_centroid does not give correct centroids for longitude/latitude data</span></div><div class='output co'>#&gt; Getting your request...</div><div class='output co'>#&gt; {"type":"FeatureCollection","name":"chirps","features":[{"type":"Feature","properties":{"1":{"id":"1","date":"2018-01-01","value":"0"},"10":{"id":"1","date":"2018-01-10","value":"0"},"11":{"id":"1","date":"2018-01-11","value":"0"},"12":{"id":"1","date":"2018-01-12","value":"8.16110038757324"},"13":{"id":"1","date":"2018-01-13","value":"8.16110038757324"},"14":{"id":"1","date":"2018-01-14","value":"16.3222007751465"},"15":{"id":"1","date":"2018-01-15","value":"0"},"16":{"id":"1","date":"2018-01-16","value":"5.37311792373657"},"17":{"id":"1","date":"2018-01-17","value":"5.37311792373657"},"18":{"id":"1","date":"2018-01-18","value":"16.1193542480469"},"19":{"id":"1","date":"2018-01-19","value":"0"},"2":{"id":"1","date":"2018-01-02","value":"0"},"20":{"id":"1","date":"2018-01-20","value":"0"},"3":{"id":"1","date":"2018-01-03","value":"0"},"4":{"id":"1","date":"2018-01-04","value":"0"},"5":{"id":"1","date":"2018-01-05","value":"0"},"6":{"id":"1","date":"2018-01-06","value":"0"},"7":{"id":"1","date":"2018-01-07","value":"0"},"8":{"id":"1","date":"2018-01-08","value":"16.741189956665"},"9":{"id":"1","date":"2018-01-09","value":"0"}},"geometry":{"type":["Polygon"],"coordinates":["-55.0291869966114","-55.0291899255435","-55.0291969966114","-55.0292040676792","-55.0292069966114","-55.0292040676792","-55.0291969966114","-55.0291899255435","-55.0291869966114","-3.36021942199265","-3.36022649306046","-3.36022942199265","-3.36022649306046","-3.36021942199265","-3.36021235092484","-3.36020942199265","-3.36021235092484","-3.36021942199265"]}}]} {"type":"FeatureCollection","name":"chirps","features":[{"type":"Feature","properties":{"21":{"id":"2","date":"2018-01-01","value":"0"},"22":{"id":"2","date":"2018-01-02","value":"0"},"23":{"id":"2","date":"2018-01-03","value":"0"},"24":{"id":"2","date":"2018-01-04","value":"0"},"25":{"id":"2","date":"2018-01-05","value":"0"},"26":{"id":"2","date":"2018-01-06","value":"0"},"27":{"id":"2","date":"2018-01-07","value":"0"},"28":{"id":"2","date":"2018-01-08","value":"18.883243560791"},"29":{"id":"2","date":"2018-01-09","value":"0"},"30":{"id":"2","date":"2018-01-10","value":"0"},"31":{"id":"2","date":"2018-01-11","value":"0"},"32":{"id":"2","date":"2018-01-12","value":"7.42914581298828"},"33":{"id":"2","date":"2018-01-13","value":"7.42914581298828"},"34":{"id":"2","date":"2018-01-14","value":"22.2874336242676"},"35":{"id":"2","date":"2018-01-15","value":"7.42914581298828"},"36":{"id":"2","date":"2018-01-16","value":"5.55930471420288"},"37":{"id":"2","date":"2018-01-17","value":"5.55930471420288"},"38":{"id":"2","date":"2018-01-18","value":"16.6779136657715"},"39":{"id":"2","date":"2018-01-19","value":"0"},"40":{"id":"2","date":"2018-01-20","value":"0"}},"geometry":{"type":["Polygon"],"coordinates":["-55.0371837306169","-55.0371866595491","-55.0371937306169","-55.0372008016847","-55.0372037306169","-55.0372008016847","-55.0371937306169","-55.0371866595491","-55.0371837306169","-3.23339364149234","-3.23340071256015","-3.23340364149234","-3.23340071256015","-3.23339364149234","-3.23338657042453","-3.23338364149234","-3.23338657042453","-3.23339364149234"]}}]} </div><div class='input'>
-# } 
-</div></span></pre>
+<span class='fu'>get_chirps</span>(<span class='no'>object</span>, <span class='no'>dates</span>, <span class='kw'>as.geojson</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+
+<span class='co'># } </span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

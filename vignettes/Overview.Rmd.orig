@@ -52,7 +52,7 @@ devtools::install_github("agrobioinfoservices/chirps", build_vignettes = TRUE)
 
 # Usage
 
-The *Tapajós* National Forest is a protected area in the Brazilian Amazon. Located within the coordinates -55.4$^{\circ}$ and -54.8$^{\circ}$ E and -4.1$^{\circ}$ and -2.7$^{\circ}$ S with ~ 527,400 ha of multiple Amazonian ecosystems. We take three random points across its area to get the precipitation from Jan-2013 to Dec-2018 using `get_chirps.sf()` for objects of class 'sf'.
+The *Tapajós* National Forest is a protected area in the Brazilian Amazon. Located within the coordinates -55.4$^{\circ}$ and -54.8$^{\circ}$ E and -4.1$^{\circ}$ and -2.7$^{\circ}$ S with ~ 527,400 ha of multiple Amazonian ecosystems. We take three random points across its area to get the precipitation from Jan-2013 to Dec-2018 using `get_chirps.sf()` for objects of class 'sf' [@sf].
 
 ```{r map, echo=FALSE}
 knitr::include_graphics("map.png")
@@ -160,7 +160,7 @@ get_esi(lonlat, c("2017-12-01","2018-01-20"))
 
 ```
 
-One way to deal with this is increase the buffer area around the in-putted object with the argument `dist` passed to `st_buffer()` from *sf*[@sf] through the `...` functionality in `get_esi()`. The argument `nQuadSegs` defines the number of segments per quadrant in the buffer.  
+One way to deal with this is increase the buffer area around the in-putted object with the argument `dist` passed to `st_buffer()` from *sf* through the `...` functionality in `get_esi()`. The argument `nQuadSegs` defines the number of segments per quadrant in the buffer.  
 
 ```{r esi-ok, message=FALSE, eval=FALSE, echo=TRUE}
 
@@ -178,7 +178,30 @@ To return an object with the same class (`sf`), the argument `as.sf = TRUE` is u
 get_chirps(tapajos, dates = c("2017-12-15","2017-12-31"), as.sf = TRUE)
 
 ```
+## Objects of class geojson
 
+`get_chirps()` and `get_esi()` also contains a method for objects of class geojson with geometries 'Point' and 'Polygon'. To return an object with the same class (`geojson`), the argument `as.geojson = TRUE` is used.
+
+
+```{r geojson, message=FALSE, eval=FALSE, echo=TRUE}
+
+library("sf")
+
+tapajos <- chirps:::tapajos
+
+object <- chirps:::.sf_to_geojson(tapajos[1:2,])
+
+object <- unlist(object)
+
+class(object) <- c("geojson", "json", class(object))
+
+dates <- c("2018-01-01","2018-01-20")
+
+dat <- get_esi(object, dates, dist = 0.1)
+
+dat <- get_esi(object, dates, as.geojson = TRUE, dist = 0.1)
+
+```
 
 # References
 

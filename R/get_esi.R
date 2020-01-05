@@ -41,8 +41,8 @@
 #' \donttest{
 #' library("chirps")
 #' 
-#' lonlat <- data.frame(lon = c(-55.0281,-54.9857, -55.0714),
-#'                      lat = c(-2.8094, -2.8756, -3.5279))
+#' lonlat <- data.frame(lon = c(-55.0281,-54.9857),
+#'                      lat = c(-2.8094, -2.8756))
 #' 
 #' dates <- c("2017-12-15","2018-06-20")
 #' 
@@ -51,13 +51,10 @@
 #' 
 #' dat <- get_esi(lonlat, dates = dates)
 #' 
-#' dat
-#' 
 #' # the argument dist passed through sf increase the buffer area
 #' 
 #' dat <- get_esi(lonlat, dates = dates, dist = 0.1)
 #' 
-#' dat
 #' 
 #' ############################################
 #' 
@@ -65,32 +62,32 @@
 #' library("sf")
 #' 
 #' # geometry 'POINT'
-#' lonlat <- data.frame(lon = c(-55.0281,-54.9857, -55.0714),
-#'                      lat = c(-2.8094, -2.8756, -3.5279))
+#' lonlat <- data.frame(lon = c(-55.0281,-54.9857),
+#'                      lat = c(-2.8094, -2.8756))
 #' 
 #' lonlat <- st_as_sf(lonlat, coords = c("lon","lat"))
 #' 
 #' dates <- c("2017-11-15", "2017-12-31")
 #' 
-#' get_esi(lonlat, dates)
+#' dat <- get_esi(lonlat, dates, dist = 0.1)
 #' 
 #' # as.sf = TRUE returns an object of class 'sf'
-#' get_esi(lonlat, dates, as.sf = TRUE)
+#' dat <- get_esi(lonlat, dates, as.sf = TRUE, dist = 0.1)
 #' 
 #' # geometry 'POLYGON'
-#' p1 <- matrix(c(10.67, 49.90, 
-#'                10.57, 49.80, 
-#'                10.47, 49.90, 
-#'                10.57, 50.00, 
-#'                10.67, 49.90), 
+#' p1 <- matrix(c(10.67, 49.90,
+#'                10.57, 49.80,
+#'                10.47, 49.90,
+#'                10.57, 50.00,
+#'                10.67, 49.90),
 #'              nrow = 5, ncol = 2, byrow = TRUE)
 #' 
 #' p1 <- st_polygon(list(p1))
 #' 
-#' p2 <- matrix(c(11.67, 45.59, 
-#'                11.57, 45.49, 
-#'                11.47, 45.59, 
-#'                11.57, 45.69, 
+#' p2 <- matrix(c(11.67, 45.59,
+#'                11.57, 45.49,
+#'                11.47, 45.59,
+#'                11.57, 45.69,
 #'                11.67, 45.59),
 #'              nrow = 5, ncol = 2, byrow = TRUE)
 #' 
@@ -101,7 +98,7 @@
 #' 
 #' pol <- st_as_sf(pol)
 #' 
-#' get_esi(pol, dates = c("2018-01-01", "2018-02-20"))
+#' dat <- get_esi(pol, dates = c("2018-01-01", "2018-02-20"))
 #' 
 #' 
 #' ############################################
@@ -119,10 +116,11 @@
 #' 
 #' dates <- c("2018-01-01","2018-01-20")
 #' 
-#' get_esi(object, dates)
+#' dat <- get_esi(object, dates, dist = 0.1)
 #' 
 #' # as.geojson = TRUE returns an object of class 'geojson'
-#' get_esi(object, dates, as.geojson = TRUE)
+#' dat <- get_esi(object, dates, as.geojson = TRUE, dist = 0.1)
+#' 
 #' } 
 #' @export
 get_esi <- function(object, dates, operation = 5, period = 1, 

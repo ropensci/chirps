@@ -3,9 +3,17 @@ chirps 0.0.4 (2020-01-03)
 
 ### NEW FEATURES
 
+* S3 methods for objects of class "geojson" in `get_chirps()` and `get_esi()`
+
 * Package vignette
 
 * Prepare for submission to ropensci
+
+### ENHANCEMENTS
+
+* Validations in internal functions to transform 'sf' into geojson
+
+* Add properties features to geojson output in `get_chirps()` and `get_esi()` via `.add_geojson_properties()`
 
 
 chirps 0.0.3 (2019-12-31)
