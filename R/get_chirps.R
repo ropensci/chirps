@@ -65,6 +65,7 @@
 #' # S3 method for objects of class 'sf'
 #' library("sf")
 #' 
+#' # geometry 'POINT'
 #' lonlat <- data.frame(lon = c(-55.0281,-54.9857, -55.0714),
 #'                      lat = c(-2.8094, -2.8756, -3.5279))
 #' 
@@ -77,10 +78,36 @@
 #' # as.sf = TRUE returns an object of class 'sf'
 #' get_chirps(lonlat, dates, as.sf = TRUE)
 #' 
+#' # geometry 'POLYGON'
+#' p1 <- matrix(c(10.67, 49.90, 
+#'                10.57, 49.80, 
+#'                10.47, 49.90, 
+#'                10.57, 50.00, 
+#'                10.67, 49.90), 
+#'              nrow = 5, ncol = 2, byrow = TRUE)
+#' 
+#' p1 <- st_polygon(list(p1))
+#' 
+#' p2 <- matrix(c(11.67, 45.59, 
+#'                11.57, 45.49, 
+#'                11.47, 45.59, 
+#'                11.57, 45.69, 
+#'                11.67, 45.59),
+#'              nrow = 5, ncol = 2, byrow = TRUE)
+#' 
+#' p2 <- st_polygon(list(p2))
+#' 
+#' pol <- data.frame(x = c(1, 2))
+#' pol$geometry = st_sfc(p1, p2)
+#' 
+#' pol <- st_as_sf(pol)
+#' 
+#' get_chirps(pol, dates = c("2018-01-01", "2018-01-20"))
+#' 
+#' 
 #' ############################################
 #' 
 #' # S3 method for objects of class 'geojson'
-#' library("geojsonsf")
 #' library("sf")
 #' 
 #' tapajos <- chirps:::tapajos
@@ -152,33 +179,71 @@ get_chirps.default <- function(object, dates, operation = 5, ...) {
 get_chirps.sf <- function(object, dates, operation = 5, 
                           as.sf = FALSE, 
                           ...) {
+  
+  # check geometry type
+  type <- c("POINT", "POLYGON")
+  
+  # check for supported types 
+  supp_type <- c(all(grepl(type[[1]], sf::st_geometry_type(object))),
+                 all(grepl(type[[2]], sf::st_geometry_type(object))))
 
-  # convert sf into a data.frame
+  if (!any(supp_type)) {
+    stop("The sf geometry type is not supported. 
+         Please provide a sf object of geometry type 'POINT' or 'POLYGON'\n")
+  }
+  
+  type <- type[which(supp_type)]
+  
   n <- nrow(object)
   
   # find the sf_column
-  sf_column <- attr(object, "sf_column")
+  index <- attr(object, "sf_column")
   
-  # unlist the sf_column
-  lonlat <- unlist(object[[sf_column]])
+  if (type == "POINT") {
+    
+    # unlist the sf_column
+    lonlat <- unlist(object[[index]])
+    
+    lonlat <- matrix(lonlat,
+                     nrow = n,
+                     ncol = 2, 
+                     byrow = TRUE, 
+                     dimnames = list(1:n, c("lon","lat")))
+    
+    lonlat <- as.data.frame(lonlat)
+    
+  }
   
-  lonlat <- matrix(lonlat,
-                   nrow = n,
-                   ncol = 2, 
-                   byrow = TRUE, 
-                   dimnames = list(1:n, c("lon","lat")))
+  if (type == "POLYGON") {
+    
+    lonlat <- object[[index]]
+    
+    nl <- length(lonlat)
+    
+    # set centroid to validade lonlat
+    lonlat <- sf::st_centroid(lonlat)
+    
+    # unlist the sf_column
+    lonlat <- unlist(lonlat)
+    
+    lonlat <- matrix(lonlat,
+                     nrow = nl,
+                     ncol = 2, 
+                     byrow = TRUE, 
+                     dimnames = list(1:nl, c("lon","lat")))
+    
+    lonlat <- as.data.frame(lonlat)
+    
+  }
   
-  lonlat <- as.data.frame(lonlat)
-  
-  # validate lonlat to check if they are within the CHIRPS range lat -50, 50
+  # validate lonlat to check if they are within the CHIRPS range
   .validate_lonlat(lonlat, xlim = c(-180, 180), ylim = c(-50, 50))
   
   # validate and reformat dates
   dates_inter <- .reformat_dates(dates, availability = c("1981-01-01", "0"))
   
   # get geojson strings from data.frame
-  warning("dist is assumed to be in decimal degrees (arc_degrees)\n")
-  gj <- .dataframe_to_geojson(lonlat, ...)
+  gj <- .sf_to_geojson(object, ...)
   
   result <- .GET(gjson = gj, 
                  dates = dates_inter, 
@@ -207,7 +272,7 @@ get_chirps.sf <- function(object, dates, operation = 5,
     
     lonlat$id <- rownames(lonlat)
     
-    result <- merge(result, lonlat, by = "id")
+    result <- merge(result, lonlat, by = "id", all.x = TRUE)
     
     names(result)[3:5] <- c("chirps", "lon", "lat")
     

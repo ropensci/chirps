@@ -82,6 +82,7 @@ get_chirps(lonlat, dates)
 # S3 method for objects of class 'sf'
 library("sf")
 
+# geometry 'POINT'
 lonlat <- data.frame(lon = c(-55.0281,-54.9857, -55.0714),
                      lat = c(-2.8094, -2.8756, -3.5279))
 
@@ -94,10 +95,36 @@ get_chirps(lonlat, dates)
 # as.sf = TRUE returns an object of class 'sf'
 get_chirps(lonlat, dates, as.sf = TRUE)
 
+# geometry 'POLYGON'
+p1 <- matrix(c(10.67, 49.90, 
+               10.57, 49.80, 
+               10.47, 49.90, 
+               10.57, 50.00, 
+               10.67, 49.90), 
+             nrow = 5, ncol = 2, byrow = TRUE)
+
+p1 <- st_polygon(list(p1))
+
+p2 <- matrix(c(11.67, 45.59, 
+               11.57, 45.49, 
+               11.47, 45.59, 
+               11.57, 45.69, 
+               11.67, 45.59),
+             nrow = 5, ncol = 2, byrow = TRUE)
+
+p2 <- st_polygon(list(p2))
+
+pol <- data.frame(x = c(1, 2))
+pol$geometry = st_sfc(p1, p2)
+
+pol <- st_as_sf(pol)
+
+get_chirps(pol, dates = c("2018-01-01", "2018-01-20"))
+
+
 ############################################
 
 # S3 method for objects of class 'geojson'
-library("geojsonsf")
 library("sf")
 
 tapajos <- chirps:::tapajos

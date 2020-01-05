@@ -81,19 +81,23 @@
     
   })
   
+  # define ids
+  ids <- NULL
+  for(i in seq_along(result)) {
+    ids <- c(ids, rep(i, nrow(result[[i]])))
+  }
+  
   result <- do.call("rbind", result)
   
   if (nrow(result) == 0) {
     stop("Fail to get valid values, try to increase the buffer area with 'dist' \n")
   }
   
-  # fix ids
-  id <- strsplit(row.names(result), "[.]")
-  id <- do.call("rbind", id)[, 1]
-  result$id <- id
+  # add ids 
+  result$id <- ids
   
   # transform dates to the original format as input
-  dat <-  strsplit(result$date, "/")
+  dat <- strsplit(result$date, "/")
   dat <- do.call("rbind", dat)
   dat <- paste(dat[, 3], dat[, 1], dat[, 2], sep = "-")
   result$date <- as.Date(dat, format = "%Y-%m-%d")

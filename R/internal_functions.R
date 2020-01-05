@@ -94,15 +94,39 @@
 .sf_to_geojson <- function(lonlat,
                            dist = 0.00001,
                            nQuadSegs = 2L) {
-  n <- nrow(lonlat)
   
-  # set the buffer around the points
-  lonlatb <- sf::st_buffer(lonlat,
-                           dist = dist,
-                           nQuadSegs = nQuadSegs)
+  # check geometry type
+  type <- c("POINT", "POLYGON")
   
-  # transform into a sf object
-  lonlatb <- sf::st_as_sf(lonlatb)
+  # check for supported types 
+  supp_type <- c(all(grepl(type[[1]], sf::st_geometry_type(lonlat))),
+                 all(grepl(type[[2]], sf::st_geometry_type(lonlat))))
+  
+  if (!any(supp_type)) {
+    stop("The sf geometry type is not supported. 
+         Please provide a sf object of geometry type 'POINT' or 'POLYGON'\n")
+  }
+  
+  type <- type[which(supp_type)]
+  
+  if (type == "POINT") {
+    n <- nrow(lonlat)
+    
+    # set the buffer around the points
+    lonlatb <- sf::st_buffer(lonlat,
+                             dist = dist,
+                             nQuadSegs = nQuadSegs)
+    
+    # transform into a sf object
+    lonlatb <- sf::st_as_sf(lonlatb)  
+  }
+  
+  if (type == "POLYGON") {
+    
+    lonlatb <- lonlat
+  
+  }
+  
   
   # write the geojson string
   tf <- tempfile(fileext = ".geojson")
