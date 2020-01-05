@@ -43,7 +43,7 @@ devtools::install_github("agrobioinfoservices/chirps", build_vignettes = TRUE)
 
 Fetch CHIRPS data from three points across the *Tapajós* National Forest (Brazil) from Jan-2017 to Dec-2017. Then calculate the precipitation indices over the timeseries using intervals of 30 days. 
 
-```{r example, message=FALSE, eval=FALSE, echo=FALSE}
+```{r example, message=FALSE, eval=FALSE, echo=TRUE}
 library("chirps")
 
 lonlat <- data.frame(lon = c(-55.0281,-54.9857, -55.0714),

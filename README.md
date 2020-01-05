@@ -51,6 +51,19 @@ Fetch CHIRPS data from three points across the *Tapajós* National Forest
 (Brazil) from Jan-2017 to Dec-2017. Then calculate the precipitation
 indices over the timeseries using intervals of 30 days.
 
+``` r
+library("chirps")
+
+lonlat <- data.frame(lon = c(-55.0281,-54.9857, -55.0714),
+                     lat = c(-2.8094, -2.8756, -3.5279))
+
+dates <- c("2017-01-01", "2017-12-31")
+
+dat <- get_chirps(lonlat, dates)
+
+pi <- precip_indices(dat, timeseries = TRUE, intervals = 30)
+```
+
 ## Going further
 
 The full functionality of **chirps** is illustrated in the package
