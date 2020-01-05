@@ -60,7 +60,6 @@ tapajos <- st_sample(tapajos, 3)
 tapajos <- st_as_sf(tapajos)
 
 dat <- get_chirps(tapajos, dates = c("2013-01-01","2018-12-31"))
-
 ```
 
 
@@ -70,9 +69,9 @@ With `precip_indices()` is possible to assess how the precipitation changes acro
 
 
 ```r
-pi <- precip_indices(dat, timeseries = TRUE, intervals = 15)
+p_ind <- precip_indices(dat, timeseries = TRUE, intervals = 15)
 
-head(pi)
+head(p_ind)
 #> # A tibble: 6 x 6
 #>      id date         lon   lat index  value
 #>   <int> <date>     <dbl> <dbl> <chr>  <dbl>
@@ -116,7 +115,7 @@ library("tidyverse")
 mm <- c("R95p","R99p","Rx5day","Rtotal")
 days <- c("MLDS","MLWS","R10mm","R20mm")
 
-pi %>% 
+p_ind %>% 
   filter(index %in% mm) %>% 
   group_by(index) %>% 
   mutate(ab = mean(value)) %>% 
@@ -136,7 +135,7 @@ Now plot the indices expressed in days.
 
 
 ```r
-pi %>% 
+p_ind %>% 
   filter(index %in% days) %>% 
   group_by(index) %>% 
   mutate(ab = mean(value)) %>% 

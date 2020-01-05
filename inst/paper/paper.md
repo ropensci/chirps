@@ -35,7 +35,7 @@ affiliations:
   - name: Universities Space Research Association, National Aeronautics and Space Administration (NASA), Huntsville, USA
     index: 4
 citation_author: de Sousa et. al.
-date: "04 January 2020"
+date: "05 January 2020"
 year: 2020
 bibliography: paper.bib
 output: rticles::joss_article
@@ -65,7 +65,7 @@ tapajos <- chirps:::tapajos
 
 dat <- get_chirps(tapajos, dates = c("2008-01-01","2018-01-31"))
 
-pi <- precip_indices(dat, timeseries = TRUE, intervals = 30)
+p_ind <- precip_indices(dat, timeseries = TRUE, intervals = 30)
 
 ```
 

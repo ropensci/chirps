@@ -80,9 +80,9 @@ The function `get_chirps()` returns a data.frame which inherits the class 'chirp
 With `precip_indices()` is possible to assess how the precipitation changes across a time series using precipitation variability indices[@Aguilar2005]. Here, we take the indices for intervals of 15 days and compute the indices for the time series (from Jan-2013 to Dec-2018).
 
 ```{r indices, message=TRUE, eval=TRUE, echo=TRUE}
-pi <- precip_indices(dat, timeseries = TRUE, intervals = 15)
+p_ind <- precip_indices(dat, timeseries = TRUE, intervals = 15)
 
-head(pi)
+head(p_ind)
 
 ```
 
@@ -103,7 +103,7 @@ library("tidyverse")
 mm <- c("R95p","R99p","Rx5day","Rtotal")
 days <- c("MLDS","MLWS","R10mm","R20mm")
 
-pi %>% 
+p_ind %>% 
   filter(index %in% mm) %>% 
   group_by(index) %>% 
   mutate(ab = mean(value)) %>% 
@@ -121,7 +121,7 @@ pi %>%
 Now plot the indices expressed in days.
 
 ```{r days, message=TRUE, eval=TRUE, echo=TRUE}
-pi %>% 
+p_ind %>% 
   filter(index %in% days) %>% 
   group_by(index) %>% 
   mutate(ab = mean(value)) %>% 

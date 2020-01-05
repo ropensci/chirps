@@ -135,9 +135,9 @@
 <span id="cb2-11"><a href="#cb2-11"></a>dat &lt;-<span class="st"> </span><span class="kw"><a href="../reference/get_chirps.html">get_chirps</a></span>(tapajos, <span class="dt">dates =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"2013-01-01"</span>,<span class="st">"2018-12-31"</span>))</span></code></pre></div>
 <p>The function <code><a href="../reference/get_chirps.html">get_chirps()</a></code> returns a data.frame which inherits the class ‘chirps’, where each id represents the index for the rows in the in-putted ‘object’.</p>
 <p>With <code><a href="../reference/precip_indices.html">precip_indices()</a></code> is possible to assess how the precipitation changes across a time series using precipitation variability indices<span class="citation"><sup>3</sup></span>. Here, we take the indices for intervals of 15 days and compute the indices for the time series (from Jan-2013 to Dec-2018).</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>pi &lt;-<span class="st"> </span><span class="kw"><a href="../reference/precip_indices.html">precip_indices</a></span>(dat, <span class="dt">timeseries =</span> <span class="ot">TRUE</span>, <span class="dt">intervals =</span> <span class="dv">15</span>)</span>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>p_ind &lt;-<span class="st"> </span><span class="kw"><a href="../reference/precip_indices.html">precip_indices</a></span>(dat, <span class="dt">timeseries =</span> <span class="ot">TRUE</span>, <span class="dt">intervals =</span> <span class="dv">15</span>)</span>
 <span id="cb3-2"><a href="#cb3-2"></a></span>
-<span id="cb3-3"><a href="#cb3-3"></a><span class="kw"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(pi)</span>
+<span id="cb3-3"><a href="#cb3-3"></a><span class="kw"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(p_ind)</span>
 <span id="cb3-4"><a href="#cb3-4"></a><span class="co">#&gt; # A tibble: 6 x 6</span></span>
 <span id="cb3-5"><a href="#cb3-5"></a><span class="co">#&gt;      id date         lon   lat index  value</span></span>
 <span id="cb3-6"><a href="#cb3-6"></a><span class="co">#&gt;   &lt;int&gt; &lt;date&gt;     &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;  &lt;dbl&gt;</span></span>
@@ -170,7 +170,7 @@
 <span id="cb5-3"><a href="#cb5-3"></a>mm &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"R95p"</span>,<span class="st">"R99p"</span>,<span class="st">"Rx5day"</span>,<span class="st">"Rtotal"</span>)</span>
 <span id="cb5-4"><a href="#cb5-4"></a>days &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"MLDS"</span>,<span class="st">"MLWS"</span>,<span class="st">"R10mm"</span>,<span class="st">"R20mm"</span>)</span>
 <span id="cb5-5"><a href="#cb5-5"></a></span>
-<span id="cb5-6"><a href="#cb5-6"></a>pi <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb5-6"><a href="#cb5-6"></a>p_ind <span class="op">%&gt;%</span><span class="st"> </span></span>
 <span id="cb5-7"><a href="#cb5-7"></a><span class="st">  </span><span class="kw"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span>(index <span class="op">%in%</span><span class="st"> </span>mm) <span class="op">%&gt;%</span><span class="st"> </span></span>
 <span id="cb5-8"><a href="#cb5-8"></a><span class="st">  </span><span class="kw">group_by</span>(index) <span class="op">%&gt;%</span><span class="st"> </span></span>
 <span id="cb5-9"><a href="#cb5-9"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">ab =</span> <span class="kw"><a href="https://rdrr.io/r/base/mean.html">mean</a></span>(value)) <span class="op">%&gt;%</span><span class="st"> </span></span>
@@ -183,7 +183,7 @@
 <span id="cb5-16"><a href="#cb5-16"></a><span class="st">  </span><span class="kw">theme_classic</span>()</span></code></pre></div>
 <p><img src="mm-1.png" title="plot of chunk mm" alt="plot of chunk mm" style="display: block; margin: auto;"></p>
 <p>Now plot the indices expressed in days.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>pi <span class="op">%&gt;%</span><span class="st"> </span></span>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>p_ind <span class="op">%&gt;%</span><span class="st"> </span></span>
 <span id="cb6-2"><a href="#cb6-2"></a><span class="st">  </span><span class="kw"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span>(index <span class="op">%in%</span><span class="st"> </span>days) <span class="op">%&gt;%</span><span class="st"> </span></span>
 <span id="cb6-3"><a href="#cb6-3"></a><span class="st">  </span><span class="kw">group_by</span>(index) <span class="op">%&gt;%</span><span class="st"> </span></span>
 <span id="cb6-4"><a href="#cb6-4"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">ab =</span> <span class="kw"><a href="https://rdrr.io/r/base/mean.html">mean</a></span>(value)) <span class="op">%&gt;%</span><span class="st"> </span></span>

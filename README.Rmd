@@ -53,7 +53,7 @@ dates <- c("2017-01-01", "2017-12-31")
 
 dat <- get_chirps(lonlat, dates)
 
-pi <- precip_indices(dat, timeseries = TRUE, intervals = 30)
+p_ind <- precip_indices(dat, timeseries = TRUE, intervals = 30)
 ```
 
 
