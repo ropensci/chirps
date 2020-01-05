@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Compute precipitation indices over a time series. — precip_indices • chirps</title>
+<title>API Client for CHIRPS — chirps • chirps</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -42,8 +42,15 @@
 
 
 
-<meta property="og:title" content="Compute precipitation indices over a time series. — precip_indices" />
-<meta property="og:description" content="Compute precipitation indices over a time series." />
+<meta property="og:title" content="API Client for CHIRPS — chirps" />
+<meta property="og:description" content="
+API Client for the Climate Hazards Group InfraRed Precipitation
+  with Station Data 'CHIRPS'. The 'CHIRPS' data is a 35+ year quasi-global
+  rainfall data set, which incorporates 0.05 arc-degrees resolution satellite
+  imagery, and in-situ station data to create gridded rainfall time series for
+  trend analysis and seasonal drought monitoring. For more details on 'CHIRPS'
+  data please visit its official home page
+  &amp;lt;https://www.chc.ucsb.edu/data/chirps&amp;gt;." />
 <meta property="og:image" content="/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -123,89 +130,43 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Compute precipitation indices over a time series.</h1>
+    <h1>API Client for CHIRPS</h1>
     
-    <div class="hidden name"><code>precip_indices.Rd</code></div>
+    <div class="hidden name"><code>chirps.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Compute precipitation indices over a time series.</p>
+    <p><img src='figures/logo.png' align='right' alt='logo' width='120' /></p>
+<p>API Client for the Climate Hazards Group InfraRed Precipitation
+  with Station Data 'CHIRPS'. The 'CHIRPS' data is a 35+ year quasi-global
+  rainfall data set, which incorporates 0.05 arc-degrees resolution satellite
+  imagery, and in-situ station data to create gridded rainfall time series for
+  trend analysis and seasonal drought monitoring. For more details on 'CHIRPS'
+  data please visit its official home page
+  &lt;https://www.chc.ucsb.edu/data/chirps&gt;.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>precip_indices</span>(<span class='no'>object</span>, <span class='kw'>timeseries</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>intervals</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
 
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
-    <table class="ref-arguments">
-    <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>object</th>
-      <td><p>an object of class <code>chirps</code> as provided by
-<code><a href='get_chirps.html'>get_chirps</a></code></p></td>
-    </tr>
-    <tr>
-      <th>timeseries</th>
-      <td><p>logical, <code>FALSE</code> for a single point time series
-observation or <code>TRUE</code> for a time series based on <var>intervals</var></p></td>
-    </tr>
-    <tr>
-      <th>intervals</th>
-      <td><p>integer no lower than 5, for the days intervals when
-<var>timeseries</var> = <code>TRUE</code></p></td>
-    </tr>
-    </table>
 
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
-
-    <p>A dataframe with selected indices:</p>
-<dt>MLDS</dt><dd><p>maximum length of consecutive dry day, rain &lt; 1 mm (days)</p></dd>
-<dt>MLWS</dt><dd><p>maximum length of consecutive wet days, rain &gt;= 1 mm (days)</p></dd>
-<dt>R10mm</dt><dd><p>number of heavy precipitation days 10 &gt;= rain &lt; 20 mm (days)</p></dd>
-<dt>R20mm</dt><dd><p>number of very heavy precipitation days rain &gt;= 20 (days)</p></dd>
-<dt>Rx1day</dt><dd><p>maximum 1-day precipitation (mm)</p></dd>
-<dt>Rx5day</dt><dd><p>maximum 5-day precipitation (mm)</p></dd>
-<dt>R95p</dt><dd><p>total precipitation when rain &gt; 95th percentile (mm)</p></dd>
-<dt>R99p</dt><dd><p>total precipitation when rain &gt; 99th percentile (mm)</p></dd>
-<dt>Rtotal</dt><dd><p>total precipitation (mm) in wet days, rain &gt;= 1 (mm)</p></dd>
-<dt>SDII</dt><dd><p>simple daily intensity index, total precipitation divided by the
- number of wet days (mm/days)</p></dd>
-
-    <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
-
-    <p>Aguilar E., et al. (2005). Journal of Geophysical Research, 110(D23), D23107.
- <br /><a href='https://doi.org/10.1029/2005JD006119'>https://doi.org/10.1029/2005JD006119</a></p>
-<p>Kehel Z., et al. (2016). In: Applied Mathematics and Omics to Assess Crop
- Genetic Resources for Climate Change Adaptive Traits (eds Bari A., Damania
- A. B., Mackay M., Dayanandan S.), pp. 151–174. CRC Press.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='https://tidyr.tidyverse.org/reference/pivot_wider.html'>pivot_wider</a></code></p></div>
+    <div class='dont-index'><p><strong>Useful links:</strong></p><ul>
+<li><p>Development repository: <a href='https://github.com/agrobioinfoservices/chirps'>https://github.com/agrobioinfoservices/chirps</a></p></li>
+<li><p>Static documentation: <a href='https://agrobioinfoservices.github.io/chirps/'>https://agrobioinfoservices.github.io/chirps/</a></p></li>
+<li><p>Report bugs: <a href='https://github.com/agrobioinfoservices/chirps/issues'>https://github.com/agrobioinfoservices/chirps/issues</a></p></li>
+</ul>
+</div>
 
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>
-<span class='co'># \donttest{</span>
-<span class='co'># Three points in the Tapajos National Forest, Brazil</span>
-<span class='no'>lonlat</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='kw'>lon</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(-<span class='fl'>55.0281</span>,-<span class='fl'>54.9857</span>, -<span class='fl'>55.0714</span>),
-                     <span class='kw'>lat</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(-<span class='fl'>2.8094</span>, -<span class='fl'>2.8756</span>, -<span class='fl'>3.5279</span>))
-
-<span class='no'>dates</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"2017-12-15"</span>,<span class='st'>"2018-05-31"</span>)
-
-<span class='no'>dat</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='get_chirps.html'>get_chirps</a></span>(<span class='no'>lonlat</span>, <span class='no'>dates</span>)</div><div class='output co'>#&gt; Getting your request...</div><div class='input'>
-<span class='co'># take the indices for the entire period </span>
-<span class='fu'>precip_indices</span>(<span class='no'>dat</span>, <span class='kw'>timeseries</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; <span class='error'>Error in object[i:(i + 4)]: only 0's may be mixed with negative subscripts</span></div><div class='input'>
-<span class='co'># take the indices for periods of 7 days</span>
-<span class='fu'>precip_indices</span>(<span class='no'>dat</span>, <span class='kw'>timeseries</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>intervals</span> <span class='kw'>=</span> <span class='fl'>7</span>)</div><div class='output co'>#&gt; <span class='error'>Error in object[i:(i + 4)]: only 0's may be mixed with negative subscripts</span></div><div class='input'># }
-</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      <li><a href="#value">Value</a></li>
-      <li><a href="#references">References</a></li>
       <li><a href="#see-also">See also</a></li>
-      <li><a href="#examples">Examples</a></li>
     </ul>
 
+    <h2>Author</h2>
+    <p>Kauê de Sousa and Adam H. Sparks and William Ashmall and Jacob van
+ Etten and Svein Ø. Solberg</p>
   </div>
 </div>
 

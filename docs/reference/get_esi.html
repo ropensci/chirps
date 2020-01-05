@@ -148,14 +148,17 @@ ClimateSERV works with geojson of type 'Polygon'. The input <code>object</code> 
 <span class='fu'>get_esi</span>(<span class='no'>object</span>, <span class='no'>dates</span>, <span class='kw'>operation</span> <span class='kw'>=</span> <span class='fl'>5</span>, <span class='kw'>period</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='no'>...</span>)
 
 <span class='co'># S3 method for sf</span>
-<span class='fu'>get_esi</span>(<span class='no'>object</span>, <span class='no'>dates</span>, <span class='kw'>operation</span> <span class='kw'>=</span> <span class='fl'>5</span>, <span class='kw'>period</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>as.sf</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)</pre>
+<span class='fu'>get_esi</span>(<span class='no'>object</span>, <span class='no'>dates</span>, <span class='kw'>operation</span> <span class='kw'>=</span> <span class='fl'>5</span>, <span class='kw'>period</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>as.sf</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)
+
+<span class='co'># S3 method for geojson</span>
+<span class='fu'>get_esi</span>(<span class='no'>object</span>, <span class='no'>dates</span>, <span class='kw'>operation</span> <span class='kw'>=</span> <span class='fl'>5</span>, <span class='kw'>period</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>as.geojson</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>object</th>
-      <td><p>input, an object of class <code><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></code> or
+      <td><p>input, an object of class <code><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></code>,<code>geojson</code> or
 <code><a href='https://rdrr.io/pkg/sf/man/sf.html'>sf</a></code></p></td>
     </tr>
     <tr>
@@ -181,6 +184,11 @@ See details</p></td>
       <th>as.sf</th>
       <td><p>logical, returns an object of class <code>[sf]{sf}</code>
 for S3 method of <span class="pkg">chirps</span> class <code>sf</code></p></td>
+    </tr>
+    <tr>
+      <th>as.geojson</th>
+      <td><p>logical, returns an object of class <code>geojson</code>
+for S3 method of <span class="pkg">chirps</span> class <code>geojson</code></p></td>
     </tr>
     </table>
 
@@ -214,7 +222,7 @@ for S3 method of <span class="pkg">chirps</span> class <code>sf</code></p></td>
 <a href='http://catalogue.servirglobal.net/Product?product_id=198'>http://catalogue.servirglobal.net/Product?product_id=198</a></p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><span class='co'># \donttest{</span>
+    <pre class="examples"><div class='input'><span class='co'># \donttest{</span>
 <span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='st'>"chirps"</span>)
 
 <span class='no'>lonlat</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='kw'>lon</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(-<span class='fl'>55.0281</span>,-<span class='fl'>54.9857</span>, -<span class='fl'>55.0714</span>),
@@ -225,16 +233,75 @@ for S3 method of <span class="pkg">chirps</span> class <code>sf</code></p></td>
 <span class='co'># by default the function set a very small buffer around the points</span>
 <span class='co'># which can return NAs due to cloudiness in ESI data</span>
 
-<span class='no'>dat</span> <span class='kw'>&lt;-</span> <span class='fu'>get_esi</span>(<span class='no'>lonlat</span>, <span class='kw'>dates</span> <span class='kw'>=</span> <span class='no'>dates</span>)
-
-<span class='no'>dat</span>
-
+<span class='no'>dat</span> <span class='kw'>&lt;-</span> <span class='fu'>get_esi</span>(<span class='no'>lonlat</span>, <span class='kw'>dates</span> <span class='kw'>=</span> <span class='no'>dates</span>)</div><div class='output co'>#&gt; Getting your request...</div><div class='input'>
+<span class='no'>dat</span></div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 3 x 5</span><span>
+#&gt;   id      lon   lat date          esi
+#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>      </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #555555;'>1</span><span> 1     -</span><span style='color: #BB0000;'>55.0</span><span> -</span><span style='color: #BB0000;'>2.81</span><span> 2017-12-11 -</span><span style='color: #BB0000;'>0.844</span><span>
+#&gt; </span><span style='color: #555555;'>2</span><span> 2     -</span><span style='color: #BB0000;'>55.0</span><span> -</span><span style='color: #BB0000;'>2.88</span><span> 2018-01-01 -</span><span style='color: #BB0000;'>1.51</span><span> 
+#&gt; </span><span style='color: #555555;'>3</span><span> 3     -</span><span style='color: #BB0000;'>55.1</span><span> -</span><span style='color: #BB0000;'>3.53</span><span> 2018-01-09 -</span><span style='color: #BB0000;'>0.536</span><span></div><div class='input'>
 <span class='co'># the argument dist passed through sf increase the buffer area</span>
 
-<span class='no'>dat</span> <span class='kw'>&lt;-</span> <span class='fu'>get_esi</span>(<span class='no'>lonlat</span>, <span class='kw'>dates</span> <span class='kw'>=</span> <span class='no'>dates</span>, <span class='kw'>dist</span> <span class='kw'>=</span> <span class='fl'>0.1</span>)
+<span class='no'>dat</span> <span class='kw'>&lt;-</span> <span class='fu'>get_esi</span>(<span class='no'>lonlat</span>, <span class='kw'>dates</span> <span class='kw'>=</span> <span class='no'>dates</span>, <span class='kw'>dist</span> <span class='kw'>=</span> <span class='fl'>0.1</span>)</div><div class='output co'>#&gt; Getting your request...</div><div class='input'>
+<span class='no'>dat</span></div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 3 x 5</span><span>
+#&gt;   id      lon   lat date          esi
+#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>      </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #555555;'>1</span><span> 1     -</span><span style='color: #BB0000;'>55.0</span><span> -</span><span style='color: #BB0000;'>2.81</span><span> 2017-12-11 -</span><span style='color: #BB0000;'>1.98</span><span> 
+#&gt; </span><span style='color: #555555;'>2</span><span> 2     -</span><span style='color: #BB0000;'>55.0</span><span> -</span><span style='color: #BB0000;'>2.88</span><span> 2018-01-01 -</span><span style='color: #BB0000;'>1.49</span><span> 
+#&gt; </span><span style='color: #555555;'>3</span><span> 3     -</span><span style='color: #BB0000;'>55.1</span><span> -</span><span style='color: #BB0000;'>3.53</span><span> 2018-01-09 -</span><span style='color: #BB0000;'>0.219</span><span></div><div class='input'>
+<span class='co'>############################################</span>
 
-<span class='no'>dat</span>
-<span class='co'># } </span></pre>
+<span class='co'># S3 method for objects of class 'sf'</span>
+<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='st'>"sf"</span>)
+
+<span class='no'>lonlat</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='kw'>lon</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(-<span class='fl'>55.0281</span>,-<span class='fl'>54.9857</span>, -<span class='fl'>55.0714</span>),
+                     <span class='kw'>lat</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(-<span class='fl'>2.8094</span>, -<span class='fl'>2.8756</span>, -<span class='fl'>3.5279</span>))
+
+<span class='no'>lonlat</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/sf/man/st_as_sf.html'>st_as_sf</a></span>(<span class='no'>lonlat</span>, <span class='kw'>coords</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"lon"</span>,<span class='st'>"lat"</span>))
+
+<span class='no'>dates</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"2017-12-15"</span>, <span class='st'>"2017-12-31"</span>)
+
+<span class='fu'>get_esi</span>(<span class='no'>lonlat</span>, <span class='no'>dates</span>)</div><div class='output co'>#&gt; Getting your request...</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 1 x 5</span><span>
+#&gt;   id      lon   lat date          esi
+#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>      </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #555555;'>1</span><span> 1     -</span><span style='color: #BB0000;'>55.0</span><span> -</span><span style='color: #BB0000;'>2.81</span><span> 2017-12-11 -</span><span style='color: #BB0000;'>0.844</span><span></div><div class='input'>
+<span class='co'># as.sf = TRUE returns an object of class 'sf'</span>
+<span class='fu'>get_esi</span>(<span class='no'>lonlat</span>, <span class='no'>dates</span>, <span class='kw'>as.sf</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; Getting your request...</div><div class='output co'>#&gt; Simple feature collection with 3 features and 1 field
+#&gt; geometry type:  POINT
+#&gt; dimension:      XY
+#&gt; bbox:           xmin: -55.0714 ymin: -3.5279 xmax: -54.9857 ymax: -2.8094
+#&gt; epsg (SRID):    NA
+#&gt; proj4string:    NA
+#&gt;      d_17511                 geometry
+#&gt; 1 -0.8444786 POINT (-55.0281 -2.8094)
+#&gt; 2 -0.8444786 POINT (-54.9857 -2.8756)
+#&gt; 3 -0.8444786 POINT (-55.0714 -3.5279)</div><div class='input'>
+<span class='co'>############################################</span>
+
+<span class='co'># S3 method for objects of class 'geojson'</span>
+<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='st'>"geojsonsf"</span>)</div><div class='output co'>#&gt; <span class='error'>Error in library("geojsonsf"): there is no package called ‘geojsonsf’</span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='st'>"sf"</span>)
+
+<span class='no'>tapajos</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>chirps</span><span class='kw ns'>:::</span><span class='no'>tapajos</span>
+
+<span class='no'>object</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>chirps</span><span class='kw ns'>:::</span><span class='fu'>.sf_to_geojson</span>(<span class='no'>tapajos</span>[<span class='fl'>1</span>:<span class='fl'>2</span>,])</div><div class='output co'>#&gt; <span class='warning'>Warning: st_buffer does not correctly buffer longitude/latitude data</span></div><div class='output co'>#&gt; <span class='message'>dist is assumed to be in decimal degrees (arc_degrees).</span></div><div class='input'>
+<span class='no'>object</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/unlist.html'>unlist</a></span>(<span class='no'>object</span>)
+
+<span class='fu'><a href='https://rdrr.io/r/base/class.html'>class</a></span>(<span class='no'>object</span>) <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"geojson"</span>, <span class='st'>"json"</span>, <span class='fu'><a href='https://rdrr.io/r/base/class.html'>class</a></span>(<span class='no'>object</span>))
+
+<span class='no'>dates</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"2018-01-01"</span>,<span class='st'>"2018-01-20"</span>)
+
+<span class='fu'>get_esi</span>(<span class='no'>object</span>, <span class='no'>dates</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: st_centroid does not give correct centroids for longitude/latitude data</span></div><div class='output co'>#&gt; <span class='warning'>Warning: st_centroid does not give correct centroids for longitude/latitude data</span></div><div class='output co'>#&gt; Getting your request...</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 6 x 5</span><span>
+#&gt;   id      lon   lat date           esi
+#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>       </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #555555;'>1</span><span> 1     -</span><span style='color: #BB0000;'>55.0</span><span> -</span><span style='color: #BB0000;'>3.36</span><span> 2018-01-01 -</span><span style='color: #BB0000;'>0.533</span><span> 
+#&gt; </span><span style='color: #555555;'>2</span><span> 1     -</span><span style='color: #BB0000;'>55.0</span><span> -</span><span style='color: #BB0000;'>3.36</span><span> 2018-01-09 -</span><span style='color: #BB0000;'>0.291</span><span> 
+#&gt; </span><span style='color: #555555;'>3</span><span> 1     -</span><span style='color: #BB0000;'>55.0</span><span> -</span><span style='color: #BB0000;'>3.36</span><span> 2018-01-17 -</span><span style='color: #BB0000;'>0.054</span><span style='color: #BB0000;text-decoration: underline;'>1</span><span>
+#&gt; </span><span style='color: #555555;'>4</span><span> 2     -</span><span style='color: #BB0000;'>55.0</span><span> -</span><span style='color: #BB0000;'>3.23</span><span> 2018-01-01 -</span><span style='color: #BB0000;'>0.142</span><span> 
+#&gt; </span><span style='color: #555555;'>5</span><span> 2     -</span><span style='color: #BB0000;'>55.0</span><span> -</span><span style='color: #BB0000;'>3.23</span><span> 2018-01-09 -</span><span style='color: #BB0000;'>0.247</span><span> 
+#&gt; </span><span style='color: #555555;'>6</span><span> 2     -</span><span style='color: #BB0000;'>55.0</span><span> -</span><span style='color: #BB0000;'>3.23</span><span> 2018-01-17 -</span><span style='color: #BB0000;'>0.149</span><span> </div><div class='input'>
+<span class='co'># as.geojson = TRUE returns an object of class 'geojson'</span>
+<span class='fu'>get_esi</span>(<span class='no'>object</span>, <span class='no'>dates</span>, <span class='kw'>as.geojson</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: st_centroid does not give correct centroids for longitude/latitude data</span></div><div class='output co'>#&gt; <span class='warning'>Warning: st_centroid does not give correct centroids for longitude/latitude data</span></div><div class='output co'>#&gt; Getting your request...</div><div class='output co'>#&gt; {"type":"FeatureCollection","name":"esi","features":[{"type":"Feature","properties":{"1":{"id":"1","date":"2018-01-01","value":"-0.532923996448517"},"2":{"id":"1","date":"2018-01-09","value":"-0.290530353784561"},"3":{"id":"1","date":"2018-01-17","value":"-0.0540637709200382"}},"geometry":{"type":["Polygon"],"coordinates":["-55.0291869966114","-55.0291899255435","-55.0291969966114","-55.0292040676792","-55.0292069966114","-55.0292040676792","-55.0291969966114","-55.0291899255435","-55.0291869966114","-3.36021942199265","-3.36022649306046","-3.36022942199265","-3.36022649306046","-3.36021942199265","-3.36021235092484","-3.36020942199265","-3.36021235092484","-3.36021942199265"]}}]} {"type":"FeatureCollection","name":"esi","features":[{"type":"Feature","properties":{"4":{"id":"2","date":"2018-01-01","value":"-0.142488121986389"},"5":{"id":"2","date":"2018-01-09","value":"-0.247443631291389"},"6":{"id":"2","date":"2018-01-17","value":"-0.148515313863754"}},"geometry":{"type":["Polygon"],"coordinates":["-55.0371837306169","-55.0371866595491","-55.0371937306169","-55.0372008016847","-55.0372037306169","-55.0372008016847","-55.0371937306169","-55.0371866595491","-55.0371837306169","-3.23339364149234","-3.23340071256015","-3.23340364149234","-3.23340071256015","-3.23339364149234","-3.23338657042453","-3.23338364149234","-3.23338657042453","-3.23339364149234"]}}]} </div><div class='input'># } 
+</div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

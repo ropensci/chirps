@@ -128,9 +128,9 @@
 <span id="cb2-4"><a href="#cb2-4"></a>tapajos &lt;-<span class="st"> </span>chirps<span class="op">:::</span>tapajos_geom</span>
 <span id="cb2-5"><a href="#cb2-5"></a></span>
 <span id="cb2-6"><a href="#cb2-6"></a><span class="kw"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span>(<span class="dv">1234</span>)</span>
-<span id="cb2-7"><a href="#cb2-7"></a>tapajos &lt;-<span class="st"> </span><span class="kw">st_sample</span>(tapajos, <span class="dv">3</span>)</span>
+<span id="cb2-7"><a href="#cb2-7"></a>tapajos &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/sf/man/st_sample.html">st_sample</a></span>(tapajos, <span class="dv">3</span>)</span>
 <span id="cb2-8"><a href="#cb2-8"></a></span>
-<span id="cb2-9"><a href="#cb2-9"></a>tapajos &lt;-<span class="st"> </span><span class="kw">st_as_sf</span>(tapajos)</span>
+<span id="cb2-9"><a href="#cb2-9"></a>tapajos &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/sf/man/st_as_sf.html">st_as_sf</a></span>(tapajos)</span>
 <span id="cb2-10"><a href="#cb2-10"></a></span>
 <span id="cb2-11"><a href="#cb2-11"></a>dat &lt;-<span class="st"> </span><span class="kw"><a href="../reference/get_chirps.html">get_chirps</a></span>(tapajos, <span class="dt">dates =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"2013-01-01"</span>,<span class="st">"2018-12-31"</span>))</span>
 <span id="cb2-12"><a href="#cb2-12"></a><span class="co">#&gt; Warning in get_chirps.sf(tapajos, dates = c("2013-01-01", "2018-12-31")): dist is assumed to be in decimal degrees (arc_degrees)</span></span>
@@ -214,7 +214,7 @@
 <span id="cb8-3"><a href="#cb8-3"></a>                     <span class="dt">lat =</span> <span class="kw"><a href="https://rdrr.io/r/stats/Uniform.html">runif</a></span>(<span class="dv">1</span>, <span class="dv">-3</span>, <span class="fl">-2.7</span>))</span>
 <span id="cb8-4"><a href="#cb8-4"></a></span>
 <span id="cb8-5"><a href="#cb8-5"></a><span class="kw"><a href="../reference/get_esi.html">get_esi</a></span>(lonlat, <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"2017-12-01"</span>,<span class="st">"2018-01-20"</span>))</span></code></pre></div>
-<p>One way to deal with this is increase the buffer area around the in-putted object with the argument <code>dist</code> passed to <code>st_buffer()</code> from <em>sf</em><span class="citation"><sup>3</sup></span> through the <code>...</code> functionality in <code><a href="../reference/get_esi.html">get_esi()</a></code>. The argument <code>nQuadSegs</code> defines the number of segments per quadrant in the buffer.</p>
+<p>One way to deal with this is increase the buffer area around the in-putted object with the argument <code>dist</code> passed to <code><a href="https://rdrr.io/pkg/sf/man/geos_unary.html">st_buffer()</a></code> from <em>sf</em><span class="citation"><sup>3</sup></span> through the <code>...</code> functionality in <code><a href="../reference/get_esi.html">get_esi()</a></code>. The argument <code>nQuadSegs</code> defines the number of segments per quadrant in the buffer.</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a></span>
 <span id="cb9-2"><a href="#cb9-2"></a><span class="kw"><a href="../reference/get_esi.html">get_esi</a></span>(lonlat, <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"2017-12-01"</span>,<span class="st">"2018-01-20"</span>), <span class="dt">dist =</span> <span class="fl">0.1</span>, <span class="dt">nQuadSegs =</span> <span class="dv">6</span>)</span></code></pre></div>
 </div>
