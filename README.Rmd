@@ -14,6 +14,7 @@ knitr::opts_chunk$set(fig.path = "man/figures/")
 [![Build Status](https://travis-ci.org/agrobioinfoservices/chirps.svg?branch=master)](https://travis-ci.org/agrobioinfoservices/chirps)
 [![codecov](https://codecov.io/gh/agrobioinfoservices/chirps/master.svg)](https://codecov.io/github/agrobioinfoservices/chirps?branch=master)
 [![GPLv3 license](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.r-project.org/Licenses/GPL-3)
+[![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
 <!-- badges: end -->
 
 # *chirps*: API Client for CHIRPS <img align="right" src="man/figures/logo.png">
@@ -38,6 +39,24 @@ devtools::install_github("agrobioinfoservices/chirps", build_vignettes = TRUE)
 
 ```
 
+## Example
+
+Fetch CHIRPS data from three points across the *Tapajós* National Forest (Brazil) from Jan-2017 to Dec-2017. Then calculate the precipitation indices over the timeseries using intervals of 30 days. 
+
+```{r example, message=FALSE, eval=FALSE, echo=FALSE}
+library("chirps")
+
+lonlat <- data.frame(lon = c(-55.0281,-54.9857, -55.0714),
+                     lat = c(-2.8094, -2.8756, -3.5279))
+
+dates <- c("2017-01-01", "2017-12-31")
+
+dat <- get_chirps(lonlat, dates)
+
+pi <- precip_indices(dat, timeseries = TRUE, intervals = 30)
+```
+
+
 ## Going further
 
 The full functionality of **chirps** is illustrated in the package vignette. The vignette can be found on the [package website](https://agrobioinfoservices.github.io/chirps/) or from within `R` once the package has been installed, e.g. via 
@@ -48,11 +67,25 @@ vignette("Overview", package = "chirps")
 
 ```
 
+## Use of CHIRPS data
 
-## Contribution
+While *chirps* does not redistribute the data or provide it in any way, we encourage users to cite Funk et al. (2015) when using CHIRPS.
 
-You are welcome to contribute to this project. Please read our [contribution guide lines](CONTRIBUTING.md). 
+> Funk C., Peterson P., Landsfeld M., Pedreros D., Verdin J., Shukla S., … Michaelsen J. (2015). The climate hazards infrared precipitation with stations—a new environmental record for monitoring extremes. *Scientific Data*, 2, 150066. https://doi.org/10.1038/sdata.2015.66.
 
-## Code of Conduct
 
-Please note that this project is released with a [Contributor Code of Conduct](CODE_OF_CONDUCT.md). By participating in this project you agree to abide by its terms.
+## Meta
+
+* Please [report any issues or bugs](https://github.com/agrobioinfoservices/chirps/issues).
+
+* License: GPL-3
+
+* Get citation information for *chirps* in R by typing
+`citation(package = "chirps")`.
+
+* You are welcome to contribute to the *chirps* project. Please read our [contribution guide lines](CONTRIBUTING.md). 
+
+* Please note that the *chirps* project is released with a
+[Contributor Code of Conduct](CODE_OF_CONDUCT.md).
+By participating in the *chirps* project you agree to abide by its terms.
+

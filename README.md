@@ -12,6 +12,9 @@ Status](https://travis-ci.org/agrobioinfoservices/chirps.svg?branch=master)](htt
 [![codecov](https://codecov.io/gh/agrobioinfoservices/chirps/master.svg)](https://codecov.io/github/agrobioinfoservices/chirps?branch=master)
 [![GPLv3
 license](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.r-project.org/Licenses/GPL-3)
+[![Project Status: Active – The project has reached a stable, usable
+state and is being actively
+developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
 <!-- badges: end -->
 
 # *chirps*: API Client for CHIRPS <img align="right" src="man/figures/logo.png">
@@ -42,6 +45,12 @@ library("devtools")
 devtools::install_github("agrobioinfoservices/chirps", build_vignettes = TRUE)
 ```
 
+## Example
+
+Fetch CHIRPS data from three points across the *Tapajós* National Forest
+(Brazil) from Jan-2017 to Dec-2017. Then calculate the precipitation
+indices over the timeseries using intervals of 30 days.
+
 ## Going further
 
 The full functionality of **chirps** is illustrated in the package
@@ -53,13 +62,29 @@ website](https://agrobioinfoservices.github.io/chirps/) or from within
 vignette("Overview", package = "chirps")
 ```
 
-## Contribution
+## Use of CHIRPS data
 
-You are welcome to contribute to this project. Please read our
-[contribution guide lines](CONTRIBUTING.md).
+While *chirps* does not redistribute the data or provide it in any way,
+we encourage users to cite Funk et al. (2015) when using CHIRPS.
 
-## Code of Conduct
+> Funk C., Peterson P., Landsfeld M., Pedreros D., Verdin J., Shukla S.,
+> … Michaelsen J. (2015). The climate hazards infrared precipitation
+> with stations—a new environmental record for monitoring extremes.
+> *Scientific Data*, 2, 150066. <https://doi.org/10.1038/sdata.2015.66>.
 
-Please note that this project is released with a [Contributor Code of
-Conduct](CODE_OF_CONDUCT.md). By participating in this project you agree
-to abide by its terms.
+## Meta
+
+  - Please [report any issues or
+    bugs](https://github.com/agrobioinfoservices/chirps/issues).
+
+  - License: GPL-3
+
+  - Get citation information for *chirps* in R by typing
+    `citation(package = "chirps")`.
+
+  - You are welcome to contribute to the *chirps* project. Please read
+    our [contribution guide lines](CONTRIBUTING.md).
+
+  - Please note that the *chirps* project is released with a
+    [Contributor Code of Conduct](CODE_OF_CONDUCT.md). By participating
+    in the *chirps* project you agree to abide by its terms.

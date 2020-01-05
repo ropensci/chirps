@@ -68,7 +68,7 @@
     
     request_progress <- unlist(request_progress)
     
-    cat("Getting your request...\n")
+    message("Getting your request...\n")
     
   }
   
