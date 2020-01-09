@@ -1,18 +1,19 @@
 #' General function to get data from ClimateSERV API
 #'
 #' @param object a list with geojson strings
-#' @param dates a character of start and end dates in that order in the format
-#'  MM/DD/YYYY
+#' @param dates a character of start and end dates in that order in 
+#' the format MM/DD/YYYY
 #' @param operation an integer that represents which type of statistical
 #'  operation to perform on the dataset
-#' @param datatype an integer, the unique datatype number for the dataset which
-#'  this request operates on
+#' @param datatype an integer, the unique datatype number for the dataset 
+#' which this request operates on
 #' @return A data.frame with values
 #' @details 
-#' operation: supported operations are max = 0, min = 1, median = 2, sum = 4,
-#'  average = 5
+#' operation: supported operations are max = 0, min = 1, median = 2, 
+#'  sum = 4, average = 5
 #' 
-#' datatype: supported datatypes are Global CHIRPS = 0, Global ESI 4 Week = 29
+#' datatype: supported datatypes are Global CHIRPS = 0, 
+#'  Global ESI 4 Week = 29
 #'  datatype codes are described at
 #'  <https://climateserv.readthedocs.io/en/latest/api.html>
 #' 
@@ -56,7 +57,7 @@
   
   # check request progress and wait 
   # until the request is done by the server
-  request_progress <- rep(FALSE, length(ids))
+  request_progress <- seq_along(ids) == FALSE
   
   while (!all(request_progress)) {
     
@@ -84,13 +85,20 @@
   # define ids
   ids <- NULL
   for(i in seq_along(result)) {
-    ids <- c(ids, rep(i, nrow(result[[i]])))
+    
+    nr <- dim(result[[i]])[[1]]
+    
+    ids <- c(ids, rep(i, nr))
+    
   }
   
   result <- do.call("rbind", result)
   
-  if (nrow(result) == 0) {
-    stop("Fail to get valid values, try to increase the buffer area with 'dist' \n")
+  nr <- dim(result)[[1]]
+  
+  if (nr == 0) {
+    stop("Fail to get valid values, 
+         try to increase the buffer area with 'dist' \n")
   }
   
   # add ids 
@@ -104,7 +112,7 @@
   
   names(result) <- c("date", "value", "id")
   
-  rownames(result) <- 1:nrow(result)
+  rownames(result) <- seq_len(nr)
   
   result <- result[, c("id", "date", "value")]
   

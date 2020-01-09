@@ -82,7 +82,7 @@ ClimateSERV works with geojson of type 'Polygon'. The input object is
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">chirps</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.5</span>
       </span>
     </div>
 
@@ -158,8 +158,8 @@ ClimateSERV works with geojson of type 'Polygon'. The input <code>object</code> 
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>object</th>
-      <td><p>input, an object of class <code><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></code>,<code>geojson</code> or
-<code><a href='https://rdrr.io/pkg/sf/man/sf.html'>sf</a></code></p></td>
+      <td><p>input, an object of class <code><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></code>,
+<code>geojson</code> or <code><a href='https://rdrr.io/pkg/sf/man/sf.html'>sf</a></code></p></td>
     </tr>
     <tr>
       <th>dates</th>
@@ -173,7 +173,8 @@ statistical operation to perform on the dataset</p></td>
     </tr>
     <tr>
       <th>period</th>
-      <td><p>an integer value for the period of ESI data, four weeks period = 1, twelve weeks = 2</p></td>
+      <td><p>an integer value for the period of ESI data, 
+four weeks period = 1, twelve weeks = 2</p></td>
     </tr>
     <tr>
       <th>...</th>
@@ -225,8 +226,8 @@ for S3 method of <span class="pkg">chirps</span> class <code>geojson</code></p><
     <pre class="examples"><span class='co'># \donttest{</span>
 <span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='st'>"chirps"</span>)
 
-<span class='no'>lonlat</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='kw'>lon</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(-<span class='fl'>55.0281</span>,-<span class='fl'>54.9857</span>, -<span class='fl'>55.0714</span>),
-                     <span class='kw'>lat</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(-<span class='fl'>2.8094</span>, -<span class='fl'>2.8756</span>, -<span class='fl'>3.5279</span>))
+<span class='no'>lonlat</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='kw'>lon</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(-<span class='fl'>55.0281</span>,-<span class='fl'>54.9857</span>),
+                     <span class='kw'>lat</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(-<span class='fl'>2.8094</span>, -<span class='fl'>2.8756</span>))
 
 <span class='no'>dates</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"2017-12-15"</span>,<span class='st'>"2018-06-20"</span>)
 
@@ -235,13 +236,10 @@ for S3 method of <span class="pkg">chirps</span> class <code>geojson</code></p><
 
 <span class='no'>dat</span> <span class='kw'>&lt;-</span> <span class='fu'>get_esi</span>(<span class='no'>lonlat</span>, <span class='kw'>dates</span> <span class='kw'>=</span> <span class='no'>dates</span>)
 
-<span class='no'>dat</span>
-
 <span class='co'># the argument dist passed through sf increase the buffer area</span>
 
 <span class='no'>dat</span> <span class='kw'>&lt;-</span> <span class='fu'>get_esi</span>(<span class='no'>lonlat</span>, <span class='kw'>dates</span> <span class='kw'>=</span> <span class='no'>dates</span>, <span class='kw'>dist</span> <span class='kw'>=</span> <span class='fl'>0.1</span>)
 
-<span class='no'>dat</span>
 
 <span class='co'>############################################</span>
 
@@ -249,17 +247,17 @@ for S3 method of <span class="pkg">chirps</span> class <code>geojson</code></p><
 <span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='st'>"sf"</span>)
 
 <span class='co'># geometry 'POINT'</span>
-<span class='no'>lonlat</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='kw'>lon</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(-<span class='fl'>55.0281</span>,-<span class='fl'>54.9857</span>, -<span class='fl'>55.0714</span>),
-                     <span class='kw'>lat</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(-<span class='fl'>2.8094</span>, -<span class='fl'>2.8756</span>, -<span class='fl'>3.5279</span>))
+<span class='no'>lonlat</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='kw'>lon</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(-<span class='fl'>55.0281</span>,-<span class='fl'>54.9857</span>),
+                     <span class='kw'>lat</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(-<span class='fl'>2.8094</span>, -<span class='fl'>2.8756</span>))
 
 <span class='no'>lonlat</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/sf/man/st_as_sf.html'>st_as_sf</a></span>(<span class='no'>lonlat</span>, <span class='kw'>coords</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"lon"</span>,<span class='st'>"lat"</span>))
 
 <span class='no'>dates</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"2017-11-15"</span>, <span class='st'>"2017-12-31"</span>)
 
-<span class='fu'>get_esi</span>(<span class='no'>lonlat</span>, <span class='no'>dates</span>)
+<span class='no'>dat</span> <span class='kw'>&lt;-</span> <span class='fu'>get_esi</span>(<span class='no'>lonlat</span>, <span class='no'>dates</span>, <span class='kw'>dist</span> <span class='kw'>=</span> <span class='fl'>0.1</span>)
 
 <span class='co'># as.sf = TRUE returns an object of class 'sf'</span>
-<span class='fu'>get_esi</span>(<span class='no'>lonlat</span>, <span class='no'>dates</span>, <span class='kw'>as.sf</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+<span class='no'>dat</span> <span class='kw'>&lt;-</span> <span class='fu'>get_esi</span>(<span class='no'>lonlat</span>, <span class='no'>dates</span>, <span class='kw'>as.sf</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>dist</span> <span class='kw'>=</span> <span class='fl'>0.1</span>)
 
 <span class='co'># geometry 'POLYGON'</span>
 <span class='no'>p1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>10.67</span>, <span class='fl'>49.90</span>,
@@ -285,7 +283,7 @@ for S3 method of <span class="pkg">chirps</span> class <code>geojson</code></p><
 
 <span class='no'>pol</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/sf/man/st_as_sf.html'>st_as_sf</a></span>(<span class='no'>pol</span>)
 
-<span class='fu'>get_esi</span>(<span class='no'>pol</span>, <span class='kw'>dates</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"2018-01-01"</span>, <span class='st'>"2018-02-20"</span>))
+<span class='no'>dat</span> <span class='kw'>&lt;-</span> <span class='fu'>get_esi</span>(<span class='no'>pol</span>, <span class='kw'>dates</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"2018-01-01"</span>, <span class='st'>"2018-02-20"</span>))
 
 
 <span class='co'>############################################</span>
@@ -303,10 +301,11 @@ for S3 method of <span class="pkg">chirps</span> class <code>geojson</code></p><
 
 <span class='no'>dates</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"2018-01-01"</span>,<span class='st'>"2018-01-20"</span>)
 
-<span class='fu'>get_esi</span>(<span class='no'>object</span>, <span class='no'>dates</span>)
+<span class='no'>dat</span> <span class='kw'>&lt;-</span> <span class='fu'>get_esi</span>(<span class='no'>object</span>, <span class='no'>dates</span>, <span class='kw'>dist</span> <span class='kw'>=</span> <span class='fl'>0.1</span>)
 
 <span class='co'># as.geojson = TRUE returns an object of class 'geojson'</span>
-<span class='fu'>get_esi</span>(<span class='no'>object</span>, <span class='no'>dates</span>, <span class='kw'>as.geojson</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+<span class='no'>dat</span> <span class='kw'>&lt;-</span> <span class='fu'>get_esi</span>(<span class='no'>object</span>, <span class='no'>dates</span>, <span class='kw'>as.geojson</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>dist</span> <span class='kw'>=</span> <span class='fl'>0.1</span>)
+
 <span class='co'># } </span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

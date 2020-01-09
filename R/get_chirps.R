@@ -5,8 +5,8 @@
 #'  ClimateSERV works with geojson of type 'Polygon'. The input \code{object}
 #'  is then transformed into polygons with a small buffer area around the point.
 #' 
-#' @param object input, an object of class \code{\link[base]{data.frame}},\code{geojson} or
-#'  \code{\link[sf]{sf}}
+#' @param object input, an object of class \code{\link[base]{data.frame}},
+#' \code{geojson} or \code{\link[sf]{sf}}
 #' @param dates a character of start and end dates in that order in the format
 #'  "YYYY-MM-DD"
 #' @param operation optional, an integer that represents which type of
@@ -125,10 +125,9 @@
 #' # as.geojson = TRUE returns an object of class 'geojson'
 #' dat <- get_chirps(object, dates, as.geojson = TRUE)
 #' 
-#' } 
-#' @import sf
-#' @import methods
-#' @import jsonlite
+#' }  
+#' @importFrom methods addNextMethod asMethodDefinition assignClassDef
+#' @importFrom sf st_centroid read_sf st_geometry_type
 #' @importFrom tibble as_tibble
 #' @export
 get_chirps <- function(object, dates, operation = 5, ...) {
@@ -194,31 +193,22 @@ get_chirps.sf <- function(object, dates, operation = 5,
   
   type <- type[which(supp_type)]
   
-  n <- nrow(object)
+  nr <- dim(object)[[1]]
   
   # find the sf_column
   index <- attr(object, "sf_column")
+  
+  # get the sf column
+  lonlat <- object[[index]]
   
   if (type == "POINT") {
     
     # unlist the sf_column
     lonlat <- unlist(object[[index]])
     
-    lonlat <- matrix(lonlat,
-                     nrow = n,
-                     ncol = 2, 
-                     byrow = TRUE, 
-                     dimnames = list(1:n, c("lon","lat")))
-    
-    lonlat <- as.data.frame(lonlat)
-    
   }
   
   if (type == "POLYGON") {
-    
-    lonlat <- object[[index]]
-    
-    nl <- length(lonlat)
     
     # set centroid to validade lonlat
     lonlat <- sf::st_centroid(lonlat)
@@ -226,15 +216,15 @@ get_chirps.sf <- function(object, dates, operation = 5,
     # unlist the sf_column
     lonlat <- unlist(lonlat)
     
-    lonlat <- matrix(lonlat,
-                     nrow = nl,
-                     ncol = 2, 
-                     byrow = TRUE, 
-                     dimnames = list(1:nl, c("lon","lat")))
-    
-    lonlat <- as.data.frame(lonlat)
-    
   }
+  
+  lonlat <- matrix(lonlat,
+                   nrow = nr,
+                   ncol = 2, 
+                   byrow = TRUE, 
+                   dimnames = list(seq_len(nr), c("lon","lat")))
+  
+  lonlat <- as.data.frame(lonlat)
   
   # validate lonlat to check if they are within the CHIRPS range
   .validate_lonlat(lonlat, xlim = c(-180, 180), ylim = c(-50, 50))
@@ -253,7 +243,7 @@ get_chirps.sf <- function(object, dates, operation = 5,
   if (as.sf) {
     
     result$date <- as.integer(result$date)
-    result$date <- paste0("d_",result$date)
+    result$date <- paste0("day_",result$date)
     
     result <- split(result, result$date)
     
@@ -357,7 +347,7 @@ get_chirps.geojson <- function(object, dates, operation = 5,
     
     lonlat <- as.data.frame(lonlat)
     
-    gjson <- split(object, 1:length(object))
+    gjson <- split(object, seq_along(object))
     
   }
   
@@ -377,7 +367,7 @@ get_chirps.geojson <- function(object, dates, operation = 5,
     
     result <- split(result, result$id)
     
-    object <- split(object, 1:length(object))
+    object <- split(object, seq_along(object))
     
     # add geojson properties
     result <- mapply(function(X, Y) {

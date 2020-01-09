@@ -10,14 +10,14 @@
   "codeRepository": "https://agrobioinfoservices.github.io/chirps/",
   "issueTracker": "https://github.com/agrobioinfoservices/chirps/issues",
   "license": "https://spdx.org/licenses/GPL-3.0",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
-    "version": "3.6.2",
+    "version": "3.5.3",
     "url": "https://r-project.org"
   },
-  "runtimePlatform": "R version 3.6.2 (2019-12-12)",
+  "runtimePlatform": "R version 3.5.3 (2019-03-11)",
   "author": [
     {
       "@type": "Person",
@@ -170,5 +170,10 @@
   ],
   "releaseNotes": "https://github.com/agrobioinfoservices/chirps/blob/master/NEWS.md",
   "readme": "https://github.com/agrobioinfoservices/chirps/blob/master/README.md",
-  "contIntegration": ["https://ci.appveyor.com/project/kauedesousa/chirps", "https://travis-ci.org/agrobioinfoservices/chirps", "https://codecov.io/github/agrobioinfoservices/chirps?branch=master"]
+  "contIntegration": [
+    "https://ci.appveyor.com/project/kauedesousa/chirps",
+    "https://travis-ci.org/agrobioinfoservices/chirps",
+    "https://codecov.io/github/agrobioinfoservices/chirps?branch=master"
+  ],
+  "developmentStatus": "https://www.repostatus.org/#active"
 }

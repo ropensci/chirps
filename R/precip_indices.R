@@ -6,7 +6,7 @@
 #'  observation or \code{TRUE} for a time series based on \var{intervals}
 #' @param intervals integer no lower than 5, for the days intervals when
 #'  \var{timeseries} = \code{TRUE}
-#' @return A dataframe with selected indices:
+#' @return A dataframe with precipitation indices:
 #' \item{MLDS}{maximum length of consecutive dry day, rain < 1 mm (days)}
 #' \item{MLWS}{maximum length of consecutive wet days, rain >= 1 mm (days)}
 #' \item{R10mm}{number of heavy precipitation days 10 >= rain < 20 mm (days)}
@@ -62,7 +62,7 @@ precip_indices <- function(object, timeseries = FALSE, intervals = NULL) {
   nr <- length(unique(object$date))
   
   # it might happen that when bins are not well distributed across dates
-  # the last values are dropped
+  # in that case the last values are dropped
   # for example, divide the periods of 7 days in a time series of 53 days
   # in that case, the last four observations are dropped to fit in a vector of
   # length == 49 (the maximum integer from dividing days/intervals)
@@ -92,7 +92,7 @@ precip_indices <- function(object, timeseries = FALSE, intervals = NULL) {
   object <- lapply(object, function(x) { 
     
     x <- x[,c("id", "date", "chirps")]
-    x <- x[1:length(bins), ]
+    x <- x[seq_along(bins), ]
     x$bin <- bins
     x
   })

@@ -17,7 +17,7 @@ observation or \code{TRUE} for a time series based on \var{intervals}}
 \var{timeseries} = \code{TRUE}}
 }
 \value{
-A dataframe with selected indices:
+A dataframe with precipitation indices:
 \item{MLDS}{maximum length of consecutive dry day, rain < 1 mm (days)}
 \item{MLWS}{maximum length of consecutive wet days, rain >= 1 mm (days)}
 \item{R10mm}{number of heavy precipitation days 10 >= rain < 20 mm (days)}

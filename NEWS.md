@@ -1,3 +1,11 @@
+chirps 0.0.5 (2020-01-09)
+=========================
+
+### ENHANCEMENTS
+
+* Fix comments given by good practice `goodpractice::gp()`. Avoid long code lines, it is bad for readability. Avoid 1:length(...), 1:nrow(...), 1:ncol(...), 1:NROW(...) and 1:NCOL(...) expressions. Not import packages as a whole, as this can cause name clashes between the imported packages. 
+
+
 chirps 0.0.4 (2020-01-03)
 =========================
 

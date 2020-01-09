@@ -19,9 +19,12 @@ API Client for the Climate Hazards Group InfraRed Precipitation
 \seealso{
 \strong{Useful links:}
 \itemize{
-\item{Development repository: \url{https://github.com/agrobioinfoservices/chirps}}
-\item{Static documentation: \url{https://agrobioinfoservices.github.io/chirps/}}
-\item{Report bugs: \url{https://github.com/agrobioinfoservices/chirps/issues}}
+\item{Development repository: 
+ \url{https://github.com/agrobioinfoservices/chirps}}
+\item{Static documentation: 
+ \url{https://agrobioinfoservices.github.io/chirps/}}
+\item{Report bugs: 
+ \url{https://github.com/agrobioinfoservices/chirps/issues}}
 }
 }
 \author{

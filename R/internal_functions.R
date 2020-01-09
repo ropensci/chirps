@@ -1,10 +1,11 @@
 #' Concatenate a coordinate point data.frame into a geojson polygon
 #'
 #' Take single points from geographical coordinates and convert it into a
-#'  geojson 'Polygon' string using \code{\link[sf]{st_buffer}} 'Polygon' is the
-#'  only geojson format accepted by ClimateSERV
+#'  geojson 'Polygon' string using \code{\link[sf]{st_buffer}} 'Polygon' 
+#'  is the only geojson format accepted by ClimateSERV
 #'
-#' @param lonlat a data.frame with geographical coordinates lonlat in that order
+#' @param lonlat a data.frame with geographical coordinates lonlat in 
+#'  that order
 #' @param dist numeric; buffer distance for all \code{lonlat}
 #' @param nQuadSegs integer; number of segments per quadrant
 #' @return A list with geojson strings for each row in \code{lonlat}
@@ -15,17 +16,18 @@
 #'                      lat = runif(2, 45, 57))
 #' 
 #' gjson <- .dataframe_to_geojson(lonlat)
-#'@noRd
+#' @importFrom sf st_point st_sfc st_buffer st_write st_as_sf
+#' @noRd
 .dataframe_to_geojson <- function(lonlat,
                                   dist = 0.00001,
                                   nQuadSegs = 2L) {
-    n <- nrow(lonlat)
+    n <- dim(lonlat)[[1]]
     
     # lonlat into matrix
     lonlat <- as.matrix(lonlat)
     
     # split lonlat by rows
-    lonlat <- split(lonlat, 1:nrow(lonlat))
+    lonlat <- split(lonlat, seq_len(n))
     
     # transform into sf points
     lonlat <- lapply(lonlat, function(l) {
@@ -73,8 +75,8 @@
 #'
 #' Take single points from geographical coordinates
 #' and convert it into a geojson 'Polygon' string using
-#' \code{\link[sf]{st_buffer}} 'Polygon' is the only geojson format accepted by
-#' ClimateSERV
+#' \code{\link[sf]{st_buffer}} 'Polygon' is the only geojson format 
+#' accepted by ClimateSERV
 #'
 #' @param lonlat an object of class "sf" and geometry type "POINT"
 #' @param dist numeric; buffer distance for all \code{lonlat}
@@ -84,8 +86,8 @@
 #' # random geographic locations around bbox(10, 12, 45, 57)
 #' library("sf")
 #' set.seed(123)
-#' lonlat <- data.frame(lon = runif(2, 10, 12),
-#'                      lat = runif(2, 45, 57))
+#' lonlat <- data.frame(lon = runif(12, 10, 12),
+#'                      lat = runif(12, 45, 57))
 #' 
 #' lonlat <- st_as_sf(lonlat, coords = c("lon","lat"))
 #' 
@@ -110,7 +112,7 @@
   type <- type[which(supp_type)]
   
   if (type == "POINT") {
-    n <- nrow(lonlat)
+    n <- dim(lonlat)[[1]]
     
     # set the buffer around the points
     lonlatb <- sf::st_buffer(lonlat,
@@ -155,22 +157,25 @@
 
 #' Send a request to ClimateSERV
 #'
-#' @param datatype integer, the unique datatype number for the dataset which
-#'  this request operates on
-#' @param begintime character, start date for processing interval, format
-#'  ("MM/DD/YYYY")
+#' @param datatype integer, the unique datatype number for the 
+#'  dataset which this request operates on
+#' @param begintime character, start date for processing interval, 
+#'  in the format ("MM/DD/YYYY")
 #' @param endtime character, end date for processing interval, format
 #'  ("MM/DD/YYYY")
 #' @param intervaltype integer, value that represents which type of time
 #'  interval to process
-#' @param operationtype integer, value that represents which type of statistical
-#'  operation to perform. Defaults to \code{5}.
-#' @param geometry a geojson for the geometry that is defined by the user on the
-#'  current client
+#' @param operationtype integer, value that represents which type of 
+#'  statistical operation to perform. Defaults to \code{5}.
+#' @param geometry a geojson for the geometry that is defined by the user 
+#'  on the current client
 #' @return A id to be used in the data request
 #' @details
-#' datatype codes are described at https://climateserv.readthedocs.io/en/latest/api.html
-#' operation: supported operations are max = 0, min = 1, median = 2, sum = 4, average = 5
+#' datatype codes are described at 
+#'  https://climateserv.readthedocs.io/en/latest/api.html
+#' 
+#' operation: supported operations are max = 0, min = 1, 
+#'  median = 2, sum = 4, average = 5
 #' @examples
 #' lonlat <- data.frame(lon = runif(1, 10, 12),
 #'                      lat = runif(1, 45, 47))
@@ -180,7 +185,7 @@
 #' chirps:::.send_request(begintime = "12/10/2018",
 #'                        endtime = "12/26/2018",
 #'                        geometry = gjson)
-#' @import crul
+#' @importFrom crul HttpClient
 #' @noRd
 .send_request <-
   function(datatype = 0,
@@ -219,8 +224,8 @@
         e$message <-
           paste(
             "\nSomething went wrong with the query, no data were returned.",
-            "Please see <https://climateserv.servirglobal.net/> for potential",
-            "server issues.\n"
+            "Please see <https://climateserv.servirglobal.net/>",
+            "for potential server issues.\n"
           )
         # Otherwise refers to open.connection
         e$call <- NULL
@@ -256,7 +261,8 @@
   base_url <- "https://climateserv.servirglobal.net/chirps/"
   
   client_progress <-
-    crul::HttpClient$new(url = paste0(base_url, "getDataRequestProgress/?"))
+    crul::HttpClient$new(url = paste0(base_url, 
+                                      "getDataRequestProgress/?"))
   
   
   # organise the query
@@ -272,7 +278,8 @@
   
   p <- p$parse("UTF-8")
   
-  # account for the chance that the server returns an error message and stop
+  # account for the chance that the server returns 
+  # an error message and stop
   # the process with a (hopefully) useful error message
 
   if (p == -1) { #nocov start
@@ -293,19 +300,19 @@
 #' @param id character with the id obtained from \code{.send_request}
 #' @return A data frame with requested data
 #' @examples
-#'
-# set.seed(12)
-# lonlat <- data.frame(lon = runif(1, 10, 12),
-#                      lat = runif(1, 45, 47))
-#
-# gjson <- chirps:::.dataframe_to_geojson(lonlat)
-#
-# id <- chirps:::.send_request(datatype = 29,
-#                              begintime = "09/10/2018",
-#                              endtime = "12/26/2018",
-#                              geometry = gjson)
-#
-# chirps:::.get_data_from_request(id = id)
+#' set.seed(12)
+#' lonlat <- data.frame(lon = runif(1, 10, 12),
+#'                      lat = runif(1, 45, 47))
+#' 
+#' gjson <- chirps:::.dataframe_to_geojson(lonlat)
+#' 
+#' id <- chirps:::.send_request(datatype = 29,
+#'                              begintime = "09/10/2018",
+#'                              endtime = "12/26/2018",
+#'                              geometry = gjson)
+#' 
+#' chirps:::.get_data_from_request(id = id)
+#' @importFrom jsonlite fromJSON toJSON
 #' @noRd
 .get_data_from_request <- function(id) {
   base_url <- "https://climateserv.servirglobal.net/chirps/"
@@ -354,8 +361,8 @@
 
 #' Validate lonlat within an pre-defined bounding box
 #'
-#' @param lonlat a \code{\link[base]{data.frame}} with geographical coordinates
-#'  lonlat in that order
+#' @param lonlat a \code{\link[base]{data.frame}} with geographical
+#'  coordinates lonlat in that order
 #' @param xlim a numeric vector for the min and max accepted range in the
 #'  longitude in that order
 #' @param ylim a numeric vector for the min and max accepted range in the
@@ -383,7 +390,8 @@
   
   if (any(c(v1, v2, v3, v4))) {
     stop(
-      "Subscript out of bounds. \n lonlat are beyond the accepted bbox, which are: ",
+      "Subscript out of bounds. \n lonlat are beyond the accepted bbox,
+      which are: ",
       paste(
         paste(xlim[1], ylim[1], sep = " , "),
         paste(xlim[2], ylim[2], sep = " , "),
@@ -418,7 +426,6 @@
 #'
 #' .validate_dates(dates)
 #' @noRd
-
 .validate_dates <-
   function(x, availability = c("1981-01-01", "0")) {
     xmin <- as.Date(x[1], format = "%Y-%m-%d")
@@ -473,7 +480,6 @@
 #'
 #' .reformat_dates(x)
 #' @noRd
-
 .reformat_dates <- function(x, ...) {
   # validate dates
   .validate_dates(x, ...)
@@ -500,7 +506,6 @@
 #' @examples
 #' .is_chirps(airquality)
 #' @noRd
-
 .is_chirps <- function(x) {
   c("chirps") %in% class(x)
   
@@ -554,10 +559,14 @@
   # now convert the properties into json
   p <- properties
   
-  # coerce values into characters
-  p[1:ncol(p)] <- lapply(p[1:ncol(p)], as.character)
+  nr <- dim(p)[[1]]
   
-  p <- split(p, rownames(p))
+  nc <- dim(p)[[2]]
+  
+  # coerce values into characters
+  p[seq_len(nc)] <- lapply(p[seq_len(nc)], as.character)
+  
+  p <- split(p, seq_len(nr))
   
   p <- jsonlite::toJSON(p)
   
