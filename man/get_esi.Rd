@@ -75,7 +75,6 @@ possible issues.
 }
 \examples{
 \donttest{
-
 lonlat <- data.frame(lon = c(-55.0281,-54.9857),
                      lat = c(-2.8094, -2.8756))
 
@@ -96,18 +95,18 @@ dt <- get_esi(lonlat, dates = dates, dist = 0.1)
 # S3 method for objects of class 'sf'
 library("sf")
 
-# geometry 'POINT'
+## geometry 'POINT'
 
 example("tapajos", package = "chirps")
 
 dates <- c("2017-11-15", "2017-12-31")
 
-dt <- get_esi(lonlat, dates, dist = 0.1)
+dt <- get_esi(tp_point, dates, dist = 0.1)
 
 # as.sf = TRUE returns an object of class 'sf'
-dt <- get_esi(lonlat, dates, as.sf = TRUE, dist = 0.1)
+dt <- get_esi(tp_point, dates, as.sf = TRUE, dist = 0.1)
 
-# geometry 'POLYGON'
+## geometry 'POLYGON'
 p1 <- matrix(c(10.67, 49.90,
                10.57, 49.80,
                10.47, 49.90,
@@ -137,8 +136,6 @@ dt <- get_esi(pol, dates = c("2018-01-01", "2018-02-20"))
 ############################################
 
 # S3 method for objects of class 'geojson'
-library("sf")
-
 example("tapajos", package = "chirps")
 
 dates <- c("2018-01-01","2018-01-20")

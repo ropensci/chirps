@@ -23,10 +23,10 @@ Description: API Client for the Climate Hazards Group InfraRed Precipitation
   trend analysis and seasonal drought monitoring. For more details on 'CHIRPS'
   data please visit its official home page
   <https://www.chc.ucsb.edu/data/chirps>. 
-License: MIT
+License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
-Depends: R (>= 2.10)
+Depends: R (>= 3.5.0)
 Imports:
     crul,
     jsonlite,
