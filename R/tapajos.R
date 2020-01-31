@@ -1,0 +1,20 @@
+#' Tapajos National Forest
+#'
+#' Geometries for the Tapajos National Forest, a protected area in the Brazilian Amazon.
+#' 
+#' @format A object of class sfc_POLYGON within the bbox xmin: -55.41127 ymin: -4.114584 xmax: -54.7973 ymax: -2.751706
+#' @examples 
+#' data("tapajos")
+#' 
+#' # sample three points within the Tapajos area
+#' set.seed(1234)
+#' tp_point <- st_sample(tapajos, 3)
+#' 
+#' # coerce as sf points
+#' tp_point <- st_as_sf(tp_point)
+#' 
+#' # transform into a geojson
+#' tp_geojson <- sf_to_geojson(tp_point[1:2, ])
+#' 
+#' @source The data were provided by the Chico Mendes Institute \url{http://www.icmbio.gov.br/flonatapajos/}.
+"tapajos"

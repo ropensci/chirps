@@ -55,22 +55,32 @@
     
   })
   
-  # check request progress and wait 
+  # check request progress and wait
   # until the request is done by the server
   request_progress <- seq_along(ids) == FALSE
+
+  nids <- max(seq_along(ids))
+  
+  message("Getting your request...\n")
   
   while (!all(request_progress)) {
-    
+
     request_progress <- lapply(ids, function(x) {
-      
+
       p <- .get_request_progress(x)
-      
+
     })
-    
+
     request_progress <- unlist(request_progress)
+
+    done <- sum(request_progress)
     
-    message("Getting your request...\n")
+    done <- (done / nids) * 100
     
+    done <- round(done, 0)
+    
+    message(done, "%...")
+
   }
   
   # get data from request

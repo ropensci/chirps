@@ -1,160 +1,3 @@
-#' Concatenate a coordinate point data.frame into a geojson polygon
-#'
-#' Take single points from geographical coordinates and convert it into a
-#'  geojson 'Polygon' string using \code{\link[sf]{st_buffer}} 'Polygon' 
-#'  is the only geojson format accepted by ClimateSERV
-#'
-#' @param lonlat a data.frame with geographical coordinates lonlat in 
-#'  that order
-#' @param dist numeric; buffer distance for all \code{lonlat}
-#' @param nQuadSegs integer; number of segments per quadrant
-#' @return A list with geojson strings for each row in \code{lonlat}
-#' @examples
-#' # random geographic locations around bbox(10, 12, 45, 57)
-#' set.seed(123)
-#' lonlat <- data.frame(lon = runif(2, 10, 12),
-#'                      lat = runif(2, 45, 57))
-#' 
-#' gjson <- .dataframe_to_geojson(lonlat)
-#' @importFrom sf st_point st_sfc st_buffer st_write st_as_sf
-#' @noRd
-.dataframe_to_geojson <- function(lonlat,
-                                  dist = 0.00001,
-                                  nQuadSegs = 2L) {
-    n <- dim(lonlat)[[1]]
-    
-    # lonlat into matrix
-    lonlat <- as.matrix(lonlat)
-    
-    # split lonlat by rows
-    lonlat <- split(lonlat, seq_len(n))
-    
-    # transform into sf points
-    lonlat <- lapply(lonlat, function(l) {
-      sf::st_point(l)
-    })
-    
-    # and then into a geometry list colunm
-    lonlat <- sf::st_sfc(lonlat)
-    
-    # set the buffer around the points
-    lonlatb <- sf::st_buffer(lonlat,
-                             dist = dist,
-                             nQuadSegs = nQuadSegs)
-    
-    # transform into a sf object
-    lonlatb <- sf::st_as_sf(lonlatb)
-    
-    # write the geojson string
-    tf <- tempfile(fileext = ".geojson")
-    sf::st_write(lonlatb, tf, quiet = TRUE)
-    
-    # capture these strings
-    gj <- readLines(tf)
-    
-    # keep only the geometry vectors
-    index <- which(grepl("geometry", unlist(gj)))
-    
-    gj <- gj[index]
-    
-    # remove spaces and extra commas 
-    gj <- lapply(gj, function(x) {
-      gsub(" ", "", x)
-    })
-    
-    gjson <- lapply(gj, function(x) {
-      x <- gsub("}},", "}}", x)
-    })
-    
-    
-    return(gjson)
-    
-  }
-
-#' Concatenate a sf object into a geojson polygon
-#'
-#' Take single points from geographical coordinates
-#' and convert it into a geojson 'Polygon' string using
-#' \code{\link[sf]{st_buffer}} 'Polygon' is the only geojson format 
-#' accepted by ClimateSERV
-#'
-#' @param lonlat an object of class "sf" and geometry type "POINT"
-#' @param dist numeric; buffer distance for all \code{lonlat}
-#' @param nQuadSegs integer; number of segments per quadrant
-#' @return A list with geojson strings for each row in \code{lonlat}
-#' @examples
-#' # random geographic locations around bbox(10, 12, 45, 57)
-#' library("sf")
-#' set.seed(123)
-#' lonlat <- data.frame(lon = runif(12, 10, 12),
-#'                      lat = runif(12, 45, 57))
-#' 
-#' lonlat <- st_as_sf(lonlat, coords = c("lon","lat"))
-#' 
-#' gjson <- .sf_to_geojson(lonlat)
-#' @noRd
-.sf_to_geojson <- function(lonlat,
-                           dist = 0.00001,
-                           nQuadSegs = 2L) {
-  
-  # check geometry type
-  type <- c("POINT", "POLYGON")
-  
-  # check for supported types 
-  supp_type <- c(all(grepl(type[[1]], sf::st_geometry_type(lonlat))),
-                 all(grepl(type[[2]], sf::st_geometry_type(lonlat))))
-  
-  if (!any(supp_type)) {
-    stop("The sf geometry type is not supported. 
-         Please provide a sf object of geometry type 'POINT' or 'POLYGON'\n")
-  }
-  
-  type <- type[which(supp_type)]
-  
-  if (type == "POINT") {
-    n <- dim(lonlat)[[1]]
-    
-    # set the buffer around the points
-    lonlatb <- sf::st_buffer(lonlat,
-                             dist = dist,
-                             nQuadSegs = nQuadSegs)
-    
-    # transform into a sf object
-    lonlatb <- sf::st_as_sf(lonlatb)  
-  }
-  
-  if (type == "POLYGON") {
-    
-    lonlatb <- lonlat
-  
-  }
-  
-  
-  # write the geojson string
-  tf <- tempfile(fileext = ".geojson")
-  sf::st_write(lonlatb, tf, quiet = TRUE)
-  
-  # capture these strings
-  gj <- readLines(tf)
-  
-  # keep only the geometry vectors
-  index <- which(grepl("geometry", unlist(gj)))
-  
-  gj <- gj[index]
-  
-  # remove spaces and extra commas 
-  gj <- lapply(gj, function(x) {
-    gsub(" ", "", x)
-  })
-  
-  gjson <- lapply(gj, function(x) {
-    x <- gsub("}},", "}}", x)
-  })
-  
-  return(gjson)
-  
-}
-
 #' Send a request to ClimateSERV
 #'
 #' @param datatype integer, the unique datatype number for the 
@@ -179,21 +22,26 @@
 #' @examples
 #' lonlat <- data.frame(lon = runif(1, 10, 12),
 #'                      lat = runif(1, 45, 47))
-#'
-#' gjson <- chirps:::.dataframe_to_geojson(lonlat)
-#'
+#' 
+#' gjson <- dataframe_to_geojson(lonlat)
+#' 
+#' gjson <- as.character(gjson)
+#' 
+#' gsjon <- split(gjson, seq_along(gjson))
+#' 
 #' chirps:::.send_request(begintime = "12/10/2018",
 #'                        endtime = "12/26/2018",
 #'                        geometry = gjson)
+#'                        
 #' @importFrom crul HttpClient
 #' @noRd
-.send_request <-
-  function(datatype = 0,
-           begintime = NULL,
-           endtime = NULL,
-           intervaltype = 0,
-           operationtype = 5,
-           geometry = NULL) {
+.send_request <- function(datatype = 0,
+                          begintime = NULL,
+                          endtime = NULL,
+                          intervaltype = 0,
+                          operationtype = 5,
+                          geometry = NULL) {
+  
     base_url <- "https://climateserv.servirglobal.net/chirps/"
     
     # organise the query
@@ -247,15 +95,21 @@
 #' @param id character with the id obtained from \code{.send_request}
 #' @return logical value, \code{TRUE} when the data is ready to be retrieved
 #' @examples
+#' 
 #' lonlat <- data.frame(lon = runif(1, 10, 12),
 #'                      lat = runif(1, 45, 47))
-#'
-#' gjson <- chirps:::.dataframe_to_geojson(lonlat)
-#'
+#' 
+#' gjson <- dataframe_to_geojson(lonlat)
+#' 
+#' gjson <- as.character(gjson)
+#' 
+#' gsjon <- split(gjson, seq_along(gjson))
+#' 
 #' id <- chirps:::.send_request(begintime = "12/10/2018",
-#'                        endtime = "12/26/2018",
-#'                        geometry = gjson)
-#' chirps:::.get_request_progress (id = id)
+#'                              endtime = "12/26/2018",
+#'                              geometry = gjson)
+#' 
+#' chirps:::.get_request_progress(id)
 #' @noRd
 .get_request_progress <- function(id) {
   base_url <- "https://climateserv.servirglobal.net/chirps/"
@@ -300,18 +154,21 @@
 #' @param id character with the id obtained from \code{.send_request}
 #' @return A data frame with requested data
 #' @examples
-#' set.seed(12)
 #' lonlat <- data.frame(lon = runif(1, 10, 12),
 #'                      lat = runif(1, 45, 47))
 #' 
-#' gjson <- chirps:::.dataframe_to_geojson(lonlat)
+#' gjson <- dataframe_to_geojson(lonlat)
 #' 
-#' id <- chirps:::.send_request(datatype = 29,
-#'                              begintime = "09/10/2018",
+#' gjson <- as.character(gjson)
+#' 
+#' gsjon <- split(gjson, seq_along(gjson))
+#' 
+#' id <- chirps:::.send_request(begintime = "12/10/2018",
 #'                              endtime = "12/26/2018",
 #'                              geometry = gjson)
 #' 
-#' chirps:::.get_data_from_request(id = id)
+#' chirps:::.get_data_from_request(id)
+#' 
 #' @importFrom jsonlite fromJSON toJSON
 #' @noRd
 .get_data_from_request <- function(id) {
@@ -523,7 +380,7 @@
 #' lonlat <- data.frame(lon = 1,
 #'                      lat = 1)
 #' 
-#' geometry <- .dataframe_to_geojson(lonlat)[[1]]
+#' geometry <- dataframe_to_geojson(lonlat)[[1]]
 #' 
 #' properties <- data.frame(x = LETTERS[1:3],
 #'                          a = as.character(1:3),

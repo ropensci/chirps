@@ -28,7 +28,7 @@ statistical operation to perform on the dataset}
 \item{period}{an integer value for the period of ESI data, 
 four weeks period = 1, twelve weeks = 2}
 
-\item{...}{further arguments passed to \code{\link[sf]{sf}} methods.
+\item{...}{further arguments passed to \code{\link[sf]{sf}} methods
 See details}
 
 \item{as.sf}{logical, returns an object of class \code{[sf]{sf}}
@@ -68,9 +68,13 @@ ClimateSERV works with geojson of type 'Polygon'. The input \code{object} is
 
 \bold{nQuadSegs}: integer, number of segments per buffer quadrant
 }
+\note{
+get_esi may return some warning messages given by 
+\code{\link[sf]{sf}}, please look sf documentation for 
+possible issues.
+}
 \examples{
 \donttest{
-library("chirps")
 
 lonlat <- data.frame(lon = c(-55.0281,-54.9857),
                      lat = c(-2.8094, -2.8756))
@@ -80,11 +84,11 @@ dates <- c("2017-12-15","2018-06-20")
 # by default the function set a very small buffer around the points
 # which can return NAs due to cloudiness in ESI data
 
-dat <- get_esi(lonlat, dates = dates)
+dt <- get_esi(lonlat, dates = dates)
 
 # the argument dist passed through sf increase the buffer area
 
-dat <- get_esi(lonlat, dates = dates, dist = 0.1)
+dt <- get_esi(lonlat, dates = dates, dist = 0.1)
 
 
 ############################################
@@ -93,17 +97,15 @@ dat <- get_esi(lonlat, dates = dates, dist = 0.1)
 library("sf")
 
 # geometry 'POINT'
-lonlat <- data.frame(lon = c(-55.0281,-54.9857),
-                     lat = c(-2.8094, -2.8756))
 
-lonlat <- st_as_sf(lonlat, coords = c("lon","lat"))
+example("tapajos", package = "chirps")
 
 dates <- c("2017-11-15", "2017-12-31")
 
-dat <- get_esi(lonlat, dates, dist = 0.1)
+dt <- get_esi(lonlat, dates, dist = 0.1)
 
 # as.sf = TRUE returns an object of class 'sf'
-dat <- get_esi(lonlat, dates, as.sf = TRUE, dist = 0.1)
+dt <- get_esi(lonlat, dates, as.sf = TRUE, dist = 0.1)
 
 # geometry 'POLYGON'
 p1 <- matrix(c(10.67, 49.90,
@@ -129,7 +131,7 @@ pol$geometry = st_sfc(p1, p2)
 
 pol <- st_as_sf(pol)
 
-dat <- get_esi(pol, dates = c("2018-01-01", "2018-02-20"))
+dt <- get_esi(pol, dates = c("2018-01-01", "2018-02-20"))
 
 
 ############################################
@@ -137,20 +139,14 @@ dat <- get_esi(pol, dates = c("2018-01-01", "2018-02-20"))
 # S3 method for objects of class 'geojson'
 library("sf")
 
-tapajos <- chirps:::tapajos
-
-object <- chirps:::.sf_to_geojson(tapajos[1:2,])
-
-object <- unlist(object)
-
-class(object) <- c("geojson", "json", class(object))
+example("tapajos", package = "chirps")
 
 dates <- c("2018-01-01","2018-01-20")
 
-dat <- get_esi(object, dates, dist = 0.1)
+dt <- get_esi(tp_geojson, dates, dist = 0.1)
 
 # as.geojson = TRUE returns an object of class 'geojson'
-dat <- get_esi(object, dates, as.geojson = TRUE, dist = 0.1)
+dt <- get_esi(tp_geosjon, dates, as.geojson = TRUE, dist = 0.1)
 
 } 
 }

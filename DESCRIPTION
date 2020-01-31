@@ -1,7 +1,7 @@
 Package: chirps
 Type: Package
 Title: API Client for CHIRPS
-Version: 0.0.5
+Version: 0.0.6
 Authors@R: c(person("Kaue", "de Sousa", 
         email = "kaue.desousa@inn.no", role = c("aut", "cre"),
         comment = c(ORCID = "0000-0002-7571-7845")), 
@@ -23,7 +23,7 @@ Description: API Client for the Climate Hazards Group InfraRed Precipitation
   trend analysis and seasonal drought monitoring. For more details on 'CHIRPS'
   data please visit its official home page
   <https://www.chc.ucsb.edu/data/chirps>. 
-License: GPL-3
+License: MIT
 Encoding: UTF-8
 LazyData: true
 Depends: R (>= 2.10)
@@ -32,8 +32,8 @@ Imports:
     jsonlite,
     methods,
     sf,
-    stats,
-    tibble
+    tibble,
+    stats
 Suggests:
     knitr,
     rmarkdown,

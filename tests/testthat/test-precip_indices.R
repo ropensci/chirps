@@ -1,6 +1,4 @@
-context("test-precip_incides")
-
-library("chirps")
+context("test-precip_indices")
 
 test_that("timespan FALSE", {
   skip_on_cran()

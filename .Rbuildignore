@@ -16,4 +16,5 @@
 ^dev$
 ^doc$
 ^Meta$
+^reviewer_comments$
 ^codemeta\.json$

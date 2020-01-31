@@ -18,7 +18,6 @@
 #' \item{Rtotal}{total precipitation (mm) in wet days, rain >= 1 (mm)}
 #' \item{SDII}{simple daily intensity index, total precipitation divided by the
 #'  number of wet days (mm/days)}
-#' @seealso \code{\link[tidyr]{pivot_wider}}
 #' @references 
 #' 
 #' Aguilar E., et al. (2005). Journal of Geophysical Research, 110(D23), D23107.
@@ -37,13 +36,13 @@
 #' 
 #' dates <- c("2017-12-15","2018-05-31")
 #'  
-#' dat <- get_chirps(lonlat, dates)
+#' dt <- get_chirps(lonlat, dates)
 #' 
 #' # take the indices for the entire period 
-#' precip_indices(dat, timeseries = FALSE)
+#' precip_indices(dt, timeseries = FALSE)
 #' 
 #' # take the indices for periods of 7 days
-#' precip_indices(dat, timeseries = TRUE, intervals = 7)
+#' precip_indices(dt, timeseries = TRUE, intervals = 7)
 #' }
 #' @importFrom stats quantile
 #' @export
@@ -137,7 +136,7 @@ precip_indices <- function(object, timeseries = FALSE, intervals = NULL) {
   
   result <- result[order(result$id), ]
   
-  result <- tibble::as_tibble(result)
+  result <- data.table::data.table(result)
   
   return(result)
 }

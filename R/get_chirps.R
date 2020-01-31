@@ -15,7 +15,7 @@
 #'  for S3 method of \pkg{chirps} class \code{sf}
 #' @param as.geojson logical, returns an object of class \code{geojson}
 #'  for S3 method of \pkg{chirps} class \code{geojson}
-#' @param ... further arguments passed to \code{\link[sf]{sf}} methods.
+#' @param ... further arguments passed to \code{\link[sf]{sf}} methods
 #'  See details 
 #'  
 #' @details
@@ -47,18 +47,18 @@
 #'  \cr\url{https://doi.org/10.1038/sdata.2015.66}
 #' 
 #' ClimateSERV \url{https://climateserv.servirglobal.net}
-#' 
+#' @note get_chirps may return some warning messages given by 
+#' \code{\link[sf]{sf}}, please look sf documentation for 
+#' possible issues.
 #' @examples
 #' \donttest{ 
-#' #' library("chirps")
 #' 
 #' lonlat <- data.frame(lon = c(-55.0281,-54.9857),
 #'                      lat = c(-2.8094, -2.8756))
 #' 
 #' dates <- c("2017-12-15", "2017-12-31")
 #' 
-#' 
-#' dat <- get_chirps(lonlat, dates)
+#' dt <- get_chirps(lonlat, dates)
 #' 
 #' ############################################
 #' 
@@ -66,17 +66,15 @@
 #' library("sf")
 #' 
 #' # geometry 'POINT'
-#' lonlat <- data.frame(lon = c(-55.0281, -55.0714),
-#'                      lat = c(-2.8094,  -3.5279))
 #' 
-#' lonlat <- st_as_sf(lonlat, coords = c("lon","lat"))
+#' example("tapajos", package = "chirps")
 #' 
 #' dates <- c("2017-12-15", "2017-12-31")
 #' 
-#' dat <- get_chirps(lonlat, dates)
+#' dt <- get_chirps(lonlat, dates)
 #' 
 #' # as.sf = TRUE returns an object of class 'sf'
-#' get_chirps(lonlat, dates, as.sf = TRUE)
+#' dt <- get_chirps(lonlat, dates, as.sf = TRUE)
 #' 
 #' # geometry 'POLYGON'
 #' p1 <- matrix(c(10.67, 49.90,
@@ -102,7 +100,7 @@
 #' 
 #' pol <- st_as_sf(pol)
 #' 
-#' dat <- get_chirps(pol, dates = c("2018-01-01", "2018-01-20"))
+#' dt <- get_chirps(pol, dates = c("2018-01-01", "2018-01-20"))
 #' 
 #' 
 #' ############################################
@@ -110,20 +108,14 @@
 #' # S3 method for objects of class 'geojson'
 #' library("sf")
 #' 
-#' tapajos <- chirps:::tapajos
-#' 
-#' object <- chirps:::.sf_to_geojson(tapajos[1:2,])
-#' 
-#' object <- unlist(object)
-#' 
-#' class(object) <- c("geojson", "json", class(object))
+#' example("tapajos", package = "chirps")
 #' 
 #' dates <- c("2018-01-01","2018-01-20")
 #' 
-#' dat <- get_chirps(object, dates)
+#' dt <- get_chirps(object, dates)
 #' 
 #' # as.geojson = TRUE returns an object of class 'geojson'
-#' dat <- get_chirps(object, dates, as.geojson = TRUE)
+#' dt <- get_chirps(object, dates, as.geojson = TRUE)
 #' 
 #' }  
 #' @importFrom methods addNextMethod asMethodDefinition assignClassDef
@@ -138,7 +130,8 @@ get_chirps <- function(object, dates, operation = 5, ...) {
 
 #' @rdname get_chirps
 #' @export
-get_chirps.default <- function(object, dates, operation = 5, ...) {
+get_chirps.default <- function(object, dates, operation = 5, 
+                               ...) {
   
   # validate lonlat to check if they are within the CHIRPS range lat -50, 50
   .validate_lonlat(object, xlim = c(-180, 180), ylim = c(-50, 50))
@@ -147,7 +140,11 @@ get_chirps.default <- function(object, dates, operation = 5, ...) {
   dates_inter <- .reformat_dates(dates, availability = c("1981-01-01", "0"))
 
   # get geojson strings from data.frame
-  gj <- .dataframe_to_geojson(object, ...)
+  gj <- dataframe_to_geojson(object, ...)
+  
+  class(gj) <- "character"
+  
+  gj <- split(gj, seq_along(gj))
   
   result <- .GET(gjson = gj, 
                  dates = dates_inter, 
@@ -233,7 +230,11 @@ get_chirps.sf <- function(object, dates, operation = 5,
   dates_inter <- .reformat_dates(dates, availability = c("1981-01-01", "0"))
   
   # get geojson strings from data.frame
-  gj <- .sf_to_geojson(object, ...)
+  gj <- sf_to_geojson(object, ...)
+  
+  class(gj) <- "character"
+  
+  gj <- split(gj, seq_along(gj))
   
   result <- .GET(gjson = gj, 
                  dates = dates_inter, 
@@ -324,7 +325,7 @@ get_chirps.geojson <- function(object, dates, operation = 5,
     lonlat <- as.data.frame(lonlat)
     
     # lonlat into a geojson Polygon
-    gjson <- .dataframe_to_geojson(lonlat, ...)
+    gjson <- dataframe_to_geojson(lonlat, ...)
     
   }
   

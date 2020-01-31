@@ -32,6 +32,10 @@
 #' \item{lat}{the latitude as provided in \code{object}}
 #' \item{esi}{the ESI value}
 #' 
+#' @note get_esi may return some warning messages given by 
+#' \code{\link[sf]{sf}}, please look sf documentation for 
+#' possible issues.
+#' 
 #' @references
 #' ClimateSERV \url{https://climateserv.servirglobal.net}
 #' 
@@ -40,7 +44,6 @@
 #' 
 #' @examples
 #' \donttest{
-#' library("chirps")
 #' 
 #' lonlat <- data.frame(lon = c(-55.0281,-54.9857),
 #'                      lat = c(-2.8094, -2.8756))
@@ -50,11 +53,11 @@
 #' # by default the function set a very small buffer around the points
 #' # which can return NAs due to cloudiness in ESI data
 #' 
-#' dat <- get_esi(lonlat, dates = dates)
+#' dt <- get_esi(lonlat, dates = dates)
 #' 
 #' # the argument dist passed through sf increase the buffer area
 #' 
-#' dat <- get_esi(lonlat, dates = dates, dist = 0.1)
+#' dt <- get_esi(lonlat, dates = dates, dist = 0.1)
 #' 
 #' 
 #' ############################################
@@ -63,17 +66,15 @@
 #' library("sf")
 #' 
 #' # geometry 'POINT'
-#' lonlat <- data.frame(lon = c(-55.0281,-54.9857),
-#'                      lat = c(-2.8094, -2.8756))
 #' 
-#' lonlat <- st_as_sf(lonlat, coords = c("lon","lat"))
+#' example("tapajos", package = "chirps")
 #' 
 #' dates <- c("2017-11-15", "2017-12-31")
 #' 
-#' dat <- get_esi(lonlat, dates, dist = 0.1)
+#' dt <- get_esi(lonlat, dates, dist = 0.1)
 #' 
 #' # as.sf = TRUE returns an object of class 'sf'
-#' dat <- get_esi(lonlat, dates, as.sf = TRUE, dist = 0.1)
+#' dt <- get_esi(lonlat, dates, as.sf = TRUE, dist = 0.1)
 #' 
 #' # geometry 'POLYGON'
 #' p1 <- matrix(c(10.67, 49.90,
@@ -99,7 +100,7 @@
 #' 
 #' pol <- st_as_sf(pol)
 #' 
-#' dat <- get_esi(pol, dates = c("2018-01-01", "2018-02-20"))
+#' dt <- get_esi(pol, dates = c("2018-01-01", "2018-02-20"))
 #' 
 #' 
 #' ############################################
@@ -107,22 +108,19 @@
 #' # S3 method for objects of class 'geojson'
 #' library("sf")
 #' 
-#' tapajos <- chirps:::tapajos
-#' 
-#' object <- chirps:::.sf_to_geojson(tapajos[1:2,])
-#' 
-#' object <- unlist(object)
-#' 
-#' class(object) <- c("geojson", "json", class(object))
+#' example("tapajos", package = "chirps")
 #' 
 #' dates <- c("2018-01-01","2018-01-20")
 #' 
-#' dat <- get_esi(object, dates, dist = 0.1)
+#' dt <- get_esi(tp_geojson, dates, dist = 0.1)
 #' 
 #' # as.geojson = TRUE returns an object of class 'geojson'
-#' dat <- get_esi(object, dates, as.geojson = TRUE, dist = 0.1)
+#' dt <- get_esi(tp_geosjon, dates, as.geojson = TRUE, dist = 0.1)
 #' 
 #' } 
+#' @importFrom methods addNextMethod asMethodDefinition assignClassDef
+#' @importFrom sf st_centroid read_sf st_geometry_type
+#' @importFrom tibble as_tibble
 #' @export
 get_esi <- function(object, dates, operation = 5, period = 1, 
                     ...) {
@@ -143,7 +141,11 @@ get_esi.default <- function(object, dates, operation = 5, period = 1,
   dates_inter <- .reformat_dates(dates, availability = c("2001-01-01", "0"))
   
   # get geojson strings from data.frame
-  gj <- .dataframe_to_geojson(object, ...)
+  gj <- dataframe_to_geojson(object, ...)
+  
+  class(gj) <- "character"
+  
+  gj <- split(gj, seq_along(gj))
   
   if (period == 1) {
     datatype <- 29
@@ -234,7 +236,11 @@ get_esi.sf <- function(object, dates, operation = 5, period = 1,
   dates_inter <- .reformat_dates(dates, availability = c("2001-01-01", "0"))
   
   # get geojson strings from data.frame
-  gj <- .sf_to_geojson(object, ...)
+  gj <- sf_to_geojson(object, ...)
+  
+  class(gj) <- "character"
+  
+  gj <- split(gj, seq_along(gj))
   
   
   if (period == 1) {
@@ -293,7 +299,7 @@ get_esi.geojson <- function(object, dates, operation = 5, period = 1,
   
   # check for the geometry tag
   if (!grepl("geometry", object[[1]])) {
-    stop("geometry tag is missing in the geojson object\n")
+    stop("geometry tag is missing in the geojson object with no default \n")
   }
   
   type <- c("type\":\"Point", "type\":\"Polygon")
@@ -330,7 +336,7 @@ get_esi.geojson <- function(object, dates, operation = 5, period = 1,
     lonlat <- as.data.frame(lonlat)
     
     # lonlat into a geojson Polygon
-    gjson <- .dataframe_to_geojson(lonlat, ...)
+    gjson <- dataframe_to_geojson(lonlat, ...)
     
   }
   

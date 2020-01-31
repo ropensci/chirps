@@ -42,13 +42,13 @@ lonlat <- data.frame(lon = c(-55.0281,-54.9857, -55.0714),
 
 dates <- c("2017-12-15","2018-05-31")
  
-dat <- get_chirps(lonlat, dates)
+dt <- get_chirps(lonlat, dates)
 
 # take the indices for the entire period 
-precip_indices(dat, timeseries = FALSE)
+precip_indices(dt, timeseries = FALSE)
 
 # take the indices for periods of 7 days
-precip_indices(dat, timeseries = TRUE, intervals = 7)
+precip_indices(dt, timeseries = TRUE, intervals = 7)
 }
 }
 \references{
@@ -58,7 +58,4 @@ Aguilar E., et al. (2005). Journal of Geophysical Research, 110(D23), D23107.
 Kehel Z., et al. (2016). In: Applied Mathematics and Omics to Assess Crop
  Genetic Resources for Climate Change Adaptive Traits (eds Bari A., Damania
  A. B., Mackay M., Dayanandan S.), pp. 151–174. CRC Press.
-}
-\seealso{
-\code{\link[tidyr]{pivot_wider}}
 }

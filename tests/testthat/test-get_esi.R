@@ -1,8 +1,5 @@
 context("test-get_esi")
 
-library("chirps")
-library("sf")
-
 # Test default method
 test_that("two or more points", {
   skip_on_cran()

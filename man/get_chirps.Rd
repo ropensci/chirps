@@ -25,7 +25,7 @@ get_chirps(object, dates, operation = 5, ...)
 \item{operation}{optional, an integer that represents which type of
 statistical operation to perform on the dataset}
 
-\item{...}{further arguments passed to \code{\link[sf]{sf}} methods.
+\item{...}{further arguments passed to \code{\link[sf]{sf}} methods
 See details}
 
 \item{as.sf}{logical, returns an object of class \code{[sf]{sf}}
@@ -65,17 +65,20 @@ Get daily precipitation data from the "Climate Hazards Group InfraRed
 
 \bold{nQuadSegs}: integer, number of segments per buffer quadrant
 }
+\note{
+get_chirps may return some warning messages given by 
+\code{\link[sf]{sf}}, please look sf documentation for 
+possible issues.
+}
 \examples{
 \donttest{ 
-#' library("chirps")
 
 lonlat <- data.frame(lon = c(-55.0281,-54.9857),
                      lat = c(-2.8094, -2.8756))
 
 dates <- c("2017-12-15", "2017-12-31")
 
-
-dat <- get_chirps(lonlat, dates)
+dt <- get_chirps(lonlat, dates)
 
 ############################################
 
@@ -83,17 +86,15 @@ dat <- get_chirps(lonlat, dates)
 library("sf")
 
 # geometry 'POINT'
-lonlat <- data.frame(lon = c(-55.0281, -55.0714),
-                     lat = c(-2.8094,  -3.5279))
 
-lonlat <- st_as_sf(lonlat, coords = c("lon","lat"))
+example("tapajos", package = "chirps")
 
 dates <- c("2017-12-15", "2017-12-31")
 
-dat <- get_chirps(lonlat, dates)
+dt <- get_chirps(lonlat, dates)
 
 # as.sf = TRUE returns an object of class 'sf'
-get_chirps(lonlat, dates, as.sf = TRUE)
+dt <- get_chirps(lonlat, dates, as.sf = TRUE)
 
 # geometry 'POLYGON'
 p1 <- matrix(c(10.67, 49.90,
@@ -119,7 +120,7 @@ pol$geometry = st_sfc(p1, p2)
 
 pol <- st_as_sf(pol)
 
-dat <- get_chirps(pol, dates = c("2018-01-01", "2018-01-20"))
+dt <- get_chirps(pol, dates = c("2018-01-01", "2018-01-20"))
 
 
 ############################################
@@ -127,20 +128,14 @@ dat <- get_chirps(pol, dates = c("2018-01-01", "2018-01-20"))
 # S3 method for objects of class 'geojson'
 library("sf")
 
-tapajos <- chirps:::tapajos
-
-object <- chirps:::.sf_to_geojson(tapajos[1:2,])
-
-object <- unlist(object)
-
-class(object) <- c("geojson", "json", class(object))
+example("tapajos", package = "chirps")
 
 dates <- c("2018-01-01","2018-01-20")
 
-dat <- get_chirps(object, dates)
+dt <- get_chirps(object, dates)
 
 # as.geojson = TRUE returns an object of class 'geojson'
-dat <- get_chirps(object, dates, as.geojson = TRUE)
+dt <- get_chirps(object, dates, as.geojson = TRUE)
 
 }  
 }
