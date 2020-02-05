@@ -24,6 +24,8 @@
 #' tp_geojson <- sf_to_geojson(tp_point)
 #' }
 #' 
-#' @source The data was provided by the Chico Mendes Institute 
-#' via \url{https://www.protectedplanet.net/floresta-nacional-de-tapajos-forest}.
+#' @source The data was provided by the Chico Mendes Institute via
+#' \url{
+#' https://www.protectedplanet.net/floresta-nacional-de-tapajos-forest
+#' }.
 "tapajos"
