@@ -26,7 +26,7 @@ authors:
     orcid: 0000-0002-4491-4483
     affiliation: 1
 affiliations:
-  - name: Department of Agricultural Sciences, Inland Norway University, Hamar, Norway
+  - name: Department of Agricultural Sciences, Inland Norway University of Applied Sciences, Hamar, Norway
     index: 1
   - name: The Alliance of Bioversity International and CIAT, Rome, Italy
     index: 2
@@ -42,15 +42,15 @@ output: rticles::joss_article
 journal: JOSS
 ---
 
-# About the data set
+# Summary
 
 The *chirps* package provides functionalities for reproducible analysis in R [@RCoreTeam] using the CHIRPS [@Funk2015] and ESI [@esi] data. CHIRPS is daily precipitation data set developed by the Climate Hazards Group [@Funk2015] for high resolution precipitation gridded data. Spanning 50$^{\circ}$ S to 50$^{\circ}$ N (and all longitudes) and ranging from 1981 to near-present (normally with a 45 day lag), CHIRPS incorporates 0.05 arc-degree resolution satellite imagery, and in-situ station data to create gridded precipitation time series for trend analysis and seasonal drought monitoring [@Funk2015]. The evaporative stress index (ESI) data describes temporal anomalies in evapotranspiration produced weekly at 0.25 arc-degree resolution for the entire globe [@Anderson2011]. The ESI data is based on satellite observations of land surface temperature, which are used to estimate water loss due to evapotranspiration (the sum of evaporation and plant transpiration from the Earth's land and ocean surface to the atmosphere). The ESI data is available from 2001 to near-present. When using these data sets in publications please cite @Funk2015 for CHIRPS and @esi for ESI.
 
-# Package's functionalities
+# Implementation
 
 Three main functions are provided, `get_chirps()`, `get_esi()` and `precip_indices()`. The `get_chirps()` function provides access to CHIRPS data via the ClimateSERV API Client [@ClimateSERV] with methods to handle objects of class 'data.frame', 'geojson' and 'sf' via the package *methods* [@RCoreTeam]. To accept the query, ClimateSERV requires a geojson object of type 'Polygon' (one single polygon per request). Using the package *sf* [@sf] internally, the input provided in `get_chirps()` is transformed into a list of polygons with a small buffer area (0.0001 arc-sec by default) around the point and transformed into a list of geojson strings. *chirps* uses *crul* [@crul] to interface with ClimateSERV API. The query returns a JSON object parsed to *jsonlite* [@jsonlite] to obtain the data frame for the time series required. `get_chirps()` returns a *tibble* data frame [@tibble], which also inherits the class 'chirps', where each id represents the index for the rows in the in-putted 'object'. The function `get_esi()` behaves similarly to `get_chirps()` and returns the evaporative stress index (ESI) data [@Anderson2011], but the output does not inherit the class 'chirps'. Users providing objects of class 'sf' and 'geojson' in `get_chirps()` and `get_esi()` can also choose to return an object with the same class as the object provided using the arguments 'as.sf = TRUE' or 'as.geojson = TRUE'. With the function `precip_indices()` users can assess how the precipitation changes across the requested time series using precipitation variability indices [@Aguilar2005], computed using *stats* [@RCoreTeam]. Extended documentation is provided with examples on how to increase the buffer area and draw quadrants for the geojson polygon using *sf* [@sf].
 
-# A case study in the Tapajós National Forest
+# Application: a case study in the Tapajós National Forest
 
 The *Tapajós* National Forest is a protected area in the Brazilian Amazon. Located within the coordinates -55.4$^{\circ}$ and -54.8$^{\circ}$ E and -4.1$^{\circ}$ and -2.7$^{\circ}$ S with ~ 527,400 ha of multiple Amazonian ecosystems. We take twenty random points across its area to get the precipitation from Jan-2008 to Dec-2018 using `get_chirps()`. We use an object of class 'sf' which is passed to the method `get_chirps.sf()`. Then, we compute the precipitation indices for the time series with intervals of 30 days using `precip_indices()`.
 
@@ -75,7 +75,11 @@ We selected four indices for the visualization using *tidyverse* [@tidyverse]. P
 knitr::include_graphics("Fig1.png")
 ```
 
-Overall, these indices proved to be an excellent proxy to evaluate the climate variability using precipitation data [@DeSousa2018], the effects of climate change on a continental analysis [@Aguilar2005], crop modelling [@Kehel2016] and to define strategies for climate adaptation [@vanEtten2019].
+# Other applications and conclusion
+
+Deriving precipitation indices that can obtained from CHIRPS proved to be an excellent proxy to evaluate the climate variability using precipitation data [@DeSousa2018] and the effects of climate change on a continental analysis [@Aguilar2005]. Additionally, these indices can be used to register specific effects of climate variability on crop varietal performance. In crop modelling, @Kehel2016 applied this to assess the interactions of wheat varieties with the environment, showing how severe drought, assessed with the maximum length of dry spell (MLDS), can affect the plant development and the yield. These indices can also be useful to improve variety recommendation for climate adaptation in marginal production environments [@vanEtten2019]. 
+
+Overall, CHIRPS data can be used in many application and currently has over 800 citations from studies using this tool. Many applications are the field of agriculture, hydrologic modelling and drought monitoring, but also some studies using this in disease control programs (e.g. @Thomson2017, @Horn2018). The *chirps* package aims to make it possible for researchers in these fields to implement this tool into a replicable and reproducible workflow in R. 
 
 # Acknowledgements
 
