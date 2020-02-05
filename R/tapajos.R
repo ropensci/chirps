@@ -8,6 +8,7 @@
 #' xmin: -55.41127 ymin: -4.114584 
 #' xmax: -54.7973 ymax: -2.751706
 #' @examples 
+#' \donttest{
 #' library("sf")
 #' 
 #' data("tapajos")
@@ -21,6 +22,7 @@
 #' 
 #' # transform into a geojson
 #' tp_geojson <- sf_to_geojson(tp_point)
+#' }
 #' 
 #' @source The data was provided by the Chico Mendes Institute 
 #' via \url{https://www.protectedplanet.net/floresta-nacional-de-tapajos-forest}.

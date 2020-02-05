@@ -20,6 +20,7 @@ area in the Brazilian Amazon
 \url{http://www.icmbio.gov.br/flonatapajos/}
 }
 \examples{
+\donttest{
 library("sf")
 
 data("tapajos")
@@ -33,6 +34,7 @@ tp_point <- st_as_sf(tp_point)
 
 # transform into a geojson
 tp_geojson <- sf_to_geojson(tp_point)
+}
 
 }
 \keyword{datasets}

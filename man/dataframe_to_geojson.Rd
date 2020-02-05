@@ -24,6 +24,7 @@ Take single points from geographical coordinates and convert it into a
 geojson 'Polygon' string using \code{\link[sf]{st_buffer}}.
 }
 \examples{
+\donttest{
 # random geographic points within bbox(10, 12, 45, 47)
 library("sf")
 
@@ -32,7 +33,7 @@ lonlat <- data.frame(lon = runif(2, 10, 12),
                      lat = runif(2, 45, 47))
 
 gjson <- dataframe_to_geojson(lonlat)
-
+}
 }
 \seealso{
 Other utility functions: 

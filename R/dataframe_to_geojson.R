@@ -9,6 +9,7 @@
 #' @return An object of class 'geojson' for each row in \code{lonlat}
 #' @family utility functions
 #' @examples
+#' \donttest{
 #' # random geographic points within bbox(10, 12, 45, 47)
 #' library("sf")
 #' 
@@ -17,7 +18,7 @@
 #'                      lat = runif(2, 45, 47))
 #' 
 #' gjson <- dataframe_to_geojson(lonlat)
-#' 
+#' }
 #' @importFrom sf st_point st_sfc st_buffer st_write st_as_sf
 #' @export
 dataframe_to_geojson <- function(lonlat,
