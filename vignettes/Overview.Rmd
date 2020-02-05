@@ -3,7 +3,7 @@ title: "Introduction to chirps"
 package: chirps
 author:
 - name: Kauê de Sousa
-  affiliation: Department of Agricultural Sciences, Inland Norway University of Applied Sciences, Hamar, Norway; and The Alliance of Bioversity International and CIAT, Rome, Italy
+  affiliation: Department of Agricultural Sciences, Inland Norway University, Hamar, Norway; and The Alliance of Bioversity International and CIAT, Rome, Italy
 - name: Adam H. Sparks 
   affiliation: Centre for Crop Health, University of Southern Queensland, Toowoomba, Australia
 - name: William Ashmall 
@@ -25,7 +25,7 @@ csl: citation_style.csl
 
 # Summary
 
-The **chirps** package provides functionalities for reproducible analysis using the CHIRPS data[@Funk2015]. CHIRPS is daily precipitation data set developed by the Climate Hazards Group[@Funk2015] for high resolution precipitation gridded data. Spanning 50°S-50°N (and all longitudes) and ranging from 1981 to near-present, CHIRPS incorporates 0.05 arc-degree resolution satellite imagery, and in-situ station data to create gridded precipitation time series for trend analysis and seasonal drought monitoring[@Funk2015]. Other functionalities of **chirps** are the computation of precipitation indices and the evaporative stress index (ESI) which describes temporal anomalies in evapotranspiration produced weekly at 0.25 arc-degree resolution for the entire globe.
+The **chirps** package provides functionalities for reproducible analysis using the CHIRPS data[@Funk2015]. CHIRPS is a daily precipitation data set developed by the Climate Hazards Group[@Funk2015] for high resolution precipitation gridded data. Spanning 50$^{\circ}$S-50$^{\circ}$N (and all longitudes) and ranging from 1981 to near-present, CHIRPS incorporates 0.05 arc-degree resolution satellite imagery, and in-situ station data to create gridded precipitation time series for trend analysis and seasonal drought monitoring[@Funk2015]. Other functionalities of **chirps** are the computation of precipitation indices and the evaporative stress index (ESI) which describes temporal anomalies in evapotranspiration produced weekly at 0.25 arc-degree resolution for the entire globe.
 
 # Installation
 
@@ -48,18 +48,15 @@ The *Tapajós* National Forest is a protected area in the Brazilian Amazon. Loca
 
 
 
+
+
 ```r
 library("chirps")
 library("sf")
 
-tapajos <- chirps:::tapajos_geom
+example("tapajos", package = "chirps")
 
-set.seed(1234)
-tapajos <- st_sample(tapajos, 3)
-
-tapajos <- st_as_sf(tapajos)
-
-dat <- get_chirps(tapajos, dates = c("2013-01-01","2018-12-31"))
+dt <- get_chirps(tp_point, dates = c("2013-01-01","2018-12-31"))
 ```
 
 
@@ -69,7 +66,7 @@ With `precip_indices()` is possible to assess how the precipitation changes acro
 
 
 ```r
-p_ind <- precip_indices(dat, timeseries = TRUE, intervals = 15)
+p_ind <- precip_indices(dt, timeseries = TRUE, intervals = 15)
 
 head(p_ind)
 #> # A tibble: 6 x 6
@@ -84,26 +81,6 @@ head(p_ind)
 ```
 
 The function `precip_indices()` returns a data.frame with the precipitation indices. Each date corresponds to the first day in the time series intervals as defined by the argument 'intervals'. When `timeseries = FALSE` the function returns a single precipitation index for the entire time series.
-
-
-```r
-
-precip_indices(dat, timeseries = TRUE, intervals = 15)
-#> # A tibble: 4,380 x 6
-#>       id date         lon   lat index  value
-#>    <int> <date>     <dbl> <dbl> <chr>  <dbl>
-#>  1     1 2013-01-01 -55.0 -3.80 MLDS     7  
-#>  2     1 2013-01-01 -55.0 -3.80 MLWS     2  
-#>  3     1 2013-01-01 -55.0 -3.80 R10mm    1  
-#>  4     1 2013-01-01 -55.0 -3.80 R20mm    3  
-#>  5     1 2013-01-01 -55.0 -3.80 Rx1day  47.4
-#>  6     1 2013-01-01 -55.0 -3.80 Rx5day 103. 
-#>  7     1 2013-01-01 -55.0 -3.80 R95p     0  
-#>  8     1 2013-01-01 -55.0 -3.80 R99p     0  
-#>  9     1 2013-01-01 -55.0 -3.80 Rtotal 139. 
-#> 10     1 2013-01-01 -55.0 -3.80 SDII    27.8
-#> # … with 4,370 more rows
-```
 
 There are two main types of indices. Those that are expressed in days ("MLDS", "MLWS", "R10mm", "R20mm") and those that are expressed in mm ("R95p", "R99p", "Rx5day", "SDII"). We split these indices to visualise the time series.
 
@@ -161,7 +138,7 @@ The **chirps** package also retrieves the Evaporative Stress Index (ESI) using t
 
 ```r
 
-dat <- get_esi(tapajos, c("2016-05-01","2016-12-31"))
+dt <- get_esi(tp_point, c("2016-05-01","2016-12-31"))
 
 ```
 
@@ -205,23 +182,17 @@ get_chirps(tapajos, dates = c("2017-12-15","2017-12-31"), as.sf = TRUE)
 
 ```r
 
-library("sf")
+example("tapajos", package = "chirps")
 
-tapajos <- chirps:::tapajos
+dt <- get_esi(tp_geojson, dates, dist = 0.1)
 
-object <- chirps:::.sf_to_geojson(tapajos[1:2,])
-
-object <- unlist(object)
-
-class(object) <- c("geojson", "json", class(object))
-
-dates <- c("2018-01-01","2018-01-20")
-
-dat <- get_esi(object, dates, dist = 0.1)
-
-dat <- get_esi(object, dates, as.geojson = TRUE, dist = 0.1)
+dt <- get_esi(tp_geojson, dates, as.geojson = TRUE, dist = 0.1)
 
 ```
+
+# Limitations
+
+While **chirps** provides an API for reproducible analysis using CHIRPS data in R its functionalities has some limitations. The main limitation, is that the API provider [ClimateSERV](https://climateserv.servirglobal.net/) requires each location point to be requested individually. Let's say that you have 1000 points, to give you the data from your request **chirps** will send the call to the API provider 1000x, which may increase the time required to get the data in your R section. Before sending you request be aware that it can take several minutes for requests for a large timeseries (> 10 years) and large geographic coverage (global scale). 
 
 # References
 

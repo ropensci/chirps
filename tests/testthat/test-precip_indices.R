@@ -1,49 +1,64 @@
 context("test-precip_indices")
 
+# load("tests/test_data.rda")
+load("../test_data.rda")
+
+# Test the default behaviour
+values <- c(3, 1, 1, 0, 
+            18.51, 27.77, 18.51, 18.51, 
+            27.77, 13.88, 2, 1, 0, 2, 
+            38.35, 76.71, 0, 0, 76.71, 38.35)
+
 test_that("timespan FALSE", {
-  skip_on_cran()
-  lonlat <- data.frame(lon = c(-55.0281, -55.0714),
-                       lat = c(-2.8094, -3.5279))
   
-  dates <- c("2017-12-15", "2018-01-31")
+  p <- precip_indices(precip, timeseries = FALSE)
   
-  df <- get_chirps(lonlat, dates)
-  # take the indices for the entire period
-  p <- precip_indices(df, timeseries = FALSE)
-  d <- dim(p)
+  v <- round(p$value, 2)
   
-  expect_equal(d, c(20, 6))
+  equal <- all(v == values)
+  
+  expect_true(equal)
   
 })
 
+# The function can handle timeseries intervals
+# here it will return just one interval since we have only 5 days
+values2 <- c(3, 1, 0, 0, 9.26, 9.26, 9.26, 9.26, 9.26,
+             9.26, 1, 1, 0, 2, 38.35, 76.71, 0, 0, 76.71, 38.35)
 
 test_that("timespan TRUE", {
-  skip_on_cran()
-  # take the indices for the entire period
-  p <- precip_indices(df, timeseries = TRUE, intervals = 10)
-  d <- dim(p)
+
+  p <- precip_indices(precip, timeseries = TRUE, intervals = 4)
   
-  expect_equal(d, c(80, 6))
+  v <- round(p$value, 2)
+  
+  equal <- all(v == values2)
+  
+  expect_true(equal)
   
 })
 
+# The function can handle NAs
+values3 <- c(2, 1, 1, 0, 18.51, 27.77, 18.51, 18.51, 
+             27.77, 9.26, 2, 1, 0, 2, 38.35, 76.71, 0, 0, 76.71, 25.57)
 
 test_that("accepts NAs", {
-  skip_on_cran()
-  df2 <- df
   
-  df2[c(2, 7, 65, 78), "chirps"] <- NA
+  dt <- precip
   
-  # take the indices for the entire period
-  p <- precip_indices(df2)
+  dt[c(2, 7), "chirps"] <- NA
   
-  p <- all(!is.na(p$value))
+  p <- precip_indices(dt)
   
-  expect_true(p)
+  v <- round(p$value, 2)
+  
+  equal <- all(v == values3)
+  
+  expect_true(equal)
   
 })
 
-
+# Get an error with non chirps data
 test_that("non chirps data", {
   expect_error(precip_indices(object = airquality))
   

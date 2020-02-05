@@ -4,7 +4,7 @@ chirps 0.0.6 (2020-01-29)
 ### ENHANCEMENTS 
 
 * Comments/suggestions given by Claudia Vitolo in rOpenSci pkg review are added
-* `dataframe_to_geojson()`, `st_to_geojson()` are added as exported functions avoinding chirps:::
+* `dataframe_to_geojson()`, `sf_to_geojson()` are added as exported functions avoinding chirps:::
 * documentation for `tapajos` is given avoiding chirps:::
 
 ###

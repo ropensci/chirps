@@ -59,14 +59,22 @@ knitr::include_graphics("map.png")
 ```
 
 
-```{r get, message=FALSE, eval=TRUE, echo=TRUE}
+```{r get, message=FALSE, include=FALSE, eval=TRUE, echo=FALSE}
 library("chirps")
 library("sf")
 
 example("tapajos", package = "chirps")
 
 dt <- get_chirps(tp_point, dates = c("2013-01-01","2018-12-31"))
+```
 
+```{r get2, message=FALSE, eval=FALSE, echo=TRUE}
+library("chirps")
+library("sf")
+
+example("tapajos", package = "chirps")
+
+dt <- get_chirps(tp_point, dates = c("2013-01-01","2018-12-31"))
 ```
 
 
@@ -184,7 +192,7 @@ dt <- get_esi(tp_geojson, dates, as.geojson = TRUE, dist = 0.1)
 
 # Limitations
 
-While **chirps** provides an API for reproducible analysis using CHIRPS data in R, the API functionalities has some limitations. The main limitation, is that the API provider (ClimateSERV)[https://climateserv.servirglobal.net/] requires each location point to be requested at one. Let's say that you have 1000 points, to give you the data from your request **chirps** will send the call to the API provider 1000x, which may increase the time needed to get the data in your R section. 
+While **chirps** provides an API for reproducible analysis using CHIRPS data in R its functionalities has some limitations. The main limitation, is that the API provider [ClimateSERV](https://climateserv.servirglobal.net/) requires each location point to be requested individually. Let's say that you have 1000 points, to give you the data from your request **chirps** will send the call to the API provider 1000x, which may increase the time required to get the data in your R section. Before sending you request be aware that it can take several minutes for requests for a large timeseries (> 10 years) and large geographic coverage (global scale). 
 
 # References
 

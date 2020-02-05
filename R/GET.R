@@ -1,6 +1,6 @@
 #' General function to get data from ClimateSERV API
 #'
-#' @param object a list with geojson strings
+#' @param gjson a list with geojson strings
 #' @param dates a character of start and end dates in that order in 
 #' the format MM/DD/YYYY
 #' @param operation an integer that represents which type of statistical
@@ -18,21 +18,16 @@
 #'  <https://climateserv.readthedocs.io/en/latest/api.html>
 #' 
 #' @examples
-#' # random geographic locations around bbox(10, 12, 45, 57)
-#' set.seed(123)
-#' lonlat <- data.frame(lon = runif(3, 10, 12),
-#'                      lat = runif(3, 45, 57))
+#' example("tapajos", package = "chirps")
 #' 
 #' dates <- c("05/01/2017", "01/31/2018")
-#' 
-#' gjson <- chirps:::.dataframe_to_geojson(lonlat)
 #' 
 #' operation <- 5
 #' 
 #' datatype <- 29
 #' 
 #' chirps:::.GET(gjson, dates, operation, datatype)
-#' 
+#'  
 #'@noRd
 .GET <- function(gjson, dates, operation = NULL, datatype = NULL) {
   

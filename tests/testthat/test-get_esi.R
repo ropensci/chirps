@@ -1,88 +1,25 @@
 context("test-get_esi")
 
+# load("tests/test_data.rda")
+load("../test_data.rda")
+
+# Test if get_chirps fetch the correct values,
+# for this we downloaded two points from 
+# https://climateserv.servirglobal.net/
+# and will compare it with the values retrieved by get_chirps
+
+values <- c(NA, -1.89, -1.92, -2.12)
+
 # Test default method
-test_that("two or more points", {
+test_that("default method", {
   skip_on_cran()
-  set.seed(123)
-  lonlat <- data.frame(lon = runif(2, -55, -54),
-                       lat = runif(2, -3, -2.7))
   
-  dates <- c("2017-12-15", "2018-01-20")
+  x <- get_esi(lonlat, dates = c("2002-01-01", "2002-01-31"))
   
+  x <- round(x$esi, 2)
   
-  df <- get_esi(lonlat, dates)
+  equal <- all(x == values, na.rm = TRUE)
   
-  ok <- is.data.frame(df)
-  
-  expect_true(ok)
-  
-})
-
-
-test_that("one point and other operation works", {
-  skip_on_cran()
-  set.seed(123)
-  lonlat <- data.frame(lon = runif(1, -55, -54),
-                       lat = runif(1, -3, -2.7))
-  
-  dates <- c("2017-12-01", "2018-01-20")
-  
-  
-  df <- get_esi(lonlat, dates, dist = 0.5)
-  
-  ok <- is.data.frame(df)
-  
-  expect_true(ok)
-  
-})
-
-# Test S3 method for 'sf'
-test_that("sf method", {
-  skip_on_cran()
-  set.seed(123)
-  lonlat <- data.frame(lon = runif(2, -55, -54),
-                       lat = runif(2, -3, -2.7))
-  
-  lonlat <- st_as_sf(lonlat, coords = c("lon", "lat"))
-  
-  dates <- c("2017-12-15", "2018-01-20")
-  
-  df <- get_esi(lonlat, dates)
-  
-  ok <- is.data.frame(df)
-  
-  expect_true(ok)
-  
-})
-
-test_that("sf method returns an sf object", {
-  skip_on_cran()
-  set.seed(123)
-  lonlat <- data.frame(lon = runif(2, -55, -54),
-                       lat = runif(2, -3, -2.7))
-  
-  lonlat <- st_as_sf(lonlat, coords = c("lon", "lat"))
-  
-  dates <- c("2017-12-15", "2018-01-20")
-  
-  df <- get_esi(lonlat, dates, as.sf = TRUE)
-  
-  ok <- "sf" %in% class(df)
-  
-  expect_true(ok)
-  
-})
-
-
-
-# Test errors
-test_that("cloudy data, need to increase buffer", {
-  set.seed(123)
-  lonlat <- data.frame(lon = runif(1, -55, -54),
-                       lat = runif(1, -3, -2.7))
-  
-  dates <- c("2017-12-01", "2018-01-20")
-  
-  expect_error(get_esi(lonlat, dates))
+  expect_true(equal)
   
 })
