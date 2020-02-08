@@ -13,7 +13,6 @@ Authors@R: c(person("Kaue", "de Sousa",
         comment = c(ORCID = "0000-0001-7554-2558")),
         person("Svein", "Solberg", role = c("ths"),
         comment = c(ORCID = "0000-0002-4491-4483")))
-Maintainer: Kaue de Sousa <kaue.desousa@inn.no>
 URL: https://agrobioinfoservices.github.io/chirps/
 BugReports: https://github.com/agrobioinfoservices/chirps/issues
 Description: API Client for the Climate Hazards Group InfraRed Precipitation
