@@ -9,17 +9,19 @@ load("../test_data.rda")
 # and will compare it with the values retrieved by get_chirps
 
 # Test default method
+
 test_that("default method", {
-  skip_on_cran()
-
-  x <- get_chirps(lonlat, dates)
-  
-  x <- round(x$chirps, 2)
-
-  equal <- all(x == chirps$chirps)
-  
-  expect_true(equal)
+  vcr::use_cassette("default_method", {
+    skip_on_cran()
     
+    x <- get_chirps(lonlat, dates)
+    
+    x <- round(x$chirps, 2)
+    
+    equal <- all(x == chirps$chirps)
+    
+    expect_true(equal)
+  })
 })
 
 library("sf")
