@@ -35,7 +35,7 @@ affiliations:
   - name: Universities Space Research Association, National Aeronautics and Space Administration (NASA), Huntsville, USA
     index: 4
 citation_author: de Sousa et. al.
-date: "05 February 2020"
+date: "06 February 2020"
 year: 2020
 bibliography: paper.bib
 output: rticles::joss_article

@@ -1,18 +1,12 @@
 # chirps
 
 <!-- badges: start -->
-[![CRAN
-status](https://www.r-pkg.org/badges/version/chirps)](https://cran.r-project.org/package=chirps)
-[![AppVeyor Build
-Status](https://ci.appveyor.com/api/projects/status/github/agrobioinfoservices/chirps?branch=master&svg=true)](https://ci.appveyor.com/project/kauedesousa/chirps)
-[![Build
-Status](https://travis-ci.org/agrobioinfoservices/chirps.svg?branch=master)](https://travis-ci.org/agrobioinfoservices/chirps)
+[![peer-review](https://badges.ropensci.org/360_status.svg)](https://github.com/ropensci/software-review/issues/357)
+[![CRAN status](https://www.r-pkg.org/badges/version/chirps)](https://cran.r-project.org/package=chirps)
+[![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/agrobioinfoservices/chirps?branch=master&svg=true)](https://ci.appveyor.com/project/kauedesousa/chirps)
+[![Build Status](https://travis-ci.org/agrobioinfoservices/chirps.svg?branch=master)](https://travis-ci.org/agrobioinfoservices/chirps)
 [![codecov](https://codecov.io/gh/agrobioinfoservices/chirps/master.svg)](https://codecov.io/github/agrobioinfoservices/chirps?branch=master)
-[![GPLv3
-license](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.r-project.org/Licenses/GPL-3)
-[![Project Status: Active – The project has reached a stable, usable
-state and is being actively
-developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
+[![Project Status](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
 <!-- badges: end -->
 
 # *chirps*: API Client for CHIRPS <img align="right" src="man/figures/logo.png">
