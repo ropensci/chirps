@@ -16,7 +16,7 @@ http_interactions:
       explanation: Request fulfilled, document follows
     headers:
       status: HTTP/1.1 200 OK
-      date: Fri, 28 Feb 2020 22:15:11 GMT
+      date: Fri, 28 Feb 2020 22:26:47 GMT
       server: Apache/2.4.18 (Ubuntu)
       strict-transport-security: max-age=63072000; includeSubdomains
       x-frame-options: DENY
@@ -31,11 +31,11 @@ http_interactions:
       file: no
       string: '["Datatype not supported", "Error with begintime", "Error with endtime",
         "Error with intervaltype", "problem decoding geometry ", "Error with operationtype"]'
-  recorded_at: 2020-02-28 22:15:21 GMT
+  recorded_at: 2020-02-28 22:26:57 GMT
   recorded_with: vcr/0.4.2.94, webmockr/0.5.1.98
 - request:
     method: get
-    uri: https://climateserv.servirglobal.net/chirps/submitDataRequest/?datatype=0&begintime=01%2F01%2F2000&endtime=01%2F05%2F2000&intervaltype=0&operationtype=5&callback=successCallback&dateType_Category=default&isZip_CurrentDataType=false&geometry=%7B%22type%22%3A%22Feature%22%2C%22properties%22%3A%7B%7D%2C%22geometry%22%3A%7B%22type%22%3A%22Polygon%22%2C%22coordinates%22%3A%5B%5B%5B-60.03946%2C-3.031387%5D%2C%5B-60.039462928932188%2C-3.031394071067812%5D%2C%5B-60.03947%2C-3.031397%5D%2C%5B-60.039477071067815%2C-3.031394071067812%5D%2C%5B-60.03948%2C-3.031387%5D%2C%5B-60.039477071067815%2C-3.031379928932188%5D%2C%5B-60.03947%2C-3.031377%5D%2C%5B-60.039462928932188%2C-3.031379928932188%5D%2C%5B-60.03946%2C-3.031387%5D%5D%5D%7D%7D
+    uri: https://climateserv.servirglobal.net/chirps/submitDataRequest/?datatype=29&begintime=01%2F01%2F2002&endtime=01%2F31%2F2002&intervaltype=0&operationtype=5&callback=successCallback&dateType_Category=default&isZip_CurrentDataType=false&geometry=%7B%22type%22%3A%22Feature%22%2C%22properties%22%3A%7B%7D%2C%22geometry%22%3A%7B%22type%22%3A%22Polygon%22%2C%22coordinates%22%3A%5B%5B%5B-60.03946%2C-3.031387%5D%2C%5B-60.039462928932188%2C-3.031394071067812%5D%2C%5B-60.03947%2C-3.031397%5D%2C%5B-60.039477071067815%2C-3.031394071067812%5D%2C%5B-60.03948%2C-3.031387%5D%2C%5B-60.039477071067815%2C-3.031379928932188%5D%2C%5B-60.03947%2C-3.031377%5D%2C%5B-60.039462928932188%2C-3.031379928932188%5D%2C%5B-60.03946%2C-3.031387%5D%5D%5D%7D%7D
     body:
       encoding: ''
       string: ''
@@ -50,7 +50,7 @@ http_interactions:
       explanation: Request fulfilled, document follows
     headers:
       status: HTTP/1.1 200 OK
-      date: Fri, 28 Feb 2020 22:15:12 GMT
+      date: Fri, 28 Feb 2020 22:26:47 GMT
       server: Apache/2.4.18 (Ubuntu)
       strict-transport-security: max-age=63072000; includeSubdomains
       x-frame-options: DENY
@@ -62,8 +62,8 @@ http_interactions:
     body:
       encoding: UTF-8
       file: no
-      string: successCallback(["d0dc6842-5d86-4c3a-97f0-d7ff51de34a8"])
-  recorded_at: 2020-02-28 22:15:21 GMT
+      string: successCallback(["676a574d-4915-4b89-abf5-30dfbc55fa6b"])
+  recorded_at: 2020-02-28 22:26:57 GMT
   recorded_with: vcr/0.4.2.94, webmockr/0.5.1.98
 - request:
     method: get
@@ -82,7 +82,7 @@ http_interactions:
       explanation: Request fulfilled, document follows
     headers:
       status: HTTP/1.1 200 OK
-      date: Fri, 28 Feb 2020 22:15:13 GMT
+      date: Fri, 28 Feb 2020 22:26:48 GMT
       server: Apache/2.4.18 (Ubuntu)
       strict-transport-security: max-age=63072000; includeSubdomains
       x-frame-options: DENY
@@ -97,11 +97,11 @@ http_interactions:
       file: no
       string: '["Datatype not supported", "Error with begintime", "Error with endtime",
         "Error with intervaltype", "problem decoding geometry ", "Error with operationtype"]'
-  recorded_at: 2020-02-28 22:15:21 GMT
+  recorded_at: 2020-02-28 22:26:57 GMT
   recorded_with: vcr/0.4.2.94, webmockr/0.5.1.98
 - request:
     method: get
-    uri: https://climateserv.servirglobal.net/chirps/submitDataRequest/?datatype=0&begintime=01%2F01%2F2000&endtime=01%2F05%2F2000&intervaltype=0&operationtype=5&callback=successCallback&dateType_Category=default&isZip_CurrentDataType=false&geometry=%7B%22type%22%3A%22Feature%22%2C%22properties%22%3A%7B%7D%2C%22geometry%22%3A%7B%22type%22%3A%22Polygon%22%2C%22coordinates%22%3A%5B%5B%5B-54.7838728%2C-2.4221716%5D%2C%5B-54.783875728932188%2C-2.422178671067812%5D%2C%5B-54.7838828%2C-2.4221816%5D%2C%5B-54.783889871067814%2C-2.422178671067812%5D%2C%5B-54.7838928%2C-2.4221716%5D%2C%5B-54.783889871067814%2C-2.422164528932188%5D%2C%5B-54.7838828%2C-2.4221616%5D%2C%5B-54.783875728932188%2C-2.422164528932188%5D%2C%5B-54.7838728%2C-2.4221716%5D%5D%5D%7D%7D
+    uri: https://climateserv.servirglobal.net/chirps/submitDataRequest/?datatype=29&begintime=01%2F01%2F2002&endtime=01%2F31%2F2002&intervaltype=0&operationtype=5&callback=successCallback&dateType_Category=default&isZip_CurrentDataType=false&geometry=%7B%22type%22%3A%22Feature%22%2C%22properties%22%3A%7B%7D%2C%22geometry%22%3A%7B%22type%22%3A%22Polygon%22%2C%22coordinates%22%3A%5B%5B%5B-54.7838728%2C-2.4221716%5D%2C%5B-54.783875728932188%2C-2.422178671067812%5D%2C%5B-54.7838828%2C-2.4221816%5D%2C%5B-54.783889871067814%2C-2.422178671067812%5D%2C%5B-54.7838928%2C-2.4221716%5D%2C%5B-54.783889871067814%2C-2.422164528932188%5D%2C%5B-54.7838828%2C-2.4221616%5D%2C%5B-54.783875728932188%2C-2.422164528932188%5D%2C%5B-54.7838728%2C-2.4221716%5D%5D%5D%7D%7D
     body:
       encoding: ''
       string: ''
@@ -116,7 +116,7 @@ http_interactions:
       explanation: Request fulfilled, document follows
     headers:
       status: HTTP/1.1 200 OK
-      date: Fri, 28 Feb 2020 22:15:14 GMT
+      date: Fri, 28 Feb 2020 22:26:49 GMT
       server: Apache/2.4.18 (Ubuntu)
       strict-transport-security: max-age=63072000; includeSubdomains
       x-frame-options: DENY
@@ -128,8 +128,8 @@ http_interactions:
     body:
       encoding: UTF-8
       file: no
-      string: successCallback(["aa15ca8d-8ec7-4498-b9bf-f9febcfd9e94"])
-  recorded_at: 2020-02-28 22:15:21 GMT
+      string: successCallback(["c4da5a22-2cad-44b6-b1b5-0df577d82458"])
+  recorded_at: 2020-02-28 22:26:57 GMT
   recorded_with: vcr/0.4.2.94, webmockr/0.5.1.98
 - request:
     method: get
@@ -148,7 +148,7 @@ http_interactions:
       explanation: Server got itself in trouble
     headers:
       status: HTTP/1.1 500 Internal Server Error
-      date: Fri, 28 Feb 2020 22:15:14 GMT
+      date: Fri, 28 Feb 2020 22:26:50 GMT
       server: Apache/2.4.18 (Ubuntu)
       strict-transport-security: max-age=63072000; includeSubdomains
       x-frame-options: DENY
@@ -246,47 +246,47 @@ http_interactions:
         &#39;/usr/lib/python2.7/lib-dynload&#39;,\n &#39;/usr/local/lib/python2.7/dist-packages&#39;,\n
         &#39;/usr/lib/python2.7/dist-packages&#39;,\n &#39;/data/data/cserv/pythonCode/serviringest&#39;]</pre></td>\n
         \   </tr>\n    <tr>\n      <th>Server time:</th>\n      <td>Fri, 28 Feb 2020
-        16:15:14 -0600</td>\n    </tr>\n  </table>\n</div>\n\n\n\n\n<div id=\"traceback\">\n
+        16:26:50 -0600</td>\n    </tr>\n  </table>\n</div>\n\n\n\n\n<div id=\"traceback\">\n
         \ <h2>Traceback <span class=\"commands\"><a href=\"#\" onclick=\"return switchPastebinFriendly(this);\">\n
         \   Switch to copy-and-paste view</a></span>\n  </h2>\n  \n  <div id=\"browserTraceback\">\n
         \   <ul class=\"traceback\">\n      \n        \n        <li class=\"frame
         django\">\n          <code>/usr/local/lib/python2.7/dist-packages/django/core/handlers/exception.py</code>
-        in <code>inner</code>\n\n          \n            <div class=\"context\" id=\"c140686178931920\">\n
-        \             \n                <ol start=\"34\" class=\"pre-context\" id=\"pre140686178931920\">\n
-        \               \n                  <li onclick=\"toggle('pre140686178931920',
-        'post140686178931920')\"><pre>    This decorator is automatically applied
+        in <code>inner</code>\n\n          \n            <div class=\"context\" id=\"c140686176843824\">\n
+        \             \n                <ol start=\"34\" class=\"pre-context\" id=\"pre140686176843824\">\n
+        \               \n                  <li onclick=\"toggle('pre140686176843824',
+        'post140686176843824')\"><pre>    This decorator is automatically applied
         to all middleware to ensure that</pre></li>\n                \n                  <li
-        onclick=\"toggle('pre140686178931920', 'post140686178931920')\"><pre>    no
+        onclick=\"toggle('pre140686176843824', 'post140686176843824')\"><pre>    no
         middleware leaks an exception and that the next middleware in the stack</pre></li>\n
-        \               \n                  <li onclick=\"toggle('pre140686178931920',
-        'post140686178931920')\"><pre>    can rely on getting a response instead of
-        an exception.</pre></li>\n                \n                  <li onclick=\"toggle('pre140686178931920',
-        'post140686178931920')\"><pre>    &quot;&quot;&quot;</pre></li>\n                \n
-        \                 <li onclick=\"toggle('pre140686178931920', 'post140686178931920')\"><pre>
+        \               \n                  <li onclick=\"toggle('pre140686176843824',
+        'post140686176843824')\"><pre>    can rely on getting a response instead of
+        an exception.</pre></li>\n                \n                  <li onclick=\"toggle('pre140686176843824',
+        'post140686176843824')\"><pre>    &quot;&quot;&quot;</pre></li>\n                \n
+        \                 <li onclick=\"toggle('pre140686176843824', 'post140686176843824')\"><pre>
         \   @wraps(get_response, assigned=available_attrs(get_response))</pre></li>\n
-        \               \n                  <li onclick=\"toggle('pre140686178931920',
-        'post140686178931920')\"><pre>    def inner(request):</pre></li>\n                \n
-        \                 <li onclick=\"toggle('pre140686178931920', 'post140686178931920')\"><pre>
+        \               \n                  <li onclick=\"toggle('pre140686176843824',
+        'post140686176843824')\"><pre>    def inner(request):</pre></li>\n                \n
+        \                 <li onclick=\"toggle('pre140686176843824', 'post140686176843824')\"><pre>
         \       try:</pre></li>\n                \n                </ol>\n              \n
         \             <ol start=\"41\" class=\"context-line\">\n                <li
-        onclick=\"toggle('pre140686178931920', 'post140686178931920')\"><pre>\n            response
+        onclick=\"toggle('pre140686176843824', 'post140686176843824')\"><pre>\n            response
         = get_response(request)</pre> <span>...</span></li></ol>\n              \n
-        \               <ol start='42' class=\"post-context\" id=\"post140686178931920\">\n
-        \                 \n                  <li onclick=\"toggle('pre140686178931920',
-        'post140686178931920')\"><pre>        except Exception as exc:</pre></li>\n
-        \                 \n                  <li onclick=\"toggle('pre140686178931920',
-        'post140686178931920')\"><pre>            response = response_for_exception(request,
-        exc)</pre></li>\n                  \n                  <li onclick=\"toggle('pre140686178931920',
-        'post140686178931920')\"><pre>        return response</pre></li>\n                  \n
-        \                 <li onclick=\"toggle('pre140686178931920', 'post140686178931920')\"><pre>
-        \   return inner</pre></li>\n                  \n                  <li onclick=\"toggle('pre140686178931920',
-        'post140686178931920')\"><pre></pre></li>\n                  \n                  <li
-        onclick=\"toggle('pre140686178931920', 'post140686178931920')\"><pre></pre></li>\n
+        \               <ol start='42' class=\"post-context\" id=\"post140686176843824\">\n
+        \                 \n                  <li onclick=\"toggle('pre140686176843824',
+        'post140686176843824')\"><pre>        except Exception as exc:</pre></li>\n
+        \                 \n                  <li onclick=\"toggle('pre140686176843824',
+        'post140686176843824')\"><pre>            response = response_for_exception(request,
+        exc)</pre></li>\n                  \n                  <li onclick=\"toggle('pre140686176843824',
+        'post140686176843824')\"><pre>        return response</pre></li>\n                  \n
+        \                 <li onclick=\"toggle('pre140686176843824', 'post140686176843824')\"><pre>
+        \   return inner</pre></li>\n                  \n                  <li onclick=\"toggle('pre140686176843824',
+        'post140686176843824')\"><pre></pre></li>\n                  \n                  <li
+        onclick=\"toggle('pre140686176843824', 'post140686176843824')\"><pre></pre></li>\n
         \                 \n              </ol>\n              \n            </div>\n
         \         \n\n          \n            <div class=\"commands\">\n                \n
-        \                   <a href=\"#\" onclick=\"return varToggle(this, '140686178931920')\"><span>&#x25b6;</span>
+        \                   <a href=\"#\" onclick=\"return varToggle(this, '140686176843824')\"><span>&#x25b6;</span>
         Local vars</a>\n                \n            </div>\n            <table class=\"vars\"
-        id=\"v140686178931920\">\n              <thead>\n                <tr>\n                  <th>Variable</th>\n
+        id=\"v140686176843824\">\n              <thead>\n                <tr>\n                  <th>Variable</th>\n
         \                 <th>Value</th>\n                </tr>\n              </thead>\n
         \             <tbody>\n                \n                  <tr>\n                    <td>exc</td>\n
         \                   <td class=\"code\"><pre>AttributeError(&quot;&#39;MultiValueDictKeyError&#39;
@@ -300,32 +300,32 @@ http_interactions:
         \         \n        </li>\n      \n        \n        <li class=\"frame django\">\n
         \         <code>/usr/local/lib/python2.7/dist-packages/django/core/handlers/base.py</code>
         in <code>_legacy_get_response</code>\n\n          \n            <div class=\"context\"
-        id=\"c140686178934512\">\n              \n                <ol start=\"242\"
-        class=\"pre-context\" id=\"pre140686178934512\">\n                \n                  <li
-        onclick=\"toggle('pre140686178934512', 'post140686178934512')\"><pre>        #
+        id=\"c140686176843680\">\n              \n                <ol start=\"242\"
+        class=\"pre-context\" id=\"pre140686176843680\">\n                \n                  <li
+        onclick=\"toggle('pre140686176843680', 'post140686176843680')\"><pre>        #
         Apply request middleware</pre></li>\n                \n                  <li
-        onclick=\"toggle('pre140686178934512', 'post140686178934512')\"><pre>        for
+        onclick=\"toggle('pre140686176843680', 'post140686176843680')\"><pre>        for
         middleware_method in self._request_middleware:</pre></li>\n                \n
-        \                 <li onclick=\"toggle('pre140686178934512', 'post140686178934512')\"><pre>
+        \                 <li onclick=\"toggle('pre140686176843680', 'post140686176843680')\"><pre>
         \           response = middleware_method(request)</pre></li>\n                \n
-        \                 <li onclick=\"toggle('pre140686178934512', 'post140686178934512')\"><pre>
+        \                 <li onclick=\"toggle('pre140686176843680', 'post140686176843680')\"><pre>
         \           if response:</pre></li>\n                \n                  <li
-        onclick=\"toggle('pre140686178934512', 'post140686178934512')\"><pre>                break</pre></li>\n
-        \               \n                  <li onclick=\"toggle('pre140686178934512',
-        'post140686178934512')\"><pre></pre></li>\n                \n                  <li
-        onclick=\"toggle('pre140686178934512', 'post140686178934512')\"><pre>        if
+        onclick=\"toggle('pre140686176843680', 'post140686176843680')\"><pre>                break</pre></li>\n
+        \               \n                  <li onclick=\"toggle('pre140686176843680',
+        'post140686176843680')\"><pre></pre></li>\n                \n                  <li
+        onclick=\"toggle('pre140686176843680', 'post140686176843680')\"><pre>        if
         response is None:</pre></li>\n                \n                </ol>\n              \n
         \             <ol start=\"249\" class=\"context-line\">\n                <li
-        onclick=\"toggle('pre140686178934512', 'post140686178934512')\"><pre>\n            response
+        onclick=\"toggle('pre140686176843680', 'post140686176843680')\"><pre>\n            response
         = self._get_response(request)</pre> <span>...</span></li></ol>\n              \n
-        \               <ol start='250' class=\"post-context\" id=\"post140686178934512\">\n
-        \                 \n                  <li onclick=\"toggle('pre140686178934512',
-        'post140686178934512')\"><pre>        return response</pre></li>\n                  \n
+        \               <ol start='250' class=\"post-context\" id=\"post140686176843680\">\n
+        \                 \n                  <li onclick=\"toggle('pre140686176843680',
+        'post140686176843680')\"><pre>        return response</pre></li>\n                  \n
         \             </ol>\n              \n            </div>\n          \n\n          \n
         \           <div class=\"commands\">\n                \n                    <a
-        href=\"#\" onclick=\"return varToggle(this, '140686178934512')\"><span>&#x25b6;</span>
+        href=\"#\" onclick=\"return varToggle(this, '140686176843680')\"><span>&#x25b6;</span>
         Local vars</a>\n                \n            </div>\n            <table class=\"vars\"
-        id=\"v140686178934512\">\n              <thead>\n                <tr>\n                  <th>Variable</th>\n
+        id=\"v140686176843680\">\n              <thead>\n                <tr>\n                  <th>Variable</th>\n
         \                 <th>Value</th>\n                </tr>\n              </thead>\n
         \             <tbody>\n                \n                  <tr>\n                    <td>middleware_method</td>\n
         \                   <td class=\"code\"><pre>&lt;bound method MessageMiddleware.process_request
@@ -340,41 +340,41 @@ http_interactions:
         \             </tbody>\n            </table>\n          \n        </li>\n
         \     \n        \n        <li class=\"frame django\">\n          <code>/usr/local/lib/python2.7/dist-packages/django/core/handlers/base.py</code>
         in <code>_get_response</code>\n\n          \n            <div class=\"context\"
-        id=\"c140686178934296\">\n              \n                <ol start=\"180\"
-        class=\"pre-context\" id=\"pre140686178934296\">\n                \n                  <li
-        onclick=\"toggle('pre140686178934296', 'post140686178934296')\"><pre>                break</pre></li>\n
-        \               \n                  <li onclick=\"toggle('pre140686178934296',
-        'post140686178934296')\"><pre></pre></li>\n                \n                  <li
-        onclick=\"toggle('pre140686178934296', 'post140686178934296')\"><pre>        if
-        response is None:</pre></li>\n                \n                  <li onclick=\"toggle('pre140686178934296',
-        'post140686178934296')\"><pre>            wrapped_callback = self.make_view_atomic(callback)</pre></li>\n
-        \               \n                  <li onclick=\"toggle('pre140686178934296',
-        'post140686178934296')\"><pre>            try:</pre></li>\n                \n
-        \                 <li onclick=\"toggle('pre140686178934296', 'post140686178934296')\"><pre>
+        id=\"c140686176842672\">\n              \n                <ol start=\"180\"
+        class=\"pre-context\" id=\"pre140686176842672\">\n                \n                  <li
+        onclick=\"toggle('pre140686176842672', 'post140686176842672')\"><pre>                break</pre></li>\n
+        \               \n                  <li onclick=\"toggle('pre140686176842672',
+        'post140686176842672')\"><pre></pre></li>\n                \n                  <li
+        onclick=\"toggle('pre140686176842672', 'post140686176842672')\"><pre>        if
+        response is None:</pre></li>\n                \n                  <li onclick=\"toggle('pre140686176842672',
+        'post140686176842672')\"><pre>            wrapped_callback = self.make_view_atomic(callback)</pre></li>\n
+        \               \n                  <li onclick=\"toggle('pre140686176842672',
+        'post140686176842672')\"><pre>            try:</pre></li>\n                \n
+        \                 <li onclick=\"toggle('pre140686176842672', 'post140686176842672')\"><pre>
         \               response = wrapped_callback(request, *callback_args, **callback_kwargs)</pre></li>\n
-        \               \n                  <li onclick=\"toggle('pre140686178934296',
-        'post140686178934296')\"><pre>            except Exception as e:</pre></li>\n
+        \               \n                  <li onclick=\"toggle('pre140686176842672',
+        'post140686176842672')\"><pre>            except Exception as e:</pre></li>\n
         \               \n                </ol>\n              \n              <ol
-        start=\"187\" class=\"context-line\">\n                <li onclick=\"toggle('pre140686178934296',
-        'post140686178934296')\"><pre>\n                response = self.process_exception_by_middleware(e,
+        start=\"187\" class=\"context-line\">\n                <li onclick=\"toggle('pre140686176842672',
+        'post140686176842672')\"><pre>\n                response = self.process_exception_by_middleware(e,
         request)</pre> <span>...</span></li></ol>\n              \n                <ol
-        start='188' class=\"post-context\" id=\"post140686178934296\">\n                  \n
-        \                 <li onclick=\"toggle('pre140686178934296', 'post140686178934296')\"><pre></pre></li>\n
-        \                 \n                  <li onclick=\"toggle('pre140686178934296',
-        'post140686178934296')\"><pre>        # Complain if the view returned None
-        (a common error).</pre></li>\n                  \n                  <li onclick=\"toggle('pre140686178934296',
-        'post140686178934296')\"><pre>        if response is None:</pre></li>\n                  \n
-        \                 <li onclick=\"toggle('pre140686178934296', 'post140686178934296')\"><pre>
+        start='188' class=\"post-context\" id=\"post140686176842672\">\n                  \n
+        \                 <li onclick=\"toggle('pre140686176842672', 'post140686176842672')\"><pre></pre></li>\n
+        \                 \n                  <li onclick=\"toggle('pre140686176842672',
+        'post140686176842672')\"><pre>        # Complain if the view returned None
+        (a common error).</pre></li>\n                  \n                  <li onclick=\"toggle('pre140686176842672',
+        'post140686176842672')\"><pre>        if response is None:</pre></li>\n                  \n
+        \                 <li onclick=\"toggle('pre140686176842672', 'post140686176842672')\"><pre>
         \           if isinstance(callback, types.FunctionType):    # FBV</pre></li>\n
-        \                 \n                  <li onclick=\"toggle('pre140686178934296',
-        'post140686178934296')\"><pre>                view_name = callback.__name__</pre></li>\n
-        \                 \n                  <li onclick=\"toggle('pre140686178934296',
-        'post140686178934296')\"><pre>            else:                                           #
+        \                 \n                  <li onclick=\"toggle('pre140686176842672',
+        'post140686176842672')\"><pre>                view_name = callback.__name__</pre></li>\n
+        \                 \n                  <li onclick=\"toggle('pre140686176842672',
+        'post140686176842672')\"><pre>            else:                                           #
         CBV</pre></li>\n                  \n              </ol>\n              \n
         \           </div>\n          \n\n          \n            <div class=\"commands\">\n
         \               \n                    <a href=\"#\" onclick=\"return varToggle(this,
-        '140686178934296')\"><span>&#x25b6;</span> Local vars</a>\n                \n
-        \           </div>\n            <table class=\"vars\" id=\"v140686178934296\">\n
+        '140686176842672')\"><span>&#x25b6;</span> Local vars</a>\n                \n
+        \           </div>\n            <table class=\"vars\" id=\"v140686176842672\">\n
         \             <thead>\n                <tr>\n                  <th>Variable</th>\n
         \                 <th>Value</th>\n                </tr>\n              </thead>\n
         \             <tbody>\n                \n                  <tr>\n                    <td>callback</td>\n
@@ -409,42 +409,42 @@ http_interactions:
         \         \n        </li>\n      \n        \n        <li class=\"frame django\">\n
         \         <code>/usr/local/lib/python2.7/dist-packages/django/core/handlers/base.py</code>
         in <code>_get_response</code>\n\n          \n            <div class=\"context\"
-        id=\"c140686178933360\">\n              \n                <ol start=\"178\"
-        class=\"pre-context\" id=\"pre140686178933360\">\n                \n                  <li
-        onclick=\"toggle('pre140686178933360', 'post140686178933360')\"><pre>            response
+        id=\"c140686176842744\">\n              \n                <ol start=\"178\"
+        class=\"pre-context\" id=\"pre140686176842744\">\n                \n                  <li
+        onclick=\"toggle('pre140686176842744', 'post140686176842744')\"><pre>            response
         = middleware_method(request, callback, callback_args, callback_kwargs)</pre></li>\n
-        \               \n                  <li onclick=\"toggle('pre140686178933360',
-        'post140686178933360')\"><pre>            if response:</pre></li>\n                \n
-        \                 <li onclick=\"toggle('pre140686178933360', 'post140686178933360')\"><pre>
+        \               \n                  <li onclick=\"toggle('pre140686176842744',
+        'post140686176842744')\"><pre>            if response:</pre></li>\n                \n
+        \                 <li onclick=\"toggle('pre140686176842744', 'post140686176842744')\"><pre>
         \               break</pre></li>\n                \n                  <li
-        onclick=\"toggle('pre140686178933360', 'post140686178933360')\"><pre></pre></li>\n
-        \               \n                  <li onclick=\"toggle('pre140686178933360',
-        'post140686178933360')\"><pre>        if response is None:</pre></li>\n                \n
-        \                 <li onclick=\"toggle('pre140686178933360', 'post140686178933360')\"><pre>
+        onclick=\"toggle('pre140686176842744', 'post140686176842744')\"><pre></pre></li>\n
+        \               \n                  <li onclick=\"toggle('pre140686176842744',
+        'post140686176842744')\"><pre>        if response is None:</pre></li>\n                \n
+        \                 <li onclick=\"toggle('pre140686176842744', 'post140686176842744')\"><pre>
         \           wrapped_callback = self.make_view_atomic(callback)</pre></li>\n
-        \               \n                  <li onclick=\"toggle('pre140686178933360',
-        'post140686178933360')\"><pre>            try:</pre></li>\n                \n
+        \               \n                  <li onclick=\"toggle('pre140686176842744',
+        'post140686176842744')\"><pre>            try:</pre></li>\n                \n
         \               </ol>\n              \n              <ol start=\"185\" class=\"context-line\">\n
-        \               <li onclick=\"toggle('pre140686178933360', 'post140686178933360')\"><pre>\n
+        \               <li onclick=\"toggle('pre140686176842744', 'post140686176842744')\"><pre>\n
         \               response = wrapped_callback(request, *callback_args, **callback_kwargs)</pre>
         <span>...</span></li></ol>\n              \n                <ol start='186'
-        class=\"post-context\" id=\"post140686178933360\">\n                  \n                  <li
-        onclick=\"toggle('pre140686178933360', 'post140686178933360')\"><pre>            except
-        Exception as e:</pre></li>\n                  \n                  <li onclick=\"toggle('pre140686178933360',
-        'post140686178933360')\"><pre>                response = self.process_exception_by_middleware(e,
-        request)</pre></li>\n                  \n                  <li onclick=\"toggle('pre140686178933360',
-        'post140686178933360')\"><pre></pre></li>\n                  \n                  <li
-        onclick=\"toggle('pre140686178933360', 'post140686178933360')\"><pre>        #
+        class=\"post-context\" id=\"post140686176842744\">\n                  \n                  <li
+        onclick=\"toggle('pre140686176842744', 'post140686176842744')\"><pre>            except
+        Exception as e:</pre></li>\n                  \n                  <li onclick=\"toggle('pre140686176842744',
+        'post140686176842744')\"><pre>                response = self.process_exception_by_middleware(e,
+        request)</pre></li>\n                  \n                  <li onclick=\"toggle('pre140686176842744',
+        'post140686176842744')\"><pre></pre></li>\n                  \n                  <li
+        onclick=\"toggle('pre140686176842744', 'post140686176842744')\"><pre>        #
         Complain if the view returned None (a common error).</pre></li>\n                  \n
-        \                 <li onclick=\"toggle('pre140686178933360', 'post140686178933360')\"><pre>
+        \                 <li onclick=\"toggle('pre140686176842744', 'post140686176842744')\"><pre>
         \       if response is None:</pre></li>\n                  \n                  <li
-        onclick=\"toggle('pre140686178933360', 'post140686178933360')\"><pre>            if
+        onclick=\"toggle('pre140686176842744', 'post140686176842744')\"><pre>            if
         isinstance(callback, types.FunctionType):    # FBV</pre></li>\n                  \n
         \             </ol>\n              \n            </div>\n          \n\n          \n
         \           <div class=\"commands\">\n                \n                    <a
-        href=\"#\" onclick=\"return varToggle(this, '140686178933360')\"><span>&#x25b6;</span>
+        href=\"#\" onclick=\"return varToggle(this, '140686176842744')\"><span>&#x25b6;</span>
         Local vars</a>\n                \n            </div>\n            <table class=\"vars\"
-        id=\"v140686178933360\">\n              <thead>\n                <tr>\n                  <th>Variable</th>\n
+        id=\"v140686176842744\">\n              <thead>\n                <tr>\n                  <th>Variable</th>\n
         \                 <th>Value</th>\n                </tr>\n              </thead>\n
         \             <tbody>\n                \n                  <tr>\n                    <td>callback</td>\n
         \                   <td class=\"code\"><pre>&lt;function getDataRequestProgress
@@ -478,35 +478,35 @@ http_interactions:
         \         \n        </li>\n      \n        \n        <li class=\"frame django\">\n
         \         <code>/usr/local/lib/python2.7/dist-packages/django/views/decorators/csrf.py</code>
         in <code>wrapped_view</code>\n\n          \n            <div class=\"context\"
-        id=\"c140686178931056\">\n              \n                <ol start=\"51\"
-        class=\"pre-context\" id=\"pre140686178931056\">\n                \n                  <li
-        onclick=\"toggle('pre140686178931056', 'post140686178931056')\"><pre>    &quot;&quot;&quot;</pre></li>\n
-        \               \n                  <li onclick=\"toggle('pre140686178931056',
-        'post140686178931056')\"><pre>    Marks a view function as being exempt from
+        id=\"c140686176842384\">\n              \n                <ol start=\"51\"
+        class=\"pre-context\" id=\"pre140686176842384\">\n                \n                  <li
+        onclick=\"toggle('pre140686176842384', 'post140686176842384')\"><pre>    &quot;&quot;&quot;</pre></li>\n
+        \               \n                  <li onclick=\"toggle('pre140686176842384',
+        'post140686176842384')\"><pre>    Marks a view function as being exempt from
         the CSRF view protection.</pre></li>\n                \n                  <li
-        onclick=\"toggle('pre140686178931056', 'post140686178931056')\"><pre>    &quot;&quot;&quot;</pre></li>\n
-        \               \n                  <li onclick=\"toggle('pre140686178931056',
-        'post140686178931056')\"><pre>    # We could just do view_func.csrf_exempt
+        onclick=\"toggle('pre140686176842384', 'post140686176842384')\"><pre>    &quot;&quot;&quot;</pre></li>\n
+        \               \n                  <li onclick=\"toggle('pre140686176842384',
+        'post140686176842384')\"><pre>    # We could just do view_func.csrf_exempt
         = True, but decorators</pre></li>\n                \n                  <li
-        onclick=\"toggle('pre140686178931056', 'post140686178931056')\"><pre>    #
+        onclick=\"toggle('pre140686176842384', 'post140686176842384')\"><pre>    #
         are nicer if they don&#39;t have side-effects, so we return a new</pre></li>\n
-        \               \n                  <li onclick=\"toggle('pre140686178931056',
-        'post140686178931056')\"><pre>    # function.</pre></li>\n                \n
-        \                 <li onclick=\"toggle('pre140686178931056', 'post140686178931056')\"><pre>
+        \               \n                  <li onclick=\"toggle('pre140686176842384',
+        'post140686176842384')\"><pre>    # function.</pre></li>\n                \n
+        \                 <li onclick=\"toggle('pre140686176842384', 'post140686176842384')\"><pre>
         \   def wrapped_view(*args, **kwargs):</pre></li>\n                \n                </ol>\n
         \             \n              <ol start=\"58\" class=\"context-line\">\n                <li
-        onclick=\"toggle('pre140686178931056', 'post140686178931056')\"><pre>\n        return
+        onclick=\"toggle('pre140686176842384', 'post140686176842384')\"><pre>\n        return
         view_func(*args, **kwargs)</pre> <span>...</span></li></ol>\n              \n
-        \               <ol start='59' class=\"post-context\" id=\"post140686178931056\">\n
-        \                 \n                  <li onclick=\"toggle('pre140686178931056',
-        'post140686178931056')\"><pre>    wrapped_view.csrf_exempt = True</pre></li>\n
-        \                 \n                  <li onclick=\"toggle('pre140686178931056',
-        'post140686178931056')\"><pre>    return wraps(view_func, assigned=available_attrs(view_func))(wrapped_view)</pre></li>\n
+        \               <ol start='59' class=\"post-context\" id=\"post140686176842384\">\n
+        \                 \n                  <li onclick=\"toggle('pre140686176842384',
+        'post140686176842384')\"><pre>    wrapped_view.csrf_exempt = True</pre></li>\n
+        \                 \n                  <li onclick=\"toggle('pre140686176842384',
+        'post140686176842384')\"><pre>    return wraps(view_func, assigned=available_attrs(view_func))(wrapped_view)</pre></li>\n
         \                 \n              </ol>\n              \n            </div>\n
         \         \n\n          \n            <div class=\"commands\">\n                \n
-        \                   <a href=\"#\" onclick=\"return varToggle(this, '140686178931056')\"><span>&#x25b6;</span>
+        \                   <a href=\"#\" onclick=\"return varToggle(this, '140686176842384')\"><span>&#x25b6;</span>
         Local vars</a>\n                \n            </div>\n            <table class=\"vars\"
-        id=\"v140686178931056\">\n              <thead>\n                <tr>\n                  <th>Variable</th>\n
+        id=\"v140686176842384\">\n              <thead>\n                <tr>\n                  <th>Variable</th>\n
         \                 <th>Value</th>\n                </tr>\n              </thead>\n
         \             <tbody>\n                \n                  <tr>\n                    <td>args</td>\n
         \                   <td class=\"code\"><pre>(&lt;WSGIRequest: GET &#39;/chirps/getDataRequestProgress/&#39;&gt;,)</pre></td>\n
@@ -518,43 +518,43 @@ http_interactions:
         \             </tbody>\n            </table>\n          \n        </li>\n
         \     \n        \n        <li class=\"frame user\">\n          <code>/data/data/cserv/pythonCode/servirchirpsdjango/servirchirps/views.py</code>
         in <code>getDataRequestProgress</code>\n\n          \n            <div class=\"context\"
-        id=\"c140686178932568\">\n              \n                <ol start=\"758\"
-        class=\"pre-context\" id=\"pre140686178932568\">\n                \n                  <li
-        onclick=\"toggle('pre140686178932568', 'post140686178932568')\"><pre>        if
-        (progress == -1.0):</pre></li>\n                \n                  <li onclick=\"toggle('pre140686178932568',
-        'post140686178932568')\"><pre>            logger.warn(&quot;Problem with getDataRequestProgress:
+        id=\"c140686176841880\">\n              \n                <ol start=\"758\"
+        class=\"pre-context\" id=\"pre140686176841880\">\n                \n                  <li
+        onclick=\"toggle('pre140686176841880', 'post140686176841880')\"><pre>        if
+        (progress == -1.0):</pre></li>\n                \n                  <li onclick=\"toggle('pre140686176841880',
+        'post140686176841880')\"><pre>            logger.warn(&quot;Problem with getDataRequestProgress:
         &quot; + str(request))</pre></li>\n                \n                  <li
-        onclick=\"toggle('pre140686178932568', 'post140686178932568')\"><pre>            return
+        onclick=\"toggle('pre140686176841880', 'post140686176841880')\"><pre>            return
         processCallBack(request, json.dumps([-1]), &quot;application/json&quot;)</pre></li>\n
-        \               \n                  <li onclick=\"toggle('pre140686178932568',
-        'post140686178932568')\"><pre>        else:</pre></li>\n                \n
-        \                 <li onclick=\"toggle('pre140686178932568', 'post140686178932568')\"><pre>
+        \               \n                  <li onclick=\"toggle('pre140686176841880',
+        'post140686176841880')\"><pre>        else:</pre></li>\n                \n
+        \                 <li onclick=\"toggle('pre140686176841880', 'post140686176841880')\"><pre>
         \           return processCallBack(request, json.dumps([progress]), &quot;application/json&quot;)</pre></li>\n
-        \               \n                  <li onclick=\"toggle('pre140686178932568',
-        'post140686178932568')\"><pre>        ## return processCallBack(request,json.dumps([jsonresults[&#39;progress&#39;]]),&quot;application/json&quot;)</pre></li>\n
-        \               \n                  <li onclick=\"toggle('pre140686178932568',
-        'post140686178932568')\"><pre>    except Exception as e:</pre></li>\n                \n
+        \               \n                  <li onclick=\"toggle('pre140686176841880',
+        'post140686176841880')\"><pre>        ## return processCallBack(request,json.dumps([jsonresults[&#39;progress&#39;]]),&quot;application/json&quot;)</pre></li>\n
+        \               \n                  <li onclick=\"toggle('pre140686176841880',
+        'post140686176841880')\"><pre>    except Exception as e:</pre></li>\n                \n
         \               </ol>\n              \n              <ol start=\"765\" class=\"context-line\">\n
-        \               <li onclick=\"toggle('pre140686178932568', 'post140686178932568')\"><pre>\n
+        \               <li onclick=\"toggle('pre140686176841880', 'post140686176841880')\"><pre>\n
         \       logger.warn(&quot;Problem with getDataRequestProgress: &quot; + str(request)
         + &quot; &quot; + str(e.errno) + &quot; &quot; + str(e.strerror))</pre> <span>...</span></li></ol>\n
-        \             \n                <ol start='766' class=\"post-context\" id=\"post140686178932568\">\n
-        \                 \n                  <li onclick=\"toggle('pre140686178932568',
-        'post140686178932568')\"><pre>        return processCallBack(request, json.dumps([-1]),
+        \             \n                <ol start='766' class=\"post-context\" id=\"post140686176841880\">\n
+        \                 \n                  <li onclick=\"toggle('pre140686176841880',
+        'post140686176841880')\"><pre>        return processCallBack(request, json.dumps([-1]),
         &quot;application/json&quot;)</pre></li>\n                  \n                  <li
-        onclick=\"toggle('pre140686178932568', 'post140686178932568')\"><pre></pre></li>\n
-        \                 \n                  <li onclick=\"toggle('pre140686178932568',
-        'post140686178932568')\"><pre></pre></li>\n                  \n                  <li
-        onclick=\"toggle('pre140686178932568', 'post140686178932568')\"><pre>@csrf_exempt</pre></li>\n
-        \                 \n                  <li onclick=\"toggle('pre140686178932568',
-        'post140686178932568')\"><pre>def getDataFromRequest(request):</pre></li>\n
-        \                 \n                  <li onclick=\"toggle('pre140686178932568',
-        'post140686178932568')\"><pre>    &#39;&#39;&#39;</pre></li>\n                  \n
+        onclick=\"toggle('pre140686176841880', 'post140686176841880')\"><pre></pre></li>\n
+        \                 \n                  <li onclick=\"toggle('pre140686176841880',
+        'post140686176841880')\"><pre></pre></li>\n                  \n                  <li
+        onclick=\"toggle('pre140686176841880', 'post140686176841880')\"><pre>@csrf_exempt</pre></li>\n
+        \                 \n                  <li onclick=\"toggle('pre140686176841880',
+        'post140686176841880')\"><pre>def getDataFromRequest(request):</pre></li>\n
+        \                 \n                  <li onclick=\"toggle('pre140686176841880',
+        'post140686176841880')\"><pre>    &#39;&#39;&#39;</pre></li>\n                  \n
         \             </ol>\n              \n            </div>\n          \n\n          \n
         \           <div class=\"commands\">\n                \n                    <a
-        href=\"#\" onclick=\"return varToggle(this, '140686178932568')\"><span>&#x25b6;</span>
+        href=\"#\" onclick=\"return varToggle(this, '140686176841880')\"><span>&#x25b6;</span>
         Local vars</a>\n                \n            </div>\n            <table class=\"vars\"
-        id=\"v140686178932568\">\n              <thead>\n                <tr>\n                  <th>Variable</th>\n
+        id=\"v140686176841880\">\n              <thead>\n                <tr>\n                  <th>Variable</th>\n
         \                 <th>Value</th>\n                </tr>\n              </thead>\n
         \             <tbody>\n                \n                  <tr>\n                    <td>e</td>\n
         \                   <td class=\"code\"><pre>MultiValueDictKeyError(&quot;&#39;id&#39;&quot;,)</pre></td>\n
@@ -620,7 +620,7 @@ http_interactions:
         class=\"code\"><pre>&#39;&#39;</pre></td>\n        </tr>\n      \n        <tr>\n
         \         <td>REMOTE_ADDR</td>\n          <td class=\"code\"><pre>&#39;122.199.27.9&#39;</pre></td>\n
         \       </tr>\n      \n        <tr>\n          <td>REMOTE_PORT</td>\n          <td
-        class=\"code\"><pre>&#39;34979&#39;</pre></td>\n        </tr>\n      \n        <tr>\n
+        class=\"code\"><pre>&#39;43354&#39;</pre></td>\n        </tr>\n      \n        <tr>\n
         \         <td>REQUEST_METHOD</td>\n          <td class=\"code\"><pre>&#39;GET&#39;</pre></td>\n
         \       </tr>\n      \n        <tr>\n          <td>REQUEST_SCHEME</td>\n          <td
         class=\"code\"><pre>&#39;https&#39;</pre></td>\n        </tr>\n      \n        <tr>\n
@@ -660,18 +660,18 @@ http_interactions:
         \         <td class=\"code\"><pre>&#39;&#39;</pre></td>\n        </tr>\n      \n
         \       <tr>\n          <td>mod_wsgi.request_handler</td>\n          <td class=\"code\"><pre>&#39;wsgi-script&#39;</pre></td>\n
         \       </tr>\n      \n        <tr>\n          <td>mod_wsgi.request_start</td>\n
-        \         <td class=\"code\"><pre>&#39;1582928114782779&#39;</pre></td>\n
+        \         <td class=\"code\"><pre>&#39;1582928810035806&#39;</pre></td>\n
         \       </tr>\n      \n        <tr>\n          <td>mod_wsgi.script_reloading</td>\n
         \         <td class=\"code\"><pre>&#39;1&#39;</pre></td>\n        </tr>\n
         \     \n        <tr>\n          <td>mod_wsgi.script_start</td>\n          <td
-        class=\"code\"><pre>&#39;1582928114783015&#39;</pre></td>\n        </tr>\n
+        class=\"code\"><pre>&#39;1582928810036015&#39;</pre></td>\n        </tr>\n
         \     \n        <tr>\n          <td>mod_wsgi.version</td>\n          <td class=\"code\"><pre>(4,
         3, 0)</pre></td>\n        </tr>\n      \n        <tr>\n          <td>wsgi.errors</td>\n
-        \         <td class=\"code\"><pre>&lt;mod_wsgi.Log object at 0x7ff40db859c0&gt;</pre></td>\n
+        \         <td class=\"code\"><pre>&lt;mod_wsgi.Log object at 0x7ff40dc2d420&gt;</pre></td>\n
         \       </tr>\n      \n        <tr>\n          <td>wsgi.file_wrapper</td>\n
         \         <td class=\"code\"><pre>&#39;&#39;</pre></td>\n        </tr>\n      \n
         \       <tr>\n          <td>wsgi.input</td>\n          <td class=\"code\"><pre>&lt;mod_wsgi.Input
-        object at 0x7ff40ec44bb0&gt;</pre></td>\n        </tr>\n      \n        <tr>\n
+        object at 0x7ff40d9a4330&gt;</pre></td>\n        </tr>\n      \n        <tr>\n
         \         <td>wsgi.multiprocess</td>\n          <td class=\"code\"><pre>True</pre></td>\n
         \       </tr>\n      \n        <tr>\n          <td>wsgi.multithread</td>\n
         \         <td class=\"code\"><pre>False</pre></td>\n        </tr>\n      \n
@@ -1021,11 +1021,11 @@ http_interactions:
         settings file. Change that to <code>False</code>, and Django will\n      display
         a standard page generated by the handler for this status code.\n    </p>\n
         \ </div>\n\n</body>\n</html>\n"
-  recorded_at: 2020-02-28 22:15:21 GMT
+  recorded_at: 2020-02-28 22:26:57 GMT
   recorded_with: vcr/0.4.2.94, webmockr/0.5.1.98
 - request:
     method: get
-    uri: https://climateserv.servirglobal.net/chirps/getDataRequestProgress/?id=d0dc6842-5d86-4c3a-97f0-d7ff51de34a8
+    uri: https://climateserv.servirglobal.net/chirps/getDataRequestProgress/?id=676a574d-4915-4b89-abf5-30dfbc55fa6b
     body:
       encoding: ''
       string: ''
@@ -1040,7 +1040,7 @@ http_interactions:
       explanation: Request fulfilled, document follows
     headers:
       status: HTTP/1.1 200 OK
-      date: Fri, 28 Feb 2020 22:15:15 GMT
+      date: Fri, 28 Feb 2020 22:26:50 GMT
       server: Apache/2.4.18 (Ubuntu)
       strict-transport-security: max-age=63072000; includeSubdomains
       x-frame-options: DENY
@@ -1054,11 +1054,11 @@ http_interactions:
       encoding: UTF-8
       file: no
       string: '[100.0]'
-  recorded_at: 2020-02-28 22:15:21 GMT
+  recorded_at: 2020-02-28 22:26:57 GMT
   recorded_with: vcr/0.4.2.94, webmockr/0.5.1.98
 - request:
     method: get
-    uri: https://climateserv.servirglobal.net/chirps/getDataRequestProgress/?id=d0dc6842-5d86-4c3a-97f0-d7ff51de34a8
+    uri: https://climateserv.servirglobal.net/chirps/getDataRequestProgress/?id=676a574d-4915-4b89-abf5-30dfbc55fa6b
     body:
       encoding: ''
       string: ''
@@ -1073,7 +1073,7 @@ http_interactions:
       explanation: Request fulfilled, document follows
     headers:
       status: HTTP/1.1 200 OK
-      date: Fri, 28 Feb 2020 22:15:16 GMT
+      date: Fri, 28 Feb 2020 22:26:51 GMT
       server: Apache/2.4.18 (Ubuntu)
       strict-transport-security: max-age=63072000; includeSubdomains
       x-frame-options: DENY
@@ -1087,7 +1087,7 @@ http_interactions:
       encoding: UTF-8
       file: no
       string: '[100.0]'
-  recorded_at: 2020-02-28 22:15:21 GMT
+  recorded_at: 2020-02-28 22:26:57 GMT
   recorded_with: vcr/0.4.2.94, webmockr/0.5.1.98
 - request:
     method: get
@@ -1106,7 +1106,7 @@ http_interactions:
       explanation: Server got itself in trouble
     headers:
       status: HTTP/1.1 500 Internal Server Error
-      date: Fri, 28 Feb 2020 22:15:17 GMT
+      date: Fri, 28 Feb 2020 22:26:52 GMT
       server: Apache/2.4.18 (Ubuntu)
       strict-transport-security: max-age=63072000; includeSubdomains
       x-frame-options: DENY
@@ -1204,140 +1204,140 @@ http_interactions:
         &#39;/usr/lib/python2.7/lib-dynload&#39;,\n &#39;/usr/local/lib/python2.7/dist-packages&#39;,\n
         &#39;/usr/lib/python2.7/dist-packages&#39;,\n &#39;/data/data/cserv/pythonCode/serviringest&#39;]</pre></td>\n
         \   </tr>\n    <tr>\n      <th>Server time:</th>\n      <td>Fri, 28 Feb 2020
-        16:15:17 -0600</td>\n    </tr>\n  </table>\n</div>\n\n\n\n\n<div id=\"traceback\">\n
+        16:26:52 -0600</td>\n    </tr>\n  </table>\n</div>\n\n\n\n\n<div id=\"traceback\">\n
         \ <h2>Traceback <span class=\"commands\"><a href=\"#\" onclick=\"return switchPastebinFriendly(this);\">\n
         \   Switch to copy-and-paste view</a></span>\n  </h2>\n  \n  <div id=\"browserTraceback\">\n
         \   <ul class=\"traceback\">\n      \n        \n        <li class=\"frame
         django\">\n          <code>/usr/local/lib/python2.7/dist-packages/django/core/handlers/exception.py</code>
-        in <code>inner</code>\n\n          \n            <div class=\"context\" id=\"c140368872904104\">\n
-        \             \n                <ol start=\"34\" class=\"pre-context\" id=\"pre140368872904104\">\n
-        \               \n                  <li onclick=\"toggle('pre140368872904104',
-        'post140368872904104')\"><pre>    This decorator is automatically applied
+        in <code>inner</code>\n\n          \n            <div class=\"context\" id=\"c140686194354152\">\n
+        \             \n                <ol start=\"34\" class=\"pre-context\" id=\"pre140686194354152\">\n
+        \               \n                  <li onclick=\"toggle('pre140686194354152',
+        'post140686194354152')\"><pre>    This decorator is automatically applied
         to all middleware to ensure that</pre></li>\n                \n                  <li
-        onclick=\"toggle('pre140368872904104', 'post140368872904104')\"><pre>    no
+        onclick=\"toggle('pre140686194354152', 'post140686194354152')\"><pre>    no
         middleware leaks an exception and that the next middleware in the stack</pre></li>\n
-        \               \n                  <li onclick=\"toggle('pre140368872904104',
-        'post140368872904104')\"><pre>    can rely on getting a response instead of
-        an exception.</pre></li>\n                \n                  <li onclick=\"toggle('pre140368872904104',
-        'post140368872904104')\"><pre>    &quot;&quot;&quot;</pre></li>\n                \n
-        \                 <li onclick=\"toggle('pre140368872904104', 'post140368872904104')\"><pre>
+        \               \n                  <li onclick=\"toggle('pre140686194354152',
+        'post140686194354152')\"><pre>    can rely on getting a response instead of
+        an exception.</pre></li>\n                \n                  <li onclick=\"toggle('pre140686194354152',
+        'post140686194354152')\"><pre>    &quot;&quot;&quot;</pre></li>\n                \n
+        \                 <li onclick=\"toggle('pre140686194354152', 'post140686194354152')\"><pre>
         \   @wraps(get_response, assigned=available_attrs(get_response))</pre></li>\n
-        \               \n                  <li onclick=\"toggle('pre140368872904104',
-        'post140368872904104')\"><pre>    def inner(request):</pre></li>\n                \n
-        \                 <li onclick=\"toggle('pre140368872904104', 'post140368872904104')\"><pre>
+        \               \n                  <li onclick=\"toggle('pre140686194354152',
+        'post140686194354152')\"><pre>    def inner(request):</pre></li>\n                \n
+        \                 <li onclick=\"toggle('pre140686194354152', 'post140686194354152')\"><pre>
         \       try:</pre></li>\n                \n                </ol>\n              \n
         \             <ol start=\"41\" class=\"context-line\">\n                <li
-        onclick=\"toggle('pre140368872904104', 'post140368872904104')\"><pre>\n            response
+        onclick=\"toggle('pre140686194354152', 'post140686194354152')\"><pre>\n            response
         = get_response(request)</pre> <span>...</span></li></ol>\n              \n
-        \               <ol start='42' class=\"post-context\" id=\"post140368872904104\">\n
-        \                 \n                  <li onclick=\"toggle('pre140368872904104',
-        'post140368872904104')\"><pre>        except Exception as exc:</pre></li>\n
-        \                 \n                  <li onclick=\"toggle('pre140368872904104',
-        'post140368872904104')\"><pre>            response = response_for_exception(request,
-        exc)</pre></li>\n                  \n                  <li onclick=\"toggle('pre140368872904104',
-        'post140368872904104')\"><pre>        return response</pre></li>\n                  \n
-        \                 <li onclick=\"toggle('pre140368872904104', 'post140368872904104')\"><pre>
-        \   return inner</pre></li>\n                  \n                  <li onclick=\"toggle('pre140368872904104',
-        'post140368872904104')\"><pre></pre></li>\n                  \n                  <li
-        onclick=\"toggle('pre140368872904104', 'post140368872904104')\"><pre></pre></li>\n
+        \               <ol start='42' class=\"post-context\" id=\"post140686194354152\">\n
+        \                 \n                  <li onclick=\"toggle('pre140686194354152',
+        'post140686194354152')\"><pre>        except Exception as exc:</pre></li>\n
+        \                 \n                  <li onclick=\"toggle('pre140686194354152',
+        'post140686194354152')\"><pre>            response = response_for_exception(request,
+        exc)</pre></li>\n                  \n                  <li onclick=\"toggle('pre140686194354152',
+        'post140686194354152')\"><pre>        return response</pre></li>\n                  \n
+        \                 <li onclick=\"toggle('pre140686194354152', 'post140686194354152')\"><pre>
+        \   return inner</pre></li>\n                  \n                  <li onclick=\"toggle('pre140686194354152',
+        'post140686194354152')\"><pre></pre></li>\n                  \n                  <li
+        onclick=\"toggle('pre140686194354152', 'post140686194354152')\"><pre></pre></li>\n
         \                 \n              </ol>\n              \n            </div>\n
         \         \n\n          \n            <div class=\"commands\">\n                \n
-        \                   <a href=\"#\" onclick=\"return varToggle(this, '140368872904104')\"><span>&#x25b6;</span>
+        \                   <a href=\"#\" onclick=\"return varToggle(this, '140686194354152')\"><span>&#x25b6;</span>
         Local vars</a>\n                \n            </div>\n            <table class=\"vars\"
-        id=\"v140368872904104\">\n              <thead>\n                <tr>\n                  <th>Variable</th>\n
+        id=\"v140686194354152\">\n              <thead>\n                <tr>\n                  <th>Variable</th>\n
         \                 <th>Value</th>\n                </tr>\n              </thead>\n
         \             <tbody>\n                \n                  <tr>\n                    <td>exc</td>\n
         \                   <td class=\"code\"><pre>AttributeError(&quot;&#39;MultiValueDictKeyError&#39;
         object has no attribute &#39;errno&#39;&quot;,)</pre></td>\n                  </tr>\n
         \               \n                  <tr>\n                    <td>get_response</td>\n
         \                   <td class=\"code\"><pre>&lt;bound method WSGIHandler._legacy_get_response
-        of &lt;django.core.handlers.wsgi.WSGIHandler object at 0x7faa464459d0&gt;&gt;</pre></td>\n
+        of &lt;django.core.handlers.wsgi.WSGIHandler object at 0x7ff427f8b9d0&gt;&gt;</pre></td>\n
         \                 </tr>\n                \n                  <tr>\n                    <td>request</td>\n
         \                   <td class=\"code\"><pre>&lt;WSGIRequest: GET &#39;/chirps/getDataRequestProgress/&#39;&gt;</pre></td>\n
         \                 </tr>\n                \n              </tbody>\n            </table>\n
         \         \n        </li>\n      \n        \n        <li class=\"frame django\">\n
         \         <code>/usr/local/lib/python2.7/dist-packages/django/core/handlers/base.py</code>
         in <code>_legacy_get_response</code>\n\n          \n            <div class=\"context\"
-        id=\"c140368872902808\">\n              \n                <ol start=\"242\"
-        class=\"pre-context\" id=\"pre140368872902808\">\n                \n                  <li
-        onclick=\"toggle('pre140368872902808', 'post140368872902808')\"><pre>        #
+        id=\"c140686194477104\">\n              \n                <ol start=\"242\"
+        class=\"pre-context\" id=\"pre140686194477104\">\n                \n                  <li
+        onclick=\"toggle('pre140686194477104', 'post140686194477104')\"><pre>        #
         Apply request middleware</pre></li>\n                \n                  <li
-        onclick=\"toggle('pre140368872902808', 'post140368872902808')\"><pre>        for
+        onclick=\"toggle('pre140686194477104', 'post140686194477104')\"><pre>        for
         middleware_method in self._request_middleware:</pre></li>\n                \n
-        \                 <li onclick=\"toggle('pre140368872902808', 'post140368872902808')\"><pre>
+        \                 <li onclick=\"toggle('pre140686194477104', 'post140686194477104')\"><pre>
         \           response = middleware_method(request)</pre></li>\n                \n
-        \                 <li onclick=\"toggle('pre140368872902808', 'post140368872902808')\"><pre>
+        \                 <li onclick=\"toggle('pre140686194477104', 'post140686194477104')\"><pre>
         \           if response:</pre></li>\n                \n                  <li
-        onclick=\"toggle('pre140368872902808', 'post140368872902808')\"><pre>                break</pre></li>\n
-        \               \n                  <li onclick=\"toggle('pre140368872902808',
-        'post140368872902808')\"><pre></pre></li>\n                \n                  <li
-        onclick=\"toggle('pre140368872902808', 'post140368872902808')\"><pre>        if
+        onclick=\"toggle('pre140686194477104', 'post140686194477104')\"><pre>                break</pre></li>\n
+        \               \n                  <li onclick=\"toggle('pre140686194477104',
+        'post140686194477104')\"><pre></pre></li>\n                \n                  <li
+        onclick=\"toggle('pre140686194477104', 'post140686194477104')\"><pre>        if
         response is None:</pre></li>\n                \n                </ol>\n              \n
         \             <ol start=\"249\" class=\"context-line\">\n                <li
-        onclick=\"toggle('pre140368872902808', 'post140368872902808')\"><pre>\n            response
+        onclick=\"toggle('pre140686194477104', 'post140686194477104')\"><pre>\n            response
         = self._get_response(request)</pre> <span>...</span></li></ol>\n              \n
-        \               <ol start='250' class=\"post-context\" id=\"post140368872902808\">\n
-        \                 \n                  <li onclick=\"toggle('pre140368872902808',
-        'post140368872902808')\"><pre>        return response</pre></li>\n                  \n
+        \               <ol start='250' class=\"post-context\" id=\"post140686194477104\">\n
+        \                 \n                  <li onclick=\"toggle('pre140686194477104',
+        'post140686194477104')\"><pre>        return response</pre></li>\n                  \n
         \             </ol>\n              \n            </div>\n          \n\n          \n
         \           <div class=\"commands\">\n                \n                    <a
-        href=\"#\" onclick=\"return varToggle(this, '140368872902808')\"><span>&#x25b6;</span>
+        href=\"#\" onclick=\"return varToggle(this, '140686194477104')\"><span>&#x25b6;</span>
         Local vars</a>\n                \n            </div>\n            <table class=\"vars\"
-        id=\"v140368872902808\">\n              <thead>\n                <tr>\n                  <th>Variable</th>\n
+        id=\"v140686194477104\">\n              <thead>\n                <tr>\n                  <th>Variable</th>\n
         \                 <th>Value</th>\n                </tr>\n              </thead>\n
         \             <tbody>\n                \n                  <tr>\n                    <td>middleware_method</td>\n
         \                   <td class=\"code\"><pre>&lt;bound method MessageMiddleware.process_request
-        of &lt;django.contrib.messages.middleware.MessageMiddleware object at 0x7faa45b273d0&gt;&gt;</pre></td>\n
+        of &lt;django.contrib.messages.middleware.MessageMiddleware object at 0x7ff42766d3d0&gt;&gt;</pre></td>\n
         \                 </tr>\n                \n                  <tr>\n                    <td>request</td>\n
         \                   <td class=\"code\"><pre>&lt;WSGIRequest: GET &#39;/chirps/getDataRequestProgress/&#39;&gt;</pre></td>\n
         \                 </tr>\n                \n                  <tr>\n                    <td>response</td>\n
         \                   <td class=\"code\"><pre>None</pre></td>\n                  </tr>\n
         \               \n                  <tr>\n                    <td>self</td>\n
         \                   <td class=\"code\"><pre>&lt;django.core.handlers.wsgi.WSGIHandler
-        object at 0x7faa464459d0&gt;</pre></td>\n                  </tr>\n                \n
+        object at 0x7ff427f8b9d0&gt;</pre></td>\n                  </tr>\n                \n
         \             </tbody>\n            </table>\n          \n        </li>\n
         \     \n        \n        <li class=\"frame django\">\n          <code>/usr/local/lib/python2.7/dist-packages/django/core/handlers/base.py</code>
         in <code>_get_response</code>\n\n          \n            <div class=\"context\"
-        id=\"c140368872903240\">\n              \n                <ol start=\"180\"
-        class=\"pre-context\" id=\"pre140368872903240\">\n                \n                  <li
-        onclick=\"toggle('pre140368872903240', 'post140368872903240')\"><pre>                break</pre></li>\n
-        \               \n                  <li onclick=\"toggle('pre140368872903240',
-        'post140368872903240')\"><pre></pre></li>\n                \n                  <li
-        onclick=\"toggle('pre140368872903240', 'post140368872903240')\"><pre>        if
-        response is None:</pre></li>\n                \n                  <li onclick=\"toggle('pre140368872903240',
-        'post140368872903240')\"><pre>            wrapped_callback = self.make_view_atomic(callback)</pre></li>\n
-        \               \n                  <li onclick=\"toggle('pre140368872903240',
-        'post140368872903240')\"><pre>            try:</pre></li>\n                \n
-        \                 <li onclick=\"toggle('pre140368872903240', 'post140368872903240')\"><pre>
+        id=\"c140686194477320\">\n              \n                <ol start=\"180\"
+        class=\"pre-context\" id=\"pre140686194477320\">\n                \n                  <li
+        onclick=\"toggle('pre140686194477320', 'post140686194477320')\"><pre>                break</pre></li>\n
+        \               \n                  <li onclick=\"toggle('pre140686194477320',
+        'post140686194477320')\"><pre></pre></li>\n                \n                  <li
+        onclick=\"toggle('pre140686194477320', 'post140686194477320')\"><pre>        if
+        response is None:</pre></li>\n                \n                  <li onclick=\"toggle('pre140686194477320',
+        'post140686194477320')\"><pre>            wrapped_callback = self.make_view_atomic(callback)</pre></li>\n
+        \               \n                  <li onclick=\"toggle('pre140686194477320',
+        'post140686194477320')\"><pre>            try:</pre></li>\n                \n
+        \                 <li onclick=\"toggle('pre140686194477320', 'post140686194477320')\"><pre>
         \               response = wrapped_callback(request, *callback_args, **callback_kwargs)</pre></li>\n
-        \               \n                  <li onclick=\"toggle('pre140368872903240',
-        'post140368872903240')\"><pre>            except Exception as e:</pre></li>\n
+        \               \n                  <li onclick=\"toggle('pre140686194477320',
+        'post140686194477320')\"><pre>            except Exception as e:</pre></li>\n
         \               \n                </ol>\n              \n              <ol
-        start=\"187\" class=\"context-line\">\n                <li onclick=\"toggle('pre140368872903240',
-        'post140368872903240')\"><pre>\n                response = self.process_exception_by_middleware(e,
+        start=\"187\" class=\"context-line\">\n                <li onclick=\"toggle('pre140686194477320',
+        'post140686194477320')\"><pre>\n                response = self.process_exception_by_middleware(e,
         request)</pre> <span>...</span></li></ol>\n              \n                <ol
-        start='188' class=\"post-context\" id=\"post140368872903240\">\n                  \n
-        \                 <li onclick=\"toggle('pre140368872903240', 'post140368872903240')\"><pre></pre></li>\n
-        \                 \n                  <li onclick=\"toggle('pre140368872903240',
-        'post140368872903240')\"><pre>        # Complain if the view returned None
-        (a common error).</pre></li>\n                  \n                  <li onclick=\"toggle('pre140368872903240',
-        'post140368872903240')\"><pre>        if response is None:</pre></li>\n                  \n
-        \                 <li onclick=\"toggle('pre140368872903240', 'post140368872903240')\"><pre>
+        start='188' class=\"post-context\" id=\"post140686194477320\">\n                  \n
+        \                 <li onclick=\"toggle('pre140686194477320', 'post140686194477320')\"><pre></pre></li>\n
+        \                 \n                  <li onclick=\"toggle('pre140686194477320',
+        'post140686194477320')\"><pre>        # Complain if the view returned None
+        (a common error).</pre></li>\n                  \n                  <li onclick=\"toggle('pre140686194477320',
+        'post140686194477320')\"><pre>        if response is None:</pre></li>\n                  \n
+        \                 <li onclick=\"toggle('pre140686194477320', 'post140686194477320')\"><pre>
         \           if isinstance(callback, types.FunctionType):    # FBV</pre></li>\n
-        \                 \n                  <li onclick=\"toggle('pre140368872903240',
-        'post140368872903240')\"><pre>                view_name = callback.__name__</pre></li>\n
-        \                 \n                  <li onclick=\"toggle('pre140368872903240',
-        'post140368872903240')\"><pre>            else:                                           #
+        \                 \n                  <li onclick=\"toggle('pre140686194477320',
+        'post140686194477320')\"><pre>                view_name = callback.__name__</pre></li>\n
+        \                 \n                  <li onclick=\"toggle('pre140686194477320',
+        'post140686194477320')\"><pre>            else:                                           #
         CBV</pre></li>\n                  \n              </ol>\n              \n
         \           </div>\n          \n\n          \n            <div class=\"commands\">\n
         \               \n                    <a href=\"#\" onclick=\"return varToggle(this,
-        '140368872903240')\"><span>&#x25b6;</span> Local vars</a>\n                \n
-        \           </div>\n            <table class=\"vars\" id=\"v140368872903240\">\n
+        '140686194477320')\"><span>&#x25b6;</span> Local vars</a>\n                \n
+        \           </div>\n            <table class=\"vars\" id=\"v140686194477320\">\n
         \             <thead>\n                <tr>\n                  <th>Variable</th>\n
         \                 <th>Value</th>\n                </tr>\n              </thead>\n
         \             <tbody>\n                \n                  <tr>\n                    <td>callback</td>\n
         \                   <td class=\"code\"><pre>&lt;function getDataRequestProgress
-        at 0x7faa2fb11ed8&gt;</pre></td>\n                  </tr>\n                \n
+        at 0x7ff411877050&gt;</pre></td>\n                  </tr>\n                \n
         \                 <tr>\n                    <td>callback_args</td>\n                    <td
         class=\"code\"><pre>()</pre></td>\n                  </tr>\n                \n
         \                 <tr>\n                    <td>callback_kwargs</td>\n                    <td
@@ -1347,7 +1347,7 @@ http_interactions:
         object has no attribute &#39;errno&#39;&quot;,)</pre></td>\n                  </tr>\n
         \               \n                  <tr>\n                    <td>middleware_method</td>\n
         \                   <td class=\"code\"><pre>&lt;bound method CsrfViewMiddleware.process_view
-        of &lt;django.middleware.csrf.CsrfViewMiddleware object at 0x7faa45b21e10&gt;&gt;</pre></td>\n
+        of &lt;django.middleware.csrf.CsrfViewMiddleware object at 0x7ff427667e10&gt;&gt;</pre></td>\n
         \                 </tr>\n                \n                  <tr>\n                    <td>request</td>\n
         \                   <td class=\"code\"><pre>&lt;WSGIRequest: GET &#39;/chirps/getDataRequestProgress/&#39;&gt;</pre></td>\n
         \                 </tr>\n                \n                  <tr>\n                    <td>resolver</td>\n
@@ -1360,53 +1360,53 @@ http_interactions:
         \                   <td class=\"code\"><pre>None</pre></td>\n                  </tr>\n
         \               \n                  <tr>\n                    <td>self</td>\n
         \                   <td class=\"code\"><pre>&lt;django.core.handlers.wsgi.WSGIHandler
-        object at 0x7faa464459d0&gt;</pre></td>\n                  </tr>\n                \n
+        object at 0x7ff427f8b9d0&gt;</pre></td>\n                  </tr>\n                \n
         \                 <tr>\n                    <td>wrapped_callback</td>\n                    <td
-        class=\"code\"><pre>&lt;function getDataRequestProgress at 0x7faa2fb11ed8&gt;</pre></td>\n
+        class=\"code\"><pre>&lt;function getDataRequestProgress at 0x7ff411877050&gt;</pre></td>\n
         \                 </tr>\n                \n              </tbody>\n            </table>\n
         \         \n        </li>\n      \n        \n        <li class=\"frame django\">\n
         \         <code>/usr/local/lib/python2.7/dist-packages/django/core/handlers/base.py</code>
         in <code>_get_response</code>\n\n          \n            <div class=\"context\"
-        id=\"c140368870699664\">\n              \n                <ol start=\"178\"
-        class=\"pre-context\" id=\"pre140368870699664\">\n                \n                  <li
-        onclick=\"toggle('pre140368870699664', 'post140368870699664')\"><pre>            response
+        id=\"c140686194477824\">\n              \n                <ol start=\"178\"
+        class=\"pre-context\" id=\"pre140686194477824\">\n                \n                  <li
+        onclick=\"toggle('pre140686194477824', 'post140686194477824')\"><pre>            response
         = middleware_method(request, callback, callback_args, callback_kwargs)</pre></li>\n
-        \               \n                  <li onclick=\"toggle('pre140368870699664',
-        'post140368870699664')\"><pre>            if response:</pre></li>\n                \n
-        \                 <li onclick=\"toggle('pre140368870699664', 'post140368870699664')\"><pre>
+        \               \n                  <li onclick=\"toggle('pre140686194477824',
+        'post140686194477824')\"><pre>            if response:</pre></li>\n                \n
+        \                 <li onclick=\"toggle('pre140686194477824', 'post140686194477824')\"><pre>
         \               break</pre></li>\n                \n                  <li
-        onclick=\"toggle('pre140368870699664', 'post140368870699664')\"><pre></pre></li>\n
-        \               \n                  <li onclick=\"toggle('pre140368870699664',
-        'post140368870699664')\"><pre>        if response is None:</pre></li>\n                \n
-        \                 <li onclick=\"toggle('pre140368870699664', 'post140368870699664')\"><pre>
+        onclick=\"toggle('pre140686194477824', 'post140686194477824')\"><pre></pre></li>\n
+        \               \n                  <li onclick=\"toggle('pre140686194477824',
+        'post140686194477824')\"><pre>        if response is None:</pre></li>\n                \n
+        \                 <li onclick=\"toggle('pre140686194477824', 'post140686194477824')\"><pre>
         \           wrapped_callback = self.make_view_atomic(callback)</pre></li>\n
-        \               \n                  <li onclick=\"toggle('pre140368870699664',
-        'post140368870699664')\"><pre>            try:</pre></li>\n                \n
+        \               \n                  <li onclick=\"toggle('pre140686194477824',
+        'post140686194477824')\"><pre>            try:</pre></li>\n                \n
         \               </ol>\n              \n              <ol start=\"185\" class=\"context-line\">\n
-        \               <li onclick=\"toggle('pre140368870699664', 'post140368870699664')\"><pre>\n
+        \               <li onclick=\"toggle('pre140686194477824', 'post140686194477824')\"><pre>\n
         \               response = wrapped_callback(request, *callback_args, **callback_kwargs)</pre>
         <span>...</span></li></ol>\n              \n                <ol start='186'
-        class=\"post-context\" id=\"post140368870699664\">\n                  \n                  <li
-        onclick=\"toggle('pre140368870699664', 'post140368870699664')\"><pre>            except
-        Exception as e:</pre></li>\n                  \n                  <li onclick=\"toggle('pre140368870699664',
-        'post140368870699664')\"><pre>                response = self.process_exception_by_middleware(e,
-        request)</pre></li>\n                  \n                  <li onclick=\"toggle('pre140368870699664',
-        'post140368870699664')\"><pre></pre></li>\n                  \n                  <li
-        onclick=\"toggle('pre140368870699664', 'post140368870699664')\"><pre>        #
+        class=\"post-context\" id=\"post140686194477824\">\n                  \n                  <li
+        onclick=\"toggle('pre140686194477824', 'post140686194477824')\"><pre>            except
+        Exception as e:</pre></li>\n                  \n                  <li onclick=\"toggle('pre140686194477824',
+        'post140686194477824')\"><pre>                response = self.process_exception_by_middleware(e,
+        request)</pre></li>\n                  \n                  <li onclick=\"toggle('pre140686194477824',
+        'post140686194477824')\"><pre></pre></li>\n                  \n                  <li
+        onclick=\"toggle('pre140686194477824', 'post140686194477824')\"><pre>        #
         Complain if the view returned None (a common error).</pre></li>\n                  \n
-        \                 <li onclick=\"toggle('pre140368870699664', 'post140368870699664')\"><pre>
+        \                 <li onclick=\"toggle('pre140686194477824', 'post140686194477824')\"><pre>
         \       if response is None:</pre></li>\n                  \n                  <li
-        onclick=\"toggle('pre140368870699664', 'post140368870699664')\"><pre>            if
+        onclick=\"toggle('pre140686194477824', 'post140686194477824')\"><pre>            if
         isinstance(callback, types.FunctionType):    # FBV</pre></li>\n                  \n
         \             </ol>\n              \n            </div>\n          \n\n          \n
         \           <div class=\"commands\">\n                \n                    <a
-        href=\"#\" onclick=\"return varToggle(this, '140368870699664')\"><span>&#x25b6;</span>
+        href=\"#\" onclick=\"return varToggle(this, '140686194477824')\"><span>&#x25b6;</span>
         Local vars</a>\n                \n            </div>\n            <table class=\"vars\"
-        id=\"v140368870699664\">\n              <thead>\n                <tr>\n                  <th>Variable</th>\n
+        id=\"v140686194477824\">\n              <thead>\n                <tr>\n                  <th>Variable</th>\n
         \                 <th>Value</th>\n                </tr>\n              </thead>\n
         \             <tbody>\n                \n                  <tr>\n                    <td>callback</td>\n
         \                   <td class=\"code\"><pre>&lt;function getDataRequestProgress
-        at 0x7faa2fb11ed8&gt;</pre></td>\n                  </tr>\n                \n
+        at 0x7ff411877050&gt;</pre></td>\n                  </tr>\n                \n
         \                 <tr>\n                    <td>callback_args</td>\n                    <td
         class=\"code\"><pre>()</pre></td>\n                  </tr>\n                \n
         \                 <tr>\n                    <td>callback_kwargs</td>\n                    <td
@@ -1416,7 +1416,7 @@ http_interactions:
         object has no attribute &#39;errno&#39;&quot;,)</pre></td>\n                  </tr>\n
         \               \n                  <tr>\n                    <td>middleware_method</td>\n
         \                   <td class=\"code\"><pre>&lt;bound method CsrfViewMiddleware.process_view
-        of &lt;django.middleware.csrf.CsrfViewMiddleware object at 0x7faa45b21e10&gt;&gt;</pre></td>\n
+        of &lt;django.middleware.csrf.CsrfViewMiddleware object at 0x7ff427667e10&gt;&gt;</pre></td>\n
         \                 </tr>\n                \n                  <tr>\n                    <td>request</td>\n
         \                   <td class=\"code\"><pre>&lt;WSGIRequest: GET &#39;/chirps/getDataRequestProgress/&#39;&gt;</pre></td>\n
         \                 </tr>\n                \n                  <tr>\n                    <td>resolver</td>\n
@@ -1429,42 +1429,42 @@ http_interactions:
         \                   <td class=\"code\"><pre>None</pre></td>\n                  </tr>\n
         \               \n                  <tr>\n                    <td>self</td>\n
         \                   <td class=\"code\"><pre>&lt;django.core.handlers.wsgi.WSGIHandler
-        object at 0x7faa464459d0&gt;</pre></td>\n                  </tr>\n                \n
+        object at 0x7ff427f8b9d0&gt;</pre></td>\n                  </tr>\n                \n
         \                 <tr>\n                    <td>wrapped_callback</td>\n                    <td
-        class=\"code\"><pre>&lt;function getDataRequestProgress at 0x7faa2fb11ed8&gt;</pre></td>\n
+        class=\"code\"><pre>&lt;function getDataRequestProgress at 0x7ff411877050&gt;</pre></td>\n
         \                 </tr>\n                \n              </tbody>\n            </table>\n
         \         \n        </li>\n      \n        \n        <li class=\"frame django\">\n
         \         <code>/usr/local/lib/python2.7/dist-packages/django/views/decorators/csrf.py</code>
         in <code>wrapped_view</code>\n\n          \n            <div class=\"context\"
-        id=\"c140368870702760\">\n              \n                <ol start=\"51\"
-        class=\"pre-context\" id=\"pre140368870702760\">\n                \n                  <li
-        onclick=\"toggle('pre140368870702760', 'post140368870702760')\"><pre>    &quot;&quot;&quot;</pre></li>\n
-        \               \n                  <li onclick=\"toggle('pre140368870702760',
-        'post140368870702760')\"><pre>    Marks a view function as being exempt from
+        id=\"c140686194272664\">\n              \n                <ol start=\"51\"
+        class=\"pre-context\" id=\"pre140686194272664\">\n                \n                  <li
+        onclick=\"toggle('pre140686194272664', 'post140686194272664')\"><pre>    &quot;&quot;&quot;</pre></li>\n
+        \               \n                  <li onclick=\"toggle('pre140686194272664',
+        'post140686194272664')\"><pre>    Marks a view function as being exempt from
         the CSRF view protection.</pre></li>\n                \n                  <li
-        onclick=\"toggle('pre140368870702760', 'post140368870702760')\"><pre>    &quot;&quot;&quot;</pre></li>\n
-        \               \n                  <li onclick=\"toggle('pre140368870702760',
-        'post140368870702760')\"><pre>    # We could just do view_func.csrf_exempt
+        onclick=\"toggle('pre140686194272664', 'post140686194272664')\"><pre>    &quot;&quot;&quot;</pre></li>\n
+        \               \n                  <li onclick=\"toggle('pre140686194272664',
+        'post140686194272664')\"><pre>    # We could just do view_func.csrf_exempt
         = True, but decorators</pre></li>\n                \n                  <li
-        onclick=\"toggle('pre140368870702760', 'post140368870702760')\"><pre>    #
+        onclick=\"toggle('pre140686194272664', 'post140686194272664')\"><pre>    #
         are nicer if they don&#39;t have side-effects, so we return a new</pre></li>\n
-        \               \n                  <li onclick=\"toggle('pre140368870702760',
-        'post140368870702760')\"><pre>    # function.</pre></li>\n                \n
-        \                 <li onclick=\"toggle('pre140368870702760', 'post140368870702760')\"><pre>
+        \               \n                  <li onclick=\"toggle('pre140686194272664',
+        'post140686194272664')\"><pre>    # function.</pre></li>\n                \n
+        \                 <li onclick=\"toggle('pre140686194272664', 'post140686194272664')\"><pre>
         \   def wrapped_view(*args, **kwargs):</pre></li>\n                \n                </ol>\n
         \             \n              <ol start=\"58\" class=\"context-line\">\n                <li
-        onclick=\"toggle('pre140368870702760', 'post140368870702760')\"><pre>\n        return
+        onclick=\"toggle('pre140686194272664', 'post140686194272664')\"><pre>\n        return
         view_func(*args, **kwargs)</pre> <span>...</span></li></ol>\n              \n
-        \               <ol start='59' class=\"post-context\" id=\"post140368870702760\">\n
-        \                 \n                  <li onclick=\"toggle('pre140368870702760',
-        'post140368870702760')\"><pre>    wrapped_view.csrf_exempt = True</pre></li>\n
-        \                 \n                  <li onclick=\"toggle('pre140368870702760',
-        'post140368870702760')\"><pre>    return wraps(view_func, assigned=available_attrs(view_func))(wrapped_view)</pre></li>\n
+        \               <ol start='59' class=\"post-context\" id=\"post140686194272664\">\n
+        \                 \n                  <li onclick=\"toggle('pre140686194272664',
+        'post140686194272664')\"><pre>    wrapped_view.csrf_exempt = True</pre></li>\n
+        \                 \n                  <li onclick=\"toggle('pre140686194272664',
+        'post140686194272664')\"><pre>    return wraps(view_func, assigned=available_attrs(view_func))(wrapped_view)</pre></li>\n
         \                 \n              </ol>\n              \n            </div>\n
         \         \n\n          \n            <div class=\"commands\">\n                \n
-        \                   <a href=\"#\" onclick=\"return varToggle(this, '140368870702760')\"><span>&#x25b6;</span>
+        \                   <a href=\"#\" onclick=\"return varToggle(this, '140686194272664')\"><span>&#x25b6;</span>
         Local vars</a>\n                \n            </div>\n            <table class=\"vars\"
-        id=\"v140368870702760\">\n              <thead>\n                <tr>\n                  <th>Variable</th>\n
+        id=\"v140686194272664\">\n              <thead>\n                <tr>\n                  <th>Variable</th>\n
         \                 <th>Value</th>\n                </tr>\n              </thead>\n
         \             <tbody>\n                \n                  <tr>\n                    <td>args</td>\n
         \                   <td class=\"code\"><pre>(&lt;WSGIRequest: GET &#39;/chirps/getDataRequestProgress/&#39;&gt;,)</pre></td>\n
@@ -1472,47 +1472,47 @@ http_interactions:
         \                   <td class=\"code\"><pre>{}</pre></td>\n                  </tr>\n
         \               \n                  <tr>\n                    <td>view_func</td>\n
         \                   <td class=\"code\"><pre>&lt;function getDataRequestProgress
-        at 0x7faa2fb11e60&gt;</pre></td>\n                  </tr>\n                \n
+        at 0x7ff411872f50&gt;</pre></td>\n                  </tr>\n                \n
         \             </tbody>\n            </table>\n          \n        </li>\n
         \     \n        \n        <li class=\"frame user\">\n          <code>/data/data/cserv/pythonCode/servirchirpsdjango/servirchirps/views.py</code>
         in <code>getDataRequestProgress</code>\n\n          \n            <div class=\"context\"
-        id=\"c140368870699304\">\n              \n                <ol start=\"758\"
-        class=\"pre-context\" id=\"pre140368870699304\">\n                \n                  <li
-        onclick=\"toggle('pre140368870699304', 'post140368870699304')\"><pre>        if
-        (progress == -1.0):</pre></li>\n                \n                  <li onclick=\"toggle('pre140368870699304',
-        'post140368870699304')\"><pre>            logger.warn(&quot;Problem with getDataRequestProgress:
+        id=\"c140686194273096\">\n              \n                <ol start=\"758\"
+        class=\"pre-context\" id=\"pre140686194273096\">\n                \n                  <li
+        onclick=\"toggle('pre140686194273096', 'post140686194273096')\"><pre>        if
+        (progress == -1.0):</pre></li>\n                \n                  <li onclick=\"toggle('pre140686194273096',
+        'post140686194273096')\"><pre>            logger.warn(&quot;Problem with getDataRequestProgress:
         &quot; + str(request))</pre></li>\n                \n                  <li
-        onclick=\"toggle('pre140368870699304', 'post140368870699304')\"><pre>            return
+        onclick=\"toggle('pre140686194273096', 'post140686194273096')\"><pre>            return
         processCallBack(request, json.dumps([-1]), &quot;application/json&quot;)</pre></li>\n
-        \               \n                  <li onclick=\"toggle('pre140368870699304',
-        'post140368870699304')\"><pre>        else:</pre></li>\n                \n
-        \                 <li onclick=\"toggle('pre140368870699304', 'post140368870699304')\"><pre>
+        \               \n                  <li onclick=\"toggle('pre140686194273096',
+        'post140686194273096')\"><pre>        else:</pre></li>\n                \n
+        \                 <li onclick=\"toggle('pre140686194273096', 'post140686194273096')\"><pre>
         \           return processCallBack(request, json.dumps([progress]), &quot;application/json&quot;)</pre></li>\n
-        \               \n                  <li onclick=\"toggle('pre140368870699304',
-        'post140368870699304')\"><pre>        ## return processCallBack(request,json.dumps([jsonresults[&#39;progress&#39;]]),&quot;application/json&quot;)</pre></li>\n
-        \               \n                  <li onclick=\"toggle('pre140368870699304',
-        'post140368870699304')\"><pre>    except Exception as e:</pre></li>\n                \n
+        \               \n                  <li onclick=\"toggle('pre140686194273096',
+        'post140686194273096')\"><pre>        ## return processCallBack(request,json.dumps([jsonresults[&#39;progress&#39;]]),&quot;application/json&quot;)</pre></li>\n
+        \               \n                  <li onclick=\"toggle('pre140686194273096',
+        'post140686194273096')\"><pre>    except Exception as e:</pre></li>\n                \n
         \               </ol>\n              \n              <ol start=\"765\" class=\"context-line\">\n
-        \               <li onclick=\"toggle('pre140368870699304', 'post140368870699304')\"><pre>\n
+        \               <li onclick=\"toggle('pre140686194273096', 'post140686194273096')\"><pre>\n
         \       logger.warn(&quot;Problem with getDataRequestProgress: &quot; + str(request)
         + &quot; &quot; + str(e.errno) + &quot; &quot; + str(e.strerror))</pre> <span>...</span></li></ol>\n
-        \             \n                <ol start='766' class=\"post-context\" id=\"post140368870699304\">\n
-        \                 \n                  <li onclick=\"toggle('pre140368870699304',
-        'post140368870699304')\"><pre>        return processCallBack(request, json.dumps([-1]),
+        \             \n                <ol start='766' class=\"post-context\" id=\"post140686194273096\">\n
+        \                 \n                  <li onclick=\"toggle('pre140686194273096',
+        'post140686194273096')\"><pre>        return processCallBack(request, json.dumps([-1]),
         &quot;application/json&quot;)</pre></li>\n                  \n                  <li
-        onclick=\"toggle('pre140368870699304', 'post140368870699304')\"><pre></pre></li>\n
-        \                 \n                  <li onclick=\"toggle('pre140368870699304',
-        'post140368870699304')\"><pre></pre></li>\n                  \n                  <li
-        onclick=\"toggle('pre140368870699304', 'post140368870699304')\"><pre>@csrf_exempt</pre></li>\n
-        \                 \n                  <li onclick=\"toggle('pre140368870699304',
-        'post140368870699304')\"><pre>def getDataFromRequest(request):</pre></li>\n
-        \                 \n                  <li onclick=\"toggle('pre140368870699304',
-        'post140368870699304')\"><pre>    &#39;&#39;&#39;</pre></li>\n                  \n
+        onclick=\"toggle('pre140686194273096', 'post140686194273096')\"><pre></pre></li>\n
+        \                 \n                  <li onclick=\"toggle('pre140686194273096',
+        'post140686194273096')\"><pre></pre></li>\n                  \n                  <li
+        onclick=\"toggle('pre140686194273096', 'post140686194273096')\"><pre>@csrf_exempt</pre></li>\n
+        \                 \n                  <li onclick=\"toggle('pre140686194273096',
+        'post140686194273096')\"><pre>def getDataFromRequest(request):</pre></li>\n
+        \                 \n                  <li onclick=\"toggle('pre140686194273096',
+        'post140686194273096')\"><pre>    &#39;&#39;&#39;</pre></li>\n                  \n
         \             </ol>\n              \n            </div>\n          \n\n          \n
         \           <div class=\"commands\">\n                \n                    <a
-        href=\"#\" onclick=\"return varToggle(this, '140368870699304')\"><span>&#x25b6;</span>
+        href=\"#\" onclick=\"return varToggle(this, '140686194273096')\"><span>&#x25b6;</span>
         Local vars</a>\n                \n            </div>\n            <table class=\"vars\"
-        id=\"v140368870699304\">\n              <thead>\n                <tr>\n                  <th>Variable</th>\n
+        id=\"v140686194273096\">\n              <thead>\n                <tr>\n                  <th>Variable</th>\n
         \                 <th>Value</th>\n                </tr>\n              </thead>\n
         \             <tbody>\n                \n                  <tr>\n                    <td>e</td>\n
         \                   <td class=\"code\"><pre>MultiValueDictKeyError(&quot;&#39;id&#39;&quot;,)</pre></td>\n
@@ -1578,7 +1578,7 @@ http_interactions:
         class=\"code\"><pre>&#39;&#39;</pre></td>\n        </tr>\n      \n        <tr>\n
         \         <td>REMOTE_ADDR</td>\n          <td class=\"code\"><pre>&#39;122.199.27.9&#39;</pre></td>\n
         \       </tr>\n      \n        <tr>\n          <td>REMOTE_PORT</td>\n          <td
-        class=\"code\"><pre>&#39;41860&#39;</pre></td>\n        </tr>\n      \n        <tr>\n
+        class=\"code\"><pre>&#39;42396&#39;</pre></td>\n        </tr>\n      \n        <tr>\n
         \         <td>REQUEST_METHOD</td>\n          <td class=\"code\"><pre>&#39;GET&#39;</pre></td>\n
         \       </tr>\n      \n        <tr>\n          <td>REQUEST_SCHEME</td>\n          <td
         class=\"code\"><pre>&#39;https&#39;</pre></td>\n        </tr>\n      \n        <tr>\n
@@ -1618,18 +1618,18 @@ http_interactions:
         \         <td class=\"code\"><pre>&#39;&#39;</pre></td>\n        </tr>\n      \n
         \       <tr>\n          <td>mod_wsgi.request_handler</td>\n          <td class=\"code\"><pre>&#39;wsgi-script&#39;</pre></td>\n
         \       </tr>\n      \n        <tr>\n          <td>mod_wsgi.request_start</td>\n
-        \         <td class=\"code\"><pre>&#39;1582928117203854&#39;</pre></td>\n
+        \         <td class=\"code\"><pre>&#39;1582928812293954&#39;</pre></td>\n
         \       </tr>\n      \n        <tr>\n          <td>mod_wsgi.script_reloading</td>\n
         \         <td class=\"code\"><pre>&#39;1&#39;</pre></td>\n        </tr>\n
         \     \n        <tr>\n          <td>mod_wsgi.script_start</td>\n          <td
-        class=\"code\"><pre>&#39;1582928117204081&#39;</pre></td>\n        </tr>\n
+        class=\"code\"><pre>&#39;1582928812294170&#39;</pre></td>\n        </tr>\n
         \     \n        <tr>\n          <td>mod_wsgi.version</td>\n          <td class=\"code\"><pre>(4,
         3, 0)</pre></td>\n        </tr>\n      \n        <tr>\n          <td>wsgi.errors</td>\n
-        \         <td class=\"code\"><pre>&lt;mod_wsgi.Log object at 0x7faa2e14a8e8&gt;</pre></td>\n
+        \         <td class=\"code\"><pre>&lt;mod_wsgi.Log object at 0x7ff40ea26030&gt;</pre></td>\n
         \       </tr>\n      \n        <tr>\n          <td>wsgi.file_wrapper</td>\n
         \         <td class=\"code\"><pre>&#39;&#39;</pre></td>\n        </tr>\n      \n
         \       <tr>\n          <td>wsgi.input</td>\n          <td class=\"code\"><pre>&lt;mod_wsgi.Input
-        object at 0x7faa2c9dd5f0&gt;</pre></td>\n        </tr>\n      \n        <tr>\n
+        object at 0x7ff40d986cf0&gt;</pre></td>\n        </tr>\n      \n        <tr>\n
         \         <td>wsgi.multiprocess</td>\n          <td class=\"code\"><pre>True</pre></td>\n
         \       </tr>\n      \n        <tr>\n          <td>wsgi.multithread</td>\n
         \         <td class=\"code\"><pre>False</pre></td>\n        </tr>\n      \n
@@ -1979,11 +1979,11 @@ http_interactions:
         settings file. Change that to <code>False</code>, and Django will\n      display
         a standard page generated by the handler for this status code.\n    </p>\n
         \ </div>\n\n</body>\n</html>\n"
-  recorded_at: 2020-02-28 22:15:21 GMT
+  recorded_at: 2020-02-28 22:26:57 GMT
   recorded_with: vcr/0.4.2.94, webmockr/0.5.1.98
 - request:
     method: get
-    uri: https://climateserv.servirglobal.net/chirps/getDataRequestProgress/?id=aa15ca8d-8ec7-4498-b9bf-f9febcfd9e94
+    uri: https://climateserv.servirglobal.net/chirps/getDataRequestProgress/?id=c4da5a22-2cad-44b6-b1b5-0df577d82458
     body:
       encoding: ''
       string: ''
@@ -1998,7 +1998,7 @@ http_interactions:
       explanation: Request fulfilled, document follows
     headers:
       status: HTTP/1.1 200 OK
-      date: Fri, 28 Feb 2020 22:15:18 GMT
+      date: Fri, 28 Feb 2020 22:26:53 GMT
       server: Apache/2.4.18 (Ubuntu)
       strict-transport-security: max-age=63072000; includeSubdomains
       x-frame-options: DENY
@@ -2012,11 +2012,11 @@ http_interactions:
       encoding: UTF-8
       file: no
       string: '[100.0]'
-  recorded_at: 2020-02-28 22:15:21 GMT
+  recorded_at: 2020-02-28 22:26:57 GMT
   recorded_with: vcr/0.4.2.94, webmockr/0.5.1.98
 - request:
     method: get
-    uri: https://climateserv.servirglobal.net/chirps/getDataRequestProgress/?id=aa15ca8d-8ec7-4498-b9bf-f9febcfd9e94
+    uri: https://climateserv.servirglobal.net/chirps/getDataRequestProgress/?id=c4da5a22-2cad-44b6-b1b5-0df577d82458
     body:
       encoding: ''
       string: ''
@@ -2031,7 +2031,7 @@ http_interactions:
       explanation: Request fulfilled, document follows
     headers:
       status: HTTP/1.1 200 OK
-      date: Fri, 28 Feb 2020 22:15:19 GMT
+      date: Fri, 28 Feb 2020 22:26:54 GMT
       server: Apache/2.4.18 (Ubuntu)
       strict-transport-security: max-age=63072000; includeSubdomains
       x-frame-options: DENY
@@ -2045,7 +2045,7 @@ http_interactions:
       encoding: UTF-8
       file: no
       string: '[100.0]'
-  recorded_at: 2020-02-28 22:15:21 GMT
+  recorded_at: 2020-02-28 22:26:57 GMT
   recorded_with: vcr/0.4.2.94, webmockr/0.5.1.98
 - request:
     method: get
@@ -2064,7 +2064,7 @@ http_interactions:
       explanation: Request fulfilled, document follows
     headers:
       status: HTTP/1.1 200 OK
-      date: Fri, 28 Feb 2020 22:15:19 GMT
+      date: Fri, 28 Feb 2020 22:26:54 GMT
       server: Apache/2.4.18 (Ubuntu)
       strict-transport-security: max-age=63072000; includeSubdomains
       x-frame-options: DENY
@@ -2078,11 +2078,11 @@ http_interactions:
       encoding: UTF-8
       file: no
       string: need to send id
-  recorded_at: 2020-02-28 22:15:21 GMT
+  recorded_at: 2020-02-28 22:26:57 GMT
   recorded_with: vcr/0.4.2.94, webmockr/0.5.1.98
 - request:
     method: get
-    uri: https://climateserv.servirglobal.net/chirps/getDataFromRequest/?id=d0dc6842-5d86-4c3a-97f0-d7ff51de34a8
+    uri: https://climateserv.servirglobal.net/chirps/getDataFromRequest/?id=676a574d-4915-4b89-abf5-30dfbc55fa6b
     body:
       encoding: ''
       string: ''
@@ -2097,7 +2097,7 @@ http_interactions:
       explanation: Request fulfilled, document follows
     headers:
       status: HTTP/1.1 200 OK
-      date: Fri, 28 Feb 2020 22:15:20 GMT
+      date: Fri, 28 Feb 2020 22:26:55 GMT
       server: Apache/2.4.18 (Ubuntu)
       strict-transport-security: max-age=63072000; includeSubdomains
       x-frame-options: DENY
@@ -2110,19 +2110,12 @@ http_interactions:
     body:
       encoding: UTF-8
       file: no
-      string: '{"data": [{"date": "1/1/2000", "workid": "12facff0-7397-4dbe-8d4c-69626ae7e38c",
-        "epochTime": "946684800", "value": {"avg": 9.255108833312988}}, {"date": "1/2/2000",
-        "workid": "f4ee9770-7ca6-4fda-9c82-33ea31561a96", "epochTime": "946771200",
-        "value": {"avg": 0.0}}, {"date": "1/3/2000", "workid": "57c6d941-4709-44b3-a641-2f2b8e84d4b1",
-        "epochTime": "946857600", "value": {"avg": 0.0}}, {"date": "1/4/2000", "workid":
-        "9e59230a-f909-46a1-9cc8-90d22cc7e0df", "epochTime": "946944000", "value":
-        {"avg": 0.0}}, {"date": "1/5/2000", "workid": "93bd9838-434a-473f-8459-18df678ecf62",
-        "epochTime": "947030400", "value": {"avg": 18.510217666625977}}]}'
-  recorded_at: 2020-02-28 22:15:21 GMT
+      string: '{"data": []}'
+  recorded_at: 2020-02-28 22:26:57 GMT
   recorded_with: vcr/0.4.2.94, webmockr/0.5.1.98
 - request:
     method: get
-    uri: https://climateserv.servirglobal.net/chirps/getDataFromRequest/?id=d0dc6842-5d86-4c3a-97f0-d7ff51de34a8
+    uri: https://climateserv.servirglobal.net/chirps/getDataFromRequest/?id=676a574d-4915-4b89-abf5-30dfbc55fa6b
     body:
       encoding: ''
       string: ''
@@ -2137,7 +2130,7 @@ http_interactions:
       explanation: Request fulfilled, document follows
     headers:
       status: HTTP/1.1 200 OK
-      date: Fri, 28 Feb 2020 22:15:21 GMT
+      date: Fri, 28 Feb 2020 22:26:56 GMT
       server: Apache/2.4.18 (Ubuntu)
       strict-transport-security: max-age=63072000; includeSubdomains
       x-frame-options: DENY
@@ -2150,15 +2143,8 @@ http_interactions:
     body:
       encoding: UTF-8
       file: no
-      string: '{"data": [{"date": "1/1/2000", "workid": "12facff0-7397-4dbe-8d4c-69626ae7e38c",
-        "epochTime": "946684800", "value": {"avg": 9.255108833312988}}, {"date": "1/2/2000",
-        "workid": "f4ee9770-7ca6-4fda-9c82-33ea31561a96", "epochTime": "946771200",
-        "value": {"avg": 0.0}}, {"date": "1/3/2000", "workid": "57c6d941-4709-44b3-a641-2f2b8e84d4b1",
-        "epochTime": "946857600", "value": {"avg": 0.0}}, {"date": "1/4/2000", "workid":
-        "9e59230a-f909-46a1-9cc8-90d22cc7e0df", "epochTime": "946944000", "value":
-        {"avg": 0.0}}, {"date": "1/5/2000", "workid": "93bd9838-434a-473f-8459-18df678ecf62",
-        "epochTime": "947030400", "value": {"avg": 18.510217666625977}}]}'
-  recorded_at: 2020-02-28 22:15:21 GMT
+      string: '{"data": []}'
+  recorded_at: 2020-02-28 22:26:57 GMT
   recorded_with: vcr/0.4.2.94, webmockr/0.5.1.98
 - request:
     method: get
@@ -2177,7 +2163,7 @@ http_interactions:
       explanation: Request fulfilled, document follows
     headers:
       status: HTTP/1.1 200 OK
-      date: Fri, 28 Feb 2020 22:15:21 GMT
+      date: Fri, 28 Feb 2020 22:26:56 GMT
       server: Apache/2.4.18 (Ubuntu)
       strict-transport-security: max-age=63072000; includeSubdomains
       x-frame-options: DENY
@@ -2191,11 +2177,11 @@ http_interactions:
       encoding: UTF-8
       file: no
       string: need to send id
-  recorded_at: 2020-02-28 22:15:21 GMT
+  recorded_at: 2020-02-28 22:26:57 GMT
   recorded_with: vcr/0.4.2.94, webmockr/0.5.1.98
 - request:
     method: get
-    uri: https://climateserv.servirglobal.net/chirps/getDataFromRequest/?id=aa15ca8d-8ec7-4498-b9bf-f9febcfd9e94
+    uri: https://climateserv.servirglobal.net/chirps/getDataFromRequest/?id=c4da5a22-2cad-44b6-b1b5-0df577d82458
     body:
       encoding: ''
       string: ''
@@ -2210,7 +2196,7 @@ http_interactions:
       explanation: Request fulfilled, document follows
     headers:
       status: HTTP/1.1 200 OK
-      date: Fri, 28 Feb 2020 22:15:22 GMT
+      date: Fri, 28 Feb 2020 22:26:57 GMT
       server: Apache/2.4.18 (Ubuntu)
       strict-transport-security: max-age=63072000; includeSubdomains
       x-frame-options: DENY
@@ -2223,19 +2209,17 @@ http_interactions:
     body:
       encoding: UTF-8
       file: no
-      string: '{"data": [{"date": "1/1/2000", "workid": "0f035e9e-b7d2-4a88-9c32-f1b85e0912df",
-        "epochTime": "946684800", "value": {"avg": 38.354225158691406}}, {"date":
-        "1/2/2000", "workid": "28c7066c-d074-4925-a056-00b04866c3b2", "epochTime":
-        "946771200", "value": {"avg": 0.0}}, {"date": "1/3/2000", "workid": "b42453a7-e219-4113-bf7e-5734e8714260",
-        "epochTime": "946857600", "value": {"avg": 38.354225158691406}}, {"date":
-        "1/4/2000", "workid": "343f77dc-d63d-4918-860c-17a000124100", "epochTime":
-        "946944000", "value": {"avg": 0.0}}, {"date": "1/5/2000", "workid": "e4b78ca0-e0be-4428-aa1e-6e27b0d21dc4",
-        "epochTime": "947030400", "value": {"avg": 0.0}}]}'
-  recorded_at: 2020-02-28 22:15:21 GMT
+      string: '{"data": [{"date": "1/1/2002", "workid": "6197db6f-6a41-4da8-93ab-6b5db1c5841a",
+        "epochTime": "1009843200", "value": {"avg": -1.8911585807800293}}, {"date":
+        "1/9/2002", "workid": "c89e314d-e333-481b-944b-e33d6911f9bc", "epochTime":
+        "1010534400", "value": {"avg": -1.9161806106567383}}, {"date": "1/17/2002",
+        "workid": "c738b9d1-45f3-422a-8af5-1678a99674ed", "epochTime": "1011225600",
+        "value": {"avg": -2.1174285411834717}}]}'
+  recorded_at: 2020-02-28 22:26:57 GMT
   recorded_with: vcr/0.4.2.94, webmockr/0.5.1.98
 - request:
     method: get
-    uri: https://climateserv.servirglobal.net/chirps/getDataFromRequest/?id=aa15ca8d-8ec7-4498-b9bf-f9febcfd9e94
+    uri: https://climateserv.servirglobal.net/chirps/getDataFromRequest/?id=c4da5a22-2cad-44b6-b1b5-0df577d82458
     body:
       encoding: ''
       string: ''
@@ -2250,7 +2234,7 @@ http_interactions:
       explanation: Request fulfilled, document follows
     headers:
       status: HTTP/1.1 200 OK
-      date: Fri, 28 Feb 2020 22:15:23 GMT
+      date: Fri, 28 Feb 2020 22:26:58 GMT
       server: Apache/2.4.18 (Ubuntu)
       strict-transport-security: max-age=63072000; includeSubdomains
       x-frame-options: DENY
@@ -2263,13 +2247,11 @@ http_interactions:
     body:
       encoding: UTF-8
       file: no
-      string: '{"data": [{"date": "1/1/2000", "workid": "0f035e9e-b7d2-4a88-9c32-f1b85e0912df",
-        "epochTime": "946684800", "value": {"avg": 38.354225158691406}}, {"date":
-        "1/2/2000", "workid": "28c7066c-d074-4925-a056-00b04866c3b2", "epochTime":
-        "946771200", "value": {"avg": 0.0}}, {"date": "1/3/2000", "workid": "b42453a7-e219-4113-bf7e-5734e8714260",
-        "epochTime": "946857600", "value": {"avg": 38.354225158691406}}, {"date":
-        "1/4/2000", "workid": "343f77dc-d63d-4918-860c-17a000124100", "epochTime":
-        "946944000", "value": {"avg": 0.0}}, {"date": "1/5/2000", "workid": "e4b78ca0-e0be-4428-aa1e-6e27b0d21dc4",
-        "epochTime": "947030400", "value": {"avg": 0.0}}]}'
-  recorded_at: 2020-02-28 22:15:21 GMT
+      string: '{"data": [{"date": "1/1/2002", "workid": "6197db6f-6a41-4da8-93ab-6b5db1c5841a",
+        "epochTime": "1009843200", "value": {"avg": -1.8911585807800293}}, {"date":
+        "1/9/2002", "workid": "c89e314d-e333-481b-944b-e33d6911f9bc", "epochTime":
+        "1010534400", "value": {"avg": -1.9161806106567383}}, {"date": "1/17/2002",
+        "workid": "c738b9d1-45f3-422a-8af5-1678a99674ed", "epochTime": "1011225600",
+        "value": {"avg": -2.1174285411834717}}]}'
+  recorded_at: 2020-02-28 22:26:57 GMT
   recorded_with: vcr/0.4.2.94, webmockr/0.5.1.98
