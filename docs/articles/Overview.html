@@ -79,7 +79,7 @@
 
       
 
-      </header><div class="row">
+      </header><script src="Overview_files/header-attrs-2.1/header-attrs.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1>Introduction to chirps</h1>
@@ -113,66 +113,66 @@
 <h1 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h1>
 <p>The development version can be installed via</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="st">"devtools"</span>)</a>
-<a class="sourceLine" id="cb1-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb1-3" data-line-number="3">devtools<span class="op">::</span><span class="kw"><a href="https://devtools.r-lib.org//reference/remote-reexports.html">install_github</a></span>(<span class="st">"agrobioinfoservices/chirps"</span>, <span class="dt">build_vignettes =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="st">"devtools"</span>)</span>
+<span id="cb1-2"><a href="#cb1-2"></a></span>
+<span id="cb1-3"><a href="#cb1-3"></a>devtools<span class="op">::</span><span class="kw"><a href="https://devtools.r-lib.org//reference/remote-reexports.html">install_github</a></span>(<span class="st">"agrobioinfoservices/chirps"</span>, <span class="dt">build_vignettes =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
 </div>
 <div id="usage" class="section level1">
 <h1 class="hasAnchor">
 <a href="#usage" class="anchor"></a>Usage</h1>
-<p>The <em>Tapajós</em> National Forest is a protected area in the Brazilian Amazon. Located within the coordinates -55.4<span class="math inline">\(^{\circ}\)</span> and -54.8<span class="math inline">\(^{\circ}\)</span> E and -4.1<span class="math inline">\(^{\circ}\)</span> and -2.7<span class="math inline">\(^{\circ}\)</span> S with ~ 527,400 ha of multiple Amazonian ecosystems. We take three random points across its area to get the precipitation from Jan-2013 to Dec-2018 using <code><a href="../reference/get_chirps.html">get_chirps.sf()</a></code> for objects of class ‘sf’<span class="citation"><sup>2</sup></span>.</p>
+<p>The <em>Tapajós</em> National Forest is a protected area in the Brazilian Amazon. Located within the coordinates -55.4<span class="math inline">\(^{\circ}\)</span> and -54.8<span class="math inline">\(^{\circ}\)</span> E and -4.1<span class="math inline">\(^{\circ}\)</span> and -2.7<span class="math inline">\(^{\circ}\)</span> S with ~ 527,400 ha of multiple Amazonian ecosystems. We take three random points across its area to get the precipitation from Jan-2013 to Dec-2018 using <code><a href="../reference/get_chirps.html">get_chirps.sf()</a></code> for objects of class ‘sf’.<span class="citation"><sup>2</sup></span></p>
 <p><img src="map.png" title="plot of chunk map" alt="plot of chunk map" style="display: block; margin: auto;"></p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="st">"chirps"</span>)</a>
-<a class="sourceLine" id="cb2-2" data-line-number="2"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="st">"sf"</span>)</a>
-<a class="sourceLine" id="cb2-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb2-4" data-line-number="4"><span class="kw"><a href="https://rdrr.io/r/utils/example.html">example</a></span>(<span class="st">"tapajos"</span>, <span class="dt">package =</span> <span class="st">"chirps"</span>)</a>
-<a class="sourceLine" id="cb2-5" data-line-number="5"></a>
-<a class="sourceLine" id="cb2-6" data-line-number="6">dt &lt;-<span class="st"> </span><span class="kw"><a href="../reference/get_chirps.html">get_chirps</a></span>(tp_point, <span class="dt">dates =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"2013-01-01"</span>,<span class="st">"2018-12-31"</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="st">"chirps"</span>)</span>
+<span id="cb2-2"><a href="#cb2-2"></a><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="st">"sf"</span>)</span>
+<span id="cb2-3"><a href="#cb2-3"></a></span>
+<span id="cb2-4"><a href="#cb2-4"></a><span class="kw"><a href="https://rdrr.io/r/utils/example.html">example</a></span>(<span class="st">"tapajos"</span>, <span class="dt">package =</span> <span class="st">"chirps"</span>)</span>
+<span id="cb2-5"><a href="#cb2-5"></a></span>
+<span id="cb2-6"><a href="#cb2-6"></a>dt &lt;-<span class="st"> </span><span class="kw"><a href="../reference/get_chirps.html">get_chirps</a></span>(tp_point, <span class="dt">dates =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"2013-01-01"</span>,<span class="st">"2018-12-31"</span>))</span></code></pre></div>
 <p>The function <code><a href="../reference/get_chirps.html">get_chirps()</a></code> returns a data.frame which inherits the class ‘chirps’, where each id represents the index for the rows in the in-putted ‘object’.</p>
 <p>With <code><a href="../reference/precip_indices.html">precip_indices()</a></code> is possible to assess how the precipitation changes across a time series using precipitation variability indices<span class="citation"><sup>3</sup></span>. Here, we take the indices for intervals of 15 days and compute the indices for the time series (from Jan-2013 to Dec-2018).</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">p_ind &lt;-<span class="st"> </span><span class="kw"><a href="../reference/precip_indices.html">precip_indices</a></span>(dt, <span class="dt">timeseries =</span> <span class="ot">TRUE</span>, <span class="dt">intervals =</span> <span class="dv">15</span>)</a>
-<a class="sourceLine" id="cb3-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb3-3" data-line-number="3"><span class="kw"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(p_ind)</a>
-<a class="sourceLine" id="cb3-4" data-line-number="4"><span class="co">#&gt; # A tibble: 6 x 6</span></a>
-<a class="sourceLine" id="cb3-5" data-line-number="5"><span class="co">#&gt;      id date         lon   lat index  value</span></a>
-<a class="sourceLine" id="cb3-6" data-line-number="6"><span class="co">#&gt;   &lt;int&gt; &lt;date&gt;     &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;  &lt;dbl&gt;</span></a>
-<a class="sourceLine" id="cb3-7" data-line-number="7"><span class="co">#&gt; 1     1 2013-01-01 -55.0 -3.80 MLDS     7  </span></a>
-<a class="sourceLine" id="cb3-8" data-line-number="8"><span class="co">#&gt; 2     1 2013-01-01 -55.0 -3.80 MLWS     2  </span></a>
-<a class="sourceLine" id="cb3-9" data-line-number="9"><span class="co">#&gt; 3     1 2013-01-01 -55.0 -3.80 R10mm    1  </span></a>
-<a class="sourceLine" id="cb3-10" data-line-number="10"><span class="co">#&gt; 4     1 2013-01-01 -55.0 -3.80 R20mm    3  </span></a>
-<a class="sourceLine" id="cb3-11" data-line-number="11"><span class="co">#&gt; 5     1 2013-01-01 -55.0 -3.80 Rx1day  47.4</span></a>
-<a class="sourceLine" id="cb3-12" data-line-number="12"><span class="co">#&gt; 6     1 2013-01-01 -55.0 -3.80 Rx5day 103.</span></a></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>p_ind &lt;-<span class="st"> </span><span class="kw"><a href="../reference/precip_indices.html">precip_indices</a></span>(dt, <span class="dt">timeseries =</span> <span class="ot">TRUE</span>, <span class="dt">intervals =</span> <span class="dv">15</span>)</span>
+<span id="cb3-2"><a href="#cb3-2"></a></span>
+<span id="cb3-3"><a href="#cb3-3"></a><span class="kw"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(p_ind)</span>
+<span id="cb3-4"><a href="#cb3-4"></a><span class="co">#&gt; # A tibble: 6 x 6</span></span>
+<span id="cb3-5"><a href="#cb3-5"></a><span class="co">#&gt;      id date         lon   lat index  value</span></span>
+<span id="cb3-6"><a href="#cb3-6"></a><span class="co">#&gt;   &lt;int&gt; &lt;date&gt;     &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;  &lt;dbl&gt;</span></span>
+<span id="cb3-7"><a href="#cb3-7"></a><span class="co">#&gt; 1     1 2013-01-01 -55.0 -3.80 MLDS     7  </span></span>
+<span id="cb3-8"><a href="#cb3-8"></a><span class="co">#&gt; 2     1 2013-01-01 -55.0 -3.80 MLWS     2  </span></span>
+<span id="cb3-9"><a href="#cb3-9"></a><span class="co">#&gt; 3     1 2013-01-01 -55.0 -3.80 R10mm    1  </span></span>
+<span id="cb3-10"><a href="#cb3-10"></a><span class="co">#&gt; 4     1 2013-01-01 -55.0 -3.80 R20mm    3  </span></span>
+<span id="cb3-11"><a href="#cb3-11"></a><span class="co">#&gt; 5     1 2013-01-01 -55.0 -3.80 Rx1day  47.4</span></span>
+<span id="cb3-12"><a href="#cb3-12"></a><span class="co">#&gt; 6     1 2013-01-01 -55.0 -3.80 Rx5day 103.</span></span></code></pre></div>
 <p>The function <code><a href="../reference/precip_indices.html">precip_indices()</a></code> returns a data.frame with the precipitation indices. Each date corresponds to the first day in the time series intervals as defined by the argument ‘intervals’. When <code>timeseries = FALSE</code> the function returns a single precipitation index for the entire time series.</p>
 <p>There are two main types of indices. Those that are expressed in days (“MLDS”, “MLWS”, “R10mm”, “R20mm”) and those that are expressed in mm (“R95p”, “R99p”, “Rx5day”, “SDII”). We split these indices to visualise the time series.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="st">"tidyverse"</span>)</a>
-<a class="sourceLine" id="cb4-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb4-3" data-line-number="3">mm &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"R95p"</span>,<span class="st">"R99p"</span>,<span class="st">"Rx5day"</span>,<span class="st">"Rtotal"</span>)</a>
-<a class="sourceLine" id="cb4-4" data-line-number="4">days &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"MLDS"</span>,<span class="st">"MLWS"</span>,<span class="st">"R10mm"</span>,<span class="st">"R20mm"</span>)</a>
-<a class="sourceLine" id="cb4-5" data-line-number="5"></a>
-<a class="sourceLine" id="cb4-6" data-line-number="6">p_ind <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb4-7" data-line-number="7"><span class="st">  </span><span class="kw"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span>(index <span class="op">%in%</span><span class="st"> </span>mm) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb4-8" data-line-number="8"><span class="st">  </span><span class="kw">group_by</span>(index) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb4-9" data-line-number="9"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">ab =</span> <span class="kw"><a href="https://rdrr.io/r/base/mean.html">mean</a></span>(value)) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb4-10" data-line-number="10"><span class="st">  </span><span class="kw">ggplot</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb4-11" data-line-number="11"><span class="st">  </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">x =</span> date, <span class="dt">y =</span> value, <span class="dt">group =</span> id)) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb4-12" data-line-number="12"><span class="st">  </span><span class="kw">geom_hline</span>(<span class="kw">aes</span>(<span class="dt">yintercept =</span> ab), <span class="dt">colour =</span> <span class="st">"red"</span>, <span class="dt">lwd =</span> <span class="fl">0.7</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb4-13" data-line-number="13"><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="kw">aes</span>(<span class="dt">x =</span> date, <span class="dt">y =</span> value), <span class="dt">method =</span> <span class="st">"loess"</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb4-14" data-line-number="14"><span class="st">  </span><span class="kw">facet_wrap</span>(. <span class="op">~</span><span class="st"> </span>index) <span class="op">+</span></a>
-<a class="sourceLine" id="cb4-15" data-line-number="15"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">"Year"</span>, <span class="dt">y =</span> <span class="st">"Index (mm)"</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb4-16" data-line-number="16"><span class="st">  </span><span class="kw">theme_classic</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="st">"tidyverse"</span>)</span>
+<span id="cb4-2"><a href="#cb4-2"></a></span>
+<span id="cb4-3"><a href="#cb4-3"></a>mm &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"R95p"</span>,<span class="st">"R99p"</span>,<span class="st">"Rx5day"</span>,<span class="st">"Rtotal"</span>)</span>
+<span id="cb4-4"><a href="#cb4-4"></a>days &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"MLDS"</span>,<span class="st">"MLWS"</span>,<span class="st">"R10mm"</span>,<span class="st">"R20mm"</span>)</span>
+<span id="cb4-5"><a href="#cb4-5"></a></span>
+<span id="cb4-6"><a href="#cb4-6"></a>p_ind <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb4-7"><a href="#cb4-7"></a><span class="st">  </span><span class="kw"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span>(index <span class="op">%in%</span><span class="st"> </span>mm) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb4-8"><a href="#cb4-8"></a><span class="st">  </span><span class="kw">group_by</span>(index) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb4-9"><a href="#cb4-9"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">ab =</span> <span class="kw"><a href="https://rdrr.io/r/base/mean.html">mean</a></span>(value)) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb4-10"><a href="#cb4-10"></a><span class="st">  </span><span class="kw">ggplot</span>() <span class="op">+</span></span>
+<span id="cb4-11"><a href="#cb4-11"></a><span class="st">  </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">x =</span> date, <span class="dt">y =</span> value, <span class="dt">group =</span> id)) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb4-12"><a href="#cb4-12"></a><span class="st">  </span><span class="kw">geom_hline</span>(<span class="kw">aes</span>(<span class="dt">yintercept =</span> ab), <span class="dt">colour =</span> <span class="st">"red"</span>, <span class="dt">lwd =</span> <span class="fl">0.7</span>) <span class="op">+</span></span>
+<span id="cb4-13"><a href="#cb4-13"></a><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="kw">aes</span>(<span class="dt">x =</span> date, <span class="dt">y =</span> value), <span class="dt">method =</span> <span class="st">"loess"</span>) <span class="op">+</span></span>
+<span id="cb4-14"><a href="#cb4-14"></a><span class="st">  </span><span class="kw">facet_wrap</span>(. <span class="op">~</span><span class="st"> </span>index) <span class="op">+</span></span>
+<span id="cb4-15"><a href="#cb4-15"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">"Year"</span>, <span class="dt">y =</span> <span class="st">"Index (mm)"</span>) <span class="op">+</span></span>
+<span id="cb4-16"><a href="#cb4-16"></a><span class="st">  </span><span class="kw">theme_classic</span>()</span></code></pre></div>
 <p><img src="mm-1.png" title="plot of chunk mm" alt="plot of chunk mm" style="display: block; margin: auto;"></p>
 <p>Now plot the indices expressed in days.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1">p_ind <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb5-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span>(index <span class="op">%in%</span><span class="st"> </span>days) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb5-3" data-line-number="3"><span class="st">  </span><span class="kw">group_by</span>(index) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb5-4" data-line-number="4"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">ab =</span> <span class="kw"><a href="https://rdrr.io/r/base/mean.html">mean</a></span>(value)) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb5-5" data-line-number="5"><span class="st">  </span><span class="kw">ggplot</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb5-6" data-line-number="6"><span class="st">  </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">x =</span> date, <span class="dt">y =</span> value, <span class="dt">group =</span> id)) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb5-7" data-line-number="7"><span class="st">  </span><span class="kw">geom_hline</span>(<span class="kw">aes</span>(<span class="dt">yintercept =</span> ab), <span class="dt">colour =</span> <span class="st">"red"</span>, <span class="dt">lwd =</span> <span class="fl">0.7</span>) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb5-8" data-line-number="8"><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="kw">aes</span>(<span class="dt">x =</span> date, <span class="dt">y =</span> value), <span class="dt">method =</span> <span class="st">"loess"</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb5-9" data-line-number="9"><span class="st">  </span><span class="kw">facet_wrap</span>(. <span class="op">~</span><span class="st"> </span>index) <span class="op">+</span></a>
-<a class="sourceLine" id="cb5-10" data-line-number="10"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">"Year"</span>, <span class="dt">y =</span> <span class="st">"Index (days)"</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb5-11" data-line-number="11"><span class="st">  </span><span class="kw">theme_classic</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>p_ind <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb5-2"><a href="#cb5-2"></a><span class="st">  </span><span class="kw"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span>(index <span class="op">%in%</span><span class="st"> </span>days) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb5-3"><a href="#cb5-3"></a><span class="st">  </span><span class="kw">group_by</span>(index) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb5-4"><a href="#cb5-4"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">ab =</span> <span class="kw"><a href="https://rdrr.io/r/base/mean.html">mean</a></span>(value)) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb5-5"><a href="#cb5-5"></a><span class="st">  </span><span class="kw">ggplot</span>() <span class="op">+</span></span>
+<span id="cb5-6"><a href="#cb5-6"></a><span class="st">  </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">x =</span> date, <span class="dt">y =</span> value, <span class="dt">group =</span> id)) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb5-7"><a href="#cb5-7"></a><span class="st">  </span><span class="kw">geom_hline</span>(<span class="kw">aes</span>(<span class="dt">yintercept =</span> ab), <span class="dt">colour =</span> <span class="st">"red"</span>, <span class="dt">lwd =</span> <span class="fl">0.7</span>) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb5-8"><a href="#cb5-8"></a><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="kw">aes</span>(<span class="dt">x =</span> date, <span class="dt">y =</span> value), <span class="dt">method =</span> <span class="st">"loess"</span>) <span class="op">+</span></span>
+<span id="cb5-9"><a href="#cb5-9"></a><span class="st">  </span><span class="kw">facet_wrap</span>(. <span class="op">~</span><span class="st"> </span>index) <span class="op">+</span></span>
+<span id="cb5-10"><a href="#cb5-10"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">"Year"</span>, <span class="dt">y =</span> <span class="st">"Index (days)"</span>) <span class="op">+</span></span>
+<span id="cb5-11"><a href="#cb5-11"></a><span class="st">  </span><span class="kw">theme_classic</span>()</span></code></pre></div>
 <p><img src="days-1.png" title="plot of chunk days" alt="plot of chunk days" style="display: block; margin: auto;"></p>
 <p>Here we see how these indices are changing across the time series. In this quick assessment, it is possible to see that the maximum precipitation in consecutive 5-days (Rx5day) is higher in the first weeks of each year, which agree with the beginning of the rainy season in this region. However, the trend shows a decreasing in Rx5day across the years. In the other chart we note an increasing extent of consecutive dry days (MLDS) across the time series, with also a decrease in the number of consecutive rainy days (MLWS).</p>
 </div>
@@ -183,35 +183,35 @@
 <h2 class="hasAnchor">
 <a href="#evapotranspiration" class="anchor"></a>Evapotranspiration</h2>
 <p>The <strong>chirps</strong> package also retrieves the Evaporative Stress Index (ESI) using the function <code><a href="../reference/get_esi.html">get_esi()</a></code> which behaves similarly as <code><a href="../reference/get_chirps.html">get_chirps()</a></code>.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"></a>
-<a class="sourceLine" id="cb6-2" data-line-number="2">dt &lt;-<span class="st"> </span><span class="kw"><a href="../reference/get_esi.html">get_esi</a></span>(tp_point, <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"2016-05-01"</span>,<span class="st">"2016-12-31"</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a></span>
+<span id="cb6-2"><a href="#cb6-2"></a>dt &lt;-<span class="st"> </span><span class="kw"><a href="../reference/get_esi.html">get_esi</a></span>(tp_point, <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"2016-05-01"</span>,<span class="st">"2016-12-31"</span>))</span></code></pre></div>
 <p>The function <code><a href="../reference/get_esi.html">get_esi()</a></code> may return <code>NA</code>s due to cloudiness in the dataset. Which will return an error message:</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span>(<span class="dv">123</span>)</a>
-<a class="sourceLine" id="cb7-2" data-line-number="2">lonlat &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(<span class="dt">lon =</span> <span class="kw"><a href="https://rdrr.io/r/stats/Uniform.html">runif</a></span>(<span class="dv">1</span>, <span class="dv">-55</span>, <span class="dv">-54</span>),</a>
-<a class="sourceLine" id="cb7-3" data-line-number="3">                     <span class="dt">lat =</span> <span class="kw"><a href="https://rdrr.io/r/stats/Uniform.html">runif</a></span>(<span class="dv">1</span>, <span class="dv">-3</span>, <span class="fl">-2.7</span>))</a>
-<a class="sourceLine" id="cb7-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb7-5" data-line-number="5"><span class="kw"><a href="../reference/get_esi.html">get_esi</a></span>(lonlat, <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"2017-12-01"</span>,<span class="st">"2018-01-20"</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="kw"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span>(<span class="dv">123</span>)</span>
+<span id="cb7-2"><a href="#cb7-2"></a>lonlat &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(<span class="dt">lon =</span> <span class="kw"><a href="https://rdrr.io/r/stats/Uniform.html">runif</a></span>(<span class="dv">1</span>, <span class="dv">-55</span>, <span class="dv">-54</span>),</span>
+<span id="cb7-3"><a href="#cb7-3"></a>                     <span class="dt">lat =</span> <span class="kw"><a href="https://rdrr.io/r/stats/Uniform.html">runif</a></span>(<span class="dv">1</span>, <span class="dv">-3</span>, <span class="fl">-2.7</span>))</span>
+<span id="cb7-4"><a href="#cb7-4"></a></span>
+<span id="cb7-5"><a href="#cb7-5"></a><span class="kw"><a href="../reference/get_esi.html">get_esi</a></span>(lonlat, <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"2017-12-01"</span>,<span class="st">"2018-01-20"</span>))</span></code></pre></div>
 <p>One way to deal with this is increase the buffer area around the in-putted object with the argument <code>dist</code> passed to <code><a href="https://rdrr.io/pkg/sf/man/geos_unary.html">st_buffer()</a></code> from <em>sf</em> through the <code>...</code> functionality in <code><a href="../reference/get_esi.html">get_esi()</a></code>. The argument <code>nQuadSegs</code> defines the number of segments per quadrant in the buffer.</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1"></a>
-<a class="sourceLine" id="cb8-2" data-line-number="2"><span class="kw"><a href="../reference/get_esi.html">get_esi</a></span>(lonlat, <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"2017-12-01"</span>,<span class="st">"2018-01-20"</span>), <span class="dt">dist =</span> <span class="fl">0.1</span>, <span class="dt">nQuadSegs =</span> <span class="dv">6</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a></span>
+<span id="cb8-2"><a href="#cb8-2"></a><span class="kw"><a href="../reference/get_esi.html">get_esi</a></span>(lonlat, <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"2017-12-01"</span>,<span class="st">"2018-01-20"</span>), <span class="dt">dist =</span> <span class="fl">0.1</span>, <span class="dt">nQuadSegs =</span> <span class="dv">6</span>)</span></code></pre></div>
 </div>
 <div id="objects-of-class-sf" class="section level2">
 <h2 class="hasAnchor">
 <a href="#objects-of-class-sf" class="anchor"></a>Objects of class sf</h2>
 <p>To return an object with the same class (<code>sf</code>), the argument <code>as.sf = TRUE</code> is used.</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1"></a>
-<a class="sourceLine" id="cb9-2" data-line-number="2"><span class="kw"><a href="../reference/get_chirps.html">get_chirps</a></span>(tapajos, <span class="dt">dates =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"2017-12-15"</span>,<span class="st">"2017-12-31"</span>), <span class="dt">as.sf =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a></span>
+<span id="cb9-2"><a href="#cb9-2"></a><span class="kw"><a href="../reference/get_chirps.html">get_chirps</a></span>(tapajos, <span class="dt">dates =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"2017-12-15"</span>,<span class="st">"2017-12-31"</span>), <span class="dt">as.sf =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
 </div>
 <div id="objects-of-class-geojson" class="section level2">
 <h2 class="hasAnchor">
 <a href="#objects-of-class-geojson" class="anchor"></a>Objects of class geojson</h2>
 <p><code><a href="../reference/get_chirps.html">get_chirps()</a></code> and <code><a href="../reference/get_esi.html">get_esi()</a></code> also contains a method for objects of class geojson with geometries ‘Point’ and ‘Polygon’. To return an object with the same class (<code>geojson</code>), the argument <code>as.geojson = TRUE</code> is used.</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1"></a>
-<a class="sourceLine" id="cb10-2" data-line-number="2"><span class="kw"><a href="https://rdrr.io/r/utils/example.html">example</a></span>(<span class="st">"tapajos"</span>, <span class="dt">package =</span> <span class="st">"chirps"</span>)</a>
-<a class="sourceLine" id="cb10-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb10-4" data-line-number="4">dt &lt;-<span class="st"> </span><span class="kw"><a href="../reference/get_esi.html">get_esi</a></span>(tp_geojson, dates, <span class="dt">dist =</span> <span class="fl">0.1</span>)</a>
-<a class="sourceLine" id="cb10-5" data-line-number="5"></a>
-<a class="sourceLine" id="cb10-6" data-line-number="6">dt &lt;-<span class="st"> </span><span class="kw"><a href="../reference/get_esi.html">get_esi</a></span>(tp_geojson, dates, <span class="dt">as.geojson =</span> <span class="ot">TRUE</span>, <span class="dt">dist =</span> <span class="fl">0.1</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a></span>
+<span id="cb10-2"><a href="#cb10-2"></a><span class="kw"><a href="https://rdrr.io/r/utils/example.html">example</a></span>(<span class="st">"tapajos"</span>, <span class="dt">package =</span> <span class="st">"chirps"</span>)</span>
+<span id="cb10-3"><a href="#cb10-3"></a></span>
+<span id="cb10-4"><a href="#cb10-4"></a>dt &lt;-<span class="st"> </span><span class="kw"><a href="../reference/get_esi.html">get_esi</a></span>(tp_geojson, dates, <span class="dt">dist =</span> <span class="fl">0.1</span>)</span>
+<span id="cb10-5"><a href="#cb10-5"></a></span>
+<span id="cb10-6"><a href="#cb10-6"></a>dt &lt;-<span class="st"> </span><span class="kw"><a href="../reference/get_esi.html">get_esi</a></span>(tp_geojson, dates, <span class="dt">as.geojson =</span> <span class="ot">TRUE</span>, <span class="dt">dist =</span> <span class="fl">0.1</span>)</span></code></pre></div>
 </div>
 </div>
 <div id="limitations" class="section level1">
@@ -246,7 +246,8 @@
       <li><a href="#installation">Installation</a></li>
       <li><a href="#usage">Usage</a></li>
       <li>
-<a href="#going-further">Going further</a><ul class="nav nav-pills nav-stacked">
+<a href="#going-further">Going further</a>
+      <ul class="nav nav-pills nav-stacked">
 <li><a href="#evapotranspiration">Evapotranspiration</a></li>
       <li><a href="#objects-of-class-sf">Objects of class sf</a></li>
       <li><a href="#objects-of-class-geojson">Objects of class geojson</a></li>
