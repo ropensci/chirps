@@ -37,7 +37,7 @@ Suggests:
     knitr,
     rmarkdown,
     testthat (>= 2.1.0),
-    vcr
+    vcr (>= 0.5)
 Language: en-GB
 RoxygenNote: 7.0.2
 VignetteBuilder: knitr
