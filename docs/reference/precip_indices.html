@@ -178,18 +178,34 @@ observation or <code>TRUE</code> for a time series based on <var>intervals</var>
  A. B., Mackay M., Dayanandan S.), pp. 151–174. CRC Press.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><span class='co'># \donttest{</span>
+    <pre class="examples"><div class='input'><span class='co'># \donttest{</span>
 <span class='co'># Three points in the Tapajos National Forest, Brazil</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/example.html'>example</a></span>(<span class='st'>"tapajos"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"chirps"</span>)
-
-<span class='no'>dt</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='get_chirps.html'>get_chirps</a></span>(<span class='no'>tp_point</span>, <span class='kw'>dates</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"2017-12-15"</span>,<span class='st'>"2018-05-31"</span>))
-
+<span class='fu'><a href='https://rdrr.io/r/utils/example.html'>example</a></span>(<span class='st'>"tapajos"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"chirps"</span>)</div><div class='output co'>#&gt; 
+#&gt; tapajs&gt; ## No test: 
+#&gt; tapajs&gt; ##D library("sf")
+#&gt; tapajs&gt; ##D 
+#&gt; tapajs&gt; ##D data("tapajos")
+#&gt; tapajs&gt; ##D 
+#&gt; tapajs&gt; ##D # sample three points within the Tapajos area
+#&gt; tapajs&gt; ##D set.seed(1234)
+#&gt; tapajs&gt; ##D tp_point &lt;- st_sample(tapajos, 3)
+#&gt; tapajs&gt; ##D 
+#&gt; tapajs&gt; ##D # coerce as sf points
+#&gt; tapajs&gt; ##D tp_point &lt;- st_as_sf(tp_point)
+#&gt; tapajs&gt; ##D 
+#&gt; tapajs&gt; ##D # transform into a geojson
+#&gt; tapajs&gt; ##D tp_geojson &lt;- sf_to_geojson(tp_point)
+#&gt; tapajs&gt; ## End(No test)
+#&gt; tapajs&gt; 
+#&gt; tapajs&gt; 
+#&gt; tapajs&gt; 
+#&gt; tapajs&gt; </div><div class='input'>
+<span class='no'>dt</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='get_chirps.html'>get_chirps</a></span>(<span class='no'>tp_point</span>, <span class='kw'>dates</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"2017-12-15"</span>,<span class='st'>"2018-05-31"</span>))</div><div class='output co'>#&gt; <span class='error'>Error in get_chirps(tp_point, dates = c("2017-12-15", "2018-05-31")): object 'tp_point' not found</span></div><div class='input'>
 <span class='co'># take the indices for the entire period</span>
-<span class='fu'>precip_indices</span>(<span class='no'>dt</span>, <span class='kw'>timeseries</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
-
+<span class='fu'>precip_indices</span>(<span class='no'>dt</span>, <span class='kw'>timeseries</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; <span class='error'>Error in precip_indices(dt, timeseries = FALSE): object must be a data.frame with class 'chirps'</span></div><div class='input'>
 <span class='co'># take the indices for periods of 7 days</span>
-<span class='fu'>precip_indices</span>(<span class='no'>dt</span>, <span class='kw'>timeseries</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>intervals</span> <span class='kw'>=</span> <span class='fl'>7</span>)
-<span class='co'># }</span></pre>
+<span class='fu'>precip_indices</span>(<span class='no'>dt</span>, <span class='kw'>timeseries</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>intervals</span> <span class='kw'>=</span> <span class='fl'>7</span>)</div><div class='output co'>#&gt; <span class='error'>Error in precip_indices(dt, timeseries = TRUE, intervals = 7): object must be a data.frame with class 'chirps'</span></div><div class='input'># }
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
