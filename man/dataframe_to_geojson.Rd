@@ -4,7 +4,7 @@
 \alias{dataframe_to_geojson}
 \title{Concatenate a data.frame into a geojson polygon}
 \usage{
-dataframe_to_geojson(lonlat, dist = 1e-05, nQuadSegs = 2L, ...)
+dataframe_to_geojson(lonlat, dist = 0.00001, nQuadSegs = 2L, ...)
 }
 \arguments{
 \item{lonlat}{a data.frame with geographical coordinates lonlat in 

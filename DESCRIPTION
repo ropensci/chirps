@@ -5,7 +5,7 @@ Version: 0.0.6
 Authors@R: c(person("Kaue", "de Sousa", 
         email = "kaue.desousa@inn.no", role = c("aut", "cre"),
         comment = c(ORCID = "0000-0002-7571-7845")), 
-        person("Adam H.", "Sparks", role = c("aut"),
+        person("Adam", "Sparks", role = c("aut"),
         comment = c(ORCID = "0000-0002-0061-8359")),
         person("William", "Ashmall", role = "aut",
         comment = c("API Client implementation")),
@@ -39,5 +39,5 @@ Suggests:
     testthat (>= 2.1.0),
     vcr (>= 0.5)
 Language: en-GB
-RoxygenNote: 7.0.2
+RoxygenNote: 7.1.0
 VignetteBuilder: knitr

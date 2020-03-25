@@ -4,9 +4,11 @@
 \name{tapajos}
 \alias{tapajos}
 \title{Tapajos National Forest}
-\format{An object of class 'sfc_POLYGON' within the bbox 
+\format{
+An object of class 'sfc_POLYGON' within the bbox 
 xmin: -55.41127 ymin: -4.114584 
-xmax: -54.7973 ymax: -2.751706}
+xmax: -54.7973 ymax: -2.751706
+}
 \source{
 The data was provided by the Chico Mendes Institute via
 \url{https://www.protectedplanet.net/}.

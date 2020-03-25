@@ -14,10 +14,10 @@
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
-    "version": "3.6.2",
+    "version": "3.6.3",
     "url": "https://r-project.org"
   },
-  "runtimePlatform": "R version 3.6.2 (2019-12-12)",
+  "runtimePlatform": "R version 3.6.3 (2020-02-29)",
   "author": [
     {
       "@type": "Person",
@@ -28,7 +28,7 @@
     },
     {
       "@type": "Person",
-      "givenName": "Adam H.",
+      "givenName": "Adam",
       "familyName": "Sparks",
       "@id": "https://orcid.org/0000-0002-0061-8359"
     },
@@ -100,6 +100,19 @@
         "url": "https://cran.r-project.org"
       },
       "sameAs": "https://CRAN.R-project.org/package=testthat"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "vcr",
+      "name": "vcr",
+      "version": ">= 0.5",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=vcr"
     }
   ],
   "softwareRequirements": [
@@ -168,12 +181,13 @@
       "name": "stats"
     }
   ],
-  "releaseNotes": "https://github.com/agrobioinfoservices/chirps/blob/master/NEWS.md",
-  "readme": "https://github.com/agrobioinfoservices/chirps/blob/master/README.md",
+  "releaseNotes": "https://github.com/adamhsparks/chirps/blob/master/NEWS.md",
+  "readme": "https://github.com/adamhsparks/chirps/blob/master/README.md",
   "contIntegration": [
     "https://ci.appveyor.com/project/kauedesousa/chirps",
     "https://travis-ci.org/agrobioinfoservices/chirps",
     "https://codecov.io/github/agrobioinfoservices/chirps?branch=master"
   ],
-  "developmentStatus": "https://www.repostatus.org/#active"
+  "developmentStatus": "https://www.repostatus.org/#active",
+  "fileSize": "552.908KB"
 }
