@@ -181,13 +181,13 @@
       "name": "stats"
     }
   ],
-  "releaseNotes": "https://github.com/adamhsparks/chirps/blob/master/NEWS.md",
-  "readme": "https://github.com/adamhsparks/chirps/blob/master/README.md",
+  "releaseNotes": "https://github.com/agrobioinfoservices/chirps/blob/master/NEWS.md",
+  "readme": "https://github.com/agrobioinfoservices/chirps/blob/master/README.md",
   "contIntegration": [
     "https://ci.appveyor.com/project/kauedesousa/chirps",
     "https://travis-ci.org/agrobioinfoservices/chirps",
     "https://codecov.io/github/agrobioinfoservices/chirps?branch=master"
   ],
   "developmentStatus": "https://www.repostatus.org/#active",
-  "fileSize": "552.908KB"
+  "fileSize": "552.788KB"
 }
