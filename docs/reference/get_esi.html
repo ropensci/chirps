@@ -228,7 +228,7 @@ possible issues.</p>
 <a href='http://catalogue.servirglobal.net/Product?product_id=198'>http://catalogue.servirglobal.net/Product?product_id=198</a></p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><span class='co'># \donttest{</span>
+    <pre class="examples"><div class='input'><span class='co'># \donttest{</span>
 <span class='no'>lonlat</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='kw'>lon</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(-<span class='fl'>55.0281</span>,-<span class='fl'>54.9857</span>),
                      <span class='kw'>lat</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(-<span class='fl'>2.8094</span>, -<span class='fl'>2.8756</span>))
 
@@ -237,12 +237,10 @@ possible issues.</p>
 <span class='co'># by default the function set a very small buffer around the points</span>
 <span class='co'># which can return NAs due to cloudiness in ESI data</span>
 
-<span class='no'>dt</span> <span class='kw'>&lt;-</span> <span class='fu'>get_esi</span>(<span class='no'>lonlat</span>, <span class='kw'>dates</span> <span class='kw'>=</span> <span class='no'>dates</span>)
-
+<span class='no'>dt</span> <span class='kw'>&lt;-</span> <span class='fu'>get_esi</span>(<span class='no'>lonlat</span>, <span class='kw'>dates</span> <span class='kw'>=</span> <span class='no'>dates</span>)</div><div class='output co'>#&gt; <span class='message'>Getting your request...</span></div><div class='output co'>#&gt; <span class='message'>100%...</span></div><div class='input'>
 <span class='co'># the argument dist passed through sf increase the buffer area</span>
 
-<span class='no'>dt</span> <span class='kw'>&lt;-</span> <span class='fu'>get_esi</span>(<span class='no'>lonlat</span>, <span class='kw'>dates</span> <span class='kw'>=</span> <span class='no'>dates</span>, <span class='kw'>dist</span> <span class='kw'>=</span> <span class='fl'>0.1</span>)
-
+<span class='no'>dt</span> <span class='kw'>&lt;-</span> <span class='fu'>get_esi</span>(<span class='no'>lonlat</span>, <span class='kw'>dates</span> <span class='kw'>=</span> <span class='no'>dates</span>, <span class='kw'>dist</span> <span class='kw'>=</span> <span class='fl'>0.1</span>)</div><div class='output co'>#&gt; <span class='message'>Getting your request...</span></div><div class='output co'>#&gt; <span class='message'>100%...</span></div><div class='input'>
 
 <span class='co'>############################################</span>
 
@@ -251,15 +249,31 @@ possible issues.</p>
 
 <span class='co'>## geometry 'POINT'</span>
 
-<span class='fu'><a href='https://rdrr.io/r/utils/example.html'>example</a></span>(<span class='st'>"tapajos"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"chirps"</span>)
-
+<span class='fu'><a href='https://rdrr.io/r/utils/example.html'>example</a></span>(<span class='st'>"tapajos"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"chirps"</span>)</div><div class='output co'>#&gt; 
+#&gt; tapajs&gt; ## No test: 
+#&gt; tapajs&gt; ##D library("sf")
+#&gt; tapajs&gt; ##D 
+#&gt; tapajs&gt; ##D data("tapajos")
+#&gt; tapajs&gt; ##D 
+#&gt; tapajs&gt; ##D # sample three points within the Tapajos area
+#&gt; tapajs&gt; ##D set.seed(1234)
+#&gt; tapajs&gt; ##D tp_point &lt;- st_sample(tapajos, 3)
+#&gt; tapajs&gt; ##D 
+#&gt; tapajs&gt; ##D # coerce as sf points
+#&gt; tapajs&gt; ##D tp_point &lt;- st_as_sf(tp_point)
+#&gt; tapajs&gt; ##D 
+#&gt; tapajs&gt; ##D # transform into a geojson
+#&gt; tapajs&gt; ##D tp_geojson &lt;- sf_to_geojson(tp_point)
+#&gt; tapajs&gt; ## End(No test)
+#&gt; tapajs&gt; 
+#&gt; tapajs&gt; 
+#&gt; tapajs&gt; 
+#&gt; tapajs&gt; </div><div class='input'>
 <span class='no'>dates</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"2017-11-15"</span>, <span class='st'>"2017-12-31"</span>)
 
-<span class='no'>dt</span> <span class='kw'>&lt;-</span> <span class='fu'>get_esi</span>(<span class='no'>tp_point</span>, <span class='no'>dates</span>, <span class='kw'>dist</span> <span class='kw'>=</span> <span class='fl'>0.1</span>)
-
+<span class='no'>dt</span> <span class='kw'>&lt;-</span> <span class='fu'>get_esi</span>(<span class='no'>tp_point</span>, <span class='no'>dates</span>, <span class='kw'>dist</span> <span class='kw'>=</span> <span class='fl'>0.1</span>)</div><div class='output co'>#&gt; <span class='error'>Error in get_esi(tp_point, dates, dist = 0.1): object 'tp_point' not found</span></div><div class='input'>
 <span class='co'># as.sf = TRUE returns an object of class 'sf'</span>
-<span class='no'>dt</span> <span class='kw'>&lt;-</span> <span class='fu'>get_esi</span>(<span class='no'>tp_point</span>, <span class='no'>dates</span>, <span class='kw'>as.sf</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>dist</span> <span class='kw'>=</span> <span class='fl'>0.1</span>)
-
+<span class='no'>dt</span> <span class='kw'>&lt;-</span> <span class='fu'>get_esi</span>(<span class='no'>tp_point</span>, <span class='no'>dates</span>, <span class='kw'>as.sf</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>dist</span> <span class='kw'>=</span> <span class='fl'>0.1</span>)</div><div class='output co'>#&gt; <span class='error'>Error in get_esi(tp_point, dates, as.sf = TRUE, dist = 0.1): object 'tp_point' not found</span></div><div class='input'>
 <span class='co'>## geometry 'POLYGON'</span>
 <span class='no'>p1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>10.67</span>, <span class='fl'>49.90</span>,
                <span class='fl'>10.57</span>, <span class='fl'>49.80</span>,
@@ -284,22 +298,38 @@ possible issues.</p>
 
 <span class='no'>pol</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/sf/man/st_as_sf.html'>st_as_sf</a></span>(<span class='no'>pol</span>)
 
-<span class='no'>dt</span> <span class='kw'>&lt;-</span> <span class='fu'>get_esi</span>(<span class='no'>pol</span>, <span class='kw'>dates</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"2018-01-01"</span>, <span class='st'>"2018-02-20"</span>))
-
+<span class='no'>dt</span> <span class='kw'>&lt;-</span> <span class='fu'>get_esi</span>(<span class='no'>pol</span>, <span class='kw'>dates</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"2018-01-01"</span>, <span class='st'>"2018-02-20"</span>))</div><div class='output co'>#&gt; <span class='message'>Getting your request...</span></div><div class='output co'>#&gt; <span class='message'>100%...</span></div><div class='input'>
 
 <span class='co'>############################################</span>
 
 <span class='co'># S3 method for objects of class 'geojson'</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/example.html'>example</a></span>(<span class='st'>"tapajos"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"chirps"</span>)
-
+<span class='fu'><a href='https://rdrr.io/r/utils/example.html'>example</a></span>(<span class='st'>"tapajos"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"chirps"</span>)</div><div class='output co'>#&gt; 
+#&gt; tapajs&gt; ## No test: 
+#&gt; tapajs&gt; ##D library("sf")
+#&gt; tapajs&gt; ##D 
+#&gt; tapajs&gt; ##D data("tapajos")
+#&gt; tapajs&gt; ##D 
+#&gt; tapajs&gt; ##D # sample three points within the Tapajos area
+#&gt; tapajs&gt; ##D set.seed(1234)
+#&gt; tapajs&gt; ##D tp_point &lt;- st_sample(tapajos, 3)
+#&gt; tapajs&gt; ##D 
+#&gt; tapajs&gt; ##D # coerce as sf points
+#&gt; tapajs&gt; ##D tp_point &lt;- st_as_sf(tp_point)
+#&gt; tapajs&gt; ##D 
+#&gt; tapajs&gt; ##D # transform into a geojson
+#&gt; tapajs&gt; ##D tp_geojson &lt;- sf_to_geojson(tp_point)
+#&gt; tapajs&gt; ## End(No test)
+#&gt; tapajs&gt; 
+#&gt; tapajs&gt; 
+#&gt; tapajs&gt; 
+#&gt; tapajs&gt; </div><div class='input'>
 <span class='no'>dates</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"2018-01-01"</span>,<span class='st'>"2018-01-20"</span>)
 
-<span class='no'>dt</span> <span class='kw'>&lt;-</span> <span class='fu'>get_esi</span>(<span class='no'>tp_geojson</span>, <span class='no'>dates</span>, <span class='kw'>dist</span> <span class='kw'>=</span> <span class='fl'>0.1</span>)
-
+<span class='no'>dt</span> <span class='kw'>&lt;-</span> <span class='fu'>get_esi</span>(<span class='no'>tp_geojson</span>, <span class='no'>dates</span>, <span class='kw'>dist</span> <span class='kw'>=</span> <span class='fl'>0.1</span>)</div><div class='output co'>#&gt; <span class='error'>Error in get_esi(tp_geojson, dates, dist = 0.1): object 'tp_geojson' not found</span></div><div class='input'>
 <span class='co'># as.geojson = TRUE returns an object of class 'geojson'</span>
-<span class='no'>dt</span> <span class='kw'>&lt;-</span> <span class='fu'>get_esi</span>(<span class='no'>tp_geosjon</span>, <span class='no'>dates</span>, <span class='kw'>as.geojson</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>dist</span> <span class='kw'>=</span> <span class='fl'>0.1</span>)
-
-<span class='co'># } </span></pre>
+<span class='no'>dt</span> <span class='kw'>&lt;-</span> <span class='fu'>get_esi</span>(<span class='no'>tp_geosjon</span>, <span class='no'>dates</span>, <span class='kw'>as.geojson</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>dist</span> <span class='kw'>=</span> <span class='fl'>0.1</span>)</div><div class='output co'>#&gt; <span class='error'>Error in get_esi(tp_geosjon, dates, as.geojson = TRUE, dist = 0.1): object 'tp_geosjon' not found</span></div><div class='input'>
+# } 
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
