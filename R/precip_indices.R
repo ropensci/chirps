@@ -90,6 +90,7 @@ precip_indices <- function(object, timeseries = FALSE, intervals = NULL) {
     x <- x[seq_along(bins), ]
     x$bin <- bins
     x
+    
   })
   
   object <- do.call("rbind", object)

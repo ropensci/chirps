@@ -11,6 +11,7 @@
 #' @return An object of class 'geosjon' for each row in \code{lonlat}
 #' @family utility functions
 #' @examples
+#' \donttest{
 #' # random geographic points within bbox(10, 12, 45, 47)
 #' library("sf")
 #' 
@@ -21,7 +22,7 @@
 #' lonlat <- st_as_sf(lonlat, coords = c("lon","lat"))
 #' 
 #' gjson <- sf_to_geojson(lonlat)
-#' 
+#' }
 #' @export
 sf_to_geojson <- function(lonlat,
                            dist = 0.00001,

@@ -8,6 +8,7 @@
 #' xmin: -55.41127 ymin: -4.114584 
 #' xmax: -54.7973 ymax: -2.751706
 #' @examples 
+#' \donttest{
 #' library("sf")
 #' 
 #' data("tapajos", package = "chirps")
@@ -18,7 +19,7 @@
 #' 
 #' # coerce as sf points
 #' tp_point <- st_as_sf(tp_point)
-#' 
+#' }
 #' @source The data was provided by the Chico Mendes Institute via
 #' \url{https://www.protectedplanet.net/}.
 "tapajos"

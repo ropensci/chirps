@@ -44,6 +44,7 @@
 #' 
 #' @examples
 #' \donttest{
+#' 
 #' lonlat <- data.frame(lon = c(-55.0281,-54.9857),
 #'                      lat = c(-2.8094, -2.8756))
 #' 
@@ -96,6 +97,7 @@
 #' pol <- st_as_sf(pol)
 #' 
 #' dt <- get_esi(pol, dates = c("2018-01-01", "2018-02-20"))
+#' 
 #' } 
 #' @importFrom sf st_centroid read_sf st_geometry_type
 #' @export

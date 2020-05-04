@@ -60,6 +60,7 @@ test_that("accepts NAs", {
 
 # Get an error with non chirps data
 test_that("non chirps data", {
+  
   expect_error(precip_indices(object = airquality))
 
 })

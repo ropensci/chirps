@@ -1,4 +1,3 @@
-
 #' API Client for CHIRPS
 #'
 #' @name chirps
