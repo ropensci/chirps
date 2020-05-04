@@ -13,8 +13,9 @@ API Client for the Climate Hazards Group InfraRed Precipitation
   rainfall data set, which incorporates 0.05 arc-degrees resolution satellite
   imagery, and in-situ station data to create gridded rainfall time series for
   trend analysis and seasonal drought monitoring. For more details on 'CHIRPS'
-  data please visit its official home page
-  <https://www.chc.ucsb.edu/data/chirps>.
+  data please visit its official home page <https://www.chc.ucsb.edu/data/chirps>.
+  Requests from large time series (> 10 years) and large geographic coverage 
+  (global scale) may take several minutes.
 }
 \seealso{
 \strong{Useful links:}

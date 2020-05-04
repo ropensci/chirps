@@ -23,8 +23,9 @@
   rainfall data set, which incorporates 0.05 arc-degrees resolution satellite
   imagery, and in-situ station data to create gridded rainfall time series for
   trend analysis and seasonal drought monitoring. For more details on CHIRPS
-  data please visit its official home page
-  &lt;https://www.chc.ucsb.edu/data/chirps&gt;. ">
+  data please visit its official home page &lt;https://www.chc.ucsb.edu/data/chirps&gt;.
+  Requests from large time series (&gt; 10 years) and large geographic coverage 
+  (global scale) may take several minutes.">
 <meta property="og:image" content="/logo.svg">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
@@ -108,7 +109,7 @@
 <div id="overview" class="section level2">
 <h2 class="hasAnchor">
 <a href="#overview" class="anchor"></a>Overview</h2>
-<p><strong>chirps</strong> provides the API Client for Climate Hazards Group InfraRed Precipitation with Station Data <a href="https://www.chc.ucsb.edu/data/chirps">(CHIRPS)</a> via <a href="https://climateserv.readthedocs.io/en/latest/index.html">ClimateSERV</a>. <a href="https://www.chc.ucsb.edu/data/chirps">CHIRPS</a> is a 35+ year quasi-global rainfall data set. Spanning 50°S-50°N (and all longitudes) and ranging from 1981 to near-present, CHIRPS incorporates 0.05° resolution satellite imagery, and in-situ station data to create gridded rainfall time series for trend analysis and seasonal drought monitoring.</p>
+<p><strong>chirps</strong> provides the API Client for Climate Hazards Group InfraRed Precipitation with Station Data <a href="https://www.chc.ucsb.edu/data/chirps">(CHIRPS)</a> via <a href="https://climateserv.readthedocs.io/en/latest/index.html">ClimateSERV</a>. <a href="https://www.chc.ucsb.edu/data/chirps">CHIRPS</a> is a 35+ year quasi-global rainfall data set. Spanning 50°S-50°N (and all longitudes) and ranging from 1981 to near-present (normally with a 45 day lag), CHIRPS incorporates 0.05° resolution satellite imagery, and in-situ station data to create gridded rainfall time series for trend analysis and seasonal drought monitoring.</p>
 </div>
 <div id="package-website" class="section level2">
 <h2 class="hasAnchor">
@@ -119,9 +120,9 @@
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
 <p>The development version can be installed via</p>
-<div class="sourceCode" id="cb1"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="st">"devtools"</span>)
+<div class="sourceCode" id="cb1"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="st">"remotes"</span>)
 
-<span class="kw pkg">devtools</span><span class="kw ns">::</span><span class="fu"><a href="https://devtools.r-lib.org//reference/remote-reexports.html">install_github</a></span>(<span class="st">"agrobioinfoservices/chirps"</span>, <span class="kw">build_vignettes</span> <span class="kw">=</span> <span class="fl">TRUE</span>)</pre></div>
+<span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span>(<span class="st">"agrobioinfoservices/chirps"</span>, <span class="kw">build_vignettes</span> <span class="kw">=</span> <span class="fl">TRUE</span>)</pre></div>
 </div>
 <div id="example" class="section level2">
 <h2 class="hasAnchor">
@@ -196,7 +197,7 @@
 <h2>Developers</h2>
 <ul class="list-unstyled">
 <li>Kaue de Sousa <br><small class="roles"> Author, maintainer </small> <a href="https://orcid.org/0000-0002-7571-7845" target="orcid.widget" aria-label="ORCID"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
-<li>Adam Sparks <br><small class="roles"> Author </small> <a href="https://orcid.org/0000-0002-0061-8359" target="orcid.widget" aria-label="ORCID"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
+<li>Adam H. Sparks <br><small class="roles"> Author </small> <a href="https://orcid.org/0000-0002-0061-8359" target="orcid.widget" aria-label="ORCID"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
 <li>William Ashmall <br><small class="roles"> Author </small>  <br><small>(API Client implementation)</small>
 </li>
 <li><a href="authors.html">All authors...</a></li>
@@ -208,7 +209,6 @@
 <ul class="list-unstyled">
 <li><a href="https://github.com/ropensci/software-review/issues/357"><img src="https://badges.ropensci.org/360_status.svg" alt="peer-review"></a></li>
 <li><a href="https://cran.r-project.org/package=chirps"><img src="https://www.r-pkg.org/badges/version/chirps" alt="CRAN status"></a></li>
-<li><a href="https://ci.appveyor.com/project/kauedesousa/chirps"><img src="https://ci.appveyor.com/api/projects/status/github/agrobioinfoservices/chirps?branch=master&amp;svg=true" alt="AppVeyor Build Status"></a></li>
 <li><a href="https://travis-ci.org/agrobioinfoservices/chirps"><img src="https://travis-ci.org/agrobioinfoservices/chirps.svg?branch=master" alt="Build Status"></a></li>
 <li><a href="https://codecov.io/github/agrobioinfoservices/chirps?branch=master"><img src="https://codecov.io/gh/agrobioinfoservices/chirps/master.svg" alt="codecov"></a></li>
 <li><a href="https://www.repostatus.org/#active"><img src="https://www.repostatus.org/badges/latest/active.svg" alt="Project Status"></a></li>
@@ -219,11 +219,11 @@
 
 
       <footer><div class="copyright">
-  <p>Developed by Kaue de Sousa, Adam Sparks, William Ashmall.</p>
+  <p>Developed by Kaue de Sousa, Adam H. Sparks, William Ashmall.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
 
       </footer>

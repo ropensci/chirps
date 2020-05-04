@@ -28,14 +28,14 @@ authors:
 affiliations:
   - name: Department of Agricultural Sciences, Inland Norway University of Applied Sciences, Hamar, Norway
     index: 1
-  - name: The Alliance of Bioversity International and CIAT, Rome, Italy
+  - name: Bioversity International, Rome, Italy
     index: 2
   - name: Centre for Crop Health, University of Southern Queensland, Toowoomba, Australia
     index: 3
   - name: Universities Space Research Association, National Aeronautics and Space Administration (NASA), Huntsville, USA
     index: 4
 citation_author: de Sousa et. al.
-date: "06 February 2020"
+date: "04 May 2020"
 year: 2020
 bibliography: paper.bib
 output: rticles::joss_article
@@ -48,7 +48,7 @@ The *chirps* package provides functionalities for reproducible analysis in R [@R
 
 # Implementation
 
-Three main functions are provided, `get_chirps()`, `get_esi()` and `precip_indices()`. The `get_chirps()` function provides access to CHIRPS data via the ClimateSERV API Client [@ClimateSERV] with methods to handle objects of class 'data.frame', 'geojson' and 'sf' via the package *methods* [@RCoreTeam]. To accept the query, ClimateSERV requires a geojson object of type 'Polygon' (one single polygon per request). Using the package *sf* [@sf] internally, the input provided in `get_chirps()` is transformed into a list of polygons with a small buffer area (0.0001 arc-sec by default) around the point and transformed into a list of geojson strings. *chirps* uses *crul* [@crul] to interface with ClimateSERV API. The query returns a JSON object parsed to *jsonlite* [@jsonlite] to obtain the data frame for the time series required. `get_chirps()` returns a *tibble* data frame [@tibble], which also inherits the class 'chirps', where each id represents the index for the rows in the in-putted 'object'. The function `get_esi()` behaves similarly to `get_chirps()` and returns the evaporative stress index (ESI) data [@Anderson2011], but the output does not inherit the class 'chirps'. Users providing objects of class 'sf' and 'geojson' in `get_chirps()` and `get_esi()` can also choose to return an object with the same class as the object provided using the arguments 'as.sf = TRUE' or 'as.geojson = TRUE'. With the function `precip_indices()` users can assess how the precipitation changes across the requested time series using precipitation variability indices [@Aguilar2005], computed using *stats* [@RCoreTeam]. Extended documentation is provided with examples on how to increase the buffer area and draw quadrants for the geojson polygon using *sf* [@sf].
+Three main functions are provided, `get_chirps()`, `get_esi()` and `precip_indices()`. The `get_chirps()` function provides access to CHIRPS data via the ClimateSERV API Client [@ClimateSERV] with methods to handle objects of class 'data.frame', 'geojson' and 'sf' via the package *methods* [@RCoreTeam]. To accept the query, ClimateSERV requires a geojson object of type 'Polygon' (one single polygon per request). Using the package *sf* [@sf] internally, the input provided in `get_chirps()` is transformed into a list of polygons with a small buffer area (0.0001 arc-sec by default) around the point and transformed into a list of geojson strings. *chirps* uses *crul* [@crul] to interface with ClimateSERV API. The query returns a JSON object parsed to *jsonlite* [@jsonlite] to obtain the data frame for the time series required. `get_chirps()` returns a data.frame, which also inherits the classes 'chirps' and 'chirps_df', where each id represents the index for the rows in the in-putted 'object'. The function `get_esi()` behaves similarly to `get_chirps()` and returns the evaporative stress index (ESI) data [@Anderson2011], and return a data.frane which inherit the class 'chirps_df'. Users providing objects of class 'sf' and 'geojson' in `get_chirps()` and `get_esi()` can also choose to return an object with the same class as the object provided using the arguments 'as.sf = TRUE' or 'as.geojson = TRUE'. With the function `precip_indices()` users can assess how the precipitation changes across the requested time series using precipitation variability indices [@Aguilar2005], computed using *stats* [@RCoreTeam], the main input is an object of class 'chirps'. Extended documentation is provided with examples on how to increase the buffer area and draw quadrants for the geojson polygon using *sf* [@sf].
 
 # Application: a case study in the Tapajós National Forest
 
@@ -83,6 +83,6 @@ Overall, CHIRPS data can be used in many application and currently has over 800 
 
 # Acknowledgements
 
-This work was supported by the The Nordic Council of Ministers (https://www.norden.org/en). The idea for this package was conceived during the course "Analysing Spatial Data" at the Norwegian School of Economics (NHH), we thank Professor Roger Bivand for his insights.
+This work was supported by The Nordic Joint Committee for Agricultural and Food Research (grant num. 202100-2817). The idea for this package was conceived during the course "Analysing Spatial Data" at the Norwegian School of Economics (NHH), we thank Professor Roger Bivand for his insights.
 
 # References

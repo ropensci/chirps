@@ -16,8 +16,9 @@ get_esi(object, dates, operation = 5, period = 1, ...)
 \method{get_esi}{geojson}(object, dates, operation = 5, period = 1, as.geojson = FALSE, ...)
 }
 \arguments{
-\item{object}{input, an object of class \code{\link[base]{data.frame}},
-\code{geojson} or \code{\link[sf]{sf}}}
+\item{object}{input, an object of class \code{\link[base]{data.frame}} (or any 
+other object that can be coerced to data.frame), \code{geojson} or 
+\code{\link[sf]{sf}}}
 
 \item{dates}{a character of start and end dates in that order in the format
 "YYYY-MM-DD"}
@@ -31,11 +32,9 @@ four weeks period = 1, twelve weeks = 2}
 \item{...}{further arguments passed to \code{\link[sf]{sf}} methods
 See details}
 
-\item{as.sf}{logical, returns an object of class \code{[sf]{sf}}
-for S3 method of \pkg{chirps} class \code{sf}}
+\item{as.sf}{logical, returns an object of class \code{\link[sf]{sf}}}
 
-\item{as.geojson}{logical, returns an object of class \code{geojson}
-for S3 method of \pkg{chirps} class \code{geojson}}
+\item{as.geojson}{logical, returns an object of class \code{geojson}}
 }
 \value{
 A data frame of \acronym{ESI} data:
@@ -96,15 +95,11 @@ dt <- get_esi(lonlat, dates = dates, dist = 0.1)
 library("sf")
 
 ## geometry 'POINT'
-
 example("tapajos", package = "chirps")
 
 dates <- c("2017-11-15", "2017-12-31")
 
 dt <- get_esi(tp_point, dates, dist = 0.1)
-
-# as.sf = TRUE returns an object of class 'sf'
-dt <- get_esi(tp_point, dates, as.sf = TRUE, dist = 0.1)
 
 ## geometry 'POLYGON'
 p1 <- matrix(c(10.67, 49.90,
@@ -131,20 +126,6 @@ pol$geometry = st_sfc(p1, p2)
 pol <- st_as_sf(pol)
 
 dt <- get_esi(pol, dates = c("2018-01-01", "2018-02-20"))
-
-
-############################################
-
-# S3 method for objects of class 'geojson'
-example("tapajos", package = "chirps")
-
-dates <- c("2018-01-01","2018-01-20")
-
-dt <- get_esi(tp_geojson, dates, dist = 0.1)
-
-# as.geojson = TRUE returns an object of class 'geojson'
-dt <- get_esi(tp_geosjon, dates, as.geojson = TRUE, dist = 0.1)
-
 } 
 }
 \references{

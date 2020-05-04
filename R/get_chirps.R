@@ -5,16 +5,15 @@
 #'  ClimateSERV works with geojson of type 'Polygon'. The input \code{object}
 #'  is then transformed into polygons with a small buffer area around the point.
 #' 
-#' @param object input, an object of class \code{\link[base]{data.frame}},
-#' \code{geojson} or \code{\link[sf]{sf}}
+#' @param object input, an object of class \code{\link[base]{data.frame}} (or any 
+#'  other object that can be coerced to data.frame), \code{geojson} or 
+#'  \code{\link[sf]{sf}}
 #' @param dates a character of start and end dates in that order in the format
 #'  "YYYY-MM-DD"
 #' @param operation optional, an integer that represents which type of
 #' statistical operation to perform on the dataset
-#' @param as.sf logical, returns an object of class \code{[sf]{sf}}
-#'  for S3 method of \pkg{chirps} class \code{sf}
+#' @param as.sf logical, returns an object of class \code{\link[sf]{sf}}
 #' @param as.geojson logical, returns an object of class \code{geojson}
-#'  for S3 method of \pkg{chirps} class \code{geojson}
 #' @param ... further arguments passed to \code{\link[sf]{sf}} methods
 #'  See details 
 #'  
@@ -59,14 +58,12 @@
 #' dates <- c("2017-12-15", "2017-12-31")
 #' 
 #' dt <- get_chirps(lonlat, dates)
-#' 
+#'  
 #' ############################################
 #' 
 #' # S3 method for objects of class 'sf'
-#' library("sf")
 #' 
 #' ## geometry 'POINT'
-#' 
 #' example("tapajos", package = "chirps")
 #' 
 #' dates <- c("2017-12-15", "2017-12-31")
@@ -76,7 +73,7 @@
 #' # as.sf = TRUE returns an object of class 'sf'
 #' dt <- get_chirps(tp_point, dates, as.sf = TRUE)
 #' 
-#' # geometry 'POLYGON'
+#' ## geometry 'POLYGON'
 #' p1 <- matrix(c(10.67, 49.90,
 #'                10.57, 49.80,
 #'                10.47, 49.90,
@@ -102,25 +99,9 @@
 #' 
 #' dt <- get_chirps(pol, dates = c("2018-01-01", "2018-01-20"))
 #' 
-#' 
-#' ############################################
-#' 
-#' # S3 method for objects of class 'geojson'
-#' library("sf")
-#' 
-#' example("tapajos", package = "chirps")
-#' 
-#' dates <- c("2018-01-01","2018-01-20")
-#' 
-#' dt <- get_chirps(tp_geojson, dates)
-#' 
-#' # as.geojson = TRUE returns an object of class 'geojson'
-#' dt <- get_chirps(tp_geojson, dates, as.geojson = TRUE)
-#' 
 #' }  
-#' @importFrom methods addNextMethod asMethodDefinition assignClassDef
 #' @importFrom sf st_centroid read_sf st_geometry_type
-#' @importFrom tibble as_tibble
+#' @importFrom methods addNextMethod asMethodDefinition assignClassDef
 #' @export
 get_chirps <- function(object, dates, operation = 5, ...) {
   
@@ -132,6 +113,9 @@ get_chirps <- function(object, dates, operation = 5, ...) {
 #' @export
 get_chirps.default <- function(object, dates, operation = 5, 
                                ...) {
+  
+  
+  object <- as.data.frame(object)
   
   # validate lonlat to check if they are within the CHIRPS range lat -50, 50
   .validate_lonlat(object, xlim = c(-180, 180), ylim = c(-50, 50))
@@ -161,9 +145,9 @@ get_chirps.default <- function(object, dates, operation = 5,
   
   result <- result[, c("id", "lon", "lat", "date", "chirps")]
   
-  result <- tibble::as_tibble(result)
+  result <- as.data.frame(result, stringsAsFactors = FALSE)
   
-  class(result) <- c("chirps", class(result))
+  class(result) <- c("chirps", "chirps_df", class(result))
   
   return(result)
   
@@ -241,7 +225,7 @@ get_chirps.sf <- function(object, dates, operation = 5,
                  operation = operation, 
                  datatype = 0)
   
-  if (as.sf) {
+  if (isTRUE(as.sf)) {
     
     result$date <- as.integer(result$date)
     result$date <- paste0("day_",result$date)
@@ -259,7 +243,7 @@ get_chirps.sf <- function(object, dates, operation = 5,
     
   } 
   
-  if (!as.sf) {
+  if (isFALSE(as.sf)) {
     
     lonlat$id <- rownames(lonlat)
     
@@ -269,9 +253,9 @@ get_chirps.sf <- function(object, dates, operation = 5,
     
     result <- result[, c("id", "lon", "lat", "date", "chirps")]
     
-    result <- tibble::as_tibble(result)
+    result <- as.data.frame(result, stringsAsFactors = FALSE)
     
-    class(result) <- c("chirps", class(result))
+    class(result) <- c("chirps", "chirps_df", class(result))
     
   }
   
@@ -287,7 +271,7 @@ get_chirps.geojson <- function(object, dates, operation = 5,
                                ...) {
   
   # check for the geometry tag
-  if (!grepl("geometry", object[[1]])) {
+  if (isFALSE(grepl("geometry", object[[1]]))) {
     stop("geometry tag is missing in the geojson object\n")
   }
   
@@ -297,7 +281,7 @@ get_chirps.geojson <- function(object, dates, operation = 5,
   supp_type <- c(all(grepl(type[[1]], object)),
                  all(grepl(type[[2]], object)))
   
-  if (!any(supp_type)) {
+  if (isFALSE(any(supp_type))) {
     stop("The geojson geometry type is not supported. 
          Please provide a geojson of geometry type 'Point' or 'Polygon'\n")
   }
@@ -364,7 +348,7 @@ get_chirps.geojson <- function(object, dates, operation = 5,
                  datatype = 0)
   
   
-  if(as.geojson){
+  if (isTRUE(as.geojson)) {
     
     result <- split(result, result$id)
     
@@ -384,7 +368,7 @@ get_chirps.geojson <- function(object, dates, operation = 5,
     
   }
   
-  if (!as.geojson) {
+  if (isFALSE(as.geojson)) {
     
     lonlat$id <- rownames(lonlat)
     
@@ -394,9 +378,9 @@ get_chirps.geojson <- function(object, dates, operation = 5,
     
     result <- result[, c("id", "lon", "lat", "date", "chirps")]
     
-    result <- tibble::as_tibble(result)
+    result <- as.data.frame(result, stringsAsFactors = FALSE)
     
-    class(result) <- c("chirps", class(result))
+    class(result) <- c("chirps", "chirps_df", class(result))
     
   }
   

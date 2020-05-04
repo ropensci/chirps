@@ -149,7 +149,7 @@ Amazon <a href='http://www.icmbio.gov.br/flonatapajos/'>http://www.icmbio.gov.br
 
     <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
 
-    <p>An object of class 'sfc_POLYGON' within the bbox 
+    <p>An object of class 'sfc_POLYGON' within the bounding box 
 xmin: -55.41127 ymin: -4.114584 
 xmax: -54.7973 ymax: -2.751706</p>
     <h2 class="hasAnchor" id="source"><a class="anchor" href="#source"></a>Source</h2>
@@ -158,21 +158,16 @@ xmax: -54.7973 ymax: -2.751706</p>
 <a href='https://www.protectedplanet.net/'>https://www.protectedplanet.net/</a>.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># \donttest{</span>
-<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='st'>"sf"</span>)
+    <pre class="examples"><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='st'>"sf"</span>)
 
-<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='st'>"tapajos"</span>)
+<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='st'>"tapajos"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"chirps"</span>)
 
 <span class='co'># sample three points within the Tapajos area</span>
 <span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span>(<span class='fl'>1234</span>)
-<span class='no'>tp_point</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/sf/man/st_sample.html'>st_sample</a></span>(<span class='no'>tapajos</span>, <span class='fl'>3</span>)</div><div class='output co'>#&gt; <span class='message'>although coordinates are longitude/latitude, st_relate_pattern assumes that they are planar</span></div><div class='output co'>#&gt; <span class='message'>although coordinates are longitude/latitude, st_intersects assumes that they are planar</span></div><div class='output co'>#&gt; <span class='message'>although coordinates are longitude/latitude, st_intersects assumes that they are planar</span></div><div class='input'>
+<span class='no'>tp_point</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/sf/man/st_sample.html'>st_sample</a></span>(<span class='no'>tapajos</span>, <span class='fl'>3</span>)
+
 <span class='co'># coerce as sf points</span>
-<span class='no'>tp_point</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/sf/man/st_as_sf.html'>st_as_sf</a></span>(<span class='no'>tp_point</span>)
-
-<span class='co'># transform into a geojson</span>
-<span class='no'>tp_geojson</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='sf_to_geojson.html'>sf_to_geojson</a></span>(<span class='no'>tp_point</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: st_buffer does not correctly buffer longitude/latitude data</span></div><div class='output co'>#&gt; <span class='message'>dist is assumed to be in decimal degrees (arc_degrees).</span></div><div class='input'># }
-
-</div></pre>
+<span class='no'>tp_point</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/sf/man/st_as_sf.html'>st_as_sf</a></span>(<span class='no'>tp_point</span>)</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -184,11 +179,11 @@ xmax: -54.7973 ymax: -2.751706</p>
 
       <footer>
       <div class="copyright">
-  <p>Developed by Kaue de Sousa, Adam Sparks, William Ashmall.</p>
+  <p>Developed by Kaue de Sousa, Adam H. Sparks, William Ashmall.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
 
       </footer>

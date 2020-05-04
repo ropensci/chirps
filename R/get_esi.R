@@ -65,15 +65,11 @@
 #' library("sf")
 #' 
 #' ## geometry 'POINT'
-#' 
 #' example("tapajos", package = "chirps")
 #' 
 #' dates <- c("2017-11-15", "2017-12-31")
 #' 
 #' dt <- get_esi(tp_point, dates, dist = 0.1)
-#' 
-#' # as.sf = TRUE returns an object of class 'sf'
-#' dt <- get_esi(tp_point, dates, as.sf = TRUE, dist = 0.1)
 #' 
 #' ## geometry 'POLYGON'
 #' p1 <- matrix(c(10.67, 49.90,
@@ -100,24 +96,8 @@
 #' pol <- st_as_sf(pol)
 #' 
 #' dt <- get_esi(pol, dates = c("2018-01-01", "2018-02-20"))
-#' 
-#' 
-#' ############################################
-#' 
-#' # S3 method for objects of class 'geojson'
-#' example("tapajos", package = "chirps")
-#' 
-#' dates <- c("2018-01-01","2018-01-20")
-#' 
-#' dt <- get_esi(tp_geojson, dates, dist = 0.1)
-#' 
-#' # as.geojson = TRUE returns an object of class 'geojson'
-#' dt <- get_esi(tp_geosjon, dates, as.geojson = TRUE, dist = 0.1)
-#' 
 #' } 
-#' @importFrom methods addNextMethod asMethodDefinition assignClassDef
 #' @importFrom sf st_centroid read_sf st_geometry_type
-#' @importFrom tibble as_tibble
 #' @export
 get_esi <- function(object, dates, operation = 5, period = 1, 
                     ...) {
@@ -130,6 +110,8 @@ get_esi <- function(object, dates, operation = 5, period = 1,
 #' @export
 get_esi.default <- function(object, dates, operation = 5, period = 1, 
                             ...) {
+  
+  object <- as.data.frame(object)
   
   # validate lonlat to check if they are within the CHIRPS range lat -50, 50
   .validate_lonlat(object, xlim = c(-180, 180), ylim = c(-50, 50))
@@ -166,7 +148,9 @@ get_esi.default <- function(object, dates, operation = 5, period = 1,
   
   result <- result[, c("id", "lon", "lat", "date", "esi")]
   
-  result <- tibble::as_tibble(result)
+  result <- as.data.frame(result, stringsAsFactors = FALSE)
+  
+  class(result) <- c("chirps_df", class(result))
   
   return(result)
   
@@ -186,7 +170,7 @@ get_esi.sf <- function(object, dates, operation = 5, period = 1,
   supp_type <- c(all(grepl(type[[1]], sf::st_geometry_type(object))),
                  all(grepl(type[[2]], sf::st_geometry_type(object))))
   
-  if (!any(supp_type)) {
+  if (isFALSE(any(supp_type))) {
     stop("The sf geometry type is not supported. 
          Please provide a sf object of geometry type 'POINT' or 'POLYGON'\n")
   }
@@ -201,14 +185,14 @@ get_esi.sf <- function(object, dates, operation = 5, period = 1,
   # get the sf column
   lonlat <- object[[index]]
   
-  if (type == "POINT") {
+  if (isTRUE(type == "POINT")) {
     
     # unlist the sf_column
     lonlat <- unlist(object[[index]])
     
   }
   
-  if (type == "POLYGON") {
+  if (isTRUE(type == "POLYGON")) {
     
     # set centroid to validade lonlat
     lonlat <- sf::st_centroid(lonlat)
@@ -252,7 +236,7 @@ get_esi.sf <- function(object, dates, operation = 5, period = 1,
                  operation = operation, 
                  datatype = datatype)
   
-  if (as.sf) {
+  if (isTRUE(as.sf)) {
     
     result$date <- as.integer(result$date)
     result$date <- paste0("day_",result$date)
@@ -268,7 +252,9 @@ get_esi.sf <- function(object, dates, operation = 5, period = 1,
     
     result <- cbind(object, result)
     
-  } else {
+  }
+  
+  if (isFALSE(as.sf)) {
     
     lonlat$id <- rownames(lonlat)
     
@@ -278,7 +264,9 @@ get_esi.sf <- function(object, dates, operation = 5, period = 1,
     
     result <- result[, c("id", "lon", "lat", "date", "esi")]
     
-    result <- tibble::as_tibble(result)
+    result <- as.data.frame(result, stringsAsFactors = FALSE)
+    
+    class(result) <- c("chirps_df", class(result))
 
     
   }
@@ -295,7 +283,7 @@ get_esi.geojson <- function(object, dates, operation = 5, period = 1,
                             ...) {
   
   # check for the geometry tag
-  if (!grepl("geometry", object[[1]])) {
+  if (isFALSE(grepl("geometry", object[[1]]))) {
     stop("geometry tag is missing in the geojson object with no default \n")
   }
   
@@ -305,7 +293,7 @@ get_esi.geojson <- function(object, dates, operation = 5, period = 1,
   supp_type <- c(all(grepl(type[[1]], object)),
                  all(grepl(type[[2]], object)))
   
-  if (!any(supp_type)) {
+  if (isFALSE(any(supp_type))) {
     stop("The geojson geometry type is not supported. 
          Please provide a geojson of geometry type 'Point' or 'Polygon'\n")
   }
@@ -379,7 +367,7 @@ get_esi.geojson <- function(object, dates, operation = 5, period = 1,
                  datatype = datatype)
   
   
-  if(as.geojson){
+  if (isTRUE(as.geojson)) {
     
     result <- split(result, result$id)
     
@@ -399,7 +387,7 @@ get_esi.geojson <- function(object, dates, operation = 5, period = 1,
     
   }
   
-  if (!as.geojson) {
+  if (isFALSE(as.geojson)) {
     
     lonlat$id <- rownames(lonlat)
     
@@ -409,7 +397,9 @@ get_esi.geojson <- function(object, dates, operation = 5, period = 1,
     
     result <- result[, c("id", "lon", "lat", "date", "esi")]
     
-    result <- tibble::as_tibble(result)
+    result <- as.data.frame(result, stringsAsFactors = FALSE)
+    
+    class(result) <- c("chirps_df", class(result))
 
   }
   

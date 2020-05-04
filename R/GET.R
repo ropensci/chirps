@@ -58,7 +58,7 @@
   
   message("Getting your request...\n")
   
-  while (!all(request_progress)) {
+  while (isFALSE(all(request_progress))) {
 
     request_progress <- lapply(ids, function(x) {
 
@@ -67,14 +67,6 @@
     })
 
     request_progress <- unlist(request_progress)
-
-    done <- sum(request_progress)
-    
-    done <- (done / nids) * 100
-    
-    done <- round(done, 0)
-    
-    message(done, "%...")
 
   }
   
@@ -121,5 +113,12 @@
   
   result <- result[, c("id", "date", "value")]
   
+  result <- result[order(result$date), ]
+  
+  result <- result[order(result$id), ]
+  
+  class(result) <- union("chirps_df", class(result))
+  
   return(result)
+  
 }

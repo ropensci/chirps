@@ -5,7 +5,7 @@
 \alias{tapajos}
 \title{Tapajos National Forest}
 \format{
-An object of class 'sfc_POLYGON' within the bbox 
+An object of class 'sfc_POLYGON' within the bounding box 
 xmin: -55.41127 ymin: -4.114584 
 xmax: -54.7973 ymax: -2.751706
 }
@@ -22,10 +22,9 @@ area in the Brazilian
 Amazon \url{http://www.icmbio.gov.br/flonatapajos/}
 }
 \examples{
-\donttest{
 library("sf")
 
-data("tapajos")
+data("tapajos", package = "chirps")
 
 # sample three points within the Tapajos area
 set.seed(1234)
@@ -33,10 +32,6 @@ tp_point <- st_sample(tapajos, 3)
 
 # coerce as sf points
 tp_point <- st_as_sf(tp_point)
-
-# transform into a geojson
-tp_geojson <- sf_to_geojson(tp_point)
-}
 
 }
 \keyword{datasets}

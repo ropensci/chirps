@@ -41,7 +41,6 @@
 #' precip_indices(dt, timeseries = TRUE, intervals = 7)
 #' }
 #' @importFrom stats quantile
-#' @importFrom tibble as_tibble
 #' @export
 precip_indices <- function(object, timeseries = FALSE, intervals = NULL) {
   
@@ -62,15 +61,15 @@ precip_indices <- function(object, timeseries = FALSE, intervals = NULL) {
   # for example, divide the periods of 7 days in a time series of 53 days
   # in that case, the last four observations are dropped to fit in a vector of
   # length == 49 (the maximum integer from dividing days/intervals)
-  if (timeseries) {
+  if (isTRUE(timeseries)) {
     
-    bins <- floor(nr/intervals)
+    bins <- floor(nr / intervals)
     
     bins <- rep(1:bins, each = intervals, length.out = NA)
     
   } 
   
-  if (!timeseries) {
+  if (isFALSE(timeseries)) {
     
     bins <- min(table(object$id))
     
@@ -133,7 +132,9 @@ precip_indices <- function(object, timeseries = FALSE, intervals = NULL) {
   
   result <- result[order(result$id), ]
   
-  result <- tibble::as_tibble(result)
+  result <- as.data.frame(result, stringsAsFactors = FALSE)
+  
+  class(result) <- c("chirps_df", class(result))
   
   return(result)
 }

@@ -66,10 +66,11 @@
       # nocov start
       error = function(e) {
         e$message <-
-          paste(
-            "\nSomething went wrong with the query, no data were returned.",
-            "Please see <https://climateserv.servirglobal.net/>",
-            "for potential server issues.\n"
+          paste0(
+            "Something went wrong with the query, no data were returned. ",
+            "Most likely the server is down. Please see ",
+            "<https://climateserv.servirglobal.net/> for potential ",
+            "server issues.\n"
           )
         # Otherwise refers to open.connection
         e$call <- NULL
@@ -134,8 +135,9 @@
 
   if (p == -1) { #nocov start
     stop(call. = FALSE,
-    "\nSomething went wrong with the query, no data were returned.",
-    "Please see <https://climateserv.servirglobal.net/> for potential",
+    "Something went wrong with the query, no data were returned. ",
+    "Most likely the server is down. Please see ",
+    "<https://climateserv.servirglobal.net/> for potential ",
     "server issues.\n"
     )
   } #nocov end
@@ -192,9 +194,10 @@
   }, # nocov start
   error = function(e) {
     e$message <-
-      paste(
-        "\nSomething went wrong with the query, no data were returned.",
-        "Please see <https://climateserv.servirglobal.net/> for potential",
+      paste0(
+        "Something went wrong with the query, no data were returned. ",
+        "Most likely the server is down. Please see ",
+        "<https://climateserv.servirglobal.net/> for potential ",
         "server issues.\n"
       )
     # Otherwise refers to open.connection

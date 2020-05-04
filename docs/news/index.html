@@ -134,12 +134,29 @@
       <small>Source: <a href='https://github.com/agrobioinfoservices/chirps/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
-    <div id="chirps-006-2020-01-29" class="section level1">
-<h1 class="page-header" data-toc-text="0.0.6">
-<a href="#chirps-006-2020-01-29" class="anchor"></a>chirps 0.0.6 (2020-01-29)</h1>
+    <div id="chirps-007-2020-05-04" class="section level1">
+<h1 class="page-header" data-toc-text="0.0.7">
+<a href="#chirps-007-2020-05-04" class="anchor"></a>chirps 0.0.7 (2020-05-04)</h1>
 <div id="enhancements" class="section level3">
 <h3 class="hasAnchor">
 <a href="#enhancements" class="anchor"></a>ENHANCEMENTS</h3>
+</div>
+<div id="changes-in-bahaviour" class="section level3">
+<h3 class="hasAnchor">
+<a href="#changes-in-bahaviour" class="anchor"></a>CHANGES IN BAHAVIOUR</h3>
+<ul>
+<li>Remove Imports of pkg ‘tibble’ which was basically to provide a “cool” print method.</li>
+<li>A new <code><a href="https://rdrr.io/r/base/print.html">print()</a></code> method is added for objects that inherits the class ‘chirps_df’</li>
+<li>Pkg ‘methods’ was moved from Imports to Depends</li>
+</ul>
+</div>
+</div>
+    <div id="chirps-006-2020-01-29" class="section level1">
+<h1 class="page-header" data-toc-text="0.0.6">
+<a href="#chirps-006-2020-01-29" class="anchor"></a>chirps 0.0.6 (2020-01-29)</h1>
+<div id="enhancements-1" class="section level3">
+<h3 class="hasAnchor">
+<a href="#enhancements-1" class="anchor"></a>ENHANCEMENTS</h3>
 <ul>
 <li>Comments/suggestions given by Claudia Vitolo in rOpenSci pkg review are added</li>
 <li>
@@ -147,16 +164,13 @@
 <li>documentation for <code>tapajos</code> is given avoiding chirps:::</li>
 </ul>
 </div>
-<div id="section" class="section level3">
-<h3></h3>
-</div>
 </div>
     <div id="chirps-005-2020-01-09" class="section level1">
 <h1 class="page-header" data-toc-text="0.0.5">
 <a href="#chirps-005-2020-01-09" class="anchor"></a>chirps 0.0.5 (2020-01-09)</h1>
-<div id="enhancements-1" class="section level3">
+<div id="enhancements-2" class="section level3">
 <h3 class="hasAnchor">
-<a href="#enhancements-1" class="anchor"></a>ENHANCEMENTS</h3>
+<a href="#enhancements-2" class="anchor"></a>ENHANCEMENTS</h3>
 <ul>
 <li>Fix comments given by good practice <code>goodpractice::gp()</code>. Avoid long code lines, it is bad for readability. Avoid 1:length(…), 1:nrow(…), 1:ncol(…), 1:NROW(…) and 1:NCOL(…) expressions. Not import packages as a whole, as this can cause name clashes between the imported packages.</li>
 </ul>
@@ -174,9 +188,9 @@
 <li><p>Prepare for submission to ropensci</p></li>
 </ul>
 </div>
-<div id="enhancements-2" class="section level3">
+<div id="enhancements-3" class="section level3">
 <h3 class="hasAnchor">
-<a href="#enhancements-2" class="anchor"></a>ENHANCEMENTS</h3>
+<a href="#enhancements-3" class="anchor"></a>ENHANCEMENTS</h3>
 <ul>
 <li><p>Validations in internal functions to transform ‘sf’ into geojson</p></li>
 <li><p>Add properties features to geojson output in <code><a href="../reference/get_chirps.html">get_chirps()</a></code> and <code><a href="../reference/get_esi.html">get_esi()</a></code> via <code>.add_geojson_properties()</code></p></li>
@@ -235,11 +249,11 @@
 
       <footer>
       <div class="copyright">
-  <p>Developed by Kaue de Sousa, Adam Sparks, William Ashmall.</p>
+  <p>Developed by Kaue de Sousa, Adam H. Sparks, William Ashmall.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
 
       </footer>

@@ -1,3 +1,16 @@
+chirps 0.0.7 (2020-05-04)
+=========================
+
+### ENHANCEMENTS 
+
+
+### CHANGES IN BAHAVIOUR
+
+* Remove Imports of pkg 'tibble' which was basically to provide a "cool" print method. 
+* A new `print()` method is added for objects that inherits the class 'chirps_df'
+* Pkg 'methods' was moved from Imports to Depends
+
+
 chirps 0.0.6 (2020-01-29)
 =========================
 
@@ -7,7 +20,6 @@ chirps 0.0.6 (2020-01-29)
 * `dataframe_to_geojson()`, `sf_to_geojson()` are added as exported functions avoinding chirps:::
 * documentation for `tapajos` is given avoiding chirps:::
 
-###
 
 chirps 0.0.5 (2020-01-09)
 =========================

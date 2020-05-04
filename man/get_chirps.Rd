@@ -16,8 +16,9 @@ get_chirps(object, dates, operation = 5, ...)
 \method{get_chirps}{geojson}(object, dates, operation = 5, as.geojson = FALSE, ...)
 }
 \arguments{
-\item{object}{input, an object of class \code{\link[base]{data.frame}},
-\code{geojson} or \code{\link[sf]{sf}}}
+\item{object}{input, an object of class \code{\link[base]{data.frame}} (or any 
+other object that can be coerced to data.frame), \code{geojson} or 
+\code{\link[sf]{sf}}}
 
 \item{dates}{a character of start and end dates in that order in the format
 "YYYY-MM-DD"}
@@ -28,11 +29,9 @@ statistical operation to perform on the dataset}
 \item{...}{further arguments passed to \code{\link[sf]{sf}} methods
 See details}
 
-\item{as.sf}{logical, returns an object of class \code{[sf]{sf}}
-for S3 method of \pkg{chirps} class \code{sf}}
+\item{as.sf}{logical, returns an object of class \code{\link[sf]{sf}}}
 
-\item{as.geojson}{logical, returns an object of class \code{geojson}
-for S3 method of \pkg{chirps} class \code{geojson}}
+\item{as.geojson}{logical, returns an object of class \code{geojson}}
 }
 \value{
 A data frame of \acronym{CHIRPS} data:
@@ -79,14 +78,12 @@ lonlat <- data.frame(lon = c(-55.0281,-54.9857),
 dates <- c("2017-12-15", "2017-12-31")
 
 dt <- get_chirps(lonlat, dates)
-
+ 
 ############################################
 
 # S3 method for objects of class 'sf'
-library("sf")
 
 ## geometry 'POINT'
-
 example("tapajos", package = "chirps")
 
 dates <- c("2017-12-15", "2017-12-31")
@@ -96,7 +93,7 @@ dt <- get_chirps(tp_point, dates)
 # as.sf = TRUE returns an object of class 'sf'
 dt <- get_chirps(tp_point, dates, as.sf = TRUE)
 
-# geometry 'POLYGON'
+## geometry 'POLYGON'
 p1 <- matrix(c(10.67, 49.90,
                10.57, 49.80,
                10.47, 49.90,
@@ -121,21 +118,6 @@ pol$geometry = st_sfc(p1, p2)
 pol <- st_as_sf(pol)
 
 dt <- get_chirps(pol, dates = c("2018-01-01", "2018-01-20"))
-
-
-############################################
-
-# S3 method for objects of class 'geojson'
-library("sf")
-
-example("tapajos", package = "chirps")
-
-dates <- c("2018-01-01","2018-01-20")
-
-dt <- get_chirps(tp_geojson, dates)
-
-# as.geojson = TRUE returns an object of class 'geojson'
-dt <- get_chirps(tp_geojson, dates, as.geojson = TRUE)
 
 }  
 }
