@@ -16,8 +16,8 @@ get_chirps(object, dates, operation = 5, ...)
 \method{get_chirps}{geojson}(object, dates, operation = 5, as.geojson = FALSE, ...)
 }
 \arguments{
-\item{object}{input, an object of class \code{\link[base]{data.frame}} (or any 
-other object that can be coerced to data.frame), \code{geojson} or 
+\item{object}{input, an object of class \code{\link[base]{data.frame}} (or
+any other object that can be coerced to data.frame), \code{geojson} or 
 \code{\link[sf]{sf}}}
 
 \item{dates}{a character of start and end dates in that order in the format
@@ -70,21 +70,22 @@ get_chirps may return some warning messages given by
 possible issues.
 }
 \examples{
-\donttest{ 
-
+\donttest{
 lonlat <- data.frame(lon = c(-55.0281,-54.9857),
                      lat = c(-2.8094, -2.8756))
 
 dates <- c("2017-12-15", "2017-12-31")
 
 dt <- get_chirps(lonlat, dates)
- 
+
+dt
+
 ############################################
 
 # S3 method for objects of class 'sf'
 
 ## geometry 'POINT'
-example("tapajos", package = "chirps")
+data("tapajos", package = "chirps")
 
 dates <- c("2017-12-15", "2017-12-31")
 
@@ -118,8 +119,8 @@ pol$geometry = st_sfc(p1, p2)
 pol <- st_as_sf(pol)
 
 dt <- get_chirps(pol, dates = c("2018-01-01", "2018-01-20"))
+}
 
-}  
 }
 \references{
 Funk C. et al. (2015). Scientific Data, 2, 150066.

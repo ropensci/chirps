@@ -4,7 +4,7 @@
 \alias{sf_to_geojson}
 \title{Concatenate a sf object into a geojson polygon}
 \usage{
-sf_to_geojson(lonlat, dist = 1e-05, nQuadSegs = 2L, ...)
+sf_to_geojson(lonlat, dist = 0.00001, nQuadSegs = 2L, ...)
 }
 \arguments{
 \item{lonlat}{an object of class 'sf' and geometry type 'POINT' or 'POLYGON'}
@@ -24,6 +24,7 @@ and convert it into a geojson 'Polygon' string using
 \code{\link[sf]{st_buffer}}.
 }
 \examples{
+\donttest{
 # random geographic points within bbox(10, 12, 45, 47)
 library("sf")
 
@@ -34,7 +35,7 @@ lonlat <- data.frame(lon = runif(5, 10, 12),
 lonlat <- st_as_sf(lonlat, coords = c("lon","lat"))
 
 gjson <- sf_to_geojson(lonlat)
-
+}
 }
 \seealso{
 Other utility functions: 

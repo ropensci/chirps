@@ -16,8 +16,8 @@ get_esi(object, dates, operation = 5, period = 1, ...)
 \method{get_esi}{geojson}(object, dates, operation = 5, period = 1, as.geojson = FALSE, ...)
 }
 \arguments{
-\item{object}{input, an object of class \code{\link[base]{data.frame}} (or any 
-other object that can be coerced to data.frame), \code{geojson} or 
+\item{object}{input, an object of class \code{\link[base]{data.frame}} (or
+any other object that can be coerced to data.frame), \code{geojson} or 
 \code{\link[sf]{sf}}}
 
 \item{dates}{a character of start and end dates in that order in the format
@@ -74,6 +74,7 @@ possible issues.
 }
 \examples{
 \donttest{
+
 lonlat <- data.frame(lon = c(-55.0281,-54.9857),
                      lat = c(-2.8094, -2.8756))
 
@@ -126,6 +127,7 @@ pol$geometry = st_sfc(p1, p2)
 pol <- st_as_sf(pol)
 
 dt <- get_esi(pol, dates = c("2018-01-01", "2018-02-20"))
+
 } 
 }
 \references{

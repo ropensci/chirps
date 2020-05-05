@@ -4,7 +4,7 @@
 \alias{dataframe_to_geojson}
 \title{Concatenate a data.frame into a geojson polygon}
 \usage{
-dataframe_to_geojson(lonlat, dist = 1e-05, nQuadSegs = 2L, ...)
+dataframe_to_geojson(lonlat, dist = 0.00001, nQuadSegs = 2L, ...)
 }
 \arguments{
 \item{lonlat}{a data.frame with geographical coordinates lonlat in 
@@ -24,6 +24,7 @@ Take single points from geographical coordinates and convert it into a
 geojson 'Polygon' string using \code{\link[sf]{st_buffer}}.
 }
 \examples{
+\donttest{
 # random geographic points within bbox(10, 12, 45, 47)
 library("sf")
 
@@ -32,7 +33,7 @@ lonlat <- data.frame(lon = runif(2, 10, 12),
                      lat = runif(2, 45, 47))
 
 gjson <- dataframe_to_geojson(lonlat)
-
+}
 }
 \seealso{
 Other utility functions: 

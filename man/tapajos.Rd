@@ -22,6 +22,7 @@ area in the Brazilian
 Amazon \url{http://www.icmbio.gov.br/flonatapajos/}
 }
 \examples{
+\donttest{
 library("sf")
 
 data("tapajos", package = "chirps")
@@ -32,6 +33,6 @@ tp_point <- st_sample(tapajos, 3)
 
 # coerce as sf points
 tp_point <- st_as_sf(tp_point)
-
+}
 }
 \keyword{datasets}
