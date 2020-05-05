@@ -5,8 +5,8 @@
 #'  ClimateSERV works with geojson of type 'Polygon'. The input \code{object}
 #'  is then transformed into polygons with a small buffer area around the point.
 #' 
-#' @param object input, an object of class \code{\link[base]{data.frame}} (or any 
-#'  other object that can be coerced to data.frame), \code{geojson} or 
+#' @param object input, an object of class \code{\link[base]{data.frame}} (or
+#'  any other object that can be coerced to data.frame), \code{geojson} or 
 #'  \code{\link[sf]{sf}}
 #' @param dates a character of start and end dates in that order in the format
 #'  "YYYY-MM-DD"
