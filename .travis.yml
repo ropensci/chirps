@@ -1,17 +1,21 @@
 # R for travis: see documentation at https://docs.travis-ci.com/user/languages/r
 language: r
-sudo: false
 cache: packages
 r:
   - release
   - devel
   - oldrel
+os:
+  - linux
 warnings_are_errors: false
-addons:
-  apt:
-    packages:
-      - libudunits2-dev
-      - libgdal-dev
+before_install:
+  - sudo add-apt-repository ppa:ubuntugis/ubuntugis-unstable --yes
+  - sudo apt-get --yes --force-yes update -qq
+  # sf dependencies:
+  - sudo apt-get install --yes libudunits2-dev libproj-dev libgeos-dev libgdal-dev
+apt_packages:
+  - libgdal-dev
+  - libproj-dev
 r_packages:
   - lwgeom
 after_success:
