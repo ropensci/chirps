@@ -85,7 +85,7 @@ ClimateSERV works with geojson of type 'Polygon'. The input object is
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">chirps</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.7</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.8</span>
       </span>
     </div>
 
@@ -166,8 +166,8 @@ ClimateSERV works with geojson of type 'Polygon'. The input <code>object</code> 
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>object</th>
-      <td><p>input, an object of class <code><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></code> (or any 
-other object that can be coerced to data.frame), <code>geojson</code> or 
+      <td><p>input, an object of class <code><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></code> (or
+any other object that can be coerced to data.frame), <code>geojson</code> or 
 <code><a href='https://rdrr.io/pkg/sf/man/sf.html'>sf</a></code></p></td>
     </tr>
     <tr>
@@ -231,11 +231,10 @@ possible issues.</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>ClimateSERV <a href='https://climateserv.servirglobal.net'>https://climateserv.servirglobal.net</a></p>
-<p>Evaporative Stress Index
-<a href='http://catalogue.servirglobal.net/Product?product_id=198'>http://catalogue.servirglobal.net/Product?product_id=198</a></p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><span class='co'># \donttest{</span>
+
 <span class='no'>lonlat</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='kw'>lon</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(-<span class='fl'>55.0281</span>,-<span class='fl'>54.9857</span>),
                      <span class='kw'>lat</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(-<span class='fl'>2.8094</span>, -<span class='fl'>2.8756</span>))
 
@@ -288,6 +287,7 @@ possible issues.</p>
 <span class='no'>pol</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/sf/man/st_as_sf.html'>st_as_sf</a></span>(<span class='no'>pol</span>)
 
 <span class='no'>dt</span> <span class='kw'>&lt;-</span> <span class='fu'>get_esi</span>(<span class='no'>pol</span>, <span class='kw'>dates</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"2018-01-01"</span>, <span class='st'>"2018-02-20"</span>))
+
 <span class='co'># } </span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -300,7 +300,7 @@ possible issues.</p>
 
       <footer>
       <div class="copyright">
-  <p>Developed by Kaue de Sousa, Adam H. Sparks, William Ashmall.</p>
+  <p>Developed by Kauê de Sousa, Adam H. Sparks.</p>
 </div>
 
 <div class="pkgdown">

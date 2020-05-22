@@ -83,7 +83,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">chirps</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.7</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.8</span>
       </span>
     </div>
 
@@ -162,8 +162,8 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>object</th>
-      <td><p>input, an object of class <code><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></code> (or any 
-other object that can be coerced to data.frame), <code>geojson</code> or 
+      <td><p>input, an object of class <code><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></code> (or
+any other object that can be coerced to data.frame), <code>geojson</code> or 
 <code><a href='https://rdrr.io/pkg/sf/man/sf.html'>sf</a></code></p></td>
     </tr>
     <tr>
@@ -228,8 +228,7 @@ possible issues.</p>
 <p>ClimateSERV <a href='https://climateserv.servirglobal.net'>https://climateserv.servirglobal.net</a></p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><span class='co'># \donttest{ </span>
-
+    <pre class="examples"><span class='co'># \donttest{</span>
 <span class='no'>lonlat</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='kw'>lon</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(-<span class='fl'>55.0281</span>,-<span class='fl'>54.9857</span>),
                      <span class='kw'>lat</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(-<span class='fl'>2.8094</span>, -<span class='fl'>2.8756</span>))
 
@@ -237,12 +236,14 @@ possible issues.</p>
 
 <span class='no'>dt</span> <span class='kw'>&lt;-</span> <span class='fu'>get_chirps</span>(<span class='no'>lonlat</span>, <span class='no'>dates</span>)
 
+<span class='no'>dt</span>
+
 <span class='co'>############################################</span>
 
 <span class='co'># S3 method for objects of class 'sf'</span>
-
+<span class='fu'><a href='https://rdrr.io/r/utils/example.html'>example</a></span>(<span class='st'>"tapajos"</span>, <span class='st'>"chirps"</span>)
 <span class='co'>## geometry 'POINT'</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/example.html'>example</a></span>(<span class='st'>"tapajos"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"chirps"</span>)
+<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='st'>"tapajos"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"chirps"</span>)
 
 <span class='no'>dates</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"2017-12-15"</span>, <span class='st'>"2017-12-31"</span>)
 
@@ -276,8 +277,7 @@ possible issues.</p>
 <span class='no'>pol</span> <span class='kw'>&lt;-</span> <span class='fu'>st_as_sf</span>(<span class='no'>pol</span>)
 
 <span class='no'>dt</span> <span class='kw'>&lt;-</span> <span class='fu'>get_chirps</span>(<span class='no'>pol</span>, <span class='kw'>dates</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"2018-01-01"</span>, <span class='st'>"2018-01-20"</span>))
-
-<span class='co'># }  </span></pre>
+<span class='co'># }</span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -289,7 +289,7 @@ possible issues.</p>
 
       <footer>
       <div class="copyright">
-  <p>Developed by Kaue de Sousa, Adam H. Sparks, William Ashmall.</p>
+  <p>Developed by Kauê de Sousa, Adam H. Sparks.</p>
 </div>
 
 <div class="pkgdown">

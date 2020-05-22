@@ -1,14 +1,12 @@
-chirps 0.0.7 (2020-05-04)
+chirps 0.0.8 (2020-05-22)
 =========================
 
-### ENHANCEMENTS 
-
-
-### CHANGES IN BAHAVIOUR
+### CHANGES IN BEHAVIOUR
 
 * Remove Imports of pkg 'tibble' which was basically to provide a "cool" print method. 
 * A new `print()` method is added for objects that inherits the class 'chirps_df'
 * Pkg 'methods' was moved from Imports to Depends
+* Comments/suggestions given by Jake Zwart in rOpenSci pkg review are added
 
 
 chirps 0.0.6 (2020-01-29)

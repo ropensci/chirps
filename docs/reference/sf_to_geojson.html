@@ -82,7 +82,7 @@ st_buffer." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">chirps</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.7</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.8</span>
       </span>
     </div>
 
@@ -176,7 +176,8 @@ and convert it into a geojson 'Polygon' string using
 <code><a href='dataframe_to_geojson.html'>dataframe_to_geojson</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><span class='co'># random geographic points within bbox(10, 12, 45, 47)</span>
+    <pre class="examples"><span class='co'># \donttest{</span>
+<span class='co'># random geographic points within bbox(10, 12, 45, 47)</span>
 <span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='st'>"sf"</span>)
 
 <span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span>(<span class='fl'>123</span>)
@@ -185,7 +186,8 @@ and convert it into a geojson 'Polygon' string using
 
 <span class='no'>lonlat</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/sf/man/st_as_sf.html'>st_as_sf</a></span>(<span class='no'>lonlat</span>, <span class='kw'>coords</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"lon"</span>,<span class='st'>"lat"</span>))
 
-<span class='no'>gjson</span> <span class='kw'>&lt;-</span> <span class='fu'>sf_to_geojson</span>(<span class='no'>lonlat</span>)</pre>
+<span class='no'>gjson</span> <span class='kw'>&lt;-</span> <span class='fu'>sf_to_geojson</span>(<span class='no'>lonlat</span>)
+<span class='co'># }</span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -197,7 +199,7 @@ and convert it into a geojson 'Polygon' string using
 
       <footer>
       <div class="copyright">
-  <p>Developed by Kaue de Sousa, Adam H. Sparks, William Ashmall.</p>
+  <p>Developed by Kauê de Sousa, Adam H. Sparks.</p>
 </div>
 
 <div class="pkgdown">

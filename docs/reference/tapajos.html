@@ -82,7 +82,7 @@ Amazon http://www.icmbio.gov.br/flonatapajos/" />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">chirps</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.7</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.8</span>
       </span>
     </div>
 
@@ -164,7 +164,9 @@ xmax: -54.7973 ymax: -2.751706</p>
 
 <span class='co'># sample three points within the Tapajos area</span>
 <span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span>(<span class='fl'>1234</span>)
-<span class='no'>tp_point</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/sf/man/st_sample.html'>st_sample</a></span>(<span class='no'>tapajos</span>, <span class='fl'>3</span>)
+<span class='no'>tp_point</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/message.html'>suppressMessages</a></span>(
+  <span class='fu'><a href='https://rdrr.io/pkg/sf/man/st_sample.html'>st_sample</a></span>(<span class='no'>tapajos</span>, <span class='fl'>3</span>)
+)
 
 <span class='co'># coerce as sf points</span>
 <span class='no'>tp_point</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/sf/man/st_as_sf.html'>st_as_sf</a></span>(<span class='no'>tp_point</span>)</pre>
@@ -179,7 +181,7 @@ xmax: -54.7973 ymax: -2.751706</p>
 
       <footer>
       <div class="copyright">
-  <p>Developed by Kaue de Sousa, Adam H. Sparks, William Ashmall.</p>
+  <p>Developed by Kauê de Sousa, Adam H. Sparks.</p>
 </div>
 
 <div class="pkgdown">
