@@ -1,0 +1,9 @@
+citHeader("To cite package ‘chirps’ in publications, please use:")
+
+citEntry(entry = "Manual",
+    title = "chirps: API Client for CHIRPS",
+    author = c(person("Kauê", "de Sousa"), person("Adam H.","Sparks")),
+    year = "2020",
+    note = "R package version 0.0.8",
+    url = "https://agrobioinfoservices.github.io/chirps/",
+    textVersion = "Kauê de Sousa and Adam H. Sparks (2020). chirps: API Client for CHIRPS. R package version 0.0.8. https://agrobioinfoservices.github.io/chirps/")

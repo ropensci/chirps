@@ -132,7 +132,4 @@ dt <- get_esi(pol, dates = c("2018-01-01", "2018-02-20"))
 }
 \references{
 ClimateSERV \url{https://climateserv.servirglobal.net}
-
-Evaporative Stress Index
-\url{http://catalogue.servirglobal.net/Product?product_id=198}
 }

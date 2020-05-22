@@ -282,8 +282,7 @@
 #'
 #' .validate_dates(dates)
 #' @noRd
-.validate_dates <-
-  function(x, availability = c("1981-01-01", "0")) {
+.validate_dates <- function(x, availability = c("1981-01-01", "0")) {
     xmin <- as.Date(x[1], format = "%Y-%m-%d")
     
     xmax <- as.Date(x[2], format = "%Y-%m-%d")

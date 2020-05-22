@@ -63,7 +63,7 @@
 #' ############################################
 #' 
 #' # S3 method for objects of class 'sf'
-#' 
+#' example("tapajos", "chirps")
 #' ## geometry 'POINT'
 #' data("tapajos", package = "chirps")
 #' 

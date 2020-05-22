@@ -1,17 +1,17 @@
 Package: chirps
 Type: Package
 Title: API Client for CHIRPS
-Version: 0.0.7
-Authors@R: c(person("Kaue", "de Sousa", 
+Version: 0.0.8
+Authors@R: c(person("Kauê", "de Sousa", 
         email = "kaue.desousa@inn.no", role = c("aut", "cre"),
         comment = c(ORCID = "0000-0002-7571-7845")), 
         person("Adam H.", "Sparks", role = c("aut"),
         comment = c(ORCID = "0000-0002-0061-8359")),
-        person("William", "Ashmall", role = "aut",
+        person("William", "Ashmall", role = "ctb",
         comment = c("API Client implementation")),
         person("Jacob", "van Etten", role = c("ths"),
         comment = c(ORCID = "0000-0001-7554-2558")),
-        person("Svein", "Solberg", role = c("ths"),
+        person("Svein Ø.", "Solberg", role = c("ths"),
         comment = c(ORCID = "0000-0002-4491-4483")))
 URL: https://agrobioinfoservices.github.io/chirps/
 BugReports: https://github.com/agrobioinfoservices/chirps/issues
@@ -26,11 +26,12 @@ Description: API Client for the Climate Hazards Group InfraRed Precipitation
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
-Depends: R (>= 3.5.0)
+Depends: 
+    R (>= 3.5.0), 
+    methods
 Imports:
     crul,
     jsonlite,
-    methods,
     sf,
     stats
 Suggests:
