@@ -12,6 +12,8 @@ addons:
     packages:
       - libudunits2-dev
       - libgdal-dev
+r_packages:
+  - lwgeom
 after_success:
   - Rscript -e 'covr::codecov()'
 

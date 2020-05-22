@@ -192,11 +192,9 @@ get_chirps(tapajos, dates = c("2017-12-15","2017-12-31"), as.sf = TRUE)
 
 ```r
 
-example("tapajos", package = "chirps")
+tp_gjson <- sf_to_geojson(tp_point)
 
-dt <- get_esi(tp_geojson, dates, dist = 0.1)
-
-dt <- get_esi(tp_geojson, dates, as.geojson = TRUE, dist = 0.1)
+dt <- get_esi(tp_gjson, dates = c("2017-12-15","2017-12-31"), dist = 0.1)
 
 ```
 
