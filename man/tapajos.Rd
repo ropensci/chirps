@@ -21,19 +21,4 @@ Geometries for the Tapajos National Forest, a protected
 area in the Brazilian 
 Amazon \url{http://www.icmbio.gov.br/flonatapajos/}
 }
-\examples{
-library("sf")
-
-data("tapajos", package = "chirps")
-
-# sample three points within the Tapajos area
-set.seed(1234)
-tp_point <- suppressMessages(
-  st_sample(tapajos, 3)
-)
-
-# coerce as sf points
-tp_point <- st_as_sf(tp_point)
-
-}
 \keyword{datasets}

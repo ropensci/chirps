@@ -29,16 +29,19 @@
 #' 
 #' @examples
 #' \donttest{
-#' # Three points in the Tapajos National Forest, Brazil
-#' example("tapajos", package = "chirps")
+#' lonlat <- data.frame(lon = c(-55.0281,-54.9857),
+#'                      lat = c(-2.8094, -2.8756))
 #' 
-#' dt <- get_chirps(tp_point, dates = c("2017-12-15","2018-05-31"))
+#' dates <- c("2017-12-15", "2017-12-31")
+#' 
+#' dt <- get_chirps(lonlat, dates)
 #' 
 #' # take the indices for the entire period
 #' precip_indices(dt, timeseries = FALSE)
 #' 
 #' # take the indices for periods of 7 days
 #' precip_indices(dt, timeseries = TRUE, intervals = 7)
+#' 
 #' }
 #' @importFrom stats quantile
 #' @export

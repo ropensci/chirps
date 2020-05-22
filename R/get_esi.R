@@ -54,46 +54,7 @@
 #' # the argument dist passed through sf increase the buffer area
 #' 
 #' dt <- get_esi(lonlat, dates = dates, dist = 0.1)
-#' 
-#' 
-#' ############################################
-#' 
-#' # S3 method for objects of class 'sf'
-#' library("sf")
-#' 
-#' ## geometry 'POINT'
-#' example("tapajos", package = "chirps")
-#' 
-#' dates <- c("2017-11-15", "2017-12-31")
-#' 
-#' dt <- get_esi(tp_point, dates, dist = 0.1)
-#' 
-#' ## geometry 'POLYGON'
-#' p1 <- matrix(c(10.67, 49.90,
-#'                10.57, 49.80,
-#'                10.47, 49.90,
-#'                10.57, 50.00,
-#'                10.67, 49.90),
-#'              nrow = 5, ncol = 2, byrow = TRUE)
-#' 
-#' p1 <- st_polygon(list(p1))
-#' 
-#' p2 <- matrix(c(11.67, 45.59,
-#'                11.57, 45.49,
-#'                11.47, 45.59,
-#'                11.57, 45.69,
-#'                11.67, 45.59),
-#'              nrow = 5, ncol = 2, byrow = TRUE)
-#' 
-#' p2 <- st_polygon(list(p2))
-#' 
-#' pol <- data.frame(x = c(1, 2))
-#' pol$geometry = st_sfc(p1, p2)
-#' 
-#' pol <- st_as_sf(pol)
-#' 
-#' dt <- get_esi(pol, dates = c("2018-01-01", "2018-02-20"))
-#' 
+#'  
 #' } 
 #' @importFrom sf st_centroid read_sf st_geometry_type
 #' @export
