@@ -10,7 +10,7 @@
   "codeRepository": "https://agrobioinfoservices.github.io/chirps/",
   "issueTracker": "https://github.com/agrobioinfoservices/chirps/issues",
   "license": "https://spdx.org/licenses/MIT",
-  "version": "0.0.6",
+  "version": "0.0.8",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
@@ -21,7 +21,7 @@
   "author": [
     {
       "@type": "Person",
-      "givenName": "Kaue",
+      "givenName": "Kauê",
       "familyName": "de Sousa",
       "email": "kaue.desousa@inn.no",
       "@id": "https://orcid.org/0000-0002-7571-7845"
@@ -31,14 +31,14 @@
       "givenName": "Adam H.",
       "familyName": "Sparks",
       "@id": "https://orcid.org/0000-0002-0061-8359"
-    },
+    }
+  ],
+  "contributor": [
     {
       "@type": "Person",
       "givenName": "William",
       "familyName": "Ashmall"
-    }
-  ],
-  "contributor": [
+    },
     {
       "@type": "Person",
       "givenName": "Jacob",
@@ -47,7 +47,7 @@
     },
     {
       "@type": "Person",
-      "givenName": "Svein",
+      "givenName": "Svein Ø.",
       "familyName": "Solberg",
       "@id": "https://orcid.org/0000-0002-4491-4483"
     }
@@ -57,7 +57,7 @@
   "maintainer": [
     {
       "@type": "Person",
-      "givenName": "Kaue",
+      "givenName": "Kauê",
       "familyName": "de Sousa",
       "email": "kaue.desousa@inn.no",
       "@id": "https://orcid.org/0000-0002-7571-7845"
@@ -124,6 +124,11 @@
     },
     {
       "@type": "SoftwareApplication",
+      "identifier": "methods",
+      "name": "methods"
+    },
+    {
+      "@type": "SoftwareApplication",
       "identifier": "crul",
       "name": "crul",
       "provider": {
@@ -145,11 +150,6 @@
         "url": "https://cran.r-project.org"
       },
       "sameAs": "https://CRAN.R-project.org/package=jsonlite"
-    },
-    {
-      "@type": "SoftwareApplication",
-      "identifier": "methods",
-      "name": "methods"
     },
     {
       "@type": "SoftwareApplication",
@@ -176,5 +176,27 @@
     "https://travis-ci.org/agrobioinfoservices/chirps",
     "https://codecov.io/github/agrobioinfoservices/chirps?branch=master"
   ],
-  "developmentStatus": "https://www.repostatus.org/#active"
+  "developmentStatus": "https://www.repostatus.org/#active",
+  "fileSize": "574.17KB",
+  "citation": [
+    {
+      "@type": "SoftwareSourceCode",
+      "datePublished": "2020",
+      "author": [
+        {
+          "@type": "Person",
+          "givenName": "Kauê",
+          "familyName": "de Sousa"
+        },
+        {
+          "@type": "Person",
+          "givenName": "Adam H.",
+          "familyName": "Sparks"
+        }
+      ],
+      "name": "chirps: API Client for CHIRPS",
+      "url": "https://agrobioinfoservices.github.io/chirps/",
+      "description": "R package version 0.0.8"
+    }
+  ]
 }
