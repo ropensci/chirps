@@ -18,7 +18,6 @@ tapajos
 }
 \description{
 Geometries for the Tapajos National Forest, a protected 
-area in the Brazilian 
-Amazon \url{http://www.icmbio.gov.br/flonatapajos/}
+area in the Brazilian Amazon \url{http://www.icmbio.gov.br/flonatapajos/}
 }
 \keyword{datasets}

@@ -5,9 +5,9 @@
 #' the format MM/DD/YYYY
 #' @param operation an integer that represents which type of statistical
 #'  operation to perform on the dataset
-#' @param datatype an integer, the unique datatype number for the dataset 
+#' @param datatype an integer, the unique \code{datatype} number for the dataset
 #' which this request operates on
-#' @return A data.frame with values
+#' @return A \code{data.frame} with values
 #' @details 
 #' operation: supported operations are max = 0, min = 1, median = 2, 
 #'  sum = 4, average = 5
@@ -94,7 +94,7 @@
   nr <- dim(result)[[1]]
   
   if (nr == 0) {
-    stop("Fail to get valid values, 
+    stop("Failed to get valid values,
          try to increase the buffer area with 'dist' \n")
   }
   
