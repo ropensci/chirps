@@ -20,8 +20,8 @@ jobs:
       matrix:
         config:
           - {os: windows-latest, r: 'release'}
-          - {os: macOS-latest, r: 'release'}
-          - {os: macOS-latest, r: 'devel'}
+          - {os: macOS-latest, r: '3.6', args: '--install-args=\"--configure-args=--with-proj-lib=/usr/local/lib/\"", "--ignore-vignettes', build_args: "--no-build-vignettes"}
+          - {os: macOS-latest, r: 'devel', args: '--install-args=\"--configure-args=--with-proj-lib=/usr/local/lib/\"", "--ignore-vignettes', build_args: "--no-build-vignettes"}
           - {os: ubuntu-18.04, r: 'release', rspm: "https://packagemanager.rstudio.com/all/__linux__/bionic/latest"}
 
     env:
@@ -36,6 +36,25 @@ jobs:
           r-version: ${{ matrix.config.r }}
 
       - uses: r-lib/actions/setup-pandoc@master
+      
+            - name: Brew and macOS config
+        if: runner.os == 'macOS'
+        run: |
+          brew install pkg-config
+          brew install udunits
+          brew install gdal
+          cat <<EOT >> .Renviron
+          PKG_CONFIG_PATH=/usr/local/lib/pkgconfig/
+          PROJ_LIB=/usr/local/opt/proj/share/proj/
+          # for installing XML package from source
+          XML_CONFIG=/usr/local/opt/libxml2/bin/xml2-config
+          EOT
+          cat <<EOT >> .Rprofile
+          config_args <- c("sf" = "--with-proj-lib=/usr/local/lib/", "rgdal" = "--with-proj-lib=/usr/local/lib/ --with-proj-include=/usr/local/include/")
+          r <- getOption("repos")
+          r["CRAN"] <- "https://cran.rstudio.com"
+          options(configure.args = config_args, repos = r)
+          EOT
 
       - name: Query dependencies
         run: |
