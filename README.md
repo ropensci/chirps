@@ -4,6 +4,7 @@
 [![peer-review](https://badges.ropensci.org/360_status.svg)](https://github.com/ropensci/software-review/issues/357)
 [![CRAN status](https://www.r-pkg.org/badges/version/chirps)](https://cran.r-project.org/package=chirps)
 [![Build Status](https://travis-ci.org/agrobioinfoservices/chirps.svg?branch=master)](https://travis-ci.org/agrobioinfoservices/chirps)
+![R-CMD-check](https://github.com/agrobioinfoservices/chirps/workflows/R-CMD-check/badge.svg)
 [![codecov](https://codecov.io/gh/agrobioinfoservices/chirps/master.svg)](https://codecov.io/github/agrobioinfoservices/chirps?branch=master)
 [![Project Status](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
 <!-- badges: end -->
