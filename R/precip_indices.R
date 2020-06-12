@@ -380,9 +380,9 @@ precip_indices <- function(object, timeseries = FALSE, intervals = NULL) {
   
 }
 
-#' Very wet days
+#' Extrem wet days
 #' @param object numeric vector
-#' @return the R95p index, annual total PRCP when rain > 95th percentile
+#' @return the R99p index, annual total PRCP when rain > 99th percentile
 #' @examples
 #' set.seed(12)
 #' r <- runif(20, 0, 9)
@@ -394,10 +394,10 @@ precip_indices <- function(object, timeseries = FALSE, intervals = NULL) {
   q <- stats::quantile(object, probs = seq(0, 1, 0.01), na.rm = TRUE)
   q <- q["99%"]
   
-  vwd <- object[object > q]
+  ewd <- object[object > q]
   
-  vwd <- sum(vwd, na.rm = TRUE)
+  ewd <- sum(ewd, na.rm = TRUE)
   
-  return(vwd)
+  return(ewd)
   
 }
