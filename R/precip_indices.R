@@ -111,7 +111,7 @@ precip_indices <- function(object, timeseries = FALSE, intervals = NULL) {
              .r_one_day(chr),
              .r_five_day(chr),
              .very_wet_days(chr),
-             .extrem_wet_days(chr),
+             .extreme_wet_days(chr),
              .r_total(chr),
              .sdii(chr))
     
