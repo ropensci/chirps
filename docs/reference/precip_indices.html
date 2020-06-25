@@ -186,18 +186,43 @@ observation or <code>TRUE</code> for a time series based on <var>intervals</var>
  A. B., Mackay M., Dayanandan S.), pp. 151–174. CRC Press.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><span class='co'># \donttest{</span>
-<span class='co'># Three points in the Tapajos National Forest, Brazil</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/example.html'>example</a></span>(<span class='st'>"tapajos"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"chirps"</span>)
+    <pre class="examples"><div class='input'><span class='co'># \donttest{</span>
+<span class='no'>lonlat</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='kw'>lon</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(-<span class='fl'>55.0281</span>,-<span class='fl'>54.9857</span>),
+                     <span class='kw'>lat</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(-<span class='fl'>2.8094</span>, -<span class='fl'>2.8756</span>))
 
-<span class='no'>dt</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='get_chirps.html'>get_chirps</a></span>(<span class='no'>tp_point</span>, <span class='kw'>dates</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"2017-12-15"</span>,<span class='st'>"2018-05-31"</span>))
+<span class='no'>dates</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"2017-12-15"</span>, <span class='st'>"2017-12-31"</span>)
 
+<span class='no'>dt</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='get_chirps.html'>get_chirps</a></span>(<span class='no'>lonlat</span>, <span class='no'>dates</span>)</div><div class='output co'>#&gt; <span class='message'>Getting your request...</span></div><div class='input'>
 <span class='co'># take the indices for the entire period</span>
-<span class='fu'>precip_indices</span>(<span class='no'>dt</span>, <span class='kw'>timeseries</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
-
+<span class='fu'>precip_indices</span>(<span class='no'>dt</span>, <span class='kw'>timeseries</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt;        id       date    lon   lat  index  value
+#&gt;     &lt;int&gt;     &lt;date&gt;  &lt;dbl&gt; &lt;dbl&gt;  &lt;chr&gt;  &lt;dbl&gt;
+#&gt; 1:      1 2017-12-15 -55.03 -2.81   MLDS   5.00
+#&gt; 2:      1 2017-12-15 -55.03 -2.81   MLWS   2.00
+#&gt; 3:      1 2017-12-15 -55.03 -2.81  R10mm   3.00
+#&gt; 4:      1 2017-12-15 -55.03 -2.81  R20mm   1.00
+#&gt; 5:      1 2017-12-15 -55.03 -2.81 Rx1day  37.69
+#&gt; ---                                            
+#&gt; 16:     2 2017-12-15 -54.99 -2.88 Rx5day  75.08
+#&gt; 17:     2 2017-12-15 -54.99 -2.88   R95p  37.54
+#&gt; 18:     2 2017-12-15 -54.99 -2.88   R99p  37.54
+#&gt; 19:     2 2017-12-15 -54.99 -2.88 Rtotal 128.86
+#&gt; 20:     2 2017-12-15 -54.99 -2.88   SDII  18.41</div><div class='input'>
 <span class='co'># take the indices for periods of 7 days</span>
-<span class='fu'>precip_indices</span>(<span class='no'>dt</span>, <span class='kw'>timeseries</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>intervals</span> <span class='kw'>=</span> <span class='fl'>7</span>)
-<span class='co'># }</span></pre>
+<span class='fu'>precip_indices</span>(<span class='no'>dt</span>, <span class='kw'>timeseries</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>intervals</span> <span class='kw'>=</span> <span class='fl'>7</span>)</div><div class='output co'>#&gt;        id       date    lon   lat  index value
+#&gt;     &lt;int&gt;     &lt;date&gt;  &lt;dbl&gt; &lt;dbl&gt;  &lt;chr&gt; &lt;dbl&gt;
+#&gt; 1:      1 2017-12-15 -55.03 -2.81   MLDS  3.00
+#&gt; 2:      1 2017-12-15 -55.03 -2.81   MLWS  2.00
+#&gt; 3:      1 2017-12-15 -55.03 -2.81  R10mm  2.00
+#&gt; 4:      1 2017-12-15 -55.03 -2.81  R20mm  0.00
+#&gt; 5:      1 2017-12-15 -55.03 -2.81 Rx1day 13.69
+#&gt; ---                                           
+#&gt; 36:     2 2017-12-22 -54.99 -2.88 Rx5day 65.70
+#&gt; 37:     2 2017-12-22 -54.99 -2.88   R95p 37.54
+#&gt; 38:     2 2017-12-22 -54.99 -2.88   R99p 37.54
+#&gt; 39:     2 2017-12-22 -54.99 -2.88 Rtotal 65.70
+#&gt; 40:     2 2017-12-22 -54.99 -2.88   SDII 21.90</div><div class='input'>
+# }
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

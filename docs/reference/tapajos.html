@@ -48,8 +48,7 @@
 
 <meta property="og:title" content="Tapajos National Forest — tapajos" />
 <meta property="og:description" content="Geometries for the Tapajos National Forest, a protected 
-area in the Brazilian 
-Amazon http://www.icmbio.gov.br/flonatapajos/" />
+area in the Brazilian Amazon http://www.icmbio.gov.br/flonatapajos/" />
 <meta property="og:image" content="/logo.svg" />
 
 
@@ -140,8 +139,7 @@ Amazon http://www.icmbio.gov.br/flonatapajos/" />
 
     <div class="ref-description">
     <p>Geometries for the Tapajos National Forest, a protected 
-area in the Brazilian 
-Amazon <a href='http://www.icmbio.gov.br/flonatapajos/'>http://www.icmbio.gov.br/flonatapajos/</a></p>
+area in the Brazilian Amazon <a href='http://www.icmbio.gov.br/flonatapajos/'>http://www.icmbio.gov.br/flonatapajos/</a></p>
     </div>
 
     <pre class="usage"><span class='no'>tapajos</span></pre>
@@ -157,19 +155,6 @@ xmax: -54.7973 ymax: -2.751706</p>
     <p>The data was provided by the Chico Mendes Institute via
 <a href='https://www.protectedplanet.net/'>https://www.protectedplanet.net/</a>.</p>
 
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='st'>"sf"</span>)
-
-<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='st'>"tapajos"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"chirps"</span>)
-
-<span class='co'># sample three points within the Tapajos area</span>
-<span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span>(<span class='fl'>1234</span>)
-<span class='no'>tp_point</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/message.html'>suppressMessages</a></span>(
-  <span class='fu'><a href='https://rdrr.io/pkg/sf/man/st_sample.html'>st_sample</a></span>(<span class='no'>tapajos</span>, <span class='fl'>3</span>)
-)
-
-<span class='co'># coerce as sf points</span>
-<span class='no'>tp_point</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/sf/man/st_as_sf.html'>st_as_sf</a></span>(<span class='no'>tp_point</span>)</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
