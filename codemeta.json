@@ -14,10 +14,10 @@
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
-    "version": "4.0.0",
+    "version": "4.0.2",
     "url": "https://r-project.org"
   },
-  "runtimePlatform": "R version 4.0.0 (2020-04-24)",
+  "runtimePlatform": "R version 4.0.2 (2020-06-22)",
   "author": [
     {
       "@type": "Person",
@@ -177,7 +177,7 @@
     "https://codecov.io/github/agrobioinfoservices/chirps?branch=master"
   ],
   "developmentStatus": "https://www.repostatus.org/#active",
-  "fileSize": "574.17KB",
+  "fileSize": "574.19KB",
   "citation": [
     {
       "@type": "SoftwareSourceCode",
