@@ -1,7 +1,7 @@
 #' Concatenate a data.frame into a geojson polygon
 #'
 #' Take single points from geographical coordinates and convert it into a
-#' geojson 'Polygon' string using \code{\link[sf]{st_buffer}}.
+#' geojson 'Polygon' string using \code{\link[sf:st_buffer]{st_buffer}}.
 #'
 #' @param lonlat a data.frame with geographical coordinates lonlat in 
 #' that order

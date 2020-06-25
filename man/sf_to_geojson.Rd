@@ -21,7 +21,7 @@ An object of class 'geosjon' for each row in \code{lonlat}
 \description{
 Take single points from geographical coordinates
 and convert it into a geojson 'Polygon' string using
-\code{\link[sf]{st_buffer}}.
+ \code{\link[sf:st_buffer]{st_buffer}}.
 }
 \examples{
 \donttest{
