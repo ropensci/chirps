@@ -4,7 +4,7 @@
 \alias{sf_to_geojson}
 \title{Concatenate a sf object into a geojson polygon}
 \usage{
-sf_to_geojson(lonlat, dist = 1e-05, nQuadSegs = 2L, ...)
+sf_to_geojson(lonlat, dist = 0.00001, nQuadSegs = 2L, ...)
 }
 \arguments{
 \item{lonlat}{an object of class 'sf' and geometry type 'POINT' or 'POLYGON'}
@@ -19,9 +19,8 @@ sf_to_geojson(lonlat, dist = 1e-05, nQuadSegs = 2L, ...)
 An object of class 'geosjon' for each row in \code{lonlat}
 }
 \description{
-Take single points from geographical coordinates
-and convert it into a geojson 'Polygon' string using
- \code{\link[sf:st_buffer]{st_buffer}}.
+Take single points from geographical coordinates  and convert it into a
+geojson 'Polygon' string using \code{\link[sf:geos_unary]{st_buffer}}.
 }
 \examples{
 \donttest{

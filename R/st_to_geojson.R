@@ -1,8 +1,7 @@
 #' Concatenate a sf object into a geojson polygon
 #'
-#' Take single points from geographical coordinates
-#' and convert it into a geojson 'Polygon' string using
-#'  \code{\link[sf:st_buffer]{st_buffer}}.
+#' Take single points from geographical coordinates  and convert it into a
+#' geojson 'Polygon' string using \code{\link[sf:geos_unary]{st_buffer}}.
 #'
 #' @param lonlat an object of class 'sf' and geometry type 'POINT' or 'POLYGON'
 #' @param dist numeric, buffer distance for all \code{lonlat}
