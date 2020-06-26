@@ -4,7 +4,7 @@
 \alias{sf_to_geojson}
 \title{Concatenate a sf object into a geojson polygon}
 \usage{
-sf_to_geojson(lonlat, dist = 0.00001, nQuadSegs = 2L, ...)
+sf_to_geojson(lonlat, dist = 1e-05, nQuadSegs = 2L, ...)
 }
 \arguments{
 \item{lonlat}{an object of class 'sf' and geometry type 'POINT' or 'POLYGON'}

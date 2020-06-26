@@ -38,7 +38,7 @@ dataframe_to_geojson <- function(lonlat,
     sf::st_point(l)
   })
   
-  # and then into a geometry list colunm
+  # and then into a geometry list column
   lonlat <- sf::st_sfc(lonlat)
   
   # set the buffer around the points
