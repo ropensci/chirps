@@ -1,10 +1,10 @@
 # chirps
 
 <!-- badges: start -->
-[![peer-review](https://badges.ropensci.org/360_status.svg)](https://github.com/ropensci/software-review/issues/357)
+[![peer-review](https://badges.ropensci.org/357_status.svg)](https://github.com/ropensci/software-review/issues/357)
 [![CRAN status](https://www.r-pkg.org/badges/version/chirps)](https://cran.r-project.org/package=chirps)
-![R-CMD-check](https://github.com/agrobioinfoservices/chirps/workflows/R-CMD-check/badge.svg)
-[![codecov](https://codecov.io/gh/agrobioinfoservices/chirps/master.svg)](https://codecov.io/github/agrobioinfoservices/chirps?branch=master)
+![R-CMD-check](https://github.com/ropensci/chirps/workflows/R-CMD-check/badge.svg)
+[![codecov](https://codecov.io/gh/ropensci/chirps/master.svg)](https://codecov.io/github/ropensci/chirps?branch=master)
 [![Project Status](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
 <!-- badges: end -->
 
@@ -16,7 +16,7 @@
 
 ## Package website
 
-<https://agrobioinfoservices.github.io/chirps/>
+<https://docs.ropensci.org/chirps/>
 
 ## Installation
 
@@ -25,7 +25,7 @@ The development version can be installed via
 ``` r
 library("remotes")
 
-install_github("agrobioinfoservices/chirps", build_vignettes = TRUE)
+install_github("ropensci/chirps", build_vignettes = TRUE)
 ```
 
 ## Example
@@ -47,7 +47,7 @@ p_ind <- precip_indices(dat, timeseries = TRUE, intervals = 30)
 
 ## Going further
 
-The full functionality of **chirps** is illustrated in the package vignette. The vignette can be found on the [package website](https://agrobioinfoservices.github.io/chirps/) or from within `R` once the package has been installed, e.g. via: 
+The full functionality of **chirps** is illustrated in the package vignette. The vignette can be found on the [package website](https://docs.ropensci.org/chirps/) or from within `R` once the package has been installed, e.g. via: 
 
 ``` r
 vignette("Overview", package = "chirps")
@@ -61,7 +61,7 @@ While *chirps* does not redistribute the data or provide it in any way, we encou
 
 ## Meta
 
-  - Please [report any issues or bugs](https://github.com/agrobioinfoservices/chirps/issues).
+  - Please [report any issues or bugs](https://github.com/ropensci/chirps/issues).
 
   - License: MIT.
 

@@ -1,8 +1,8 @@
 # Contributing
 
-When contributing to **chirps**, please first discuss the change you wish to make via [issue](https://github.com/agrobioinfoservices/chirps/issues) before making a change and pull request. Please submit questions, bug reports, and requests in the issues tracker.
+When contributing to **chirps**, please first discuss the change you wish to make via [issue](https://github.com/ropensci/chirps/issues) before making a change and pull request. Please submit questions, bug reports, and requests in the issues tracker.
 
-Note that we have a [code of conduct](https://agrobioinfoservices.github.io/chirps/CODE_OF_CONDUCT.html), please follow it in all your interactions with the project's team.
+Note that we have a [code of conduct](https://ropensci.github.io/chirps/CODE_OF_CONDUCT.html), please follow it in all your interactions with the project's team.
 
 If you plan to contribute, please read our pull request process:
 

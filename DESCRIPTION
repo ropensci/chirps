@@ -13,8 +13,8 @@ Authors@R: c(person("Kauê", "de Sousa",
         comment = c(ORCID = "0000-0001-7554-2558")),
         person("Svein Ø.", "Solberg", role = c("ths"),
         comment = c(ORCID = "0000-0002-4491-4483")))
-URL: https://agrobioinfoservices.github.io/chirps/
-BugReports: https://github.com/agrobioinfoservices/chirps/issues
+URL: https://docs.ropensci.org/chirps/
+BugReports: https://github.com/ropensci/chirps/issues
 Description: API Client for the Climate Hazards Group InfraRed Precipitation
   with Station Data 'CHIRPS'. The 'CHIRPS' data is a 35+ year quasi-global
   rainfall data set, which incorporates 0.05 arc-degrees resolution satellite
