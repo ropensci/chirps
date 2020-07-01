@@ -14,10 +14,10 @@
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
-    "version": "4.0.2",
+    "version": "4.0.0",
     "url": "https://r-project.org"
   },
-  "runtimePlatform": "R version 4.0.2 (2020-06-22)",
+  "runtimePlatform": "R version 4.0.0 (2020-04-24)",
   "author": [
     {
       "@type": "Person",
@@ -175,7 +175,7 @@
     "https://codecov.io/github/ropensci/chirps?branch=master"
   ],
   "developmentStatus": "https://www.repostatus.org/#active",
-  "fileSize": "574.259KB",
+  "fileSize": "1147.723KB",
   "citation": [
     {
       "@type": "SoftwareSourceCode",
@@ -193,8 +193,8 @@
         }
       ],
       "name": "chirps: API Client for CHIRPS",
-      "url": "https://docs.ropensci.org/chirps/",
-      "description": "R package version 0.0.8"
+      "url": "https://github.com/ropensci/chirps",
+      "description": "R package version 0.1.0"
     }
   ]
 }

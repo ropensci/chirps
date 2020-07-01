@@ -65,4 +65,4 @@ While *chirps* does not redistribute the data or provide it in any way, we encou
 
   - You are welcome to contribute to the *chirps* project. Please read our [contribution guidelines](CONTRIBUTING.md).
 
-  - Please note that the *chirps* project is released with a [Contributor Code of Conduct](CODE_OF_CONDUCT.md). By participating in the *chirps* project you agree to abide by its terms.
+  - Please note that the *chirps* project is released with a a [Contributor Code of Conduct](https://ropensci.org/code-of-conduct/). By contributing to this project, you agree to abide by its terms.
