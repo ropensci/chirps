@@ -7,10 +7,10 @@
   "identifier": "chirps",
   "description": "API Client for the Climate Hazards Group InfraRed Precipitation\n  with Station Data 'CHIRPS'. The 'CHIRPS' data is a 35+ year quasi-global\n  rainfall data set, which incorporates 0.05 arc-degrees resolution satellite\n  imagery, and in-situ station data to create gridded rainfall time series for\n  trend analysis and seasonal drought monitoring. For more details on 'CHIRPS'\n  data please visit its official home page <https://www.chc.ucsb.edu/data/chirps>.\n  Requests from large time series (> 10 years) and large geographic coverage \n  (global scale) may take several minutes.",
   "name": "chirps: API Client for CHIRPS",
-  "codeRepository": "https://agrobioinfoservices.github.io/chirps/",
-  "issueTracker": "https://github.com/agrobioinfoservices/chirps/issues",
+  "codeRepository": "https://docs.ropensci.org/chirps/",
+  "issueTracker": "https://github.com/ropensci/chirps/issues",
   "license": "https://spdx.org/licenses/MIT",
-  "version": "0.0.8",
+  "version": "0.1.0",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
