@@ -28,11 +28,11 @@ Funk C., et al. (2015). Scientific Data, 2, 150066.
 \strong{Useful links:}
 \itemize{
 \item{Development repository: 
- \url{https://github.com/agrobioinfoservices/chirps}}
+ \url{https://github.com/ropensci/chirps}}
 \item{Static documentation: 
- \url{https://agrobioinfoservices.github.io/chirps/}}
+ \url{https://docs.ropensci.org/chirps/}}
 \item{Report bugs: 
- \url{https://github.com/agrobioinfoservices/chirps/issues}}
+ \url{https://github.com/ropensci/chirps/issues}}
 \item{CHIRPS website: 
  \url{https://www.chc.ucsb.edu/data/chirps}}
 \item{ClimateSERV website: 

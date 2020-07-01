@@ -1,8 +1,7 @@
 <!-- badges: start -->
 [![peer-review](https://badges.ropensci.org/357_status.svg)](https://github.com/ropensci/software-review/issues/357)
 [![CRAN status](https://www.r-pkg.org/badges/version/chirps)](https://cran.r-project.org/package=chirps)
-[![cran checks](https://cranchecks.info/badges/worst/chirps)](https://cran.r-project.org/web/checks/check_results_chirps.html)
-[![R-CMD-check](https://github.com/ropensci/chirps/workflows/R-CMD-check/badge.svg)
+![R-CMD-check](https://github.com/ropensci/chirps/workflows/R-CMD-check/badge.svg)
 [![codecov](https://codecov.io/gh/ropensci/chirps/branch/master/graph/badge.svg)](https://codecov.io/gh/ropensci/chirps)
 [![Project Status](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
 <!-- badges: end -->
