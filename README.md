@@ -1,10 +1,9 @@
-# chirps
-
 <!-- badges: start -->
 [![peer-review](https://badges.ropensci.org/357_status.svg)](https://github.com/ropensci/software-review/issues/357)
 [![CRAN status](https://www.r-pkg.org/badges/version/chirps)](https://cran.r-project.org/package=chirps)
-![R-CMD-check](https://github.com/ropensci/chirps/workflows/R-CMD-check/badge.svg)
-[![codecov](https://codecov.io/gh/ropensci/chirps/master.svg)](https://codecov.io/github/ropensci/chirps?branch=master)
+[![cran checks](https://cranchecks.info/badges/worst/chirps)](https://cran.r-project.org/web/checks/check_results_chirps.html)
+[![R-CMD-check](https://github.com/ropensci/chirps/workflows/R-CMD-check/badge.svg)
+[![codecov](https://codecov.io/gh/ropensci/chirps/branch/master/graph/badge.svg)](https://codecov.io/gh/ropensci/chirps)
 [![Project Status](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
 <!-- badges: end -->
 
@@ -14,13 +13,10 @@
 
 **chirps** provides the API Client for Climate Hazards Group InfraRed Precipitation with Station Data [(CHIRPS)](https://www.chc.ucsb.edu/data/chirps) via [ClimateSERV](https://climateserv.readthedocs.io/en/latest/index.html). [CHIRPS](https://www.chc.ucsb.edu/data/chirps) is a 35+ year quasi-global rainfall data set. Spanning 50°S-50°N (and all longitudes) and ranging from 1981 to near-present (normally with a 45 day lag), CHIRPS incorporates 0.05° resolution satellite imagery, and in-situ station data to create gridded rainfall time series for trend analysis and seasonal drought monitoring.
 
-## Package website
+## Quick start
 
-<https://docs.ropensci.org/chirps/>
-
-## Installation
-
-The development version can be installed via
+A development version that may have new features or bug fixes is
+available through GitHub.
 
 ``` r
 library("remotes")
