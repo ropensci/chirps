@@ -36,9 +36,10 @@ Imports:
     stats
 Suggests:
     knitr,
+    markdown,
     rmarkdown,
     testthat (>= 2.1.0),
     vcr (>= 0.5)
 Language: en-GB
 RoxygenNote: 7.1.0
-VignetteBuilder: knitr
+VignetteBuilder: knitrchir

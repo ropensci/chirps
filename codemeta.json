@@ -78,6 +78,18 @@
     },
     {
       "@type": "SoftwareApplication",
+      "identifier": "markdown",
+      "name": "markdown",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=markdown"
+    },
+    {
+      "@type": "SoftwareApplication",
       "identifier": "rmarkdown",
       "name": "rmarkdown",
       "provider": {
@@ -175,7 +187,6 @@
     "https://codecov.io/github/ropensci/chirps?branch=master"
   ],
   "developmentStatus": "https://www.repostatus.org/#active",
-  "fileSize": "1147.723KB",
   "citation": [
     {
       "@type": "SoftwareSourceCode",
