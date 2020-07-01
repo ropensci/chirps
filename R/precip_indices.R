@@ -47,7 +47,7 @@
 #' @export
 precip_indices <- function(object, timeseries = FALSE, intervals = NULL) {
   
-  if (!.is_chirps(object)) {
+  if (isFALSE(.is_chirps(object))) {
     stop("object must be a data.frame with class 'chirps'\n")
   }
   
@@ -58,6 +58,9 @@ precip_indices <- function(object, timeseries = FALSE, intervals = NULL) {
   lonlat <- object[!duplicated(object$id), c("id","lon","lat")]
   
   nr <- length(unique(object$date))
+  
+  names(object)[names(object) == "chirps"] <- "value"
+  names(object)[names(object) == "imerg"] <- "value"
   
   # it might happen that when bins are not well distributed across dates
   # in that case the last values are dropped
@@ -86,10 +89,10 @@ precip_indices <- function(object, timeseries = FALSE, intervals = NULL) {
   # split by ids
   object <- split(object, object$id)
   
-  # keep only chirps data and ids, and add bins
+  # keep only rain data and ids, and add bins
   object <- lapply(object, function(x) { 
     
-    x <- x[,c("id", "date", "chirps")]
+    x <- x[,c("id", "date", "value")]
     x <- x[seq_along(bins), ]
     x$bin <- bins
     x
@@ -102,7 +105,7 @@ precip_indices <- function(object, timeseries = FALSE, intervals = NULL) {
   
   object <- lapply(object, function(x) {
     
-    chr <- x$chirps
+    chr <- x$value
     
     ind <- c(.dryspell(chr),
              .wetspell(chr),
@@ -138,7 +141,7 @@ precip_indices <- function(object, timeseries = FALSE, intervals = NULL) {
   
   result <- as.data.frame(result, stringsAsFactors = FALSE)
   
-  class(result) <- c("chirps_df", class(result))
+  class(result) <- union("chirps_df", class(result))
   
   return(result)
 }

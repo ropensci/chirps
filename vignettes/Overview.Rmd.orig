@@ -18,6 +18,7 @@ vignette: >
   %\VignetteEngine{knitr::knitr}
   %\VignetteIndexEntry{Introduction to chirps}
   %\usepackage[UTF-8]{inputenc}
+  %\VignetteEncoding{UTF-8}
 bibliography: ["chirps.bib"]
 csl: citation_style.csl
 ---
@@ -37,7 +38,7 @@ knitr::opts_chunk$set(
 
 # Summary
 
-The **chirps** package provides functionalities for reproducible analysis using the CHIRPS data[@Funk2015]. CHIRPS is a daily precipitation data set developed by the Climate Hazards Group[@Funk2015] for high resolution precipitation gridded data. Spanning 50$^{\circ}$S-50$^{\circ}$N (and all longitudes) and ranging from 1981 to near-present (normally with a 45 day lag), CHIRPS incorporates 0.05 arc-degree resolution satellite imagery, and in-situ station data to create gridded precipitation time series for trend analysis and seasonal drought monitoring[@Funk2015]. Other functionalities of **chirps** are the computation of precipitation indices and the evaporative stress index (ESI) which describes temporal anomalies in evapotranspiration produced weekly at 0.25 arc-degree resolution for the entire globe.
+The **chirps** package provides functionalities for reproducible analysis using the CHIRPS data[@Funk2015]. CHIRPS is a daily precipitation data set developed by the Climate Hazards Group[@Funk2015] for high resolution precipitation gridded data. Spanning 50$^{\circ}$S-50$^{\circ}$N (and all longitudes) and ranging from 1981 to near-present (normally with a 45 day lag), CHIRPS incorporates 0.05 arc-degree resolution satellite imagery, and in-situ station data to create gridded precipitation time series for trend analysis and seasonal drought monitoring[@Funk2015]. Other functionalities of **chirps** are the computation of precipitation indices, the retrieval of the evaporative stress index (ESI) which describes temporal anomalies in evapotranspiration produced weekly at 0.25 arc-degree resolution for the entire globe, and the retrieval of IMERG data which provides near-real time global observations of rainfall at 10km resolution.
 
 # Usage
 
@@ -52,7 +53,14 @@ knitr::include_graphics("map.png")
 library("chirps")
 library("sf")
 
-example("tapajos", package = "chirps")
+data("tapajos", package = "chirps")
+
+# sample three points within the Tapajos area
+set.seed(1234)
+tp_point <- st_sample(tapajos, 3)
+
+# coerce as sf points
+tp_point <- st_as_sf(tp_point)
 
 dt <- get_chirps(tp_point, dates = c("2013-01-01","2018-12-31"))
 ```

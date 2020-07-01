@@ -16,3 +16,5 @@
 ^reviewer_comments$
 ^codemeta\.json$
 ^.github$
+^vignettes/Overview\.Rmd\.orig$
+^vignettes/precompile\.R$

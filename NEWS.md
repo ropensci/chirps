@@ -3,6 +3,10 @@ chirps 0.1.0 (2020-06-01)
 
 * rOpenSci release version
 
+### ENHANCEMENTS 
+
+* Add `get_imerg()` to fetch IMERG data https://disasters.nasa.gov/instruments/imerg
+
 
 chirps 0.0.8 (2020-05-22)
 =========================
