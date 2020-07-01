@@ -169,12 +169,10 @@
       "name": "stats"
     }
   ],
-  "releaseNotes": "https://github.com/agrobioinfoservices/chirps/blob/master/NEWS.md",
-  "readme": "https://github.com/agrobioinfoservices/chirps/blob/master/README.md",
+  "releaseNotes": "https://github.com/ropensci/chirps/blob/master/NEWS.md",
+  "readme": "https://github.com/ropensci/chirps/blob/master/README.md",
   "contIntegration": [
-    "https://ci.appveyor.com/project/kauedesousa/chirps",
-    "https://travis-ci.org/agrobioinfoservices/chirps",
-    "https://codecov.io/github/agrobioinfoservices/chirps?branch=master"
+    "https://codecov.io/github/ropensci/chirps?branch=master"
   ],
   "developmentStatus": "https://www.repostatus.org/#active",
   "fileSize": "574.259KB",
@@ -195,7 +193,7 @@
         }
       ],
       "name": "chirps: API Client for CHIRPS",
-      "url": "https://agrobioinfoservices.github.io/chirps/",
+      "url": "https://docs.ropensci.org/chirps/",
       "description": "R package version 0.0.8"
     }
   ]
