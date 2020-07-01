@@ -14,9 +14,10 @@ author:
   affiliation: Department of Agricultural Sciences, Inland Norway University, Hamar, Norway
 output: html_document
 vignette: >
-  %\VignetteIndexEntry{Overview}
-  %\VignetteEncoding{UTF-8}
-  %\VignetteEngine{knitr::rmarkdown_notangle}
+vignette: >
+  %\VignetteEngine{knitr::knitr}
+  %\VignetteIndexEntry{Introduction to chirps}
+  %\usepackage[UTF-8]{inputenc}
 bibliography: ["chirps.bib"]
 csl: citation_style.csl
 ---
