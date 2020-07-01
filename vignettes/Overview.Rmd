@@ -14,7 +14,6 @@ author:
   affiliation: Department of Agricultural Sciences, Inland Norway University, Hamar, Norway
 output: html_document
 vignette: >
-vignette: >
   %\VignetteEngine{knitr::knitr}
   %\VignetteIndexEntry{Introduction to chirps}
   %\usepackage[UTF-8]{inputenc}

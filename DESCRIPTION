@@ -42,4 +42,4 @@ Suggests:
     vcr (>= 0.5)
 Language: en-GB
 RoxygenNote: 7.1.0
-VignetteBuilder: knitrchir
+VignetteBuilder: knitr
