@@ -15,7 +15,7 @@
 #'\strong{Useful links:}
 #' \itemize{
 #' \item{JOSS paper: 
-#'  \url{https://doi.org/10.21105/joss.02419}
+#'  \url{https://doi.org/10.21105/joss.02419}}
 #' \item{Development repository: 
 #'  \url{https://github.com/ropensci/chirps}}
 #' \item{Static documentation: 

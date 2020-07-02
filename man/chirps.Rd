@@ -27,6 +27,8 @@ Funk C., et al. (2015). Scientific Data, 2, 150066.
 \seealso{
 \strong{Useful links:}
 \itemize{
+\item{JOSS paper: 
+ \url{https://doi.org/10.21105/joss.02419}}
 \item{Development repository: 
  \url{https://github.com/ropensci/chirps}}
 \item{Static documentation: 
