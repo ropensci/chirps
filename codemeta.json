@@ -10,7 +10,7 @@
   "codeRepository": "https://docs.ropensci.org/chirps/",
   "issueTracker": "https://github.com/ropensci/chirps/issues",
   "license": "https://spdx.org/licenses/MIT",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
@@ -75,18 +75,6 @@
         "url": "https://cran.r-project.org"
       },
       "sameAs": "https://CRAN.R-project.org/package=knitr"
-    },
-    {
-      "@type": "SoftwareApplication",
-      "identifier": "markdown",
-      "name": "markdown",
-      "provider": {
-        "@id": "https://cran.r-project.org",
-        "@type": "Organization",
-        "name": "Comprehensive R Archive Network (CRAN)",
-        "url": "https://cran.r-project.org"
-      },
-      "sameAs": "https://CRAN.R-project.org/package=markdown"
     },
     {
       "@type": "SoftwareApplication",
@@ -189,7 +177,7 @@
   "developmentStatus": "https://www.repostatus.org/#active",
   "citation": [
     {
-      "@type": "SoftwareSourceCode",
+      "@type": "ScholarlyArticle",
       "datePublished": "2020",
       "author": [
         {
@@ -201,11 +189,46 @@
           "@type": "Person",
           "givenName": "Adam H.",
           "familyName": "Sparks"
+        },
+        {
+          "@type": "Person",
+          "givenName": "William",
+          "familyName": "Ashmall"
+        },
+        {
+          "@type": "Person",
+          "givenName": "Jacob",
+          "familyName": "van Etten"
+        },
+        {
+          "@type": "Person",
+          "givenName": "Svein Ø.",
+          "familyName": "Solberg"
         }
       ],
-      "name": "chirps: API Client for CHIRPS",
-      "url": "https://github.com/ropensci/chirps",
-      "description": "R package version 0.1.0"
+      "name": "chirps: API Client for the CHIRPS Precipitation Data in R",
+      "identifier": "10.21105/joss.02419",
+      "url": "https://doi.org/10.21105/joss.02419",
+      "paginiation": "2419",
+      "@id": "https://doi.org/10.21105/joss.02419",
+      "sameAs": "https://doi.org/10.21105/joss.02419",
+      "isPartOf": {
+        "@type": "PublicationIssue",
+        "issueNumber": "51",
+        "datePublished": "2020",
+        "isPartOf": {
+          "@type": ["PublicationVolume", "Periodical"],
+          "volumeNumber": "5",
+          "name": "The Journal of Open Source Software"
+        }
+      }
     }
-  ]
+  ],
+  "provider": {
+    "@id": "https://cran.r-project.org",
+    "@type": "Organization",
+    "name": "Comprehensive R Archive Network (CRAN)",
+    "url": "https://cran.r-project.org"
+  },
+  "relatedLink": "https://CRAN.R-project.org/package=chirps"
 }
