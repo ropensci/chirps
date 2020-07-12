@@ -79,7 +79,7 @@ get_esi.default <- function(object, dates, operation = 5, period = 1,
   dates_inter <- .reformat_dates(dates, availability = c("2001-01-01", "0"))
   
   # get geojson strings from data.frame
-  gj <- dataframe_to_geojson(object, ...)
+  gj <- as.geojson(object, ...)
   
   class(gj) <- "character"
   
@@ -176,7 +176,7 @@ get_esi.sf <- function(object, dates, operation = 5, period = 1,
   dates_inter <- .reformat_dates(dates, availability = c("2001-01-01", "0"))
   
   # get geojson strings from data.frame
-  gj <- sf_to_geojson(object, ...)
+  gj <- as.geojson(object, ...)
   
   class(gj) <- "character"
   
@@ -280,7 +280,7 @@ get_esi.geojson <- function(object, dates, operation = 5, period = 1,
     lonlat <- as.data.frame(lonlat)
     
     # lonlat into a geojson Polygon
-    gjson <- dataframe_to_geojson(lonlat, ...)
+    gjson <- as.geojson(lonlat, ...)
     
   }
   

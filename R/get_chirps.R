@@ -85,7 +85,7 @@ get_chirps.default <- function(object, dates, operation = 5,
   dates_inter <- .reformat_dates(dates, availability = c("1981-01-01", "0"))
 
   # get geojson strings from data.frame
-  gj <- dataframe_to_geojson(object, ...)
+  gj <- as.geojson(object, ...)
   
   class(gj) <- "character"
   
@@ -175,7 +175,7 @@ get_chirps.sf <- function(object, dates, operation = 5,
   dates_inter <- .reformat_dates(dates, availability = c("1981-01-01", "0"))
   
   # get geojson strings from data.frame
-  gj <- sf_to_geojson(object, ...)
+  gj <- as.geojson(object, ...)
   
   class(gj) <- "character"
   
@@ -270,7 +270,7 @@ get_chirps.geojson <- function(object, dates, operation = 5,
     lonlat <- as.data.frame(lonlat)
     
     # lonlat into a geojson Polygon
-    gjson <- dataframe_to_geojson(lonlat, ...)
+    gjson <- as.geojson(lonlat, ...)
     
   }
   

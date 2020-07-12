@@ -1,4 +1,11 @@
-chirps 0.1.0 (2020-06-01)
+chirps 0.1.1 (2020-07-03)
+=========================
+
+* Add citation info for JOSS paper
+* Fix vignette build
+* A S3 method `as.geojson()` is added to replace the functions `data.frame_to_geojson()` and `sf_to_geojson()`
+
+chirps 0.1.0 (2020-07-01)
 =========================
 
 * rOpenSci release version

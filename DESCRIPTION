@@ -1,7 +1,7 @@
 Package: chirps
 Type: Package
 Title: API Client for CHIRPS
-Version: 0.1.0
+Version: 0.1.1
 Authors@R: c(person("Kauê", "de Sousa", 
         email = "kaue.desousa@inn.no", role = c("aut", "cre"),
         comment = c(ORCID = "0000-0002-7571-7845")), 
@@ -36,10 +36,9 @@ Imports:
     stats
 Suggests:
     knitr,
-    markdown,
     rmarkdown,
     testthat (>= 2.1.0),
     vcr (>= 0.5)
 Language: en-GB
-RoxygenNote: 7.1.0
+RoxygenNote: 7.1.1
 VignetteBuilder: knitr

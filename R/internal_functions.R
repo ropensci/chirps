@@ -23,7 +23,7 @@
 #' lonlat <- data.frame(lon = runif(1, 10, 12),
 #'                      lat = runif(1, 45, 47))
 #' 
-#' gjson <- dataframe_to_geojson(lonlat)
+#' gjson <- as.geojson(lonlat)
 #' 
 #' chirps:::.send_request(begintime = "12/10/2018",
 #'                        endtime = "12/26/2018",
@@ -96,7 +96,7 @@
 #' lonlat <- data.frame(lon = runif(1, 10, 12),
 #'                      lat = runif(1, 45, 47))
 #' 
-#' gjson <- dataframe_to_geojson(lonlat)
+#' gjson <- as.geojson(lonlat)
 #' 
 #' gjson <- as.character(gjson)
 #' 
@@ -155,7 +155,7 @@
 #' lonlat <- data.frame(lon = runif(1, 10, 12),
 #'                      lat = runif(1, 45, 47))
 #' 
-#' gjson <- dataframe_to_geojson(lonlat)
+#' gjson <- as.geojson(lonlat)
 #' 
 #' gjson <- as.character(gjson)
 #' 
@@ -378,7 +378,7 @@
 #' lonlat <- data.frame(lon = 1,
 #'                      lat = 1)
 #' 
-#' geometry <- dataframe_to_geojson(lonlat)[[1]]
+#' geometry <- as.geojson(lonlat)[[1]]
 #' 
 #' properties <- data.frame(x = LETTERS[1:3],
 #'                          a = as.character(1:3),

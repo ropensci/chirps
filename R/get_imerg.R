@@ -66,7 +66,7 @@ get_imerg.default <- function(object, dates, operation = 5, ...) {
   dates_inter <- .reformat_dates(dates, availability = c("2015-01-01", "0"))
   
   # get geojson strings from data.frame
-  gj <- dataframe_to_geojson(object, ...)
+  gj <- as.geojson(object, ...)
   
   class(gj) <- "character"
   
@@ -154,7 +154,7 @@ get_imerg.sf <- function(object, dates, operation = 5, as.sf = FALSE, ...) {
   dates_inter <- .reformat_dates(dates, availability = c("2015-01-01", "0"))
   
   # get geojson strings from data.frame
-  gj <- sf_to_geojson(object, ...)
+  gj <- as.geojson(object, ...)
   
   class(gj) <- "character"
   
@@ -248,7 +248,7 @@ get_imerg.geojson <- function(object, dates, operation = 5, as.geojson = FALSE, 
     lonlat <- as.data.frame(lonlat)
     
     # lonlat into a geojson Polygon
-    gjson <- dataframe_to_geojson(lonlat, ...)
+    gjson <- as.geojson(lonlat, ...)
     
   }
   
