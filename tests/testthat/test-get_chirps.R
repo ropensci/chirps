@@ -39,7 +39,7 @@ test_that("sf method", {
 })
 
 # get chirps with geojson method
-geojson <- dataframe_to_geojson(lonlat)
+geojson <- as.geojson(lonlat)
 
 
 test_that("geojson method", {
