@@ -1,4 +1,4 @@
-chirps 0.1.1 (2020-07-12)
+chirps 0.1.2 (2020-07-12)
 =========================
 
 * Add citation info for JOSS paper

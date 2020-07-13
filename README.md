@@ -16,6 +16,16 @@
 
 ## Quick start
 
+### From CRAN
+
+The stable version is available through CRAN.
+
+```r
+install.packages("chirps")
+```
+
+### From GitHub
+
 A development version that may have new features or bug fixes is
 available through GitHub.
 
@@ -29,7 +39,7 @@ install_github("ropensci/chirps", build_vignettes = TRUE)
 
 Fetch CHIRPS data from three points across the *Tapajós* National Forest (Brazil) from Jan-2017 to Dec-2017. Then calculate the precipitation indices over the timeseries using intervals of 30 days.
 
-``` r
+```r
 library("chirps")
 
 lonlat <- data.frame(lon = c(-55.0281,-54.9857, -55.0714),
