@@ -6,15 +6,15 @@
 \alias{as.geojson.sf}
 \title{Methods to coerce geographical coordinates into a geojson polygon}
 \usage{
-as.geojson(lonlat, dist = 1e-05, nQuadSegs = 2L, ...)
+as.geojson(lonlat, dist = 0.00001, nQuadSegs = 2L, ...)
 
-\method{as.geojson}{default}(lonlat, dist = 1e-05, nQuadSegs = 2L, ...)
+\method{as.geojson}{default}(lonlat, dist = 0.00001, nQuadSegs = 2L, ...)
 
-\method{as.geojson}{sf}(lonlat, dist = 1e-05, nQuadSegs = 2L, ...)
+\method{as.geojson}{sf}(lonlat, dist = 0.00001, nQuadSegs = 2L, ...)
 }
 \arguments{
 \item{lonlat}{a data.frame or matrix with geographical coordinates lonlat, in 
-that order, or an object of class 'sf' and geometry type 'POINT' or 'POLYGON'}
+that order, or an object of class 'sf' with geometry type 'POINT' or 'POLYGON'}
 
 \item{dist}{numeric, buffer distance for all \code{lonlat}}
 
@@ -26,8 +26,8 @@ that order, or an object of class 'sf' and geometry type 'POINT' or 'POLYGON'}
 An object of class 'geosjon' for each row in \code{lonlat}
 }
 \description{
-Take single points from geographical coordinates and coerce it into a
-geojson 'Polygon' string
+Take single points from geographical coordinates and coerce into a
+geojson of geometry 'Polygon'
 }
 \examples{
 \donttest{
