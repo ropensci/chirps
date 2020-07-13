@@ -10,7 +10,7 @@
   "codeRepository": "https://docs.ropensci.org/chirps/",
   "issueTracker": "https://github.com/ropensci/chirps/issues",
   "license": "https://spdx.org/licenses/MIT",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
@@ -75,6 +75,18 @@
         "url": "https://cran.r-project.org"
       },
       "sameAs": "https://CRAN.R-project.org/package=knitr"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "markdown",
+      "name": "markdown",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=markdown"
     },
     {
       "@type": "SoftwareApplication",
