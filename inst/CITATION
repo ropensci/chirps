@@ -1,7 +1,7 @@
 citHeader("To cite package ‘chirps’ in publications, please use:")
 
 citEntry(entry = "Article",
-    title = "chirps: API Client for the CHIRPS Precipitation Data in R",
+    title = "{chirps: API Client for the CHIRPS Precipitation Data in R}",
     author = c(person("Kauê", "de Sousa"), person("Adam H.","Sparks"),
     person("William","Ashmall"),person("Jacob","van Etten"), person("Svein Ø.","Solberg")),
     year = "2020",
