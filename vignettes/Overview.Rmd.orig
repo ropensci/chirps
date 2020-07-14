@@ -93,7 +93,6 @@ With `precip_indices()` is possible to assess how the precipitation changes acro
 p_ind <- precip_indices(dt, timeseries = TRUE, intervals = 15)
 
 p_ind
-
 ```
 
 The function `precip_indices()` returns a data.frame with the precipitation indices. Each date corresponds to the first day in the time series intervals as defined by the argument 'intervals'. When `timeseries = FALSE` the function returns a single precipitation index for the entire time series.
@@ -118,7 +117,6 @@ p_ind %>%
   facet_wrap(. ~ index) +
   labs(x = "Year", y = "Index (mm)") +
   theme_classic()
-
 ```
 
 
