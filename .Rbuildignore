@@ -19,3 +19,6 @@
 ^vignettes/Overview\.md$
 ^vignettes/precompile\.R$
 ^CRAN-RELEASE$
+^\.ccache$
+^\.github$
+^tic\.R$
