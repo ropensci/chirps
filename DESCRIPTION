@@ -1,7 +1,7 @@
 Package: chirps
 Type: Package
 Title: API Client for CHIRPS
-Version: 0.1.2
+Version: 0.1.2.9000
 Authors@R: c(person("Kauê", "de Sousa", 
         email = "kaue.desousa@inn.no", role = c("aut", "cre"),
         comment = c(ORCID = "0000-0002-7571-7845")), 
