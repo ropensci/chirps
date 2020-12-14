@@ -7,16 +7,16 @@
   "identifier": "chirps",
   "description": "API Client for the Climate Hazards Group InfraRed Precipitation\n  with Station Data 'CHIRPS'. The 'CHIRPS' data is a 35+ year quasi-global\n  rainfall data set, which incorporates 0.05 arc-degrees resolution satellite\n  imagery, and in-situ station data to create gridded rainfall time series for\n  trend analysis and seasonal drought monitoring. For more details on 'CHIRPS'\n  data please visit its official home page <https://www.chc.ucsb.edu/data/chirps>.\n  Requests from large time series (> 10 years) and large geographic coverage \n  (global scale) may take several minutes.",
   "name": "chirps: API Client for CHIRPS",
-  "codeRepository": "https://github.com/ropensci/chirps",
+  "codeRepository": "https://docs.ropensci.org/chirps/",
   "issueTracker": "https://github.com/ropensci/chirps/issues",
   "license": "https://spdx.org/licenses/MIT",
-  "version": "0.1.2",
+  "version": "0.1.2.9000",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
     "url": "https://r-project.org"
   },
-  "runtimePlatform": "R version 4.0.2 (2020-06-22)",
+  "runtimePlatform": "R version 4.0.3 (2020-10-10)",
   "author": [
     {
       "@type": "Person",
@@ -180,8 +180,6 @@
       "name": "stats"
     }
   ],
-  "releaseNotes": "https://github.com/ropensci/chirps/blob/master/NEWS.md",
-  "readme": "https://github.com/ropensci/chirps/blob/master/README.md",
   "contIntegration": "https://codecov.io/gh/ropensci/chirps",
   "developmentStatus": "https://www.repostatus.org/#active",
   "citation": [
@@ -215,7 +213,7 @@
           "familyName": "Solberg"
         }
       ],
-      "name": "chirps: API Client for the CHIRPS Precipitation Data in R",
+      "name": "{chirps: API Client for the CHIRPS Precipitation Data in R}",
       "identifier": "10.21105/joss.02419",
       "url": "https://doi.org/10.21105/joss.02419",
       "pagination": "2419",
@@ -239,12 +237,15 @@
     "name": "Comprehensive R Archive Network (CRAN)",
     "url": "https://cran.r-project.org"
   },
-  "relatedLink": ["https://docs.ropensci.org/chirps/", "https://CRAN.R-project.org/package=chirps"],
-  "fileSize": "6386.61KB",
-  "review": {
-    "@type": "Review",
-    "url": "https://github.com/ropensci/software-review/issues/357",
-    "provider": "https://ropensci.org"
-  },
-  "keywords": ["climatology", "precipitation-data", "rstats", "chirps"]
+  "relatedLink": [
+    "https://docs.ropensci.org/chirps/",
+    "https://CRAN.R-project.org/package=chirps"
+  ],
+  "fileSize": "5094.949KB",
+  "keywords": [
+    "climatology",
+    "precipitation-data",
+    "rstats",
+    "chirps"
+  ]
 }
