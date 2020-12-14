@@ -82,9 +82,9 @@ jobs:
           Rscript -e "if (!requireNamespace('remotes')) install.packages('remotes', type = 'source')"
           Rscript -e "if (getRversion() < '3.2' && !requireNamespace('curl')) install.packages('curl', type = 'source')"
 
-      - name: "[Stage] [Linux] Install curl, libgit2 and udunits"
+      - name: "[Stage] [Linux] Install curl, libgit2, libgdal and udunits"
         if: runner.os == 'Linux'
-        run: sudo apt install libcurl4-openssl-dev libgit2-dev libudunits2-dev
+        run: sudo apt install libcurl4-openssl-dev libgit2-dev libudunits2-dev libgdal-dev
 
       - name: "[Stage] [macOS] Install libgit2 and udunits"
         if: runner.os == 'macOS'
