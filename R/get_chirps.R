@@ -1,7 +1,6 @@
 #' Get CHIRPS precipitation data
 #' 
-#' Get daily precipitation data from the "Climate Hazards Group InfraRed
-#'  Precipitation with Station Data".
+#' Get daily precipitation data from the "Climate Hazards Group".
 #' 
 #' @param object input, an object of class \code{\link[base]{data.frame}} (or
 #'  any other object that can be coerced to data.frame), \code{\link[terra]{SpatVector}}, 
@@ -12,7 +11,7 @@
 #'  "ClimateSERV"
 #' @param as.sf logical, returns an object of class \code{\link[sf]{sf}}
 #' @param as.geojson logical, returns an object of class \code{geojson}
-#' @param as.raster logical, returns an object of class \code{\link[terra]{SpatVector}}
+#' @param as.raster logical, returns an object of class \code{\link[terra]{SpatRaster}}
 #' @param as.matrix logical, returns an object of class \code{matrix}
 #' @param ... further arguments passed to \code{\link[terra]{terra}} 
 #' or \code{\link[sf]{sf}} methods
@@ -98,12 +97,13 @@ get_chirps <- function(object, dates, server = "CHC", ...) {
 #' @rdname get_chirps
 #' @export
 get_chirps.default <- function(object, dates, server = "CHC", 
-                               as.matrix = FALSE, as.raster = FALSE, ...) {
+                               as.matrix = FALSE, ...) {
   
   
   object <- as.data.frame(object)
   
   dots <- list(...)
+  as.raster <- dots[["as.raster"]]
   
   # validate lonlat to check if they are within the CHIRPS range lat -50, 50
   .validate_lonlat(object, xlim = c(-180, 180), ylim = c(-50, 50))
@@ -206,7 +206,10 @@ get_chirps.default <- function(object, dates, server = "CHC",
 #' @method get_chirps SpatVector
 #' @export
 get_chirps.SpatVector <- function(object, dates, server = "CHC",
-                                  as.matrix = TRUE, as.raster = FALSE, ...) {
+                                  as.raster = TRUE, ...) {
+  dots <- list(...)
+  as.matrix <- dots[["as.matrix"]]
+  
   # get CHIRTS GeoTiff files
   rr <- .get_CHIRPS_tiles_CHC(dates, ...)
   
@@ -548,7 +551,11 @@ get_chirps.geojson <- function(object, dates, server = "CHC",
 }
 
 #' @noRd
-.get_CHIRPS_tiles_CHC <- function(dates, resolution, ...){
+.get_CHIRPS_tiles_CHC <- function(dates, resolution = 0.05, 
+                                  coverage = "global",
+                                  interval = "daily",
+                                  format = "cogs",
+                                  ...){
   message("Fetching data from CHC server \n")
   # setup file names
   .validate_dates(dates, ...)
@@ -556,11 +563,6 @@ get_chirps.geojson <- function(object, dates, server = "CHC",
   years <- format(seqdate, format = "%Y")
   dates <- gsub("-","\\.",seqdate)
   fnames <- file.path(years, paste0("chirps-v2.0.", dates, ".cog"))
-  
-  # hardcoded now, but need to change in the future with more CoG availability
-  coverage <- "global"
-  interval <- "daily"
-  format <- "cogs"
   
   # check for resolution
   if(!missing("resolution")){

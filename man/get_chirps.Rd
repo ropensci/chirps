@@ -11,23 +11,9 @@
 \usage{
 get_chirps(object, dates, server = "CHC", ...)
 
-\method{get_chirps}{default}(
-  object,
-  dates,
-  server = "CHC",
-  as.matrix = FALSE,
-  as.raster = FALSE,
-  ...
-)
+\method{get_chirps}{default}(object, dates, server = "CHC", as.matrix = FALSE, ...)
 
-\method{get_chirps}{SpatVector}(
-  object,
-  dates,
-  server = "CHC",
-  as.matrix = TRUE,
-  as.raster = FALSE,
-  ...
-)
+\method{get_chirps}{SpatVector}(object, dates, server = "CHC", as.raster = TRUE, ...)
 
 \method{get_chirps}{SpatRaster}(
   object,
@@ -59,7 +45,7 @@ See details}
 
 \item{as.matrix}{logical, returns an object of class \code{matrix}}
 
-\item{as.raster}{logical, returns an object of class \code{\link[terra]{SpatVector}}}
+\item{as.raster}{logical, returns an object of class \code{\link[terra]{SpatRaster}}}
 
 \item{as.sf}{logical, returns an object of class \code{\link[sf]{sf}}}
 
@@ -76,8 +62,7 @@ A matrix, raster or a data frame of \acronym{CHIRPS} data:
 }
 }
 \description{
-Get daily precipitation data from the "Climate Hazards Group InfraRed
- Precipitation with Station Data".
+Get daily precipitation data from the "Climate Hazards Group".
 }
 \details{
 Data description at 
