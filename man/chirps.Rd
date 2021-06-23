@@ -4,43 +4,45 @@
 \name{chirps}
 \alias{chirps}
 \alias{chirps-package}
-\title{API Client for CHIRPS}
+\title{API Client for CHIRPS and CHIRTS}
 \description{
 \if{html}{\figure{logo.png}{options: align='right' alt='logo' width='120'}}
 
-API Client for the Climate Hazards Group InfraRed Precipitation
-  with Station Data 'CHIRPS'. The 'CHIRPS' data is a 35+ year quasi-global
-  rainfall data set, which incorporates 0.05 arc-degrees resolution satellite
-  imagery, and in-situ station data to create gridded rainfall time series for
-  trend analysis and seasonal drought monitoring. For more details on 'CHIRPS'
-  data please visit its official home page <https://www.chc.ucsb.edu/data/chirps>.
-  Requests from large time series (> 10 years) and large geographic coverage 
-  (global scale) may take several minutes.
+API Client for the Climate Hazards Center 'CHIRPS' and 'CHIRTS'. 
+  The 'CHIRPS' data is a quasi-global (50°S – 50°N) high-resolution 
+  (0.05 arc-degrees) rainfall data set, which incorporates satellite imagery 
+  and in-situ station data to create gridded rainfall time series for trend 
+  analysis and seasonal drought monitoring. 'CHIRTS' is a quasi-global 
+  (60°S – 70°N), high-resolution data set of daily maximum and minimum
+  temperatures. For more details on 'CHIRPS' and 'CHIRTS' data please visit 
+  its official home page <https://www.chc.ucsb.edu/data>.
 }
 \note{
 While chirps does not redistribute the data or provide it in any way, 
- we encourage users to cite Funk et al. (2015) when using the CHIRPS data.
+ we encourage users to cite Funk et al. (2015) when using CHIRPS 
+ and Funk et al. (2019) when using CHIRTS
 
-Funk C., et al. (2015). Scientific Data, 2, 150066. 
-\url{https://doi.org/10.1038/sdata.2015.66}
+Funk et al. (2015). Scientific Data, 2, 150066. 
+\doi{10.1038/sdata.2015.66}
+
+Funk et al. (2019). Journal of Climate, 32(17), 5639–5658. 
+\doi{10.1175/JCLI-D-18-0698.1}
 }
 \seealso{
 \strong{Useful links:}
 \itemize{
 \item{JOSS paper: 
- \url{https://doi.org/10.21105/joss.02419}}
+ \doi{10.21105/joss.02419}}
 \item{Development repository: 
  \url{https://github.com/ropensci/chirps}}
 \item{Static documentation: 
  \url{https://docs.ropensci.org/chirps/}}
 \item{Report bugs: 
  \url{https://github.com/ropensci/chirps/issues}}
-\item{CHIRPS website: 
- \url{https://www.chc.ucsb.edu/data/chirps}}
-\item{ClimateSERV website: 
- \url{https://climateserv.servirglobal.net/}}
+\item{CHC website: 
+ \url{https://www.chc.ucsb.edu}}
 }
 }
 \author{
-Kauê de Sousa and Adam H. Sparks
+Kauê de Sousa and Adam H. Sparks and Aniruddha Ghosh
 }

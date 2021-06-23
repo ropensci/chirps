@@ -1,12 +1,16 @@
 Package: chirps
 Type: Package
-Title: API Client for CHIRPS
-Version: 0.1.2.9000
+Title: API Client for CHIRPS and CHIRTS
+Version: 0.1.3
 Authors@R: c(person("Kauê", "de Sousa", 
         email = "kaue.desousa@inn.no", role = c("aut", "cre"),
         comment = c(ORCID = "0000-0002-7571-7845")), 
         person("Adam H.", "Sparks", role = c("aut"),
         comment = c(ORCID = "0000-0002-0061-8359")),
+        person("Aniruddha", "Ghosh", role = c("aut"),
+        comment = c(ORCID = "0000-0003-3667-8019")),
+        person("Pete", "Peterson", role = "ctb",
+        comment = c("API Client implementation")),
         person("William", "Ashmall", role = "ctb",
         comment = c("API Client implementation")),
         person("Jacob", "van Etten", role = c("ths"),
@@ -15,14 +19,14 @@ Authors@R: c(person("Kauê", "de Sousa",
         comment = c(ORCID = "0000-0002-4491-4483")))
 URL: https://docs.ropensci.org/chirps/
 BugReports: https://github.com/ropensci/chirps/issues
-Description: API Client for the Climate Hazards Group InfraRed Precipitation
-  with Station Data 'CHIRPS'. The 'CHIRPS' data is a 35+ year quasi-global
-  rainfall data set, which incorporates 0.05 arc-degrees resolution satellite
-  imagery, and in-situ station data to create gridded rainfall time series for
-  trend analysis and seasonal drought monitoring. For more details on 'CHIRPS'
-  data please visit its official home page <https://www.chc.ucsb.edu/data/chirps>.
-  Requests from large time series (> 10 years) and large geographic coverage 
-  (global scale) may take several minutes.
+Description: API Client for the Climate Hazards Center 'CHIRPS' and 'CHIRTS'. 
+  The 'CHIRPS' data is a quasi-global (50°S – 50°N) high-resolution 
+  (0.05 arc-degrees) rainfall data set, which incorporates satellite imagery 
+  and in-situ station data to create gridded rainfall time series for trend 
+  analysis and seasonal drought monitoring. 'CHIRTS' is a quasi-global 
+  (60°S – 70°N), high-resolution data set of daily maximum and minimum
+  temperatures. For more details on 'CHIRPS' and 'CHIRTS' data please visit 
+  its official home page <https://www.chc.ucsb.edu/data>.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
@@ -33,7 +37,8 @@ Imports:
     crul,
     jsonlite,
     sf,
-    stats
+    stats,
+    terra (>= 1.2-10)
 Suggests:
     knitr,
     markdown,

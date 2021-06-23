@@ -17,8 +17,8 @@ get_imerg(object, dates, operation = 5, ...)
 }
 \arguments{
 \item{object}{input, an object of class \code{\link[base]{data.frame}} (or
-any other object that can be coerced to data.frame), \code{geojson} or 
-\code{\link[sf]{sf}}}
+any other object that can be coerced to data.frame), \code{\link[terra]{SpatVector}}, 
+\code{\link[terra]{SpatRaster}}, \code{\link[sf]{sf}} or \code{geojson}}
 
 \item{dates}{a character of start and end dates in that order in the format
 "YYYY-MM-DD"}
@@ -26,7 +26,8 @@ any other object that can be coerced to data.frame), \code{geojson} or
 \item{operation}{optional, an integer that represents which type of
 statistical operation to perform on the dataset}
 
-\item{...}{further arguments passed to \code{\link[sf]{sf}} methods
+\item{...}{further arguments passed to \code{\link[terra]{terra}} 
+or \code{\link[sf]{sf}} methods
 See details}
 
 \item{as.sf}{logical, returns an object of class \code{\link[sf]{sf}}}
@@ -75,9 +76,4 @@ dt <- get_imerg(lonlat, dates)
 
 dt
 } 
-}
-\references{
-ClimateSERV \url{https://climateserv.servirglobal.net}
-
-NASA IMERG  \url{https://disasters.nasa.gov/instruments/imerg}
 }

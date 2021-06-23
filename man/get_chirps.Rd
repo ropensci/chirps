@@ -3,38 +3,70 @@
 \name{get_chirps}
 \alias{get_chirps}
 \alias{get_chirps.default}
+\alias{get_chirps.SpatVector}
+\alias{get_chirps.SpatRaster}
 \alias{get_chirps.sf}
 \alias{get_chirps.geojson}
 \title{Get CHIRPS precipitation data}
 \usage{
-get_chirps(object, dates, operation = 5, ...)
+get_chirps(object, dates, server = "CHC", ...)
 
-\method{get_chirps}{default}(object, dates, operation = 5, ...)
+\method{get_chirps}{default}(
+  object,
+  dates,
+  server = "CHC",
+  as.matrix = FALSE,
+  as.raster = FALSE,
+  ...
+)
 
-\method{get_chirps}{sf}(object, dates, operation = 5, as.sf = FALSE, ...)
+\method{get_chirps}{SpatVector}(
+  object,
+  dates,
+  server = "CHC",
+  as.matrix = TRUE,
+  as.raster = FALSE,
+  ...
+)
 
-\method{get_chirps}{geojson}(object, dates, operation = 5, as.geojson = FALSE, ...)
+\method{get_chirps}{SpatRaster}(
+  object,
+  dates,
+  server = "CHC",
+  as.matrix = TRUE,
+  as.raster = FALSE,
+  ...
+)
+
+\method{get_chirps}{sf}(object, dates, server = "CHC", as.sf = FALSE, ...)
+
+\method{get_chirps}{geojson}(object, dates, server = "CHC", as.geojson = FALSE, ...)
 }
 \arguments{
 \item{object}{input, an object of class \code{\link[base]{data.frame}} (or
-any other object that can be coerced to data.frame), \code{geojson} or 
-\code{\link[sf]{sf}}}
+any other object that can be coerced to data.frame), \code{\link[terra]{SpatVector}}, 
+\code{\link[terra]{SpatRaster}}, \code{\link[sf]{sf}} or \code{geojson}}
 
 \item{dates}{a character of start and end dates in that order in the format
 "YYYY-MM-DD"}
 
-\item{operation}{optional, an integer that represents which type of
-statistical operation to perform on the dataset}
+\item{server}{a character that represent the server source "CHC" (default) or
+"ClimateSERV"}
 
-\item{...}{further arguments passed to \code{\link[sf]{sf}} methods
+\item{...}{further arguments passed to \code{\link[terra]{terra}} 
+or \code{\link[sf]{sf}} methods
 See details}
+
+\item{as.matrix}{logical, returns an object of class \code{matrix}}
+
+\item{as.raster}{logical, returns an object of class \code{\link[terra]{SpatVector}}}
 
 \item{as.sf}{logical, returns an object of class \code{\link[sf]{sf}}}
 
 \item{as.geojson}{logical, returns an object of class \code{geojson}}
 }
 \value{
-A data frame of \acronym{CHIRPS} data:
+A matrix, raster or a data frame of \acronym{CHIRPS} data:
 \describe{
   \item{id}{the index for the rows in \code{object}}
   \item{dates}{the dates from which \acronym{CHIRPS} was requested}
@@ -45,12 +77,24 @@ A data frame of \acronym{CHIRPS} data:
 }
 \description{
 Get daily precipitation data from the "Climate Hazards Group InfraRed
- Precipitation with Station Data" via ClimateSERV \acronym{API} client.
- ClimateSERV works with geojson of type 'Polygon'. The input \code{object}
- is then transformed into polygons with a small buffer area around the point.
+ Precipitation with Station Data".
 }
 \details{
-\bold{operation}: supported operations are:
+Data description at 
+\url{https://data.chc.ucsb.edu/products/CHIRPS-2.0/README-CHIRPS.txt}
+
+\strong{Additional arguments when using server = "CHC"}
+
+\bold{resolution}: numeric, resolution of CHIRPS tiles either 
+ 0.05 (default) or 0.25 degrees
+
+\strong{Additional arguments when using server = "ClimateSERV"}
+
+\bold{dist}: numeric, buffer distance for each \code{object} coordinate
+
+\bold{nQuadSegs}: integer, number of segments per buffer quadrant
+
+\bold{operation}: supported operations for ClimateSERV are:
  \tabular{rll}{
  \bold{operation}      \tab    \tab \bold{value}\cr
  max                   \tab =  \tab 0\cr
@@ -59,10 +103,6 @@ Get daily precipitation data from the "Climate Hazards Group InfraRed
  sum                   \tab =  \tab 4\cr
  average               \tab =  \tab 5 (\emph{default value})\cr
  }
-
-\bold{dist}: numeric, buffer distance for each \code{object} coordinate
-
-\bold{nQuadSegs}: integer, number of segments per buffer quadrant
 }
 \note{
 get_chirps may return some warning messages given by 
@@ -71,21 +111,33 @@ possible issues.
 }
 \examples{
 \donttest{
-lonlat <- data.frame(lon = c(-55.0281,-54.9857),
-                     lat = c(-2.8094, -2.8756))
+library("chirps")
+library("terra")
 
-dates <- c("2017-12-15", "2017-12-31")
+# Case 1: return a data.frame in long format
+dates <- c("2017-12-15","2017-12-31")
+lonlat <- data.frame(lon = c(-55.0281,-54.9857), lat = c(-2.8094, -2.8756))
 
-dt <- get_chirps(lonlat, dates)
+r1 <- get_chirps(lonlat, dates)
 
-dt
+# Case 2: return a matrix
+r2 <- get_chirps(lonlat, dates, as.matrix = TRUE)
+
+# Case 3: input SpatVector and return raster
+f <- system.file("ex/lux.shp", package = "terra")
+v <- vect(f)
+r3 <- get_chirps(v, dates, as.raster = TRUE)
+
+# Case 4: using the server "ClimateSERV"
+r4 <- get_chirps(lonlat, dates, server = "ClimateSERV")
+
+# Case 5: from "ClimateSERV" and return as a matrix
+r5 <- get_chirps(lonlat, dates, server = "ClimateSERV", as.matrix = TRUE, operation = 4, dist = 0.1)
 
 }
 
 }
 \references{
 Funk C. et al. (2015). Scientific Data, 2, 150066.
- \cr\url{https://doi.org/10.1038/sdata.2015.66}
-
-ClimateSERV \url{https://climateserv.servirglobal.net}
+ \cr\doi{10.1038/sdata.2015.66}
 }

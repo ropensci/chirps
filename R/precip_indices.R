@@ -21,7 +21,7 @@
 #' @references 
 #' 
 #' Aguilar E., et al. (2005). Journal of Geophysical Research, 110(D23), D23107.
-#'  \cr\url{https://doi.org/10.1029/2005JD006119}
+#'  \cr\doi{10.1029/2005JD006119}
 #' 
 #' Kehel Z., et al. (2016). In: Applied Mathematics and Omics to Assess Crop
 #'  Genetic Resources for Climate Change Adaptive Traits (eds Bari A., Damania

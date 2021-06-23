@@ -11,13 +11,13 @@ xmax: -54.7973 ymax: -2.751706
 }
 \source{
 The data was provided by the Chico Mendes Institute via
-\url{https://www.protectedplanet.net/}.
+https://www.protectedplanet.net/
 }
 \usage{
 tapajos
 }
 \description{
 Geometries for the Tapajos National Forest, a protected 
-area in the Brazilian Amazon \url{http://www.icmbio.gov.br/flonatapajos/}
+area in the Brazilian Amazon http://www.icmbio.gov.br/flonatapajos
 }
 \keyword{datasets}

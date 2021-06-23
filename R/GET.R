@@ -31,6 +31,8 @@
 #'@noRd
 .GET <- function(gjson, dates, operation = NULL, datatype = NULL) {
   
+  message("Fetching data from ClimateSERV server \n")
+  
   begindate <- dates[1]
   enddate <- dates[2]
   

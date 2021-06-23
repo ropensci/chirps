@@ -10,6 +10,8 @@
 #' @inheritParams get_chirps
 #' @param period an integer value for the period of ESI data, 
 #' four weeks period = 1, twelve weeks = 2
+#' @param operation optional, an integer that represents which type of
+#' statistical operation to perform on the dataset
 #' @details
 #'  \bold{operation}: supported operations are:  
 #'  \tabular{rll}{
@@ -36,8 +38,6 @@
 #' \code{\link[sf]{sf}}, please look sf documentation for 
 #' possible issues.
 #' 
-#' @references
-#' ClimateSERV \url{https://climateserv.servirglobal.net}
 #' @examples
 #' \donttest{
 #' 
