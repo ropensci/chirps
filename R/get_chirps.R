@@ -104,7 +104,7 @@ get_chirps.default <- function(object, dates, server = "CHC",
   
   dots <- list(...)
   as.raster <- dots[["as.raster"]]
-  
+
   # validate lonlat to check if they are within the CHIRPS range lat -50, 50
   .validate_lonlat(object, xlim = c(-180, 180), ylim = c(-50, 50))
   
@@ -170,15 +170,19 @@ get_chirps.default <- function(object, dates, server = "CHC",
     # get CHIRPS CoG files
     rr <- .get_CHIRPS_tiles_CHC(dates, ...)
     
-    if (as.raster) {
+    if (isTRUE(as.raster)) {
       result <- terra::crop(rr, y = object)
       return(result) 
+    }else{
+      as.raster <- FALSE
     }
     
-    if (as.matrix) {
+    if (isTRUE(as.matrix)) {
       result <- terra::extract(rr, y = object, ...)
       result$ID <- NULL
       return(result)
+    }else{
+      as.matrix <- FALSE
     }
     
     if (all(isFALSE(as.matrix), isFALSE(as.raster))) {
@@ -558,7 +562,7 @@ get_chirps.geojson <- function(object, dates, server = "CHC",
                                   ...){
   message("Fetching data from CHC server \n")
   # setup file names
-  .validate_dates(dates, ...)
+  .validate_dates(dates)
   seqdate <- seq.Date(as.Date(dates[1]), as.Date(dates[2]), by = "day")
   years <- format(seqdate, format = "%Y")
   dates <- gsub("-","\\.",seqdate)

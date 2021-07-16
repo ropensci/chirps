@@ -63,6 +63,7 @@ get_chirts.default <- function(object, dates, var, as.matrix = FALSE, ...){
   
   dots <- list(...)
   as.raster <- dots[["as.raster"]]
+  if (!isTRUE(as.raster)) as.raster <- FALSE
   
   object <- as.data.frame(object)
   
