@@ -193,7 +193,7 @@ get_chirps.default <- function(object, dates, server = "CHC",
       result <- data.frame(id = as.integer(rep(rownames(object), each = span)),
                            lon = as.numeric(rep(object[,1], each = span)),
                            lat = as.numeric(rep(object[,2], each = span)),
-                           date = rep(days, each = nrow(object)),
+                           date = rep(days, times = nrow(object)),
                            chirps = as.numeric(result))
       
       class(result) <- c("chirps", "chirps_df", class(result))

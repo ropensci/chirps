@@ -1,7 +1,7 @@
 Package: chirps
 Type: Package
 Title: API Client for CHIRPS and CHIRTS
-Version: 0.1.3.5
+Version: 0.1.3.6
 Authors@R: c(person("Kauê", "de Sousa", 
         email = "kaue.desousa@inn.no", role = c("aut", "cre"),
         comment = c(ORCID = "0000-0002-7571-7845")), 
@@ -40,6 +40,7 @@ Imports:
     stats,
     terra (>= 1.2-10)
 Suggests:
+    climatrends,
     knitr,
     markdown,
     rmarkdown,
