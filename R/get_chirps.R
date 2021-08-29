@@ -58,8 +58,8 @@
 #' @note get_chirps may return some warning messages given by 
 #' \code{\link[sf]{sf}}, please look sf documentation for 
 #' possible issues.
-#' @examples
-#' \donttest{
+#' 
+#' @examplesIf interactive()
 #' library("chirps")
 #' library("terra")
 #' 
@@ -81,9 +81,9 @@
 #' r4 <- get_chirps(lonlat, dates, server = "ClimateSERV")
 #' 
 #' # Case 5: from "ClimateSERV" and return as a matrix
-#' r5 <- get_chirps(lonlat, dates, server = "ClimateSERV", as.matrix = TRUE, operation = 4, dist = 0.1)
+#' r5 <- get_chirps(lonlat, dates, server = "ClimateSERV", as.matrix = TRUE,
+#'                  operation = 4, dist = 0.1)
 #' 
-#' }
 #' 
 #' @importFrom sf st_centroid read_sf st_geometry_type
 #' @importFrom terra crop extract rast

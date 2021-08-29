@@ -32,8 +32,7 @@
 #' \item{lat}{the latitude as provided in \code{object}}
 #' \item{imerg}{the IMERG value}
 #' 
-#' @examples
-#' \donttest{
+#' @examplesIf interactive()
 #' lonlat <- data.frame(lon = c(-55.0281,-54.9857),
 #'                      lat = c(-2.8094, -2.8756))
 #' 
@@ -42,7 +41,7 @@
 #' dt <- get_imerg(lonlat, dates)
 #' 
 #' dt
-#' } 
+#'
 #' @importFrom sf st_centroid read_sf st_geometry_type
 #' @export
 get_imerg <- function(object, dates, operation = 5, ...) {

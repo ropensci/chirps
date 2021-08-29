@@ -74,7 +74,7 @@ get_esi may return some warning messages given by
 possible issues.
 }
 \examples{
-\donttest{
+\dontshow{if (interactive()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 
 lonlat <- data.frame(lon = c(-55.0281,-54.9857),
                      lat = c(-2.8094, -2.8756))
@@ -89,6 +89,5 @@ dt <- get_esi(lonlat, dates = dates)
 # the argument dist passed through sf increase the buffer area
 
 dt <- get_esi(lonlat, dates = dates, dist = 0.1)
- 
-} 
+\dontshow{\}) # examplesIf}
 }

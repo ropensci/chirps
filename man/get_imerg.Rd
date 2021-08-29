@@ -66,7 +66,7 @@ The IMERG dataset provides near-real time global observations of
 \bold{nQuadSegs}: integer, number of segments per buffer quadrant
 }
 \examples{
-\donttest{
+\dontshow{if (interactive()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 lonlat <- data.frame(lon = c(-55.0281,-54.9857),
                      lat = c(-2.8094, -2.8756))
 
@@ -75,5 +75,5 @@ dates <- c("2017-12-15", "2017-12-31")
 dt <- get_imerg(lonlat, dates)
 
 dt
-} 
+\dontshow{\}) # examplesIf}
 }

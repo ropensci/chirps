@@ -38,8 +38,7 @@
 #' \code{\link[sf]{sf}}, please look sf documentation for 
 #' possible issues.
 #' 
-#' @examples
-#' \donttest{
+#' @examplesIf interactive()
 #' 
 #' lonlat <- data.frame(lon = c(-55.0281,-54.9857),
 #'                      lat = c(-2.8094, -2.8756))
@@ -54,8 +53,7 @@
 #' # the argument dist passed through sf increase the buffer area
 #' 
 #' dt <- get_esi(lonlat, dates = dates, dist = 0.1)
-#'  
-#' } 
+#'
 #' @importFrom sf st_centroid read_sf st_geometry_type
 #' @export
 get_esi <- function(object, dates, operation = 5, period = 1, 

@@ -34,7 +34,7 @@ A dataframe with precipitation indices:
 Compute precipitation indices over a time series.
 }
 \examples{
-\donttest{
+\dontshow{if (interactive()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 lonlat <- data.frame(lon = c(-55.0281,-54.9857),
                      lat = c(-2.8094, -2.8756))
 
@@ -47,8 +47,7 @@ precip_indices(dt, timeseries = FALSE)
 
 # take the indices for periods of 7 days
 precip_indices(dt, timeseries = TRUE, intervals = 7)
-
-}
+\dontshow{\}) # examplesIf}
 }
 \references{
 Aguilar E., et al. (2005). Journal of Geophysical Research, 110(D23), D23107.

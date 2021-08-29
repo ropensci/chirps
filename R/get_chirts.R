@@ -1,18 +1,20 @@
 #' Get CHIRTS temperature data data
 #' 
-#' Get daily maximum and minimum temperature data from the "Climate Hazards Group". 
-#'  CHIRTS-daily is a global 2-m temperature product that combines the monthly 
-#'  CHIRTSmax data set with the ERA5 reanalysis to produce routinely updated 
-#'  data to support the monitoring of temperature extreme. Data is currently 
-#'  available from 1983 to 2016. Soon available to near-present.
+#' Get daily maximum and minimum temperature data from the "Climate Hazards
+#'  Group". CHIRTS-daily is a global 2-m temperature product that combines the
+#'  monthly  CHIRTSmax data set with the ERA5 reanalysis to produce routinely
+#'  updated  data to support the monitoring of temperature extreme. Data is
+#'  currently available from 1983 to 2016. Soon available to near-present.
 #'
 #' @inheritParams get_chirps 
 #' @param object an object of class \code{\link[base]{data.frame}} (or any other 
 #'  object that can be coerced to data.frame), \code{\link[terra]{SpatVector}}, 
 #'  or \code{\link[terra]{SpatRaster}} 
-#' @param var character, A valid variable from the options: Tmax, Tmin, RHum, HeatIndex 
+#' @param var character, A valid variable from the options: Tmax, Tmin, RHum,
+#'  HeatIndex 
 #' @param ... further arguments passed to \code{\link[terra]{terra}}
-#' @return A SpatRaster object if \code{as.raster=TRUE}, else matrix, list, or data.frame 
+#' @return A SpatRaster object if \code{as.raster=TRUE}, else matrix, list, or
+#'  data.frame 
 #' @details
 #' Variable description from 
 #' \url{https://data.chc.ucsb.edu/products/CHIRTSdaily/aaa.Readme.txt}
@@ -24,11 +26,10 @@
 #' 
 #' Additional arguments: 
 #' 
-#' \bold{interval}: supported intervals are daily, pentad, dekad, monthly, 2-monthly, 
-#' 3-monthly, annual currently hard coded to daily 
+#' \bold{interval}: supported intervals are daily, pentad, dekad, monthly,
+#' 2-monthly, 3-monthly, annual currently hard coded to daily 
 #' 
-#' @examples
-#' \donttest{
+#' @examplesIf interactive()
 #' library("chirps")
 #' library("terra")
 #' 
@@ -48,7 +49,7 @@
 #' 
 #' # Case 4: input a raster and return raster
 #' temp4 <- get_chirts(v, dates, var = "Tmax", as.matrix = TRUE)
-#' }
+#'
 #' @importFrom terra crop extract rast
 #' @export
 get_chirts <- function(object, dates, var, ...) {

@@ -30,7 +30,7 @@ Take single points from geographical coordinates and coerce into a
 geojson of geometry 'Polygon'
 }
 \examples{
-\donttest{
+\dontshow{if (interactive()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 # Default S3 Method
 # random geographic points within bbox(10, 12, 45, 47)
 library("sf")
@@ -54,6 +54,6 @@ lonlat <- data.frame(lon = runif(5, 10, 12),
 lonlat <- st_as_sf(lonlat, coords = c("lon","lat"))
 
 gjson <- as.geojson(lonlat)
-}
+\dontshow{\}) # examplesIf}
 }
 \concept{utility functions}

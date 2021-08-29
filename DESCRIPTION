@@ -47,5 +47,5 @@ Suggests:
     testthat (>= 2.1.0),
     vcr (>= 0.5)
 Language: en-GB
-RoxygenNote: 7.1.1
+RoxygenNote: 7.1.1.9001
 VignetteBuilder: knitr

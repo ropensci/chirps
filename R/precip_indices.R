@@ -27,8 +27,7 @@
 #'  Genetic Resources for Climate Change Adaptive Traits (eds Bari A., Damania
 #'  A. B., Mackay M., Dayanandan S.), pp. 151–174. CRC Press.
 #' 
-#' @examples
-#' \donttest{
+#' @examplesIf interactive()
 #' lonlat <- data.frame(lon = c(-55.0281,-54.9857),
 #'                      lat = c(-2.8094, -2.8756))
 #' 
@@ -41,8 +40,7 @@
 #' 
 #' # take the indices for periods of 7 days
 #' precip_indices(dt, timeseries = TRUE, intervals = 7)
-#' 
-#' }
+#'
 #' @importFrom stats quantile
 #' @export
 precip_indices <- function(object, timeseries = FALSE, intervals = NULL) {

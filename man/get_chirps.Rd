@@ -95,7 +95,7 @@ get_chirps may return some warning messages given by
 possible issues.
 }
 \examples{
-\donttest{
+\dontshow{if (interactive()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 library("chirps")
 library("terra")
 
@@ -117,10 +117,10 @@ r3 <- get_chirps(v, dates, as.raster = TRUE)
 r4 <- get_chirps(lonlat, dates, server = "ClimateSERV")
 
 # Case 5: from "ClimateSERV" and return as a matrix
-r5 <- get_chirps(lonlat, dates, server = "ClimateSERV", as.matrix = TRUE, operation = 4, dist = 0.1)
+r5 <- get_chirps(lonlat, dates, server = "ClimateSERV", as.matrix = TRUE,
+                 operation = 4, dist = 0.1)
 
-}
-
+\dontshow{\}) # examplesIf}
 }
 \references{
 Funk C. et al. (2015). Scientific Data, 2, 150066.

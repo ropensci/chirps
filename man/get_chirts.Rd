@@ -23,7 +23,8 @@ or \code{\link[terra]{SpatRaster}}}
 \item{dates}{a character of start and end dates in that order in the format
 "YYYY-MM-DD"}
 
-\item{var}{character, A valid variable from the options: Tmax, Tmin, RHum, HeatIndex}
+\item{var}{character, A valid variable from the options: Tmax, Tmin, RHum,
+HeatIndex}
 
 \item{...}{further arguments passed to \code{\link[terra]{terra}}}
 
@@ -32,14 +33,15 @@ or \code{\link[terra]{SpatRaster}}}
 \item{as.raster}{logical, returns an object of class \code{\link[terra]{SpatRaster}}}
 }
 \value{
-A SpatRaster object if \code{as.raster=TRUE}, else matrix, list, or data.frame
+A SpatRaster object if \code{as.raster=TRUE}, else matrix, list, or
+ data.frame
 }
 \description{
-Get daily maximum and minimum temperature data from the "Climate Hazards Group". 
- CHIRTS-daily is a global 2-m temperature product that combines the monthly 
- CHIRTSmax data set with the ERA5 reanalysis to produce routinely updated 
- data to support the monitoring of temperature extreme. Data is currently 
- available from 1983 to 2016. Soon available to near-present.
+Get daily maximum and minimum temperature data from the "Climate Hazards
+ Group". CHIRTS-daily is a global 2-m temperature product that combines the
+ monthly  CHIRTSmax data set with the ERA5 reanalysis to produce routinely
+ updated  data to support the monitoring of temperature extreme. Data is
+ currently available from 1983 to 2016. Soon available to near-present.
 }
 \details{
 Variable description from 
@@ -52,11 +54,11 @@ Variable description from
 
 Additional arguments: 
 
-\bold{interval}: supported intervals are daily, pentad, dekad, monthly, 2-monthly, 
-3-monthly, annual currently hard coded to daily
+\bold{interval}: supported intervals are daily, pentad, dekad, monthly,
+2-monthly, 3-monthly, annual currently hard coded to daily
 }
 \examples{
-\donttest{
+\dontshow{if (interactive()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 library("chirps")
 library("terra")
 
@@ -76,5 +78,5 @@ temp3 <- get_chirts(v, dates, var = "Tmax", as.raster = TRUE)
 
 # Case 4: input a raster and return raster
 temp4 <- get_chirts(v, dates, var = "Tmax", as.matrix = TRUE)
-}
+\dontshow{\}) # examplesIf}
 }

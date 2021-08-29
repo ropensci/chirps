@@ -10,8 +10,8 @@
 #' @param ... further arguments passed to \code{\link[sf]{sf}} methods
 #' @return An object of class 'geosjon' for each row in \code{lonlat}
 #' @family utility functions
-#' @examples
-#' \donttest{
+#' 
+#' @examplesIf interactive()
 #' # Default S3 Method
 #' # random geographic points within bbox(10, 12, 45, 47)
 #' library("sf")
@@ -35,7 +35,7 @@
 #' lonlat <- st_as_sf(lonlat, coords = c("lon","lat"))
 #' 
 #' gjson <- as.geojson(lonlat)
-#' }
+#'
 #' @importFrom sf st_point st_sfc st_buffer st_write st_as_sf
 #' @export
 as.geojson <- function(lonlat, 
