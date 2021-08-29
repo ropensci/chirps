@@ -2,8 +2,8 @@
 #' 
 #' Get daily maximum and minimum temperature data from the "Climate Hazards
 #'  Group". CHIRTS-daily is a global 2-m temperature product that combines the
-#'  monthly  CHIRTSmax data set with the ERA5 reanalysis to produce routinely
-#'  updated  data to support the monitoring of temperature extreme. Data is
+#'  monthly CHIRTSmax data set with the ERA5 reanalysis to produce routinely
+#'  updated data to support the monitoring of temperature extreme. Data is
 #'  currently available from 1983 to 2016. Soon available to near-present.
 #'
 #' @inheritParams get_chirps 
