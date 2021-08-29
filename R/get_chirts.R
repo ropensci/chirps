@@ -177,13 +177,19 @@ get_chirts.SpatRaster <- function(object, dates, var, as.raster = TRUE, ...){
   # setup file names
   seqdate <- seq.Date(as.Date(dates[1]), as.Date(dates[2]), by = "day")
   years <- format(seqdate, format = "%Y")
+  # create RH variable for filenames as it's not "RHUM" in the filename but
+  # it is in the directory name
+  if ("RHum" %in% var) {
+    file_name_var <- c(var[var != "RHum"], "RH")
+  } else
+    file_name_var <- var
   
   # year range
   yrange <- seq(1983, 2016, 1)
   stopifnot(unique(years) %in% yrange)
   
   dates <- gsub("-","\\.", seqdate)
-  fnames <- file.path(years, paste0(var, ".", dates, ".tif"))
+  fnames <- file.path(years, paste0(file_name_var, ".", dates, ".tif"))
   
   resolution <- gsub("0\\.", "p", resolution)
   
