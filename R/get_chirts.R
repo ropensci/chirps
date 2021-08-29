@@ -8,26 +8,27 @@
 #'
 #' @inheritParams get_chirps 
 #' @param object an object of class \code{\link[base]{data.frame}} (or any other 
-#'  object that can be coerced to data.frame), \code{\link[terra]{SpatVector}}, 
-#'  or \code{\link[terra]{SpatRaster}} 
-#' @param var character, A valid variable from the options: Tmax, Tmin, RHum,
-#'  HeatIndex 
+#'  object that can be coerced to a \code{data.frame}),
+#'  \code{\link[terra]{SpatVector}}, or \code{\link[terra]{SpatRaster}} 
+#' @param var character, A valid variable from the options: \dQuote{Tmax},
+#'  \dQuote{Tmin}, \dQuote{RHum} and \dQuote{HeatIndex}
 #' @param ... further arguments passed to \code{\link[terra]{terra}}
-#' @return A SpatRaster object if \code{as.raster=TRUE}, else matrix, list, or
-#'  data.frame 
+#' @return A SpatRaster object if \code{as.raster=TRUE}, else \code{matrix}, 
+#' \code{list}, or \code{data.frame}
 #' @details
+#' 
 #' Variable description from 
 #' \url{https://data.chc.ucsb.edu/products/CHIRTSdaily/aaa.Readme.txt}
-#' 
-#' \bold{Tmax}: Daily average maximum air temperature at 2 m above ground
-#' \bold{Tmin}: Daily average minimum air temperature at 2 m above ground
-#' \bold{RHum}: Daily average relative humidity
-#' \bold{HeatIndex}: Daily average heat index
-#' 
-#' Additional arguments: 
-#' 
-#' \bold{interval}: supported intervals are daily, pentad, dekad, monthly,
-#' 2-monthly, 3-monthly, annual currently hard coded to daily 
+#' \describe{
+#'   \item{Tmax}{Daily average maximum air temperature at 2 m above ground}
+#'   \item{Tmin}{Daily average minimum air temperature at 2 m above ground}
+#'   \item{RHum}{Daily average relative humidity}
+#'   \item{HeatIndex}{Daily average heat index}
+#'   }
+#' @section Additional arguments: 
+#' \bold{interval}: supported intervals are \dQuote{daily}, \dQuote{pentad},
+#'  \dQuote{dekad}, \dQuote{monthly}, \dQuote{2-monthly}, \dQuote{3-monthly},
+#'  and \dQuote{annual}. Currently hard coded to \dQuote{daily}.
 #' 
 #' @examplesIf interactive()
 #' library("chirps")
@@ -35,7 +36,8 @@
 #' 
 #' # Case 1: input a data frame return a data frame in the long format
 #' dates <- c("2010-12-15","2010-12-31")
-#' lonlat <- data.frame(lon = c(-55.0281,-54.9857), lat = c(-2.8094, -2.8756))
+#' lonlat <- data.frame(lon = c(-55.0281,-54.9857),
+#'                      lat = c(-2.8094, -2.8756))
 #' 
 #' temp1 <- get_chirts(lonlat, dates, var = "Tmax")
 #' 
