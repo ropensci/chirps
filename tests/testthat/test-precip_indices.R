@@ -1,5 +1,3 @@
-context("test-precip_indices")
-
 # load("tests/test_data.rda")
 load("../test_data.rda")
 

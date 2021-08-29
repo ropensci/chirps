@@ -1,5 +1,3 @@
-context("test-get_esi")
-
 # load("tests/test_data.rda")
 load("../test_data.rda")
 
