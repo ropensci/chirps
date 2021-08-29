@@ -18,9 +18,9 @@ API Client for the Climate Hazards Center 'CHIRPS' and 'CHIRTS'.
   its official home page <https://www.chc.ucsb.edu/data>.
 }
 \note{
-While chirps does not redistribute the data or provide it in any way, 
- we encourage users to cite Funk et al. (2015) when using CHIRPS 
- and Funk et al. (2019) when using CHIRTS
+While \CRANpkg{chirps} does not redistribute the data or provide it in any
+ way, we encourage users to cite Funk et al. (2015) when using
+ \acronym{CHIRPS} and Funk et al. (2019) when using \acronym{CHIRTS}.
 
 Funk et al. (2015). Scientific Data, 2, 150066. 
 \doi{10.1038/sdata.2015.66}
