@@ -71,7 +71,7 @@ get_chirts.default <- function(object, dates, var, as.matrix = FALSE, ...){
   .validate_lonlat(object, xlim = c(-180, 180), ylim = c(-60, 70))
   
   # get CHIRTS GeoTiff files
-  rr <- chirps:::.get_CHIRTS_tiles_CHC(dates, var, ...)
+  rr <- .get_CHIRTS_tiles_CHC(dates, var, ...)
 
   if (isTRUE(as.raster)) {
     result <- terra::crop(rr, y = object)
