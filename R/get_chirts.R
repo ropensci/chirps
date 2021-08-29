@@ -173,12 +173,10 @@ get_chirts.SpatRaster <- function(object, dates, var, as.raster = TRUE, ...){
                                   format = "tifs", ...){
   
   stopifnot(var %in% c("HeatIndex", "RHum", "Tmax", "Tmin"))
-
+  
   # setup file names
   seqdate <- seq.Date(as.Date(dates[1]), as.Date(dates[2]), by = "day")
   years <- format(seqdate, format = "%Y")
-  # the server file names are "RH.YYYY.MM.DD" not "RHum.YYYY.MM.DD"
-  var[var == "RHum"] <- "RH"
   
   # year range
   yrange <- seq(1983, 2016, 1)
