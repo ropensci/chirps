@@ -300,7 +300,7 @@
     }
     
     # last given date should be higher than first
-    cond1 <- as.integer(xmax - xmin) > 1
+    cond1 <- as.integer(xmax - xmin) >= 0
     
     # no older than past date
     cond2 <- xmin > past
