@@ -14,6 +14,7 @@ test_that("default_method returns proper values", {
 })
 
 # Test `sf` method -----
+coords <- st_as_sf(lonlat, coords = c("lon", "lat"))
 test_that("sf_method", {
   vcr::use_cassette("sf_method", {
     y <- get_chirps(coords, dates)
@@ -24,6 +25,7 @@ test_that("sf_method", {
 })
 
 # Test geojson method -----
+geojson <- as.geojson(lonlat)
 test_that("geojson_method", {
   vcr::use_cassette("geojson_method", {
     z <- suppressWarnings(get_chirps(geojson, dates))
