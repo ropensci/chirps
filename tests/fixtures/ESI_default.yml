@@ -16,7 +16,7 @@ http_interactions:
       explanation: Request fulfilled, document follows
     headers:
       status: HTTP/1.1 200 OK
-      date: Sun, 19 Sep 2021 02:02:16 GMT
+      date: Sun, 19 Sep 2021 02:48:49 GMT
       server: Apache/2.4.18 (Ubuntu)
       strict-transport-security: max-age=63072000; includeSubdomains
       x-frame-options: DENY
@@ -31,7 +31,7 @@ http_interactions:
       file: no
       string: '["Datatype not supported", "Error with begintime", "Error with endtime",
         "Error with intervaltype", "problem decoding geometry ", "Error with operationtype"]'
-  recorded_at: 2021-09-19 02:02:31 GMT
+  recorded_at: 2021-09-19 02:49:02 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -50,7 +50,7 @@ http_interactions:
       explanation: Request fulfilled, document follows
     headers:
       status: HTTP/1.1 200 OK
-      date: Sun, 19 Sep 2021 02:02:17 GMT
+      date: Sun, 19 Sep 2021 02:48:50 GMT
       server: Apache/2.4.18 (Ubuntu)
       strict-transport-security: max-age=63072000; includeSubdomains
       x-frame-options: DENY
@@ -62,8 +62,8 @@ http_interactions:
     body:
       encoding: UTF-8
       file: no
-      string: successCallback(["5f663dfd-929d-4934-9741-6ddbff427581"])
-  recorded_at: 2021-09-19 02:02:31 GMT
+      string: successCallback(["ed082837-8ee5-40f0-b7b9-e29ac516ee08"])
+  recorded_at: 2021-09-19 02:49:02 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -82,7 +82,7 @@ http_interactions:
       explanation: Request fulfilled, document follows
     headers:
       status: HTTP/1.1 200 OK
-      date: Sun, 19 Sep 2021 02:02:18 GMT
+      date: Sun, 19 Sep 2021 02:48:51 GMT
       server: Apache/2.4.18 (Ubuntu)
       strict-transport-security: max-age=63072000; includeSubdomains
       x-frame-options: DENY
@@ -97,7 +97,7 @@ http_interactions:
       file: no
       string: '["Datatype not supported", "Error with begintime", "Error with endtime",
         "Error with intervaltype", "problem decoding geometry ", "Error with operationtype"]'
-  recorded_at: 2021-09-19 02:02:31 GMT
+  recorded_at: 2021-09-19 02:49:02 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -116,7 +116,7 @@ http_interactions:
       explanation: Request fulfilled, document follows
     headers:
       status: HTTP/1.1 200 OK
-      date: Sun, 19 Sep 2021 02:02:19 GMT
+      date: Sun, 19 Sep 2021 02:48:52 GMT
       server: Apache/2.4.18 (Ubuntu)
       strict-transport-security: max-age=63072000; includeSubdomains
       x-frame-options: DENY
@@ -128,8 +128,8 @@ http_interactions:
     body:
       encoding: UTF-8
       file: no
-      string: successCallback(["5c9e8625-0117-4f80-b1df-9f452f4627ee"])
-  recorded_at: 2021-09-19 02:02:31 GMT
+      string: successCallback(["f8d371c3-0b21-419e-8e59-cea916e9f2c3"])
+  recorded_at: 2021-09-19 02:49:02 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -148,7 +148,7 @@ http_interactions:
       explanation: Server got itself in trouble
     headers:
       status: HTTP/1.1 500 Internal Server Error
-      date: Sun, 19 Sep 2021 02:02:20 GMT
+      date: Sun, 19 Sep 2021 02:48:52 GMT
       server: Apache/2.4.18 (Ubuntu)
       strict-transport-security: max-age=63072000; includeSubdomains
       x-frame-options: DENY
@@ -161,11 +161,11 @@ http_interactions:
       encoding: UTF-8
       file: no
       string: <h1>Server Error (500)</h1>
-  recorded_at: 2021-09-19 02:02:31 GMT
+  recorded_at: 2021-09-19 02:49:02 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
-    uri: https://climateserv.servirglobal.net/chirps/getDataRequestProgress/?id=5f663dfd-929d-4934-9741-6ddbff427581
+    uri: https://climateserv.servirglobal.net/chirps/getDataRequestProgress/?id=ed082837-8ee5-40f0-b7b9-e29ac516ee08
     body:
       encoding: ''
       string: ''
@@ -180,7 +180,7 @@ http_interactions:
       explanation: Request fulfilled, document follows
     headers:
       status: HTTP/1.1 200 OK
-      date: Sun, 19 Sep 2021 02:02:21 GMT
+      date: Sun, 19 Sep 2021 02:48:53 GMT
       server: Apache/2.4.18 (Ubuntu)
       strict-transport-security: max-age=63072000; includeSubdomains
       x-frame-options: DENY
@@ -194,11 +194,11 @@ http_interactions:
       encoding: UTF-8
       file: no
       string: '[100.0]'
-  recorded_at: 2021-09-19 02:02:31 GMT
+  recorded_at: 2021-09-19 02:49:02 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
-    uri: https://climateserv.servirglobal.net/chirps/getDataRequestProgress/?id=5f663dfd-929d-4934-9741-6ddbff427581
+    uri: https://climateserv.servirglobal.net/chirps/getDataRequestProgress/?id=ed082837-8ee5-40f0-b7b9-e29ac516ee08
     body:
       encoding: ''
       string: ''
@@ -213,7 +213,7 @@ http_interactions:
       explanation: Request fulfilled, document follows
     headers:
       status: HTTP/1.1 200 OK
-      date: Sun, 19 Sep 2021 02:02:22 GMT
+      date: Sun, 19 Sep 2021 02:48:54 GMT
       server: Apache/2.4.18 (Ubuntu)
       strict-transport-security: max-age=63072000; includeSubdomains
       x-frame-options: DENY
@@ -227,7 +227,7 @@ http_interactions:
       encoding: UTF-8
       file: no
       string: '[100.0]'
-  recorded_at: 2021-09-19 02:02:31 GMT
+  recorded_at: 2021-09-19 02:49:02 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -246,7 +246,7 @@ http_interactions:
       explanation: Server got itself in trouble
     headers:
       status: HTTP/1.1 500 Internal Server Error
-      date: Sun, 19 Sep 2021 02:02:23 GMT
+      date: Sun, 19 Sep 2021 02:48:55 GMT
       server: Apache/2.4.18 (Ubuntu)
       strict-transport-security: max-age=63072000; includeSubdomains
       x-frame-options: DENY
@@ -259,11 +259,11 @@ http_interactions:
       encoding: UTF-8
       file: no
       string: <h1>Server Error (500)</h1>
-  recorded_at: 2021-09-19 02:02:31 GMT
+  recorded_at: 2021-09-19 02:49:02 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
-    uri: https://climateserv.servirglobal.net/chirps/getDataRequestProgress/?id=5c9e8625-0117-4f80-b1df-9f452f4627ee
+    uri: https://climateserv.servirglobal.net/chirps/getDataRequestProgress/?id=f8d371c3-0b21-419e-8e59-cea916e9f2c3
     body:
       encoding: ''
       string: ''
@@ -278,7 +278,7 @@ http_interactions:
       explanation: Request fulfilled, document follows
     headers:
       status: HTTP/1.1 200 OK
-      date: Sun, 19 Sep 2021 02:02:24 GMT
+      date: Sun, 19 Sep 2021 02:48:56 GMT
       server: Apache/2.4.18 (Ubuntu)
       strict-transport-security: max-age=63072000; includeSubdomains
       x-frame-options: DENY
@@ -292,11 +292,11 @@ http_interactions:
       encoding: UTF-8
       file: no
       string: '[100.0]'
-  recorded_at: 2021-09-19 02:02:31 GMT
+  recorded_at: 2021-09-19 02:49:02 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
-    uri: https://climateserv.servirglobal.net/chirps/getDataRequestProgress/?id=5c9e8625-0117-4f80-b1df-9f452f4627ee
+    uri: https://climateserv.servirglobal.net/chirps/getDataRequestProgress/?id=f8d371c3-0b21-419e-8e59-cea916e9f2c3
     body:
       encoding: ''
       string: ''
@@ -311,7 +311,7 @@ http_interactions:
       explanation: Request fulfilled, document follows
     headers:
       status: HTTP/1.1 200 OK
-      date: Sun, 19 Sep 2021 02:02:25 GMT
+      date: Sun, 19 Sep 2021 02:48:57 GMT
       server: Apache/2.4.18 (Ubuntu)
       strict-transport-security: max-age=63072000; includeSubdomains
       x-frame-options: DENY
@@ -325,7 +325,7 @@ http_interactions:
       encoding: UTF-8
       file: no
       string: '[100.0]'
-  recorded_at: 2021-09-19 02:02:31 GMT
+  recorded_at: 2021-09-19 02:49:02 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -344,7 +344,7 @@ http_interactions:
       explanation: Request fulfilled, document follows
     headers:
       status: HTTP/1.1 200 OK
-      date: Sun, 19 Sep 2021 02:02:26 GMT
+      date: Sun, 19 Sep 2021 02:48:58 GMT
       server: Apache/2.4.18 (Ubuntu)
       strict-transport-security: max-age=63072000; includeSubdomains
       x-frame-options: DENY
@@ -358,11 +358,11 @@ http_interactions:
       encoding: UTF-8
       file: no
       string: need to send id
-  recorded_at: 2021-09-19 02:02:31 GMT
+  recorded_at: 2021-09-19 02:49:02 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
-    uri: https://climateserv.servirglobal.net/chirps/getDataFromRequest/?id=5f663dfd-929d-4934-9741-6ddbff427581
+    uri: https://climateserv.servirglobal.net/chirps/getDataFromRequest/?id=ed082837-8ee5-40f0-b7b9-e29ac516ee08
     body:
       encoding: ''
       string: ''
@@ -377,7 +377,7 @@ http_interactions:
       explanation: Request fulfilled, document follows
     headers:
       status: HTTP/1.1 200 OK
-      date: Sun, 19 Sep 2021 02:02:27 GMT
+      date: Sun, 19 Sep 2021 02:48:58 GMT
       server: Apache/2.4.18 (Ubuntu)
       strict-transport-security: max-age=63072000; includeSubdomains
       x-frame-options: DENY
@@ -391,11 +391,11 @@ http_interactions:
       encoding: UTF-8
       file: no
       string: '{"data": []}'
-  recorded_at: 2021-09-19 02:02:31 GMT
+  recorded_at: 2021-09-19 02:49:02 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
-    uri: https://climateserv.servirglobal.net/chirps/getDataFromRequest/?id=5f663dfd-929d-4934-9741-6ddbff427581
+    uri: https://climateserv.servirglobal.net/chirps/getDataFromRequest/?id=ed082837-8ee5-40f0-b7b9-e29ac516ee08
     body:
       encoding: ''
       string: ''
@@ -410,7 +410,7 @@ http_interactions:
       explanation: Request fulfilled, document follows
     headers:
       status: HTTP/1.1 200 OK
-      date: Sun, 19 Sep 2021 02:02:28 GMT
+      date: Sun, 19 Sep 2021 02:48:59 GMT
       server: Apache/2.4.18 (Ubuntu)
       strict-transport-security: max-age=63072000; includeSubdomains
       x-frame-options: DENY
@@ -424,7 +424,7 @@ http_interactions:
       encoding: UTF-8
       file: no
       string: '{"data": []}'
-  recorded_at: 2021-09-19 02:02:31 GMT
+  recorded_at: 2021-09-19 02:49:02 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -443,7 +443,7 @@ http_interactions:
       explanation: Request fulfilled, document follows
     headers:
       status: HTTP/1.1 200 OK
-      date: Sun, 19 Sep 2021 02:02:29 GMT
+      date: Sun, 19 Sep 2021 02:49:00 GMT
       server: Apache/2.4.18 (Ubuntu)
       strict-transport-security: max-age=63072000; includeSubdomains
       x-frame-options: DENY
@@ -457,11 +457,11 @@ http_interactions:
       encoding: UTF-8
       file: no
       string: need to send id
-  recorded_at: 2021-09-19 02:02:31 GMT
+  recorded_at: 2021-09-19 02:49:02 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
-    uri: https://climateserv.servirglobal.net/chirps/getDataFromRequest/?id=5c9e8625-0117-4f80-b1df-9f452f4627ee
+    uri: https://climateserv.servirglobal.net/chirps/getDataFromRequest/?id=f8d371c3-0b21-419e-8e59-cea916e9f2c3
     body:
       encoding: ''
       string: ''
@@ -476,7 +476,7 @@ http_interactions:
       explanation: Request fulfilled, document follows
     headers:
       status: HTTP/1.1 200 OK
-      date: Sun, 19 Sep 2021 02:02:30 GMT
+      date: Sun, 19 Sep 2021 02:49:01 GMT
       server: Apache/2.4.18 (Ubuntu)
       strict-transport-security: max-age=63072000; includeSubdomains
       x-frame-options: DENY
@@ -489,17 +489,17 @@ http_interactions:
     body:
       encoding: UTF-8
       file: no
-      string: '{"data": [{"date": "1/1/2002", "workid": "6e2f1923-8f2d-475a-8929-52cc4308f0f2",
+      string: '{"data": [{"date": "1/1/2002", "workid": "0f179b78-fb88-4e60-8002-f3a702a76d4c",
         "epochTime": "1009843200", "value": {"avg": -1.8911585807800293}}, {"date":
-        "1/9/2002", "workid": "1226a7c5-50d2-420d-a00f-35bc669d3bea", "epochTime":
+        "1/9/2002", "workid": "f737b659-f0ec-48b2-8d5c-7476d1d6d4a6", "epochTime":
         "1010534400", "value": {"avg": -1.9161806106567383}}, {"date": "1/17/2002",
-        "workid": "eebc661f-4cdd-4cfd-a41b-58f6b8e6f018", "epochTime": "1011225600",
+        "workid": "f5142762-8434-4ef5-b12c-5079fae9c841", "epochTime": "1011225600",
         "value": {"avg": -2.1174285411834717}}]}'
-  recorded_at: 2021-09-19 02:02:31 GMT
+  recorded_at: 2021-09-19 02:49:02 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
-    uri: https://climateserv.servirglobal.net/chirps/getDataFromRequest/?id=5c9e8625-0117-4f80-b1df-9f452f4627ee
+    uri: https://climateserv.servirglobal.net/chirps/getDataFromRequest/?id=f8d371c3-0b21-419e-8e59-cea916e9f2c3
     body:
       encoding: ''
       string: ''
@@ -514,7 +514,7 @@ http_interactions:
       explanation: Request fulfilled, document follows
     headers:
       status: HTTP/1.1 200 OK
-      date: Sun, 19 Sep 2021 02:02:31 GMT
+      date: Sun, 19 Sep 2021 02:49:02 GMT
       server: Apache/2.4.18 (Ubuntu)
       strict-transport-security: max-age=63072000; includeSubdomains
       x-frame-options: DENY
@@ -527,11 +527,11 @@ http_interactions:
     body:
       encoding: UTF-8
       file: no
-      string: '{"data": [{"date": "1/1/2002", "workid": "6e2f1923-8f2d-475a-8929-52cc4308f0f2",
+      string: '{"data": [{"date": "1/1/2002", "workid": "0f179b78-fb88-4e60-8002-f3a702a76d4c",
         "epochTime": "1009843200", "value": {"avg": -1.8911585807800293}}, {"date":
-        "1/9/2002", "workid": "1226a7c5-50d2-420d-a00f-35bc669d3bea", "epochTime":
+        "1/9/2002", "workid": "f737b659-f0ec-48b2-8d5c-7476d1d6d4a6", "epochTime":
         "1010534400", "value": {"avg": -1.9161806106567383}}, {"date": "1/17/2002",
-        "workid": "eebc661f-4cdd-4cfd-a41b-58f6b8e6f018", "epochTime": "1011225600",
+        "workid": "f5142762-8434-4ef5-b12c-5079fae9c841", "epochTime": "1011225600",
         "value": {"avg": -2.1174285411834717}}]}'
-  recorded_at: 2021-09-19 02:02:31 GMT
+  recorded_at: 2021-09-19 02:49:02 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0

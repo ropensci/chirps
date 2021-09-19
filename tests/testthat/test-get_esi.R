@@ -1,11 +1,10 @@
 
-
 # test_data.rda contains lat/lon and date values for the following test
 load("../test_data.rda")
 
 # Test get_esi() -----
 test_that("get_esi returns proper values", {
-  vcr::use_cassette("get_esi", {
+  vcr::use_cassette("ESI_default", {
     x <- get_esi(lonlat, dates = c("2002-01-01", "2002-01-31"))
   })
   expect_named(x, c("id", "lon", "lat", "date", "esi"))
