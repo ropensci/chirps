@@ -1,53 +1,26 @@
-# load("tests/test_data.rda")
-load("../test_data.rda")
+# Test if get_chirps() returns a properly formatted object.
+# for this we downloaded two points from https://climateserv.servirglobal.net/
 
-# Test if get_chirps fetch the correct values,
-# for this we downloaded two points from
-# https://climateserv.servirglobal.net/
-# and will compare it with the values retrieved by get_chirps
-
-# Test default method
-
+# Test default method -----
 test_that("default method", {
-  vcr::use_cassette("default_method", {
-    x <- get_chirps(lonlat, dates)
-    
-    x <- round(x$chirps, 2)
-    
-    equal <- all(x == chirps$chirps)
-    
-    expect_true(equal)
-  })
+  x <- get_chirps(lonlat, dates)
+  expect_named(x, c("id", "lon", "lat", "date", "chirps"))
+  expect_equal(nrow(x), 10)
+  expect_s3_class(x, c("chirps", "chirps_df", "data.frame"))
 })
 
-library("sf")
-# get_chirps for sf objects
-coords <- st_as_sf(lonlat, coords = c("lon", "lat"))
-
+# Test `sf` method -----
 test_that("sf method", {
-  vcr::use_cassette("sf_method", {
-    y <- get_chirps(coords, dates)
-    
-    y <- round(y$chirps, 2)
-    
-    equal <- all(y == chirps$chirps)
-    
-    expect_true(equal)
-  })
+  y <- get_chirps(coords, dates)
+  expect_named(y, c("id", "lon", "lat", "date", "chirps"))
+  expect_equal(nrow(y), 10)
+  expect_s3_class(y, c("chirps", "chirps_df", "data.frame"))
 })
 
-# get chirps with geojson method
-geojson <- as.geojson(lonlat)
-
-
+# Test geojson method -----
 test_that("geojson method", {
-  vcr::use_cassette("geojson_method", {
-    z <- suppressWarnings(get_chirps(geojson, dates))
-    
-    z <- round(z$chirps, 2)
-    
-    equal <- all(z == chirps$chirps)
-    
-    expect_true(equal)
-  })
+  z <- suppressWarnings(get_chirps(geojson, dates))
+  expect_named(z, c("id", "lon", "lat", "date", "chirps"))
+  expect_equal(nrow(z), 10)
+  expect_s3_class(z, c("chirps", "chirps_df", "data.frame"))
 })

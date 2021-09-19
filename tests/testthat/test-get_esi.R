@@ -1,22 +1,11 @@
 # load("tests/test_data.rda")
 load("../test_data.rda")
 
-# Test if get_chirps fetch the correct values,
-# for this we downloaded two points from
-# https://climateserv.servirglobal.net/
-# and will compare it with the values retrieved by get_chirps
-
-values <- c(NA, -1.89, -1.92, -2.12)
-
-# Test get_esi
+# Test get_esi() -----
 test_that("get_esi", {
-  vcr::use_cassette("get_esi", {
-    x <- get_esi(lonlat, dates = c("2002-01-01", "2002-01-31"))
-    
-    x <- round(x$esi, 2)
-    
-    equal <- all(x == values, na.rm = TRUE)
-    
-    expect_true(equal)
-  })
+  x <- get_esi(lonlat, dates = c("2002-01-01", "2002-01-31"))
+  
+  expect_named(x, c("id", "lon", "lat", "date", "esi"))
+  expect_equal(nrow(x), 10)
+  expect_s3_class(x, c("chirps", "chirps_df", "data.frame"))
 })
