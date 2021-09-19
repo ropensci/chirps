@@ -4,16 +4,16 @@
 #' via ClimateSERV \acronym{API} Client. \acronym{ESI} is available every four
 #'  (or twelve) weeks from 2001 to present.
 #' The dataset may contain cloudy data which is returned as \code{NA}s.
-#' ClimateSERV works with geojson of type 'Polygon'. The input \code{object} is
-#'  then transformed into polygons with a small buffer area around the point.
+#' ClimateSERV works with 'geojson' of type 'Polygon'. The input \code{object}
+#'  is then transformed into polygons with a small buffer area around the point.
 #' 
 #' @inheritParams get_chirps
-#' @param period an integer value for the period of ESI data, 
-#' four weeks period = 1, twelve weeks = 2
+#' @param period an integer value for the period of ESI data, four weeks
+#'  period = 1, twelve weeks = 2
 #' @param operation optional, an integer that represents which type of
 #' statistical operation to perform on the dataset
 #' @details
-#'  \bold{operation}: supported operations are:  
+#'  \bold{operation}: supported operations are:
 #'  \tabular{rll}{
 #'  \bold{operation}      \tab    \tab \bold{value}\cr
 #'  max                   \tab =  \tab 0\cr
@@ -34,8 +34,8 @@
 #' \item{lat}{the latitude as provided in \code{object}}
 #' \item{esi}{the ESI value}
 #' 
-#' @note get_esi may return some warning messages given by 
-#' \code{\link[sf]{sf}}, please look sf documentation for 
+#' @note \code{get_esi()} may return some warning messages given by 
+#' \code{\link[sf]{sf}}, please check the \CRANpkg{sf} documentation for 
 #' possible issues.
 #' 
 #' @examplesIf interactive()
@@ -259,7 +259,7 @@ get_esi.geojson <- function(object, dates, operation = 5, period = 1,
   if (all(grepl(type[[1]], object))) {
     
     # get matrix with lonlat to validate later
-    lonlat <- lapply(object, function (x) {
+    lonlat <- lapply(object, function(x) {
       
       # read as sf
       x <- sf::read_sf(x)
@@ -287,7 +287,7 @@ get_esi.geojson <- function(object, dates, operation = 5, period = 1,
     
     # take the centroid from geojson Polygons
     # to validate lonlat coordinates
-    lonlat <- lapply(object, function (x) {
+    lonlat <- lapply(object, function(x) {
       
       x <- sf::read_sf(x)
       

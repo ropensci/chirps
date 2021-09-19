@@ -26,8 +26,8 @@ any other object that can be coerced to data.frame), \code{\link[terra]{SpatVect
 \item{operation}{optional, an integer that represents which type of
 statistical operation to perform on the dataset}
 
-\item{period}{an integer value for the period of ESI data, 
-four weeks period = 1, twelve weeks = 2}
+\item{period}{an integer value for the period of ESI data, four weeks
+period = 1, twelve weeks = 2}
 
 \item{...}{further arguments passed to \code{\link[terra]{terra}} 
 or \code{\link[sf]{sf}} methods
@@ -50,11 +50,11 @@ Get evaporative stress index (\acronym{ESI}) from \acronym{SERVIR} Global
 via ClimateSERV \acronym{API} Client. \acronym{ESI} is available every four
  (or twelve) weeks from 2001 to present.
 The dataset may contain cloudy data which is returned as \code{NA}s.
-ClimateSERV works with geojson of type 'Polygon'. The input \code{object} is
- then transformed into polygons with a small buffer area around the point.
+ClimateSERV works with 'geojson' of type 'Polygon'. The input \code{object}
+ is then transformed into polygons with a small buffer area around the point.
 }
 \details{
-\bold{operation}: supported operations are:  
+\bold{operation}: supported operations are:
  \tabular{rll}{
  \bold{operation}      \tab    \tab \bold{value}\cr
  max                   \tab =  \tab 0\cr
@@ -69,8 +69,8 @@ ClimateSERV works with geojson of type 'Polygon'. The input \code{object} is
 \bold{nQuadSegs}: integer, number of segments per buffer quadrant
 }
 \note{
-get_esi may return some warning messages given by 
-\code{\link[sf]{sf}}, please look sf documentation for 
+\code{get_esi()} may return some warning messages given by 
+\code{\link[sf]{sf}}, please check the \CRANpkg{sf} documentation for 
 possible issues.
 }
 \examples{
