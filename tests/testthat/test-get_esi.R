@@ -1,4 +1,5 @@
 
+# test_data.rda contains lat/lon and date values for the following test
 load("../test_data.rda")
 
 # Test get_esi() -----

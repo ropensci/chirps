@@ -1,6 +1,7 @@
 # Test if get_chirps() returns a properly formatted object.
 # for this we downloaded two points from https://climateserv.servirglobal.net/
 
+# test_data.rda contains lat/lon and date values for the following tests
 load("../test_data.rda")
 
 # Test default method -----
