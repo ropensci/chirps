@@ -1,4 +1,4 @@
-#' Compute precipitation indices over a time series.
+#' Compute precipitation indices over a time series
 #'
 #' @param object an object of class \code{chirps} as provided by
 #'  \code{\link{get_chirps}}
