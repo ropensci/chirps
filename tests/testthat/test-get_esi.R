@@ -3,7 +3,7 @@
 load("../test_data.rda")
 
 # Test get_esi() -----
-test_that("get_esi returns proper values", {
+test_that("get_esi() returns proper values", {
   vcr::use_cassette("ESI_default", {
     x <- get_esi(lonlat, dates = c("2002-01-01", "2002-01-31"))
   })
@@ -24,7 +24,6 @@ test_that("get_esi() sf method return df", {
 })
 
 # Test sf `sf` method -----
-coords <- st_as_sf(lonlat, coords = c("lon", "lat"))
 test_that("get_esi() sf method return sf", {
   vcr::use_cassette("ESI_sf_method_return_sf", {
     y <- get_esi(coords,
@@ -50,7 +49,6 @@ test_that("get_esi() geojson method return df", {
 })
 
 # Test geojson `geojson` method -----
-geojson <- as.geojson(lonlat)
 test_that("get_esi() geojson method return geojson", {
   vcr::use_cassette("ESI_geojson_method_return_geojson", {
     z <-
