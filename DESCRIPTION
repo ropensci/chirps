@@ -44,8 +44,7 @@ Suggests:
     knitr,
     markdown,
     rmarkdown,
-    testthat (>= 2.1.0),
-    vcr (>= 0.6.0)
+    testthat (>= 2.1.0)
 Language: en-GB
 RoxygenNote: 7.1.2
 VignetteBuilder: knitr
