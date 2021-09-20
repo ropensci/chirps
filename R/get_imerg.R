@@ -204,7 +204,10 @@ get_imerg.sf <- function(object, dates, operation = 5, as.sf = FALSE, ...) {
 #' @rdname get_imerg
 #' @method get_imerg geojson
 #' @export
-get_imerg.geojson <- function(object, dates, operation = 5, as.geojson = FALSE, ...) {
+get_imerg.geojson <- function(object,
+                              dates,
+                              operation = 5,
+                              as.geojson = FALSE, ...) {
   
   # check for the geometry tag
   if (isFALSE(grepl("geometry", object[[1]]))) {

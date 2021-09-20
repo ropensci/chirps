@@ -7,7 +7,7 @@
 #'  currently available from 1983 to 2016. Soon available to near-present.
 #'
 #' @inheritParams get_chirps 
-#' @param object an object of class \code{\link[base]{data.frame}} (or any other 
+#' @param object an object of class \code{\link[base]{data.frame}} (or any other
 #'  object that can be coerced to a \code{data.frame}),
 #'  \code{\link[terra]{SpatVector}}, or \code{\link[terra]{SpatRaster}} 
 #' @param var character, A valid variable from the options: \dQuote{Tmax},
