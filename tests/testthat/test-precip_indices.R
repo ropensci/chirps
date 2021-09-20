@@ -1,5 +1,6 @@
-# load("tests/test_data.rda")
-load("../test_data.rda")
+
+# test_data.rda contains lat/lon and date values for the following tests
+load(test_path("test_data.rda"))
 
 # Test the default behaviour
 values <- c(3, 1, 1, 0, 
