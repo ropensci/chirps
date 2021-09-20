@@ -1,8 +1,8 @@
 
 # test_data.rda contains lat/lon and date values for the following tests
-load(testthat::test_path("test_data.rda"))
+load(test_path("test_data.rda"))
 
-# Test get_chirps() -----
+# Test get_chirps() default method -----
 test_that("get_chirps() returns proper values", {
   vcr::use_cassette("CHIRPS_default", {
     x <- get_chirps(object = lonlat,
