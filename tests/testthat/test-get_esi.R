@@ -1,6 +1,6 @@
 
-# test_data.rda contains lat/lon and date values for the following test
-load("../test_data.rda")
+# test_data.rda contains lat/lon and date values for the following tests
+load(testthat::test_path("test_data.rda"))
 
 # Test get_esi() -----
 test_that("get_esi() returns proper values", {
