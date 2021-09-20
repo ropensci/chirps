@@ -16,7 +16,7 @@ get_chirts(object, dates, var, ...)
 \method{get_chirts}{SpatRaster}(object, dates, var, as.raster = TRUE, ...)
 }
 \arguments{
-\item{object}{an object of class \code{\link[base]{data.frame}} (or any other 
+\item{object}{an object of class \code{\link[base]{data.frame}} (or any other
 object that can be coerced to a \code{data.frame}),
 \code{\link[terra]{SpatVector}}, or \code{\link[terra]{SpatRaster}}}
 
@@ -30,7 +30,8 @@ object that can be coerced to a \code{data.frame}),
 
 \item{as.matrix}{logical, returns an object of class \code{matrix}}
 
-\item{as.raster}{logical, returns an object of class \code{\link[terra]{SpatRaster}}}
+\item{as.raster}{logical, returns an object of class
+\code{\link[terra]{SpatRaster}}}
 }
 \value{
 A SpatRaster object if \code{as.raster=TRUE}, else \code{matrix}, 

@@ -13,8 +13,9 @@ as.geojson(lonlat, dist = 1e-05, nQuadSegs = 2L, ...)
 \method{as.geojson}{sf}(lonlat, dist = 1e-05, nQuadSegs = 2L, ...)
 }
 \arguments{
-\item{lonlat}{a data.frame or matrix with geographical coordinates lonlat, in 
-that order, or an object of class 'sf' with geometry type 'POINT' or 'POLYGON'}
+\item{lonlat}{a data.frame or matrix with geographical coordinates lonlat, in
+that order, or an object of class 'sf' with geometry type 'POINT' or
+'POLYGON'}
 
 \item{dist}{numeric, buffer distance for all \code{lonlat}}
 

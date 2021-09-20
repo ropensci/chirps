@@ -3,15 +3,17 @@
 #' Get daily precipitation data from the "Climate Hazards Group".
 #' 
 #' @param object input, an object of class \code{\link[base]{data.frame}} (or
-#'  any other object that can be coerced to data.frame), \code{\link[terra]{SpatVector}}, 
-#'  \code{\link[terra]{SpatRaster}}, \code{\link[sf]{sf}} or \code{geojson}
+#'  any other object that can be coerced to \code{data.frame}),
+#'  \code{\link[terra]{SpatVector}}, \code{\link[terra]{SpatRaster}},
+#'  \code{\link[sf]{sf}} or \code{geojson}
 #' @param dates a character of start and end dates in that order in the format
 #'  "YYYY-MM-DD"
 #' @param server a character that represent the server source "CHC" (default) or
 #'  "ClimateSERV"
 #' @param as.sf logical, returns an object of class \code{\link[sf]{sf}}
 #' @param as.geojson logical, returns an object of class \code{geojson}
-#' @param as.raster logical, returns an object of class \code{\link[terra]{SpatRaster}}
+#' @param as.raster logical, returns an object of class
+#' \code{\link[terra]{SpatRaster}}
 #' @param as.matrix logical, returns an object of class \code{matrix}
 #' @param ... further arguments passed to \code{\link[terra]{terra}} 
 #' or \code{\link[sf]{sf}} methods
@@ -23,8 +25,8 @@
 #' 
 #' \strong{Additional arguments when using server = "CHC"}
 #' 
-#' \bold{resolution}: numeric, resolution of CHIRPS tiles either 
-#'  0.05 (default) or 0.25 degrees
+#' \bold{resolution}: numeric, resolution of CHIRPS tiles either 0.05 (default)
+#'  or 0.25 degrees
 #' 
 #' \strong{Additional arguments when using server = "ClimateSERV"}
 #' 
@@ -55,9 +57,9 @@
 #' Funk C. et al. (2015). Scientific Data, 2, 150066.
 #'  \cr\doi{10.1038/sdata.2015.66}
 #' 
-#' @note get_chirps may return some warning messages given by 
-#' \code{\link[sf]{sf}}, please look sf documentation for 
-#' possible issues.
+#' @note \code{get_chirps()} may return some warning messages given by 
+#' \code{\link[sf]{sf}}, please look \CRANpkg{sf} documentation for possible
+#' issues.
 #' 
 #' @examplesIf interactive()
 #' library("chirps")

@@ -17,8 +17,9 @@ get_imerg(object, dates, operation = 5, ...)
 }
 \arguments{
 \item{object}{input, an object of class \code{\link[base]{data.frame}} (or
-any other object that can be coerced to data.frame), \code{\link[terra]{SpatVector}}, 
-\code{\link[terra]{SpatRaster}}, \code{\link[sf]{sf}} or \code{geojson}}
+any other object that can be coerced to \code{data.frame}),
+\code{\link[terra]{SpatVector}}, \code{\link[terra]{SpatRaster}},
+\code{\link[sf]{sf}} or \code{geojson}}
 
 \item{dates}{a character of start and end dates in that order in the format
 "YYYY-MM-DD"}
@@ -43,12 +44,12 @@ A data frame of \acronym{imerg} data:
 \item{imerg}{the IMERG value}
 }
 \description{
-The IMERG dataset provides near-real time global observations of 
- rainfall at 10km resolution, which can be used to estimate total
- rainfall accumulation from storm systems and quantify the intensity 
- of rainfall and flood impacts from tropical cyclones and other storm 
- systems. IMERG is a daily precipitation dataset available from 2015 
- to present within the latitudes 70 and -70.
+The IMERG dataset provides near-real time global observations of rainfall at
+ 10km resolution, which can be used to estimate total rainfall accumulation
+ from storm systems and quantify the intensity of rainfall and flood impacts
+ from tropical cyclones and other storm systems. \acronym{IMERG} is a daily
+ precipitation dataset available from 2015 to present within the latitudes 70
+ and -70 degrees.
 }
 \details{
 \bold{operation}: supported operations are:  

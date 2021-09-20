@@ -30,8 +30,9 @@ get_chirps(object, dates, server = "CHC", ...)
 }
 \arguments{
 \item{object}{input, an object of class \code{\link[base]{data.frame}} (or
-any other object that can be coerced to data.frame), \code{\link[terra]{SpatVector}}, 
-\code{\link[terra]{SpatRaster}}, \code{\link[sf]{sf}} or \code{geojson}}
+any other object that can be coerced to \code{data.frame}),
+\code{\link[terra]{SpatVector}}, \code{\link[terra]{SpatRaster}},
+\code{\link[sf]{sf}} or \code{geojson}}
 
 \item{dates}{a character of start and end dates in that order in the format
 "YYYY-MM-DD"}
@@ -45,7 +46,8 @@ See details}
 
 \item{as.matrix}{logical, returns an object of class \code{matrix}}
 
-\item{as.raster}{logical, returns an object of class \code{\link[terra]{SpatRaster}}}
+\item{as.raster}{logical, returns an object of class
+\code{\link[terra]{SpatRaster}}}
 
 \item{as.sf}{logical, returns an object of class \code{\link[sf]{sf}}}
 
@@ -70,8 +72,8 @@ Data description at
 
 \strong{Additional arguments when using server = "CHC"}
 
-\bold{resolution}: numeric, resolution of CHIRPS tiles either 
- 0.05 (default) or 0.25 degrees
+\bold{resolution}: numeric, resolution of CHIRPS tiles either 0.05 (default)
+ or 0.25 degrees
 
 \strong{Additional arguments when using server = "ClimateSERV"}
 
@@ -90,9 +92,9 @@ Data description at
  }
 }
 \note{
-get_chirps may return some warning messages given by 
-\code{\link[sf]{sf}}, please look sf documentation for 
-possible issues.
+\code{get_chirps()} may return some warning messages given by 
+\code{\link[sf]{sf}}, please look \CRANpkg{sf} documentation for possible
+issues.
 }
 \examples{
 \dontshow{if (interactive()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}

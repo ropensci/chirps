@@ -1,11 +1,11 @@
 #' Get Integrated Multisatellite Retrievals for GPM (IMERG) data
 #' 
-#'  The IMERG dataset provides near-real time global observations of 
-#'  rainfall at 10km resolution, which can be used to estimate total
-#'  rainfall accumulation from storm systems and quantify the intensity 
-#'  of rainfall and flood impacts from tropical cyclones and other storm 
-#'  systems. IMERG is a daily precipitation dataset available from 2015 
-#'  to present within the latitudes 70 and -70.
+#'  The IMERG dataset provides near-real time global observations of rainfall at
+#'  10km resolution, which can be used to estimate total rainfall accumulation
+#'  from storm systems and quantify the intensity of rainfall and flood impacts
+#'  from tropical cyclones and other storm systems. \acronym{IMERG} is a daily
+#'  precipitation dataset available from 2015 to present within the latitudes 70
+#'  and -70 degrees.
 #' 
 #' @inheritParams get_chirps
 #' @param operation optional, an integer that represents which type of

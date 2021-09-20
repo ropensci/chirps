@@ -3,8 +3,9 @@
 #' Take single points from geographical coordinates and coerce into a
 #' geojson of geometry 'Polygon'
 #'
-#' @param lonlat a data.frame or matrix with geographical coordinates lonlat, in 
-#'  that order, or an object of class 'sf' with geometry type 'POINT' or 'POLYGON' 
+#' @param lonlat a data.frame or matrix with geographical coordinates lonlat, in
+#'  that order, or an object of class 'sf' with geometry type 'POINT' or
+#'  'POLYGON' 
 #' @param dist numeric, buffer distance for all \code{lonlat}
 #' @param nQuadSegs integer, number of segments per quadrant
 #' @param ... further arguments passed to \code{\link[sf]{sf}} methods
