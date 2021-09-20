@@ -26,7 +26,7 @@ test_that("get_chirps() sf method return df", {
 # Test sf return `sf` method -----
 test_that("get_chirps() sf method return sf", {
   vcr::use_cassette("CHIRPS_sf_method_return_sf", {
-    x <- get_chirps(coords, dates, as.sf = TRUE)
+    x <- get_chirps(coords, dates, as.sf = TRUE, server = "ClimateSERV")
   })
   expect_named(x, c("day_10957",
                     "day_10958",
