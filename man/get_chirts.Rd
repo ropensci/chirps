@@ -34,7 +34,7 @@ object that can be coerced to a \code{data.frame}),
 \code{\link[terra]{SpatRaster}}}
 }
 \value{
-A SpatRaster object if \code{as.raster=TRUE}, else \code{matrix}, 
+A SpatRaster object if \code{as.raster=TRUE}, else \code{matrix},
 \code{list}, or \code{data.frame}
 }
 \description{
@@ -45,7 +45,7 @@ Get daily maximum and minimum temperature data from the "Climate Hazards
  currently available from 1983 to 2016. Soon available to near-present.
 }
 \details{
-Variable description from 
+Variable description from
 \url{https://data.chc.ucsb.edu/products/CHIRTSdaily/aaa.Readme.txt}
 \describe{
   \item{Tmax}{Daily average maximum air temperature at 2 m above ground}
@@ -55,7 +55,7 @@ Variable description from
   }
 }
 \section{Additional arguments}{
- 
+
 \bold{interval}: supported intervals are \dQuote{daily}, \dQuote{pentad},
  \dQuote{dekad}, \dQuote{monthly}, \dQuote{2-monthly}, \dQuote{3-monthly},
  and \dQuote{annual}. Currently hard coded to \dQuote{daily}.
