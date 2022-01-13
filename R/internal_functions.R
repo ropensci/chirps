@@ -15,21 +15,21 @@
 #' @return A id to be used in the data request
 #' @details
 #' datatype codes are described at 
-#'  https://climateserv.readthedocs.io/en/latest/api.html
+#'  https://climateserv.servirglobal.net/help
 #' 
 #' operation: supported operations are max = 0, min = 1, 
 #'  median = 2, sum = 4, average = 5
 #' @examples
-#' lonlat <- data.frame(lon = runif(1, 10, 12),
-#'                      lat = runif(1, 45, 47))
+#' lonlat <- data.frame(lon = c(-60.34),
+#'                      lat = c(-5.38))
 #' 
 #' gjson <- as.geojson(lonlat)
 #' 
 #' chirps:::.send_request(begintime = "12/10/2018",
 #'                        endtime = "12/26/2018",
 #'                        geometry = gjson)
-#'                        
-#' @importFrom crul HttpClient
+#'                         
+#' @importFrom httr RETRY accept_json content
 #' @noRd
 .send_request <- function(datatype = 0,
                           begintime = NULL,
@@ -38,7 +38,7 @@
                           operationtype = 5,
                           geometry = NULL) {
   
-    base_url <- "https://climateserv.servirglobal.net/chirps/"
+    #base_url <- "https://climateserv.servirglobal.net/api/"
     
     # organise the query
     query <- list(
@@ -53,17 +53,27 @@
       geometry = toString(geometry)
     )
     
-    client_request <-
-      crul::HttpClient$new(url = paste0(base_url, "submitDataRequest/?"))
+    # client_request <-
+    #   crul::HttpClient$new(url = paste0(base_url, "submitDataRequest/?"))
     
     # check status
-    status <- client_request$get()
-    status$raise_for_status()
+    # status <- client_request$get()
+    # status$raise_for_status()
     
     # send the query
-    tryCatch(
-      id <- client_request$get(query = query),
+    tryCatch({
+      # id <- client_request$get(query = query),
       # nocov start
+      id <- httr::RETRY(verb = "GET", 
+                        url = "https://climateserv.servirglobal.net/api/submitDataRequest/?",
+                        query = query,
+                        httr::accept_json(), 
+                        terminate_on = c(403, 404))
+      
+      id <- httr::content(id, as = "text", encoding = "UTF-8")
+      
+      }, 
+      
       error = function(e) {
         e$message <-
           paste0(
@@ -78,14 +88,14 @@
       }
     ) # nocov end
     
-    id <- id$parse("UTF-8")
+    # id <- id$parse("UTF-8")
     
     # get content from the query
     id <- strsplit(id, '["]')[[1]][2]
     
     return(id)
     
-  }
+}
 
 #' Get request progress
 #'
@@ -109,30 +119,40 @@
 #' chirps:::.get_request_progress(id)
 #' @noRd
 .get_request_progress <- function(id) {
-  base_url <- "https://climateserv.servirglobal.net/chirps/"
   
-  client_progress <-
-    crul::HttpClient$new(url = paste0(base_url, 
-                                      "getDataRequestProgress/?"))
-  
-  
-  # organise the query
+  # base_url <- "https://climateserv.servirglobal.net/api/"
+  # 
+  # client_progress <-
+  #   crul::HttpClient$new(url = paste0(base_url, 
+  #                                     "getDataRequestProgress/?"))
+  # 
+  # 
+  # # organise the query
   progress_query <- list(id = id)
-  
-  # check status
-  status <- client_progress$get()
-  
-  # send query
-  client_progress$get(query = progress_query, retry = 6)
-  
-  p <- client_progress$get(query = progress_query)
-  
-  p <- p$parse("UTF-8")
-  
+  # 
+  # # check status
+  # status <- client_progress$get()
+  # 
+  # # send query
+  # client_progress$get(query = progress_query, retry = 6)
+  # 
+  # p <- client_progress$get(query = progress_query)
+  # 
+  # p <- p$parse("UTF-8")
+  # 
   # account for the chance that the server returns 
   # an error message and stop
   # the process with a (hopefully) useful error message
-
+  
+  p <- httr::RETRY(verb = "GET", 
+                   url = "https://climateserv.servirglobal.net/api/getDataRequestProgress/?",
+                   query = progress_query,
+                   httr::accept_json(), 
+                   terminate_on = c(403, 404))
+  
+  # nocov start
+  p <- httr::content(p, as = "text", encoding = "UTF-8")
+  
   if (p == -1) { #nocov start
     stop(call. = FALSE,
     "Something went wrong with the query, no data were returned. ",
@@ -170,27 +190,39 @@
 #' @importFrom jsonlite fromJSON toJSON
 #' @noRd
 .get_data_from_request <- function(id) {
-  base_url <- "https://climateserv.servirglobal.net/chirps/"
   
-  client_data <-
-    crul::HttpClient$new(url = paste0(base_url, "getDataFromRequest/?"))
-  
+  # base_url <- "https://climateserv.servirglobal.net/api/"
+  # 
+  # client_data <-
+  #   crul::HttpClient$new(url = paste0(base_url, "getDataFromRequest/?"))
+  # 
   # organise the query
   query <- list(id = id)
   
-  # check status
-  status <- client_data$get()
-  status$raise_for_status()
+  # # check status
+  # status <- client_data$get()
+  # status$raise_for_status()
+  # 
   
   tryCatch({
-    client_data$get(query = query, retry = 6)
+    # client_data$get(query = query, retry = 6)
+    # 
+    # # send query
+    # d <- client_data$get(query = query)
+    # 
+    # d <- d$parse("UTF-8")
     
-    # send query
-    d <- client_data$get(query = query)
+    d <- httr::RETRY(verb = "GET", 
+                      url = "https://climateserv.servirglobal.net/api/getDataFromRequest/?",
+                      query = query,
+                      httr::accept_json(), 
+                      terminate_on = c(403, 404))
     
-    d <- d$parse("UTF-8")
+    d <- httr::content(d, as = "text", encoding = "UTF-8")
+    
     
     d <- jsonlite::fromJSON(d)
+    
   }, # nocov start
   error = function(e) {
     e$message <-

@@ -39,7 +39,7 @@ any other object that can be coerced to data.frame), \code{\link[terra]{SpatVect
 \item{server}{a character that represent the server source "CHC" (default) or
 "ClimateSERV"}
 
-\item{...}{further arguments passed to \code{\link[terra]{terra}} 
+\item{...}{additional arguments passed to \code{\link[terra]{terra}} 
 or \code{\link[sf]{sf}} methods
 See details}
 
@@ -62,7 +62,10 @@ A matrix, raster or a data frame of \acronym{CHIRPS} data:
 }
 }
 \description{
-Get daily precipitation data from the "Climate Hazards Group".
+Get daily precipitation data from the "Climate Hazards Group". Two server 
+ sources are available. The first, "CHC" (default) is recommended for 
+ multiple data-points, while "ClimateSERV" is recommended when 
+ few data-points are required (~ 50).
 }
 \details{
 Data description at 
@@ -99,26 +102,25 @@ possible issues.
 library("chirps")
 library("terra")
 
-# Case 1: return a data.frame in long format
+# Case 1: return as a data.frame
 dates <- c("2017-12-15","2017-12-31")
 lonlat <- data.frame(lon = c(-55.0281,-54.9857), lat = c(-2.8094, -2.8756))
 
-r1 <- get_chirps(lonlat, dates)
+r1 <- get_chirps(lonlat, dates, server = "CHC")
 
 # Case 2: return a matrix
-r2 <- get_chirps(lonlat, dates, as.matrix = TRUE)
+r2 <- get_chirps(lonlat, dates, server = "CHC", as.matrix = TRUE)
 
 # Case 3: input SpatVector and return raster
 f <- system.file("ex/lux.shp", package = "terra")
 v <- vect(f)
-r3 <- get_chirps(v, dates, as.raster = TRUE)
+r3 <- get_chirps(v, dates, server = "CHC", as.raster = TRUE)
 
 # Case 4: using the server "ClimateSERV"
 r4 <- get_chirps(lonlat, dates, server = "ClimateSERV")
 
 # Case 5: from "ClimateSERV" and return as a matrix
-r5 <- get_chirps(lonlat, dates, server = "ClimateSERV", as.matrix = TRUE,
-                 operation = 4, dist = 0.1)
+r5 <- get_chirps(lonlat, dates, server = "ClimateSERV", as.matrix = TRUE)
 
 \dontshow{\}) # examplesIf}
 }

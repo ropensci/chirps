@@ -26,7 +26,7 @@ object that can be coerced to a \code{data.frame}),
 \item{var}{character, A valid variable from the options: \dQuote{Tmax},
 \dQuote{Tmin}, \dQuote{RHum} and \dQuote{HeatIndex}}
 
-\item{...}{further arguments passed to \code{\link[terra]{terra}}}
+\item{...}{additional arguments passed to \code{\link[terra]{terra}}}
 
 \item{as.matrix}{logical, returns an object of class \code{matrix}}
 

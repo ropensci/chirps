@@ -51,7 +51,7 @@ dat <- get_chirps(lonlat, dates)
 
 ```
 
-For a faster download of few datapoints (~ 10), the argument `server = "ClimateSERV"` can be used  
+For a faster download of few datapoints (~ 10 datapoints), the argument `server = "ClimateSERV"` can be used  
 
 ```r
 library("chirps")

@@ -17,8 +17,8 @@
 #' library("sf")
 #' 
 #' set.seed(123)
-#' lonlat <- data.frame(lon = runif(2, 10, 12),
-#'                      lat = runif(2, 45, 47))
+#' lonlat <- data.frame(lon = runif(1, 10, 12),
+#'                      lat = runif(1, 45, 47))
 #' 
 #' gjson <- as.geojson(lonlat)
 #' 
@@ -69,8 +69,7 @@ as.geojson.default <- function(lonlat,
   # set the buffer around the points
   lonlatb <- sf::st_buffer(lonlat,
                            dist = dist,
-                           nQuadSegs = nQuadSegs, 
-                           ...)
+                           nQuadSegs = nQuadSegs)
   
   # transform into a sf object
   lonlatb <- sf::st_as_sf(lonlatb)
@@ -89,14 +88,15 @@ as.geojson.default <- function(lonlat,
   
   # remove spaces and extra commas 
   gj <- lapply(gj, function(x) {
-    gsub(" ", "", x)
-  })
-  
-  gjson <- lapply(gj, function(x) {
+    x <- strsplit(x, "},")[[1]][2]
+    x <- gsub(" ", "", x)
     x <- gsub("}},", "}}", x)
+    x <- gsub('"geometry\":', "", x)
+    x <- gsub(']}}', "]}", x)
+    x
   })
   
-  result <- unlist(gjson)
+  result <- unlist(gj)
   
   class(result) <- c("geojson", "json", class(result))
   
@@ -158,17 +158,18 @@ as.geojson.sf <- function(lonlat,
   
   # remove spaces and extra commas 
   gj <- lapply(gj, function(x) {
-    gsub(" ", "", x)
-  })
-  
-  gjson <- lapply(gj, function(x) {
+    x <- strsplit(x, "},")[[1]][2]
+    x <- gsub(" ", "", x)
     x <- gsub("}},", "}}", x)
+    x <- gsub('"geometry\":', "", x)
+    x <- gsub(']}}', "]}", x)
+    x
   })
   
-  result <- unlist(gjson)
+  result <- unlist(gj)
   
   class(result) <- c("geojson", "json", class(result))
   
   return(result)
-  
+
 }

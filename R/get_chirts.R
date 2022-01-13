@@ -12,7 +12,7 @@
 #'  \code{\link[terra]{SpatVector}}, or \code{\link[terra]{SpatRaster}} 
 #' @param var character, A valid variable from the options: \dQuote{Tmax},
 #'  \dQuote{Tmin}, \dQuote{RHum} and \dQuote{HeatIndex}
-#' @param ... further arguments passed to \code{\link[terra]{terra}}
+#' @param ... additional arguments passed to \code{\link[terra]{terra}}
 #' @return A SpatRaster object if \code{as.raster=TRUE}, else \code{matrix}, 
 #' \code{list}, or \code{data.frame}
 #' @details
@@ -65,8 +65,28 @@ get_chirts <- function(object, dates, var, ...) {
 get_chirts.default <- function(object, dates, var, as.matrix = FALSE, ...){
   
   dots <- list(...)
+  
   as.raster <- dots[["as.raster"]]
   if (!isTRUE(as.raster)) as.raster <- FALSE
+  
+  if ("sf" %in% class(object)) {
+    
+    nr <- dim(object)[[1]]
+    
+    # find the sf_column
+    index <- attr(object, "sf_column")
+    
+    # get the sf column
+    lonlat <- object[[index]]  
+    # unlist the sf_column
+    lonlat <- unlist(object[[index]])
+    
+    object <- matrix(lonlat,
+                   nrow = nr,
+                   ncol = 2, 
+                   byrow = TRUE, 
+                   dimnames = list(seq_len(nr), c("lon","lat")))
+  }
   
   object <- as.data.frame(object)
   

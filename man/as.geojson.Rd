@@ -36,8 +36,8 @@ geojson of geometry 'Polygon'
 library("sf")
 
 set.seed(123)
-lonlat <- data.frame(lon = runif(2, 10, 12),
-                     lat = runif(2, 45, 47))
+lonlat <- data.frame(lon = runif(1, 10, 12),
+                     lat = runif(1, 45, 47))
 
 gjson <- as.geojson(lonlat)
 
