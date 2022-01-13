@@ -10,7 +10,7 @@
 #'  \code{\link[terra]{SpatRaster}}, \code{\link[sf]{sf}} or \code{geojson}
 #' @param dates a character of start and end dates in that order in the format
 #'  "YYYY-MM-DD"
-#' @param server a character that represent the server source "CHC" (default) or
+#' @param server a character that represent the server source "CHC" or
 #'  "ClimateSERV"
 #' @param as.sf logical, returns an object of class \code{\link[sf]{sf}}
 #' @param as.geojson logical, returns an object of class \code{geojson}
@@ -90,7 +90,7 @@
 #' @importFrom sf st_centroid read_sf st_geometry_type
 #' @importFrom terra crop extract rast
 #' @export
-get_chirps <- function(object, dates, server = "CHC", ...) {
+get_chirps <- function(object, dates, server, ...) {
   
   if (isFALSE(any(server %in% c("CHC", "ClimateSERV")))) {
     stop("Unknown server, please choose 'CHC' or 'ClimateSERV' \n")
@@ -102,7 +102,7 @@ get_chirps <- function(object, dates, server = "CHC", ...) {
 
 #' @rdname get_chirps
 #' @export
-get_chirps.default <- function(object, dates, server = "CHC", 
+get_chirps.default <- function(object, dates, server, 
                                as.matrix = FALSE, ...) {
   
   
@@ -273,7 +273,7 @@ get_chirps.SpatRaster <- function(object, dates, server = "CHC",
 #' @rdname get_chirps
 #' @method get_chirps sf
 #' @export
-get_chirps.sf <- function(object, dates, server = "CHC", 
+get_chirps.sf <- function(object, dates, server, 
                           as.sf = FALSE, 
                           ...) {
   
@@ -411,7 +411,7 @@ get_chirps.sf <- function(object, dates, server = "CHC",
 #' @rdname get_chirps
 #' @method get_chirps geojson
 #' @export
-get_chirps.geojson <- function(object, dates, server = "CHC", 
+get_chirps.geojson <- function(object, dates, server, 
                                as.geojson = FALSE,
                                ...) {
   

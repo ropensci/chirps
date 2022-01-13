@@ -12,9 +12,9 @@ chirps 0.1.4 (2022-01-13)
 
 ### CHANGES IN BEHAVIOUR
 
+* New argument `server = ` is added to indicate from which server the function should send the request, either 'CHC' or 'ClimateSERV'. Please use the argument `server = "ClimateSERV"` for backward compatibility with previous versions of the package. 
 * API requests to ClimateSERV use package httr instead of curl
-* A new argument `server = ` is added to `get_chirps()` to indicate from which server the data will be requested. Options are 'CHC' the default and 'ClimateSERV'
-* Argument `operation = ` in `get_chirps()` is removed from the main Usage and is only required when `server = "ClimateSERV"`
+* Argument `operation = ` in `get_chirps()` is only required when `server = "ClimateSERV"`
 * Updates function `as.geojson()` to matches with the new requirements for ClimateSERV
 
 chirps 0.1.3 (2021-07-10)

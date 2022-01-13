@@ -47,7 +47,7 @@ lonlat <- data.frame(lon = c(-55.0281,-54.9857, -55.0714),
 
 dates <- c("2017-01-01", "2017-12-31")
 
-dat <- get_chirps(lonlat, dates)
+dat <- get_chirps(lonlat, dates, server = "CHC")
 
 ```
 

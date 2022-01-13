@@ -9,9 +9,9 @@
 \alias{get_chirps.geojson}
 \title{Get CHIRPS precipitation data}
 \usage{
-get_chirps(object, dates, server = "CHC", ...)
+get_chirps(object, dates, server, ...)
 
-\method{get_chirps}{default}(object, dates, server = "CHC", as.matrix = FALSE, ...)
+\method{get_chirps}{default}(object, dates, server, as.matrix = FALSE, ...)
 
 \method{get_chirps}{SpatVector}(object, dates, server = "CHC", as.raster = TRUE, ...)
 
@@ -24,9 +24,9 @@ get_chirps(object, dates, server = "CHC", ...)
   ...
 )
 
-\method{get_chirps}{sf}(object, dates, server = "CHC", as.sf = FALSE, ...)
+\method{get_chirps}{sf}(object, dates, server, as.sf = FALSE, ...)
 
-\method{get_chirps}{geojson}(object, dates, server = "CHC", as.geojson = FALSE, ...)
+\method{get_chirps}{geojson}(object, dates, server, as.geojson = FALSE, ...)
 }
 \arguments{
 \item{object}{input, an object of class \code{\link[base]{data.frame}} (or
@@ -36,7 +36,7 @@ any other object that can be coerced to data.frame), \code{\link[terra]{SpatVect
 \item{dates}{a character of start and end dates in that order in the format
 "YYYY-MM-DD"}
 
-\item{server}{a character that represent the server source "CHC" (default) or
+\item{server}{a character that represent the server source "CHC" or
 "ClimateSERV"}
 
 \item{...}{additional arguments passed to \code{\link[terra]{terra}} 
