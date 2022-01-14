@@ -7,7 +7,8 @@
 #' 
 #' @param object input, an object of class \code{\link[base]{data.frame}} (or
 #'  any other object that can be coerced to data.frame), \code{\link[terra]{SpatVector}}, 
-#'  \code{\link[terra]{SpatRaster}}, \code{\link[sf]{sf}} or \code{geojson}
+#'  \code{\link[terra]{SpatRaster}}, \code{\link[terra]{SpatExtent}},
+#'  \code{\link[sf]{sf}} or \code{geojson}
 #' @param dates a character of start and end dates in that order in the format
 #'  "YYYY-MM-DD"
 #' @param server a character that represent the server source "CHC" or
@@ -80,11 +81,18 @@
 #' v <- vect(f)
 #' r3 <- get_chirps(v, dates, server = "CHC", as.raster = TRUE)
 #' 
-#' # Case 4: using the server "ClimateSERV"
-#' r4 <- get_chirps(lonlat, dates, server = "ClimateSERV")
+#' # Case 4: input SpatExtent and return a raster within the extent
+#' area <- ext(c(-66, -64, -6, -4))
 #' 
-#' # Case 5: from "ClimateSERV" and return as a matrix
-#' r5 <- get_chirps(lonlat, dates, server = "ClimateSERV", as.matrix = TRUE)
+#' dates <- c("2017-12-15", "2017-12-31")
+#' 
+#' r4 <- get_chirps(area, dates, server = "CHC")
+#' 
+#' # Case 5: using the server "ClimateSERV"
+#' r5 <- get_chirps(lonlat, dates, server = "ClimateSERV")
+#' 
+#' # Case 6: from "ClimateSERV" and return as a matrix
+#' r6 <- get_chirps(lonlat, dates, server = "ClimateSERV", as.matrix = TRUE)
 #' 
 #' 
 #' @importFrom sf st_centroid read_sf st_geometry_type
@@ -224,12 +232,12 @@ get_chirps.SpatVector <- function(object, dates, server = "CHC",
   rr <- .get_CHIRPS_tiles_CHC(dates, ...)
   
   if (isTRUE(as.raster)) {
-    result <- crop(rr, y = object)
+    result <- terra::crop(rr, y = object)
     return(result)
   }
   
   if (isTRUE(as.matrix)) {
-    result <- extract(rr, y = object, ...)
+    result <- terra::extract(rr, y = object, ...)
     result$ID <- NULL
     return(result)
   }
@@ -256,7 +264,6 @@ get_chirps.SpatVector <- function(object, dates, server = "CHC",
     
 
 }
-
 
 #' @rdname get_chirps
 #' @method get_chirps SpatRaster
@@ -553,6 +560,28 @@ get_chirps.geojson <- function(object, dates, server,
     
     class(result) <- c("geojson", "json", class(result))
     
+    
+  }
+  
+  return(result)
+  
+}
+
+
+#' @rdname get_chirps
+#' @method get_chirps SpatExtent
+#' @export
+get_chirps.SpatExtent <- function(object, dates, server = "CHC",
+                                  as.raster = TRUE, ...) {
+
+  # get CHIRTS GeoTiff files
+  rr <- .get_CHIRPS_tiles_CHC(dates, ...)
+  
+  result <- terra::crop(rr, y = object)
+
+  if (isFALSE(as.raster)) {
+    
+    result <- as.matrix(result)
     
   }
   

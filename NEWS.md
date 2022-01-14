@@ -1,3 +1,11 @@
+chirps 0.1.4.001 (2022-01-15) 
+=========================
+
+### ENHACEMENTS 
+
+* Methods for objects of class "SpatExtent" in `get_chirps()` and `get_chirts()` to return a raster within a given area 
+
+
 chirps 0.1.4 (2022-01-13) 
 =========================
 

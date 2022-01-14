@@ -2,11 +2,13 @@
 
 S3method(as.geojson,default)
 S3method(as.geojson,sf)
+S3method(get_chirps,SpatExtent)
 S3method(get_chirps,SpatRaster)
 S3method(get_chirps,SpatVector)
 S3method(get_chirps,default)
 S3method(get_chirps,geojson)
 S3method(get_chirps,sf)
+S3method(get_chirts,SpatExtent)
 S3method(get_chirts,SpatRaster)
 S3method(get_chirts,SpatVector)
 S3method(get_chirts,default)

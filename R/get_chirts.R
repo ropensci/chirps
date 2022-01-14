@@ -8,7 +8,7 @@
 #'
 #' @inheritParams get_chirps 
 #' @param object an object of class \code{\link[base]{data.frame}} (or any other 
-#'  object that can be coerced to a \code{data.frame}),
+#'  object that can be coerced to a \code{data.frame}), \code{\link[terra]{SpatExtent}},
 #'  \code{\link[terra]{SpatVector}}, or \code{\link[terra]{SpatRaster}} 
 #' @param var character, A valid variable from the options: \dQuote{Tmax},
 #'  \dQuote{Tmin}, \dQuote{RHum} and \dQuote{HeatIndex}
@@ -189,6 +189,27 @@ get_chirts.SpatRaster <- function(object, dates, var, as.raster = TRUE, ...){
   UseMethod("get_chirts", object = "SpatVector")
   
 }
+
+#' @rdname get_chirts
+#' @method get_chirts SpatExtent
+#' @export
+get_chirts.SpatExtent <- function(object, dates, var, as.raster = TRUE, ...) {
+  
+  # get CHIRTS GeoTiff files
+  rr <- .get_CHIRTS_tiles_CHC(dates, var, ...)
+  
+  result <- terra::crop(rr, y = object)
+  
+  if (isFALSE(as.raster)) {
+    
+    result <- as.matrix(result)
+    
+  }
+  
+  return(result)
+  
+}
+
 
 #' @noRd
 .get_CHIRTS_tiles_CHC <- function(dates, var, resolution = 0.05, 

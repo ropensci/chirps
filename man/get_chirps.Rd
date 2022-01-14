@@ -7,6 +7,7 @@
 \alias{get_chirps.SpatRaster}
 \alias{get_chirps.sf}
 \alias{get_chirps.geojson}
+\alias{get_chirps.SpatExtent}
 \title{Get CHIRPS precipitation data}
 \usage{
 get_chirps(object, dates, server, ...)
@@ -27,11 +28,14 @@ get_chirps(object, dates, server, ...)
 \method{get_chirps}{sf}(object, dates, server, as.sf = FALSE, ...)
 
 \method{get_chirps}{geojson}(object, dates, server, as.geojson = FALSE, ...)
+
+\method{get_chirps}{SpatExtent}(object, dates, server = "CHC", as.raster = TRUE, ...)
 }
 \arguments{
 \item{object}{input, an object of class \code{\link[base]{data.frame}} (or
 any other object that can be coerced to data.frame), \code{\link[terra]{SpatVector}}, 
-\code{\link[terra]{SpatRaster}}, \code{\link[sf]{sf}} or \code{geojson}}
+\code{\link[terra]{SpatRaster}}, \code{\link[terra]{SpatExtent}},
+\code{\link[sf]{sf}} or \code{geojson}}
 
 \item{dates}{a character of start and end dates in that order in the format
 "YYYY-MM-DD"}
@@ -116,11 +120,18 @@ f <- system.file("ex/lux.shp", package = "terra")
 v <- vect(f)
 r3 <- get_chirps(v, dates, server = "CHC", as.raster = TRUE)
 
-# Case 4: using the server "ClimateSERV"
-r4 <- get_chirps(lonlat, dates, server = "ClimateSERV")
+# Case 4: input SpatExtent and return a raster within the extent
+area <- ext(c(-66, -64, -6, -4))
 
-# Case 5: from "ClimateSERV" and return as a matrix
-r5 <- get_chirps(lonlat, dates, server = "ClimateSERV", as.matrix = TRUE)
+dates <- c("2017-12-15", "2017-12-31")
+
+r4 <- get_chirps(area, dates, server = "CHC")
+
+# Case 5: using the server "ClimateSERV"
+r5 <- get_chirps(lonlat, dates, server = "ClimateSERV")
+
+# Case 6: from "ClimateSERV" and return as a matrix
+r6 <- get_chirps(lonlat, dates, server = "ClimateSERV", as.matrix = TRUE)
 
 \dontshow{\}) # examplesIf}
 }
