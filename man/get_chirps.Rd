@@ -7,11 +7,12 @@
 \alias{get_chirps.SpatRaster}
 \alias{get_chirps.sf}
 \alias{get_chirps.geojson}
+\alias{get_chirps.SpatExtent}
 \title{Get CHIRPS precipitation data}
 \usage{
-get_chirps(object, dates, server = "CHC", ...)
+get_chirps(object, dates, server, ...)
 
-\method{get_chirps}{default}(object, dates, server = "CHC", as.matrix = FALSE, ...)
+\method{get_chirps}{default}(object, dates, server, as.matrix = FALSE, ...)
 
 \method{get_chirps}{SpatVector}(object, dates, server = "CHC", as.raster = TRUE, ...)
 
@@ -24,9 +25,11 @@ get_chirps(object, dates, server = "CHC", ...)
   ...
 )
 
-\method{get_chirps}{sf}(object, dates, server = "CHC", as.sf = FALSE, ...)
+\method{get_chirps}{sf}(object, dates, server, as.sf = FALSE, ...)
 
-\method{get_chirps}{geojson}(object, dates, server = "CHC", as.geojson = FALSE, ...)
+\method{get_chirps}{geojson}(object, dates, server, as.geojson = FALSE, ...)
+
+\method{get_chirps}{SpatExtent}(object, dates, server = "CHC", as.raster = TRUE, ...)
 }
 \arguments{
 \item{object}{input, an object of class \code{\link[base]{data.frame}} (or
@@ -37,10 +40,10 @@ any other object that can be coerced to \code{data.frame}),
 \item{dates}{a character of start and end dates in that order in the format
 "YYYY-MM-DD"}
 
-\item{server}{a character that represent the server source "CHC" (default) or
+\item{server}{a character that represent the server source "CHC" or
 "ClimateSERV"}
 
-\item{...}{further arguments passed to \code{\link[terra]{terra}} 
+\item{...}{additional arguments passed to \code{\link[terra]{terra}} 
 or \code{\link[sf]{sf}} methods
 See details}
 
@@ -64,7 +67,10 @@ A matrix, raster or a data frame of \acronym{CHIRPS} data:
 }
 }
 \description{
-Get daily precipitation data from the "Climate Hazards Group".
+Get daily precipitation data from the "Climate Hazards Group". Two server 
+ sources are available. The first, "CHC" (default) is recommended for 
+ multiple data-points, while "ClimateSERV" is recommended when 
+ few data-points are required (~ 50).
 }
 \details{
 Data description at 
@@ -101,26 +107,32 @@ issues.
 library("chirps")
 library("terra")
 
-# Case 1: return a data.frame in long format
+# Case 1: return as a data.frame
 dates <- c("2017-12-15","2017-12-31")
 lonlat <- data.frame(lon = c(-55.0281,-54.9857), lat = c(-2.8094, -2.8756))
 
-r1 <- get_chirps(lonlat, dates)
+r1 <- get_chirps(lonlat, dates, server = "CHC")
 
 # Case 2: return a matrix
-r2 <- get_chirps(lonlat, dates, as.matrix = TRUE)
+r2 <- get_chirps(lonlat, dates, server = "CHC", as.matrix = TRUE)
 
 # Case 3: input SpatVector and return raster
 f <- system.file("ex/lux.shp", package = "terra")
 v <- vect(f)
-r3 <- get_chirps(v, dates, as.raster = TRUE)
+r3 <- get_chirps(v, dates, server = "CHC", as.raster = TRUE)
 
-# Case 4: using the server "ClimateSERV"
-r4 <- get_chirps(lonlat, dates, server = "ClimateSERV")
+# Case 4: input SpatExtent and return a raster within the extent
+area <- ext(c(-66, -64, -6, -4))
 
-# Case 5: from "ClimateSERV" and return as a matrix
-r5 <- get_chirps(lonlat, dates, server = "ClimateSERV", as.matrix = TRUE,
-                 operation = 4, dist = 0.1)
+dates <- c("2017-12-15", "2017-12-31")
+
+r4 <- get_chirps(area, dates, server = "CHC")
+
+# Case 5: using the server "ClimateSERV"
+r5 <- get_chirps(lonlat, dates, server = "ClimateSERV")
+
+# Case 6: from "ClimateSERV" and return as a matrix
+r6 <- get_chirps(lonlat, dates, server = "ClimateSERV", as.matrix = TRUE)
 
 \dontshow{\}) # examplesIf}
 }

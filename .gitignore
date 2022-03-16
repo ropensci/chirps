@@ -41,3 +41,5 @@ inst/paper/*.pdf
 /dev
 doc
 Meta
+/doc/
+/Meta/

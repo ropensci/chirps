@@ -176,6 +176,27 @@ get_chirts.SpatRaster <-
     
   }
 
+#' @rdname get_chirts
+#' @method get_chirts SpatExtent
+#' @export
+get_chirts.SpatExtent <- function(object, dates, var, as.raster = TRUE, ...) {
+  
+  # get CHIRTS GeoTiff files
+  rr <- .get_CHIRTS_tiles_CHC(dates, var, ...)
+  
+  result <- terra::crop(rr, y = object)
+  
+  if (isFALSE(as.raster)) {
+    
+    result <- as.matrix(result)
+    
+  }
+  
+  return(result)
+  
+}
+
+
 #' @noRd
 .get_CHIRTS_tiles_CHC <- function(dates,
                                   var,

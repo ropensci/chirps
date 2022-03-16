@@ -5,6 +5,7 @@
 \alias{get_chirts.default}
 \alias{get_chirts.SpatVector}
 \alias{get_chirts.SpatRaster}
+\alias{get_chirts.SpatExtent}
 \title{Get CHIRTS temperature data data}
 \usage{
 get_chirts(object, dates, var, ...)
@@ -14,6 +15,8 @@ get_chirts(object, dates, var, ...)
 \method{get_chirts}{SpatVector}(object, dates, var, as.raster = TRUE, ...)
 
 \method{get_chirts}{SpatRaster}(object, dates, var, as.raster = TRUE, ...)
+
+\method{get_chirts}{SpatExtent}(object, dates, var, as.raster = TRUE, ...)
 }
 \arguments{
 \item{object}{an object of class \code{\link[base]{data.frame}} (or any other

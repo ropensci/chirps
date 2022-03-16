@@ -27,7 +27,7 @@ any other object that can be coerced to \code{data.frame}),
 \item{operation}{optional, an integer that represents which type of
 statistical operation to perform on the dataset}
 
-\item{...}{further arguments passed to \code{\link[terra]{terra}} 
+\item{...}{additional arguments passed to \code{\link[terra]{terra}} 
 or \code{\link[sf]{sf}} methods
 See details}
 

@@ -30,7 +30,7 @@ statistical operation to perform on the dataset}
 \item{period}{an integer value for the period of ESI data, four weeks
 period = 1, twelve weeks = 2}
 
-\item{...}{further arguments passed to \code{\link[terra]{terra}} 
+\item{...}{additional arguments passed to \code{\link[terra]{terra}} 
 or \code{\link[sf]{sf}} methods
 See details}
 
