@@ -1,47 +1,43 @@
-
-# test_data.rda contains lat/lon and date values for the following tests
 load(test_path("test_data.rda"))
 
 # Test get_chirps() default method -----
-test_that("get_chirps() returns proper values", {
-  vcr::use_cassette("CHIRPS_default", {
-    x <- get_chirps(object = lonlat,
-                    dates = dates)
-  })
-  expect_named(x, c("id", "lon", "lat", "date", "chirps"))
-  expect_equal(nrow(x), 10)
-  expect_s3_class(x, c("chirps", "chirps_df", "data.frame"))
-})
+test_that("get_chirps() returns proper values",
+          {
+              x_df <-
+                get_chirps(data.frame(lonlat),
+                           dates = dates,
+                           server = "ClimateSERV")
+            expect_equal(x_df, chirps_df)
+            expect_named(x_df, names(chirps_df))
+            expect_equal(nrow(x_df), nrow(chirps_df))
+            expect_s3_class(x_df, class(chirps_df))
+          })
 
-# Test sf return data frame method -----
-coords <- st_as_sf(lonlat, coords = c("lon", "lat"))
+
+# Test get_chirps() 'sf' return data frame method -----
 test_that("get_chirps() sf method return df", {
-  vcr::use_cassette("CHIRPS_sf_method_return_df", {
-    x <- get_chirps(object = coords,
-                    dates = dates)
-  })
-  expect_named(x, c("id", "lon", "lat", "date", "chirps"))
-  expect_equal(nrow(x), 10)
-  expect_s3_class(x, c("chirps", "chirps_df", "data.frame"))
+  library("sf")
+  coords <- st_as_sf(lonlat, coords = c("lon", "lat"))
+    x_sf <- get_chirps(object = coords,
+                    dates = dates,
+                    server = "ClimateSERV")
+  expect_equal(x_sf$chirps, chirps_sf$chirps, tolerance = 0.001)
+  expect_named(x_sf, names(chirps_sf))
+  expect_equal(nrow(x_sf), nrow(chirps_sf))
+  expect_s3_class(x_sf, class(chirps_sf))
 })
 
-# Test sf return `sf` method -----
-test_that("get_chirps() sf method return sf", {
-  vcr::use_cassette("CHIRPS_sf_method_return_sf", {
-    x <- get_chirps(object = coords,
-                    dates = dates,
-                    as.sf = TRUE,
-                    server = "ClimateSERV")
-  })
-  expect_named(x,
-               c(
-                 "day_10957",
-                 "day_10958",
-                 "day_10959",
-                 "day_10960",
-                 "day_10961",
-                 "geometry"
-               ))
-  expect_equal(nrow(x), 2)
-  expect_s3_class(x, c("sf", "data.frame"))
-})
+# get chirps with geojson method
+# geojson <- as.geojson(coords)
+# 
+# test_that("geojson method", {
+#   vcr::use_cassette("geojson_method", {
+#     z <- suppressWarnings(get_chirps(geojson, dates, server = "ClimateSERV"))
+# 
+#     z <- round(z$chirps, 2)
+# 
+#     equal <- all(z == chirps$chirps)
+# 
+#     expect_true(equal)
+#   })
+# })
