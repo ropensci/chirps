@@ -16,7 +16,7 @@ on:
     - cron: "0 4 * * *"
 
 name: tic
-x
+
 jobs:
   all:
     runs-on: ${{ matrix.config.os }}
