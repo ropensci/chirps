@@ -6,10 +6,12 @@ on:
     branches:
     - main
     - master
+    - devel
   pull_request:
     branches:
     - main
     - master
+    - devel
   # for now, CRON jobs only run on the default branch of the repo (i.e. usually on master)
   schedule:
     # * is a special character in YAML so you have to quote this string
@@ -29,7 +31,7 @@ jobs:
         config:
           # use a different tic template type if you do not want to build on all listed platforms
           - { os: windows-latest, r: "release" }
-          - { os: macOS-latest, r: "release", pkgdown: "true", latex: "true" }
+          - { os: macOS-latest, r: "release", pkgdown: "false", latex: "true" }
           - { os: ubuntu-latest, r: "devel" }
           - { os: ubuntu-latest, r: "release" }
 
