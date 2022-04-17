@@ -107,8 +107,6 @@ get_esi.default <- function(object, dates, operation = 5, period = 1,
   
   result <- as.data.frame(result, stringsAsFactors = FALSE)
   
-  result[result == -9999] <- NA
-  
   class(result) <- c("chirps_df", class(result))
   
   return(result)
