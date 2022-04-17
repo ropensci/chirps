@@ -22,9 +22,9 @@ test_that("get_chirps() sf method return df", {
                      dates = dates,
                      server = "ClimateSERV")
   expect_equal(x_sf$chirps, chirps_sf$chirps, tolerance = 0.001)
-  expect_named(x_sf, names(chirps_sf))
-  expect_equal(nrow(x_sf), nrow(chirps_sf))
-  expect_s3_class(x_sf, class(chirps_sf))
+  expect_named(x_sf, names(chirps_df))
+  expect_equal(nrow(x_sf), nrow(chirps_df))
+  expect_s3_class(x_sf, class(chirps_df))
 })
 
 # get chirps with geojson method
