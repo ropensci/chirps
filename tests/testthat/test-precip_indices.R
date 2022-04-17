@@ -3,58 +3,96 @@
 load(test_path("test_data.rda"))
 
 # Test the default behaviour
-values <- c(3, 1, 1, 0, 
-            18.51, 27.77, 18.51, 18.51, 
-            27.77, 13.88, 2, 1, 0, 2, 
-            38.35, 76.71, 0, 0, 76.71, 38.35)
+values <-
+  c(
+    4.00000,
+    1.00000,
+    0.00000,
+    1.00000,
+    20.17695,
+    20.17695,
+    20.17695,
+    20.17695,
+    20.17695,
+    20.17695,
+    2.00000,
+    1.00000,
+    0.00000,
+    2.00000,
+    38.35423,
+    76.70845,
+    0.00000,
+    0.00000,
+    76.70845,
+    38.35423
+  )
 
 test_that("timespan FALSE", {
-  
-  p <- precip_indices(precip, timeseries = FALSE)
-  
-  v <- round(p$value, 2)
-  
-  equal <- all(v == values)
-  
-  expect_true(equal)
-  
+  p <- precip_indices(chirps_df, timeseries = FALSE)
+  expect_equal(p$value, values, tolerance = 0.01)
 })
 
 # The function can handle timeseries intervals
 # here it will return just one interval since we have only 5 days
-values2 <- c(3, 1, 0, 0, 9.26, 9.26, 9.26, 9.26, 9.26,
-             9.26, 1, 1, 0, 2, 38.35, 76.71, 0, 0, 76.71, 38.35)
+values2 <-
+  c(
+    4.00000,
+    0.00000,
+    0.00000,
+    0.00000,
+    0.00000,
+    0.00000,
+    0.00000,
+    0.00000,
+    0.00000,
+    0.00000,
+    1.00000,
+    1.00000,
+    0.00000,
+    2.00000,
+    38.35423,
+    76.70845,
+    0.00000,
+    0.00000,
+    76.70845,
+    38.35423
+  )
 
 test_that("timespan TRUE", {
-
-  p <- precip_indices(precip, timeseries = TRUE, intervals = 4)
-  
-  v <- round(p$value, 2)
-  
-  equal <- all(v == values2)
-  
-  expect_true(equal)
-  
+  p <- precip_indices(chirps_df, timeseries = TRUE, intervals = 4)
+  expect_equal(p$value, values2, tolerance = 0.001)
 })
 
 # The function can handle NAs
-values3 <- c(2, 1, 1, 0, 18.51, 27.77, 18.51, 18.51, 
-             27.77, 9.26, 2, 1, 0, 2, 38.35, 76.71, 0, 0, 76.71, 25.57)
+values3 <-
+  c(
+    2.00000,
+    1.00000,
+    0.00000,
+    1.00000,
+    20.17695,
+    20.17695,
+    20.17695,
+    20.17695,
+    20.17695,
+    10.08848,
+    2.00000,
+    1.00000,
+    0.00000,
+    2.00000,
+    38.35423,
+    76.70845,
+    0.00000,
+    0.00000,
+    76.70845,
+    25.56948
+  )
 
 test_that("accepts NAs", {
   
-  dt <- precip
-  
-  dt[c(2, 7), "chirps"] <- NA
-  
-  p <- precip_indices(dt)
-  
-  v <- round(p$value, 2)
-  
-  equal <- all(v == values3)
-  
-  expect_true(equal)
-  
+  chirps_df[c(2, 7), "chirps"] <- NA
+  p <- precip_indices(chirps_df)
+  expect_equal(p$value, values3, tolerance = 0.001)
 })
 
 # Get an error with non chirps data
