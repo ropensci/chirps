@@ -335,7 +335,7 @@
     cond1 <- as.integer(xmax - xmin) >= 0
     
     # no older than past date
-    cond2 <- xmin > past
+    cond2 <- xmin >= past
     
     # no later then present date
     cond3 <- xmax < present
