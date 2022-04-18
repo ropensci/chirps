@@ -22,3 +22,5 @@
 ^\.ccache$
 ^\.github$
 ^tic\.R$
+^.coverignore$
+
