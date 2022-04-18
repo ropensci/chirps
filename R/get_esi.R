@@ -171,10 +171,11 @@ get_esi.sf <- function(object, dates, operation = 5, period = 1,
   .validate_lonlat(lonlat, xlim = c(-180, 180), ylim = c(-50, 50))
   
   # validate and reformat dates
-  dates_inter <- .reformat_dates(dates, availability = c("2001-01-01", "0"))
+  dates_inter <-
+    .reformat_dates(dates, availability = c("2001-01-01", "0"))
   
   # get geojson strings from data.frame
-  gj <- as.geojson(object, ...)
+  gj <- as.geojson(object)
   
   class(gj) <- "character"
   
