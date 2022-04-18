@@ -30,7 +30,7 @@ statistical operation to perform on the dataset}
 \item{period}{an integer value for the period of ESI data, four weeks
 period = 1, twelve weeks = 2}
 
-\item{...}{additional arguments passed to \code{\link[terra]{terra}} 
+\item{...}{additional arguments passed to \code{\link[terra]{terra}}
 or \code{\link[sf]{sf}} methods
 See details}
 
@@ -70,8 +70,8 @@ ClimateSERV works with 'geojson' of type 'Polygon'. The input \code{object}
 \bold{nQuadSegs}: integer, number of segments per buffer quadrant
 }
 \note{
-\code{get_esi()} may return some warning messages given by 
-\code{\link[sf]{sf}}, please check the \CRANpkg{sf} documentation for 
+\code{get_esi()} may return some warning messages given by
+\code{\link[sf]{sf}}, please check the \CRANpkg{sf} documentation for
 possible issues.
 }
 \examples{

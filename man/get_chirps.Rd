@@ -40,10 +40,10 @@ any other object that can be coerced to \code{data.frame}),
 \item{dates}{a character of start and end dates in that order in the format
 "YYYY-MM-DD"}
 
-\item{server}{a character that represent the server source "CHC" or
+\item{server}{a character that represents the server source "CHC" or
 "ClimateSERV"}
 
-\item{...}{additional arguments passed to \code{\link[terra]{terra}} 
+\item{...}{additional arguments passed to \code{\link[terra]{terra}}
 or \code{\link[sf]{sf}} methods
 See details}
 
@@ -67,13 +67,13 @@ A matrix, raster or a data frame of \acronym{CHIRPS} data:
 }
 }
 \description{
-Get daily precipitation data from the "Climate Hazards Group". Two server 
- sources are available. The first, "CHC" (default) is recommended for 
- multiple data-points, while "ClimateSERV" is recommended when 
- few data-points are required (~ 50).
+Get daily precipitation data from the "Climate Hazards Group". Two server
+ sources are available. The first, "CHC" (default) is recommended for
+ multiple data-points, while "ClimateSERV" is recommended when few
+ data-points are required (~ 50).
 }
 \details{
-Data description at 
+Data description at
 \url{https://data.chc.ucsb.edu/products/CHIRPS-2.0/README-CHIRPS.txt}
 
 \strong{Additional arguments when using server = "CHC"}
@@ -98,7 +98,7 @@ Data description at
  }
 }
 \note{
-\code{get_chirps()} may return some warning messages given by 
+\code{get_chirps()} may return some warning messages given by
 \code{\link[sf]{sf}}, please look \CRANpkg{sf} documentation for possible
 issues.
 }
