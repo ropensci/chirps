@@ -207,30 +207,26 @@ get_imerg.sf <- function(object, dates, operation = 5, as.sf = FALSE, ...) {
 get_imerg.geojson <- function(object,
                               dates,
                               operation = 5,
-                              as.geojson = FALSE, ...) {
-  
-  # check for the geometry tag
-  if (isFALSE(grepl("geometry", object[[1]]))) {
-    stop("geometry tag is missing in the geojson object with no default \n")
-  }
+                              as.geojson = FALSE,
+                              ...) {
   
   type <- c("type\":\"Point", "type\":\"Polygon")
   
-  # check for supported types 
+  # check for supported types
   supp_type <- c(all(grepl(type[[1]], object)),
                  all(grepl(type[[2]], object)))
   
   if (isFALSE(any(supp_type))) {
-    stop("The geojson geometry type is not supported. 
-         Please provide a geojson of geometry type 'Point' or 'Polygon'\n")
+    stop(
+      "The geojson geometry type is not supported.
+         Please provide a geojson of geometry type 'Point' or 'Polygon'\n"
+    )
   }
   
   # if type Point
   if (all(grepl(type[[1]], object))) {
-    
     # get matrix with lonlat to validate later
-    lonlat <- lapply(object, function (x) {
-      
+    lonlat <- lapply(object, function(x) {
       # read as sf
       x <- sf::read_sf(x)
       
