@@ -40,7 +40,6 @@ Imports:
     stats,
     terra (>= 1.2-10)
 Suggests:
-    vcr (>= 0.6.0),
     climatrends,
     knitr,
     markdown,
