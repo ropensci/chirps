@@ -1,42 +1,42 @@
 #' Get CHIRPS precipitation data
-#' 
-#' Get daily precipitation data from the "Climate Hazards Group". Two server 
-#'  sources are available. The first, "CHC" (default) is recommended for 
-#'  multiple data-points, while "ClimateSERV" is recommended when 
-#'  few data-points are required (~ 50).  
-#' 
+#'
+#' Get daily precipitation data from the "Climate Hazards Group". Two server
+#'  sources are available. The first, "CHC" (default) is recommended for
+#'  multiple data-points, while "ClimateSERV" is recommended when few
+#'  data-points are required (~ 50).
+#'
 #' @param object input, an object of class \code{\link[base]{data.frame}} (or
 #'  any other object that can be coerced to \code{data.frame}),
 #'  \code{\link[terra]{SpatVector}}, \code{\link[terra]{SpatRaster}},
 #'  \code{\link[sf]{sf}} or \code{geojson}
 #' @param dates a character of start and end dates in that order in the format
 #'  "YYYY-MM-DD"
-#' @param server a character that represent the server source "CHC" or
+#' @param server a character that represents the server source "CHC" or
 #'  "ClimateSERV"
 #' @param as.sf logical, returns an object of class \code{\link[sf]{sf}}
 #' @param as.geojson logical, returns an object of class \code{geojson}
 #' @param as.raster logical, returns an object of class
 #' \code{\link[terra]{SpatRaster}}
 #' @param as.matrix logical, returns an object of class \code{matrix}
-#' @param ... additional arguments passed to \code{\link[terra]{terra}} 
+#' @param ... additional arguments passed to \code{\link[terra]{terra}}
 #' or \code{\link[sf]{sf}} methods
-#' See details 
-#'  
+#' See details
+#'
 #' @details
-#' Data description at 
+#' Data description at
 #' \url{https://data.chc.ucsb.edu/products/CHIRPS-2.0/README-CHIRPS.txt}
-#' 
+#'
 #' \strong{Additional arguments when using server = "CHC"}
-#' 
+#'
 #' \bold{resolution}: numeric, resolution of CHIRPS tiles either 0.05 (default)
 #'  or 0.25 degrees
-#' 
+#'
 #' \strong{Additional arguments when using server = "ClimateSERV"}
-#' 
+#'
 #' \bold{dist}: numeric, buffer distance for each \code{object} coordinate
-#' 
+#'
 #' \bold{nQuadSegs}: integer, number of segments per buffer quadrant
-#' 
+#'
 #' \bold{operation}: supported operations for ClimateSERV are:
 #'  \tabular{rll}{
 #'  \bold{operation}      \tab    \tab \bold{value}\cr
@@ -46,7 +46,7 @@
 #'  sum                   \tab =  \tab 4\cr
 #'  average               \tab =  \tab 5 (\emph{default value})\cr
 #'  }
-#' 
+#'
 #' @return A matrix, raster or a data frame of \acronym{CHIRPS} data:
 #' \describe{
 #'   \item{id}{the index for the rows in \code{object}}
@@ -55,52 +55,51 @@
 #'   \item{lat}{the latitude as provided in \code{object}}
 #'   \item{chirps}{the \acronym{CHIRPS} value in mm}
 #' }
-#' @references 
-#' 
+#' @references
+#'
 #' Funk C. et al. (2015). Scientific Data, 2, 150066.
 #'  \cr\doi{10.1038/sdata.2015.66}
-#' 
-#' @note \code{get_chirps()} may return some warning messages given by 
+#'
+#' @note \code{get_chirps()} may return some warning messages given by
 #' \code{\link[sf]{sf}}, please look \CRANpkg{sf} documentation for possible
 #' issues.
-#' 
+#'
 #' @examplesIf interactive()
 #' library("chirps")
 #' library("terra")
-#' 
+#'
 #' # Case 1: return as a data.frame
 #' dates <- c("2017-12-15","2017-12-31")
 #' lonlat <- data.frame(lon = c(-55.0281,-54.9857), lat = c(-2.8094, -2.8756))
-#' 
+#'
 #' r1 <- get_chirps(lonlat, dates, server = "CHC")
-#' 
+#'
 #' # Case 2: return a matrix
 #' r2 <- get_chirps(lonlat, dates, server = "CHC", as.matrix = TRUE)
-#' 
+#'
 #' # Case 3: input SpatVector and return raster
 #' f <- system.file("ex/lux.shp", package = "terra")
 #' v <- vect(f)
 #' r3 <- get_chirps(v, dates, server = "CHC", as.raster = TRUE)
-#' 
+#'
 #' # Case 4: input SpatExtent and return a raster within the extent
 #' area <- ext(c(-66, -64, -6, -4))
-#' 
+#'
 #' dates <- c("2017-12-15", "2017-12-31")
-#' 
+#'
 #' r4 <- get_chirps(area, dates, server = "CHC")
-#' 
+#'
 #' # Case 5: using the server "ClimateSERV"
 #' r5 <- get_chirps(lonlat, dates, server = "ClimateSERV")
-#' 
+#'
 #' # Case 6: from "ClimateSERV" and return as a matrix
 #' r6 <- get_chirps(lonlat, dates, server = "ClimateSERV", as.matrix = TRUE)
-#' 
-#' 
+#'
+#'
 #' @importFrom sf st_centroid read_sf st_geometry_type
 #' @importFrom terra crop extract rast
 #' @export
 get_chirps <- function(object, dates, server, ...) {
-  
   if (isFALSE(any(server %in% c("CHC", "ClimateSERV")))) {
     stop("Unknown server, please choose 'CHC' or 'ClimateSERV' \n")
   }
@@ -111,22 +110,20 @@ get_chirps <- function(object, dates, server, ...) {
 
 #' @rdname get_chirps
 #' @export
-get_chirps.default <- function(object, dates, server, 
+get_chirps.default <- function(object, dates, server,
                                as.matrix = FALSE, ...) {
-  
-  
   object <- as.data.frame(object)
   
   dots <- list(...)
   as.raster <- dots[["as.raster"]]
-
+  
   # validate lonlat to check if they are within the CHIRPS range lat -50, 50
   .validate_lonlat(object, xlim = c(-180, 180), ylim = c(-50, 50))
   
   if (server == "ClimateSERV") {
-    
     # validate dates
-    dates_inter <- .reformat_dates(dates, availability = c("1981-01-01", "0"))
+    dates_inter <-
+      .reformat_dates(dates, availability = c("1981-01-01", "0"))
     
     # get geojson strings from data.frame
     gj <- as.geojson(object, ...)
@@ -140,10 +137,12 @@ get_chirps.default <- function(object, dates, server,
       operation <- 5
     }
     
-    result <- .GET(gjson = gj, 
-                   dates = dates_inter, 
-                   operation = operation, 
-                   datatype = 0)
+    result <- .GET(
+      gjson = gj,
+      dates = dates_inter,
+      operation = operation,
+      datatype = 0
+    )
     
     names(result)[names(result) == "value"] <- "chirps"
     
@@ -166,7 +165,8 @@ get_chirps.default <- function(object, dates, server,
       })
       rr <- do.call(rbind, rr)
       
-      newnames <- paste0("chirps-v2.0.", gsub("-","\\.", result[[1]]$date))
+      newnames <-
+        paste0("chirps-v2.0.", gsub("-", "\\.", result[[1]]$date))
       
       result <- as.matrix(rr)
       
@@ -187,8 +187,8 @@ get_chirps.default <- function(object, dates, server,
     
     if (isTRUE(as.raster)) {
       result <- terra::crop(rr, y = object)
-      return(result) 
-    }else{
+      return(result)
+    } else{
       as.raster <- FALSE
     }
     
@@ -196,7 +196,7 @@ get_chirps.default <- function(object, dates, server,
       result <- terra::extract(rr, y = object, ...)
       result$ID <- NULL
       return(result)
-    }else{
+    } else{
       as.matrix <- FALSE
     }
     
@@ -205,11 +205,14 @@ get_chirps.default <- function(object, dates, server,
       result$ID <- NULL
       result <- c(t(result))
       
-      result <- data.frame(id = as.integer(rep(rownames(object), each = span)),
-                           lon = as.numeric(rep(object[,1], each = span)),
-                           lat = as.numeric(rep(object[,2], each = span)),
-                           date = rep(days, times = nrow(object)),
-                           chirps = as.numeric(result))
+      result <-
+        data.frame(
+          id = as.integer(rep(rownames(object), each = span)),
+          lon = as.numeric(rep(object[, 1], each = span)),
+          lat = as.numeric(rep(object[, 2], each = span)),
+          date = rep(days, times = nrow(object)),
+          chirps = as.numeric(result)
+        )
       
       class(result) <- c("chirps", "chirps_df", class(result))
       
@@ -224,8 +227,11 @@ get_chirps.default <- function(object, dates, server,
 #' @rdname get_chirps
 #' @method get_chirps SpatVector
 #' @export
-get_chirps.SpatVector <- function(object, dates, server = "CHC",
-                                  as.raster = TRUE, ...) {
+get_chirps.SpatVector <- function(object,
+                                  dates,
+                                  server = "CHC",
+                                  as.raster = TRUE,
+                                  ...) {
   dots <- list(...)
   as.matrix <- dots[["as.matrix"]]
   
@@ -251,29 +257,31 @@ get_chirps.SpatVector <- function(object, dates, server = "CHC",
     result$ID <- NULL
     result <- c(t(result))
     
-    result <- data.frame(id = as.integer(rep(ids, each = span)),
-                         lon = NA,
-                         lat = NA,
-                         date = rep(days, each = length(ids)),
-                         chirps = as.numeric(result))
+    result <- data.frame(
+      id = as.integer(rep(ids, each = span)),
+      lon = NA,
+      lat = NA,
+      date = rep(days, each = length(ids)),
+      chirps = as.numeric(result)
+    )
     
     class(result) <- c("chirps", "chirps_df", class(result))
     
     return(result)
     
   }
-    
-
 }
 
 #' @rdname get_chirps
 #' @method get_chirps SpatRaster
 #' @export
-get_chirps.SpatRaster <- function(object, dates, server = "CHC",
-                                  as.matrix = TRUE, as.raster = FALSE, ...) {
-  
+get_chirps.SpatRaster <- function(object,
+                                  dates,
+                                  server = "CHC",
+                                  as.matrix = TRUE,
+                                  as.raster = FALSE,
+                                  ...) {
   UseMethod("get_chirps", object = "SpatVector")
-  
 }
 
 
