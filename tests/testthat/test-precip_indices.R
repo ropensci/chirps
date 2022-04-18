@@ -1,6 +1,74 @@
 
-# test_data.rda contains lat/lon and date values for the following tests
-load(test_path("test_data.rda"))
+# setup values for testing all
+lonlat <-
+  structure(list(
+    lon = c(-60.03947, -54.7838828),
+    lat = c(-3.031387,
+            -2.4221716)
+  ),
+  class = "data.frame",
+  row.names = c(NA, -2L))
+dates <- c("2000-01-01", "2000-01-05")
+chirps_df <-
+  structure(
+    list(
+      id = c(1L, 1L, 1L, 1L, 1L, 2L, 2L, 2L, 2L, 2L),
+      lon = c(
+        -60.03947,
+        -60.03947,
+        -60.03947,
+        -60.03947,
+        -60.03947,
+        -54.7838828,
+        -54.7838828,
+        -54.7838828,
+        -54.7838828,
+        -54.7838828
+      ),
+      lat = c(
+        -3.031387,
+        -3.031387,
+        -3.031387,
+        -3.031387,
+        -3.031387,
+        -2.4221716,
+        -2.4221716,
+        -2.4221716,
+        -2.4221716,
+        -2.4221716
+      ),
+      date = structure(
+        c(
+          10957,
+          10958,
+          10959,
+          10960,
+          10961,
+          10957,
+          10958,
+          10959,
+          10960,
+          10961
+        ),
+        class = "Date"
+      ),
+      chirps = c(
+        0,
+        0,
+        0,
+        0,
+        20.1769542694092,
+        38.3542251586914,
+        0,
+        38.3542251586914,
+        0,
+        0
+      )
+    ),
+    class = c("chirps", "chirps_df", "data.frame"),
+    row.names = c(NA,
+                  -10L)
+  )
 
 # Test the default behaviour
 values <-
@@ -89,7 +157,6 @@ values3 <-
   )
 
 test_that("accepts NAs", {
-  
   chirps_df[c(2, 7), "chirps"] <- NA
   p <- precip_indices(chirps_df)
   expect_equal(p$value, values3, tolerance = 0.001)
@@ -97,7 +164,6 @@ test_that("accepts NAs", {
 
 # Get an error with non chirps data
 test_that("non chirps data", {
-  
   expect_error(precip_indices(object = airquality))
-
+  
 })
