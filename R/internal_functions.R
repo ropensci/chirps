@@ -150,7 +150,6 @@
                    httr::accept_json(), 
                    terminate_on = c(403, 404))
   
-  # nocov start
   p <- httr::content(p, as = "text", encoding = "UTF-8")
   
   if (p == -1) { #nocov start
