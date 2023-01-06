@@ -64,6 +64,13 @@ get_chirts <- function(object, dates, var, ...) {
 #' @export
 get_chirts.default <- function(object, dates, var, as.matrix = FALSE, ...){
   
+  if (isTRUE(grepl("Spat", class(object)))) {
+    
+    r <- get_chirps.SpatVector(object, dates, ...)
+    return(r)
+    
+  }
+
   dots <- list(...)
   
   as.raster <- dots[["as.raster"]]
@@ -193,27 +200,18 @@ get_chirts.SpatRaster <- function(object, dates, var, as.raster = TRUE, ...){
 #' @rdname get_chirts
 #' @method get_chirts SpatExtent
 #' @export
-get_chirts.SpatExtent <- function(object, dates, var, as.raster = TRUE, ...) {
+get_chirts.SpatExtent <- function(object, dates, var, as.raster = TRUE, ...){
   
-  # get CHIRTS GeoTiff files
-  rr <- .get_CHIRTS_tiles_CHC(dates, var, ...)
-  
-  result <- terra::crop(rr, y = object)
-  
-  if (isFALSE(as.raster)) {
-    
-    result <- as.matrix(result)
-    
-  }
-  
-  return(result)
+  UseMethod("get_chirts", object = "SpatVector")
   
 }
 
 
 #' @noRd
-.get_CHIRTS_tiles_CHC <- function(dates, var, resolution = 0.05, 
-                                  coverage = "global", interval = "daily", 
+.get_CHIRTS_tiles_CHC <- function(dates, var, 
+                                  resolution = 0.05, 
+                                  coverage = "global", 
+                                  interval = "daily", 
                                   format = "tifs", ...){
   
   stopifnot(var %in% c("HeatIndex", "RHum", "Tmax", "Tmin"))
