@@ -1,28 +1,31 @@
 {
-  "@context": [
-    "https://doi.org/10.5063/schema/codemeta-2.0",
-    "http://schema.org"
-  ],
+  "@context": "https://doi.org/10.5063/schema/codemeta-2.0",
   "@type": "SoftwareSourceCode",
   "identifier": "chirps",
-  "description": "API Client for the Climate Hazards Group InfraRed Precipitation\n  with Station Data 'CHIRPS'. The 'CHIRPS' data is a 35+ year quasi-global\n  rainfall data set, which incorporates 0.05 arc-degrees resolution satellite\n  imagery, and in-situ station data to create gridded rainfall time series for\n  trend analysis and seasonal drought monitoring. For more details on 'CHIRPS'\n  data please visit its official home page <https://www.chc.ucsb.edu/data/chirps>.\n  Requests from large time series (> 10 years) and large geographic coverage \n  (global scale) may take several minutes.",
-  "name": "chirps: API Client for CHIRPS",
+  "description": "API Client for the Climate Hazards Center 'CHIRPS' and 'CHIRTS'. The 'CHIRPS' data is a quasi-global (50°S – 50°N) high-resolution (0.05 arc-degrees) rainfall data set, which incorporates satellite imagery and in-situ station data to create gridded rainfall time series for trend analysis and seasonal drought monitoring. 'CHIRTS' is a quasi-global (60°S – 70°N), high-resolution data set of daily maximum and minimum temperatures. For more details on 'CHIRPS' and 'CHIRTS' data please visit its official home page <https://www.chc.ucsb.edu/data>.",
+  "name": "chirps: API Client for CHIRPS and CHIRTS",
   "codeRepository": "https://docs.ropensci.org/chirps/",
   "issueTracker": "https://github.com/ropensci/chirps/issues",
   "license": "https://spdx.org/licenses/MIT",
-  "version": "0.1.2.9000",
+  "version": "0.1.5",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
     "url": "https://r-project.org"
   },
-  "runtimePlatform": "R version 4.0.3 (2020-10-10)",
+  "runtimePlatform": "R version 4.2.1 (2022-06-23)",
+  "provider": {
+    "@id": "https://cran.r-project.org",
+    "@type": "Organization",
+    "name": "Comprehensive R Archive Network (CRAN)",
+    "url": "https://cran.r-project.org"
+  },
   "author": [
     {
       "@type": "Person",
       "givenName": "Kauê",
       "familyName": "de Sousa",
-      "email": "kaue.desousa@inn.no",
+      "email": "desousa.kaue@gmail.com",
       "@id": "https://orcid.org/0000-0002-7571-7845"
     },
     {
@@ -30,9 +33,20 @@
       "givenName": "Adam H.",
       "familyName": "Sparks",
       "@id": "https://orcid.org/0000-0002-0061-8359"
+    },
+    {
+      "@type": "Person",
+      "givenName": "Aniruddha",
+      "familyName": "Ghosh",
+      "@id": "https://orcid.org/0000-0003-3667-8019"
     }
   ],
   "contributor": [
+    {
+      "@type": "Person",
+      "givenName": "Pete",
+      "familyName": "Peterson"
+    },
     {
       "@type": "Person",
       "givenName": "William",
@@ -51,18 +65,28 @@
       "@id": "https://orcid.org/0000-0002-4491-4483"
     }
   ],
-  "copyrightHolder": {},
-  "funder": {},
   "maintainer": [
     {
       "@type": "Person",
       "givenName": "Kauê",
       "familyName": "de Sousa",
-      "email": "kaue.desousa@inn.no",
+      "email": "desousa.kaue@gmail.com",
       "@id": "https://orcid.org/0000-0002-7571-7845"
     }
   ],
   "softwareSuggestions": [
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "climatrends",
+      "name": "climatrends",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=climatrends"
+    },
     {
       "@type": "SoftwareApplication",
       "identifier": "knitr",
@@ -126,31 +150,31 @@
       "sameAs": "https://CRAN.R-project.org/package=vcr"
     }
   ],
-  "softwareRequirements": [
-    {
+  "softwareRequirements": {
+    "1": {
       "@type": "SoftwareApplication",
       "identifier": "R",
       "name": "R",
       "version": ">= 3.5.0"
     },
-    {
+    "2": {
       "@type": "SoftwareApplication",
       "identifier": "methods",
       "name": "methods"
     },
-    {
+    "3": {
       "@type": "SoftwareApplication",
-      "identifier": "crul",
-      "name": "crul",
+      "identifier": "httr",
+      "name": "httr",
       "provider": {
         "@id": "https://cran.r-project.org",
         "@type": "Organization",
         "name": "Comprehensive R Archive Network (CRAN)",
         "url": "https://cran.r-project.org"
       },
-      "sameAs": "https://CRAN.R-project.org/package=crul"
+      "sameAs": "https://CRAN.R-project.org/package=httr"
     },
-    {
+    "4": {
       "@type": "SoftwareApplication",
       "identifier": "jsonlite",
       "name": "jsonlite",
@@ -162,7 +186,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=jsonlite"
     },
-    {
+    "5": {
       "@type": "SoftwareApplication",
       "identifier": "sf",
       "name": "sf",
@@ -174,14 +198,27 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=sf"
     },
-    {
+    "6": {
       "@type": "SoftwareApplication",
       "identifier": "stats",
       "name": "stats"
-    }
-  ],
-  "contIntegration": "https://codecov.io/gh/ropensci/chirps",
-  "developmentStatus": "https://www.repostatus.org/#active",
+    },
+    "7": {
+      "@type": "SoftwareApplication",
+      "identifier": "terra",
+      "name": "terra",
+      "version": ">= 1.2-10",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=terra"
+    },
+    "SystemRequirements": null
+  },
+  "fileSize": "3086.717KB",
   "citation": [
     {
       "@type": "ScholarlyArticle",
@@ -230,22 +267,5 @@
         }
       }
     }
-  ],
-  "provider": {
-    "@id": "https://cran.r-project.org",
-    "@type": "Organization",
-    "name": "Comprehensive R Archive Network (CRAN)",
-    "url": "https://cran.r-project.org"
-  },
-  "relatedLink": [
-    "https://docs.ropensci.org/chirps/",
-    "https://CRAN.R-project.org/package=chirps"
-  ],
-  "fileSize": "5094.949KB",
-  "keywords": [
-    "climatology",
-    "precipitation-data",
-    "rstats",
-    "chirps"
   ]
 }
