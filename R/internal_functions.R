@@ -337,7 +337,7 @@
     cond2 <- xmin >= past
     
     # no later then present date
-    cond3 <- xmax < present
+    cond3 <- xmax <= present
     
     if (!all(cond1, cond2, cond3)) {
       stop(
