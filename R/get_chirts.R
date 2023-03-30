@@ -66,7 +66,8 @@ get_chirts.default <- function(object, dates, var, as.matrix = FALSE, ...){
   
   if (isTRUE(grepl("Spat", class(object)))) {
     
-    r <- get_chirps.SpatVector(object, dates, ...)
+   ## r <- get_chirps.SpatVector(object, dates, ...) modified by ecor on 20230329
+    r <- get_chirts.SpatVector(object, dates, var, as.matrix = as.matrix, ...)
     return(r)
     
   }
