@@ -66,7 +66,8 @@ as.geojson.default <- function(lonlat,
   })
   
   # and then into a geometry list column
-  lonlat <- sf::st_sfc(lonlat)
+  lonlat <- sf::st_sfc(lonlat,
+                       crs = "+proj=longlat +datum=WGS84 +ellps=WGS84 +towgs84=0,0,0")
   
   # set the buffer around the points
   lonlatb <- sf::st_buffer(lonlat,
@@ -74,7 +75,8 @@ as.geojson.default <- function(lonlat,
                            nQuadSegs = nQuadSegs)
   
   # transform into a sf object
-  lonlatb <- sf::st_as_sf(lonlatb)
+  lonlatb <- sf::st_as_sf(x = lonlatb)
+                          
   
   # write the geojson string
   tf <- tempfile(fileext = ".geojson")
