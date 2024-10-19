@@ -3,8 +3,7 @@
 lonlat <-
   structure(list(
     lon = c(-60.03947, -54.7838828),
-    lat = c(-3.031387,
-            -2.4221716)
+    lat = c(-3.031387, -2.4221716)
   ),
   class = "data.frame",
   row.names = c(NA, -2L))
@@ -25,11 +24,11 @@ chirts_values <-
 
 # Test get_chirts() default method -----
 test_that("get_chirts() returns proper values", {
-    x <- get_chirts(object = lonlat,
-                    dates = dates,
-                    var = "Tmax")
-    expect_equal(x$chirts, chirts_values, tolerance =  0.01)
-    expect_named(x, c("id", "lon", "lat", "date", "chirts"))
-    expect_equal(nrow(x), 10)
-    expect_s3_class(x, c("chirts", "chirts_df", "data.frame"))
-  })
+  x <- get_chirts(object = lonlat,
+                  dates = dates,
+                  var = "Tmax")
+  expect_equal(x$chirts, chirts_values, tolerance =  0.01)
+  expect_named(x, c("id", "lon", "lat", "date", "chirts"))
+  expect_equal(nrow(x), 10)
+  expect_s3_class(x, c("chirts", "chirts_df", "data.frame"))
+})

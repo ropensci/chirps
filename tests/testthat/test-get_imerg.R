@@ -1,4 +1,5 @@
 
+
 # setup for tests, expected values for all
 
 imerg_lonlat <- data.frame(lon = c(-55.0281, -54.9857),
@@ -44,34 +45,43 @@ imerg_values <-
 imerg_names <- c("id", "lon", "lat", "date", "imerg")
 
 # Test get_imerg() default method -----
-test_that("get_imerg() returns proper values",
-          {
-            x_df <- get_imerg(imerg_lonlat,
-                              dates = imerg_dates)
-            expect_equal(x_df$imerg, imerg_values, tolerance = 0.01)
-            expect_named(x_df, imerg_names)
-            expect_equal(nrow(x_df), 34)
-            expect_s3_class(x_df, "chirps_df")
-          })
+test_that("get_imerg() returns proper values", {
+  x_df <- get_imerg(imerg_lonlat, dates = imerg_dates)
+  expect_equal(x_df$imerg, imerg_values, tolerance = 0.01)
+  expect_named(x_df, imerg_names)
+  expect_equal(nrow(x_df), 34)
+  expect_s3_class(x_df, "chirps_df")
+})
 
+sf_coords <- st_as_sf(imerg_lonlat,
+                      coords = c("lon", "lat"),
+                      crs = "+proj=longlat +datum=WGS84 +ellps=WGS84 +towgs84=0,0,0")
 
 # Test get_imerg() 'sf' return data frame method -----
 test_that("get_imerg() sf method return df", {
   library("sf")
-  coords <- st_as_sf(imerg_lonlat, coords = c("lon", "lat"),
-                     crs = "+proj=longlat +datum=WGS84 +ellps=WGS84 +towgs84=0,0,0")
-  x_sf <- get_imerg(object = coords,
-                    dates = imerg_dates)
+  x_sf <- get_imerg(object = sf_coords, dates = imerg_dates)
   expect_equal(x_sf$imerg, imerg_values, tolerance = 0.01)
   expect_named(x_sf, imerg_names)
   expect_equal(nrow(x_sf), 34)
   expect_s3_class(x_sf, "chirps_df")
 })
 
+# get_imerg with sf method
+test_that("geojson method return sf", {
+  x_return_sf <- get_imerg(sf_coords, imerg_dates, as.sf = TRUE)
+  expect_s3_class(x_return_sf, "sf")
+})
+
+gjson <- as.geojson(imerg_lonlat)
 # get chirps with geojson method
 test_that("geojson method", {
-  gjson <- as.geojson(imerg_lonlat)
-  x_gjson <- get_imerg(gjson,
-                       imerg_dates)
+  x_gjson <- get_imerg(gjson, imerg_dates)
   expect_equal(x_gjson$imerg, imerg_values, tolerance = 0.01)
+})
+
+# get_imerg with geojson method
+test_that("geojson method return sf", {
+  x_return_gjson <- get_imerg(gjson, imerg_dates, as.geojson = TRUE)
+  expect_s3_class(x_return_gjson, "geojson")
 })
