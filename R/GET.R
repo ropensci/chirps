@@ -33,7 +33,7 @@
                  dates,
                  operation = NULL,
                  datatype = NULL) {
-  message("Fetching data from ClimateSERV \n")
+  message("\nFetching data from ClimateSERV \n")
   
   begindate <- dates[1]
   enddate <- dates[2]
@@ -59,7 +59,7 @@
   
   nids <- max(seq_along(ids))
   
-  message("Getting your request...\n")
+  message("\nGetting your request...\n")
   
   while (isFALSE(all(request_progress))) {
     request_progress <- lapply(ids, function(x) {

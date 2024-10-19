@@ -631,7 +631,7 @@ get_chirps.SpatExtent <- function(object,
                                   interval = "daily",
                                   format = "cogs",
                                   ...) {
-  message("Fetching data as GeoTIFF files from CHC server \n")
+  message("\nFetching data as GeoTIFF files from CHC server \n")
   # setup file names
   .validate_dates(dates)
   seqdate <-
@@ -647,7 +647,7 @@ get_chirps.SpatExtent <- function(object,
     }
   } else {
     resolution <- .05
-    message("Getting CHIRPS in a .05 deg resolution \n")
+    message("\nGetting CHIRPS in a .05 deg resolution \n")
   }
   
   resolution <- gsub("p0.", "p", paste0("p", resolution))
