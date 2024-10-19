@@ -142,7 +142,8 @@ as.geojson.sf <- function(lonlat,
                              ...)
     
     # transform into a sf object
-    lonlatb <- sf::st_as_sf(lonlatb)
+    lonlatb <- sf::st_as_sf(lonlatb,
+                            crs = "+proj=longlat +datum=WGS84 +ellps=WGS84 +towgs84=0,0,0")
   }
   
   if (type == "POLYGON") {
