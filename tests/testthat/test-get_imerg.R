@@ -47,8 +47,7 @@ imerg_names <- c("id", "lon", "lat", "date", "imerg")
 test_that("get_imerg() returns proper values",
           {
             x_df <- get_imerg(imerg_lonlat,
-                              dates = imerg_dates,
-                              server = "ClimateSERV")
+                              dates = imerg_dates)
             expect_equal(x_df$imerg, imerg_values, tolerance = 0.01)
             expect_named(x_df, imerg_names)
             expect_equal(nrow(x_df), 34)
@@ -62,8 +61,7 @@ test_that("get_imerg() sf method return df", {
   coords <- st_as_sf(imerg_lonlat, coords = c("lon", "lat"),
                      crs = "+proj=longlat +datum=WGS84 +ellps=WGS84 +towgs84=0,0,0")
   x_sf <- get_imerg(object = coords,
-                    dates = imerg_dates,
-                    server = "ClimateSERV")
+                    dates = imerg_dates)
   expect_equal(x_sf$imerg, imerg_values, tolerance = 0.01)
   expect_named(x_sf, imerg_names)
   expect_equal(nrow(x_sf), 34)
@@ -74,7 +72,6 @@ test_that("get_imerg() sf method return df", {
 test_that("geojson method", {
   gjson <- as.geojson(imerg_lonlat)
   x_gjson <- get_imerg(gjson,
-                       imerg_dates,
-                       server = "ClimateSERV")
+                       imerg_dates)
   expect_equal(x_gjson$imerg, imerg_values, tolerance = 0.01)
 })
