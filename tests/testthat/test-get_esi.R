@@ -15,7 +15,8 @@ test_that("get_esi() returns proper values", {
 })
 
 # Test sf data frame method -----
-coords <- sf::st_as_sf(esi_lonlat, coords = c("lon", "lat"))
+coords <- sf::st_as_sf(esi_lonlat, coords = c("lon", "lat"),
+                       crs = "+proj=longlat +datum=WGS84 +ellps=WGS84 +towgs84=0,0,0")
 
 test_that("get_esi() sf method return_df", {
   y <- get_esi(coords, esi_dates)

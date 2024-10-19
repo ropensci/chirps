@@ -59,7 +59,8 @@ test_that("get_imerg() returns proper values",
 # Test get_imerg() 'sf' return data frame method -----
 test_that("get_imerg() sf method return df", {
   library("sf")
-  coords <- st_as_sf(imerg_lonlat, coords = c("lon", "lat"))
+  coords <- st_as_sf(imerg_lonlat, coords = c("lon", "lat"),
+                     crs = "+proj=longlat +datum=WGS84 +ellps=WGS84 +towgs84=0,0,0")
   x_sf <- get_imerg(object = coords,
                     dates = imerg_dates,
                     server = "ClimateSERV")
