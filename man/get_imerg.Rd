@@ -52,7 +52,7 @@ The IMERG dataset provides near-real time global observations of rainfall at
  and -70 degrees.
 }
 \details{
-\bold{operation}: supported operations are:  
+\bold{operation}: supported operations are:
  \tabular{rll}{
  \bold{operation}      \tab    \tab \bold{value}\cr
  max                   \tab =  \tab 0\cr

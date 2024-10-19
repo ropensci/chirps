@@ -47,12 +47,12 @@ A data frame of \acronym{ESI} data:
 \item{esi}{the ESI value}
 }
 \description{
-Get evaporative stress index (\acronym{ESI}) from \acronym{SERVIR} Global
-via ClimateSERV \acronym{API} Client. \acronym{ESI} is available every four
- (or twelve) weeks from 2001 to present.
+Get evaporative stress index (\acronym{ESI}) from \acronym{SERVIR} Global via
+ClimateSERV \acronym{API} Client. \acronym{ESI} is available every four
+(or twelve) weeks from 2001 to present.
 The dataset may contain cloudy data which is returned as \code{NA}s.
 ClimateSERV works with 'geojson' of type 'Polygon'. The input \code{object}
- is then transformed into polygons with a small buffer area around the point.
+is then transformed into polygons with a small buffer area around the point.
 }
 \details{
 \bold{operation}: supported operations are:
@@ -82,8 +82,8 @@ lonlat <- data.frame(lon = c(-55.0281,-54.9857),
 
 dates <- c("2017-12-15","2018-06-20")
 
-# by default the function set a very small buffer around the points
-# which can return NAs due to cloudiness in ESI data
+# by default the function sets a very small buffer around the points which
+# can return NAs due to cloudiness in ESI data
 
 dt <- get_esi(lonlat, dates = dates)
 

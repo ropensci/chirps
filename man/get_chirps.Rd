@@ -25,18 +25,13 @@ get_chirps(object, dates, server, ...)
   ...
 )
 
-\method{get_chirps}{SpatExtent}(
-  object,
-  dates,
-  server = "CHC",
-  as.matrix = TRUE,
-  as.raster = FALSE,
-  ...
-)
+\method{get_chirps}{SpatExtent}(object, dates, server = "CHC", as.raster = TRUE, ...)
 
 \method{get_chirps}{sf}(object, dates, server, as.sf = FALSE, ...)
 
 \method{get_chirps}{geojson}(object, dates, server, as.geojson = FALSE, ...)
+
+\method{get_chirps}{SpatExtent}(object, dates, server = "CHC", as.raster = TRUE, ...)
 }
 \arguments{
 \item{object}{input, an object of class \code{\link[base]{data.frame}} (or
