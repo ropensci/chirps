@@ -22,5 +22,6 @@
 ^\.ccache$
 ^\.github$
 ^tic\.R$
-^.coverignore$
-
+^\.covrignore$
+^package-lock\.json$
+^LICENSE\.md$
