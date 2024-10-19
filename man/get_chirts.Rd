@@ -6,7 +6,7 @@
 \alias{get_chirts.SpatVector}
 \alias{get_chirts.SpatRaster}
 \alias{get_chirts.SpatExtent}
-\title{Get CHIRTS temperature data data}
+\title{Get CHIRTS temperature data}
 \usage{
 get_chirts(object, dates, var, ...)
 

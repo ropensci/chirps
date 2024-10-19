@@ -1,4 +1,4 @@
-#' Get CHIRTS temperature data data
+#' Get CHIRTS temperature data
 #'
 #' Get daily maximum and minimum temperature data from the "Climate Hazards
 #'  Group". CHIRTS-daily is a global 2-m temperature product that combines the
