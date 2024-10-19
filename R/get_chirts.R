@@ -61,59 +61,81 @@ get_chirts <- function(object, dates, var, ...) {
 
 #' @rdname get_chirts
 #' @export
-get_chirts.default <-
-  function(object, dates, var, as.matrix = FALSE, ...) {
-    dots <- list(...)
-    as.raster <- dots[["as.raster"]]
-    if (!isTRUE(as.raster))
-      as.raster <- FALSE
+get_chirts.default <- function(object, dates, var, as.matrix = FALSE, ...){
+  
+  if (isTRUE(grepl("Spat", class(object)))) {
     
-    object <- as.data.frame(object)
-    
-    .validate_lonlat(object, xlim = c(-180, 180), ylim = c(-60, 70))
-    
-    # get CHIRTS GeoTiff files
-    rr <- .get_CHIRTS_tiles_CHC(dates, var, ...)
-    
-    if (isTRUE(as.raster)) {
-      result <- terra::crop(rr, y = object)
-      return(result)
-    } else{
-      as.raster <- FALSE
-    }
-    
-    if (isTRUE(as.matrix)) {
-      result <- terra::extract(rr, y = object, ...)
-      result$ID <- NULL
-      return(result)
-    } else{
-      as.matrix <- FALSE
-    }
-    
-    if (all(isFALSE(as.matrix), isFALSE(as.raster))) {
-      result <- terra::extract(rr, y = object, ...)
-      result$ID <- NULL
-      result <- c(t(result))
-      days <-
-        seq.Date(as.Date(dates[1]), as.Date(dates[2]), by = "day")
-      span <- length(days)
-      
-      result <-
-        data.frame(
-          id = as.integer(rep(rownames(object), each = span)),
-          lon = as.numeric(rep(object[, 1], each = span)),
-          lat = as.numeric(rep(object[, 2], each = span)),
-          date = rep(days, each = nrow(object)),
-          chirts = as.numeric(result)
-        )
-      
-      class(result) <- c("chirps_df", class(result))
-      
-      return(result)
-      
-    }
+    r <- get_chirps.SpatVector(object, dates, ...)
+    return(r)
     
   }
+
+  dots <- list(...)
+  
+  as.raster <- dots[["as.raster"]]
+  if (!isTRUE(as.raster)) as.raster <- FALSE
+  
+  if ("sf" %in% class(object)) {
+    
+    nr <- dim(object)[[1]]
+    
+    # find the sf_column
+    index <- attr(object, "sf_column")
+    
+    # get the sf column
+    lonlat <- object[[index]]  
+    # unlist the sf_column
+    lonlat <- unlist(object[[index]])
+    
+    object <- matrix(lonlat,
+                   nrow = nr,
+                   ncol = 2, 
+                   byrow = TRUE, 
+                   dimnames = list(seq_len(nr), c("lon","lat")))
+  }
+  
+  object <- as.data.frame(object)
+  
+  .validate_lonlat(object, xlim = c(-180, 180), ylim = c(-60, 70))
+  
+  # get CHIRTS GeoTiff files
+  rr <- .get_CHIRTS_tiles_CHC(dates, var, ...)
+
+  if (isTRUE(as.raster)) {
+    result <- terra::crop(rr, y = object)
+    return(result) 
+  }else{
+    as.raster <- FALSE
+  }
+  
+  if (isTRUE(as.matrix)) {
+    result <- terra::extract(rr, y = object, ...)
+    result$ID <- NULL
+    return(result)
+  }else{
+    as.matrix <- FALSE
+  }
+  
+  if (all(isFALSE(as.matrix), isFALSE(as.raster))) {
+    result <- terra::extract(rr, y = object, ...)
+    result$ID <- NULL
+    result <- c(t(result))
+    days <- seq.Date(as.Date(dates[1]), as.Date(dates[2]), by = "day")
+    span <- length(days)
+    
+    result <- data.frame(id = as.integer(rep(rownames(object), each = span)),
+                         lon = as.numeric(rep(object[,1], each = span)),
+                         lat = as.numeric(rep(object[,2], each = span)),
+                         date = rep(days, each = nrow(object)),
+                         chirts = as.numeric(result))
+    
+    class(result) <- c("chirps_df", class(result))
+    
+    return(result)
+    
+  }
+  
+}
 
 
 #' @rdname get_chirts
@@ -179,20 +201,9 @@ get_chirts.SpatRaster <-
 #' @rdname get_chirts
 #' @method get_chirts SpatExtent
 #' @export
-get_chirts.SpatExtent <- function(object, dates, var, as.raster = TRUE, ...) {
+get_chirts.SpatExtent <- function(object, dates, var, as.raster = TRUE, ...){
   
-  # get CHIRTS GeoTiff files
-  rr <- .get_CHIRTS_tiles_CHC(dates, var, ...)
-  
-  result <- terra::crop(rr, y = object)
-  
-  if (isFALSE(as.raster)) {
-    
-    result <- as.matrix(result)
-    
-  }
-  
-  return(result)
+  UseMethod("get_chirts", object = "SpatVector")
   
 }
 

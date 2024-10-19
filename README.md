@@ -37,7 +37,7 @@ install_github("ropensci/chirps", build_vignettes = TRUE)
 
 ## Example
 
-Fetch CHIRPS data from three points across the *Tapajós* National Forest (Brazil) from Jan-2017 to Dec-2017. The default procedure will download the COG files from the CHIRPS server and handle it internally using the package `terra`. This is more interesting when dealing with hundreds of points and days.
+Fetch CHIRPS data from three points across the *Tapajós* National Forest (Brazil) from in Jan-2017. The default procedure will download the COG files from the CHIRPS server and handle it internally using the package `terra`. This is more interesting when dealing with hundreds of points and days. Data can be returned as a matrix using the argument `as.matrix = TRUE`.
 
 ```r
 library("chirps")
@@ -45,9 +45,9 @@ library("chirps")
 lonlat <- data.frame(lon = c(-55.0281,-54.9857, -55.0714),
                      lat = c(-2.8094, -2.8756, -3.5279))
 
-dates <- c("2017-01-01", "2017-12-31")
+dates <- c("2017-01-01", "2017-01-31")
 
-dat <- get_chirps(lonlat, dates, server = "CHC")
+dat <- get_chirps(lonlat, dates, server = "CHC", as.matrix = FALSE)
 
 ```
 
@@ -59,9 +59,9 @@ library("chirps")
 lonlat <- data.frame(lon = c(-55.0281,-54.9857, -55.0714),
                      lat = c(-2.8094, -2.8756, -3.5279))
 
-dates <- c("2017-01-01", "2017-12-31")
+dates <- c("2017-01-01", "2017-01-31")
 
-dat <- get_chirps(lonlat, dates, server = "ClimateSERV")
+dat <- get_chirps(lonlat, dates, server = "ClimateSERV", as.matrix = FALSE)
 
 ```
 

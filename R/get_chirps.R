@@ -113,9 +113,19 @@ get_chirps <- function(object, dates, server, ...) {
 #' @export
 get_chirps.default <- function(object, dates, server,
                                as.matrix = FALSE, ...) {
+  
+  
+  if (isTRUE(grepl("Spat", class(object)))) {
+    
+   r <- get_chirps.SpatVector(object, dates, ...)
+   return(r)
+    
+  }
+  
   object <- as.data.frame(object)
   
   dots <- list(...)
+  
   as.raster <- dots[["as.raster"]]
   
   # validate lonlat to check if they are within the CHIRPS range lat -50, 50
@@ -285,6 +295,15 @@ get_chirps.SpatRaster <- function(object,
   UseMethod("get_chirps", object = "SpatVector")
 }
 
+
+#' @rdname get_chirps
+#' @method get_chirps SpatExtent
+#' @export
+get_chirps.SpatExtent <- function(object, dates, server = "CHC",
+                                  as.matrix = TRUE, as.raster = FALSE, ...) {
+  
+  UseMethod("get_chirps", object = "SpatVector")
+}
 
 
 #' @rdname get_chirps

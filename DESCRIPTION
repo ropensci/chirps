@@ -1,9 +1,9 @@
 Package: chirps
 Type: Package
 Title: API Client for CHIRPS and CHIRTS
-Version: 0.1.4.001
+Version: 0.1.5
 Authors@R: c(person("Kauê", "de Sousa", 
-        email = "kaue.desousa@inn.no", role = c("aut", "cre"),
+        email = "desousa.kaue@gmail.com", role = c("aut", "cre"),
         comment = c(ORCID = "0000-0002-7571-7845")), 
         person("Adam H.", "Sparks", role = c("aut"),
         comment = c(ORCID = "0000-0002-0061-8359")),
@@ -46,6 +46,6 @@ Suggests:
     rmarkdown,
     testthat (>= 3.0.0)
 Language: en-GB
-RoxygenNote: 7.1.2
+RoxygenNote: 7.2.1
 VignetteBuilder: knitr
 Config/testthat/edition: 3
