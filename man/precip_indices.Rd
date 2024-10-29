@@ -2,7 +2,7 @@
 % Please edit documentation in R/precip_indices.R
 \name{precip_indices}
 \alias{precip_indices}
-\title{Compute precipitation indices over a time series.}
+\title{Compute precipitation indices over a time series}
 \usage{
 precip_indices(object, timeseries = FALSE, intervals = NULL)
 }
@@ -17,7 +17,7 @@ observation or \code{TRUE} for a time series based on \var{intervals}}
 \var{timeseries} = \code{TRUE}}
 }
 \value{
-A dataframe with precipitation indices:
+A data frame with precipitation indices:
 \item{MLDS}{maximum length of consecutive dry day, rain < 1 mm (days)}
 \item{MLWS}{maximum length of consecutive wet days, rain >= 1 mm (days)}
 \item{R10mm}{number of heavy precipitation days 10 >= rain < 20 mm (days)}
@@ -31,7 +31,7 @@ A dataframe with precipitation indices:
  number of wet days (mm/days)}
 }
 \description{
-Compute precipitation indices over a time series.
+Compute precipitation indices over a time series
 }
 \examples{
 \dontshow{if (interactive()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}

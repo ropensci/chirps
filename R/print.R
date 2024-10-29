@@ -9,7 +9,7 @@ print.chirps_df <- function(x, ...){
   })
   
   classes <- as.vector(unlist(classes))
-  class_abb = c(list = "<list>", integer = "<int>", numeric = "<dbl>", 
+  class_abb <- c(list = "<list>", integer = "<int>", numeric = "<dbl>", 
                 character = "<chr>", Date = "<date>", complex = "<cpl>", 
                 factor = "<fct>", POSIXct = "<POSc>", logical = "<lgl>", 
                 IDate = "<IDat>", integer64 = "<i64>", raw = "<raw>", 

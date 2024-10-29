@@ -150,7 +150,6 @@
                    httr::accept_json(), 
                    terminate_on = c(403, 404))
   
-  # nocov start
   p <- httr::content(p, as = "text", encoding = "UTF-8")
   
   if (p == -1) { #nocov start
@@ -332,13 +331,13 @@
     }
     
     # last given date should be higher than first
-    cond1 <- as.integer(xmax - xmin) > 1
+    cond1 <- as.integer(xmax - xmin) >= 0
     
     # no older than past date
-    cond2 <- xmin > past
+    cond2 <- xmin >= past
     
     # no later then present date
-    cond3 <- xmax < present
+    cond3 <- xmax <= present
     
     if (!all(cond1, cond2, cond3)) {
       stop(
@@ -475,4 +474,19 @@
   
   return(gjson)
   
+}
+
+#' Add %notin% function
+#'
+#' Negates `%in%` for easier (mis)matching.
+#'
+#' @param x A character string to match.
+#' @param table A table containing values to match `x` against.
+#'
+#' @return A logical vector, indicating if a mismatch was located for any
+#'  element of `x`: thus the values are `TRUE` or `FALSE` and never `NA`.
+#' @keywords internal
+#' @noRd
+`%notin%` <- function(x, table) {
+  match(x, table, nomatch = 0L) == 0L
 }

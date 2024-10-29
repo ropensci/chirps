@@ -5,7 +5,8 @@
 [![codecov](https://codecov.io/gh/ropensci/chirps/branch/master/graph/badge.svg)](https://codecov.io/gh/ropensci/chirps)
 [![Project Status](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
 [![DOI](https://zenodo.org/badge/225693680.svg)](https://zenodo.org/badge/latestdoi/225693680)
-[![tic](https://github.com/ropensci/chirps/workflows/tic/badge.svg?branch=master)](https://github.com/ropensci/chirps/actions)
+[![R-CMD-check](https://github.com/ropensci/chirps/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/ropensci/chirps/actions/workflows/R-CMD-check.yaml)
+[![Codecov test coverage](https://codecov.io/gh/ropensci/chirps/graph/badge.svg)](https://app.codecov.io/gh/ropensci/chirps)
 <!-- badges: end -->
 
 # *chirps*: API Client for CHIRPS and CHIRTS <img align="right" src="man/figures/logo.png">

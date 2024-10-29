@@ -6,15 +6,16 @@
 \alias{as.geojson.sf}
 \title{Methods to coerce geographical coordinates into a geojson polygon}
 \usage{
-as.geojson(lonlat, dist = 1e-05, nQuadSegs = 2L, ...)
+as.geojson(lonlat, dist = 0.00001, nQuadSegs = 2L, ...)
 
-\method{as.geojson}{default}(lonlat, dist = 1e-05, nQuadSegs = 2L, ...)
+\method{as.geojson}{default}(lonlat, dist = 0.00001, nQuadSegs = 2L, ...)
 
-\method{as.geojson}{sf}(lonlat, dist = 1e-05, nQuadSegs = 2L, ...)
+\method{as.geojson}{sf}(lonlat, dist = 0.00001, nQuadSegs = 2L, ...)
 }
 \arguments{
-\item{lonlat}{a data.frame or matrix with geographical coordinates lonlat, in 
-that order, or an object of class 'sf' with geometry type 'POINT' or 'POLYGON'}
+\item{lonlat}{a \code{data.frame} or matrix with geographical coordinates
+'lonlat', in that order, or an object of class \code{\link[sf]{sf}} with
+geometry type 'POINT' or 'POLYGON'}
 
 \item{dist}{numeric, buffer distance for all \code{lonlat}}
 
@@ -26,8 +27,8 @@ that order, or an object of class 'sf' with geometry type 'POINT' or 'POLYGON'}
 An object of class 'geosjon' for each row in \code{lonlat}
 }
 \description{
-Take single points from geographical coordinates and coerce into a
-geojson of geometry 'Polygon'
+Take single points from geographical coordinates and coerce into a geojson of
+ geometry 'Polygon'
 }
 \examples{
 \dontshow{if (interactive()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}

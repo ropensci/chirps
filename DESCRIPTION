@@ -1,38 +1,38 @@
-Package: chirps
 Type: Package
+Package: chirps
 Title: API Client for CHIRPS and CHIRTS
 Version: 0.1.5
-Authors@R: c(person("Kauê", "de Sousa", 
-        email = "desousa.kaue@gmail.com", role = c("aut", "cre"),
-        comment = c(ORCID = "0000-0002-7571-7845")), 
-        person("Adam H.", "Sparks", role = c("aut"),
-        comment = c(ORCID = "0000-0002-0061-8359")),
-        person("Aniruddha", "Ghosh", role = c("aut"),
-        comment = c(ORCID = "0000-0003-3667-8019")),
-        person("Pete", "Peterson", role = "ctb",
-        comment = c("API Client implementation")),
-        person("William", "Ashmall", role = "ctb",
-        comment = c("API Client implementation")),
-        person("Jacob", "van Etten", role = c("ths"),
-        comment = c(ORCID = "0000-0001-7554-2558")),
-        person("Svein Ø.", "Solberg", role = c("ths"),
-        comment = c(ORCID = "0000-0002-4491-4483")))
+Authors@R: c(
+    person("Kauê", "de Sousa", , "desousa.kaue@gmail.com", role = c("aut", "cre"),
+           comment = c(ORCID = "0000-0002-7571-7845")),
+    person("Adam H.", "Sparks", role = "aut",
+           comment = c(ORCID = "0000-0002-0061-8359")),
+    person("Aniruddha", "Ghosh", role = "aut",
+           comment = c(ORCID = "0000-0003-3667-8019")),
+    person("Pete", "Peterson", role = "ctb",
+           comment = "API Client implementation"),
+    person("William", "Ashmall", role = "ctb",
+           comment = "API Client implementation"),
+    person("Jacob", "van Etten", role = "ths",
+           comment = c(ORCID = "0000-0001-7554-2558")),
+    person("Svein Ø.", "Solberg", role = "ths",
+           comment = c(ORCID = "0000-0002-4491-4483"))
+  )
+Description: API Client for the Climate Hazards Center 'CHIRPS' and
+    'CHIRTS'.  The 'CHIRPS' data is a quasi-global (50°S – 50°N)
+    high-resolution (0.05 arc-degrees) rainfall data set, which
+    incorporates satellite imagery and in-situ station data to create
+    gridded rainfall time series for trend analysis and seasonal drought
+    monitoring. 'CHIRTS' is a quasi-global (60°S – 70°N), high-resolution
+    data set of daily maximum and minimum temperatures. For more details
+    on 'CHIRPS' and 'CHIRTS' data please visit its official home page
+    <https://www.chc.ucsb.edu/data>.
+License: MIT + file LICENSE
 URL: https://docs.ropensci.org/chirps/
 BugReports: https://github.com/ropensci/chirps/issues
-Description: API Client for the Climate Hazards Center 'CHIRPS' and 'CHIRTS'. 
-  The 'CHIRPS' data is a quasi-global (50°S – 50°N) high-resolution 
-  (0.05 arc-degrees) rainfall data set, which incorporates satellite imagery 
-  and in-situ station data to create gridded rainfall time series for trend 
-  analysis and seasonal drought monitoring. 'CHIRTS' is a quasi-global 
-  (60°S – 70°N), high-resolution data set of daily maximum and minimum
-  temperatures. For more details on 'CHIRPS' and 'CHIRTS' data please visit 
-  its official home page <https://www.chc.ucsb.edu/data>.
-License: MIT + file LICENSE
-Encoding: UTF-8
-LazyData: true
 Depends: 
-    R (>= 3.5.0), 
-    methods
+    methods,
+    R (>= 3.5.0)
 Imports:
     httr,
     jsonlite,
@@ -44,8 +44,11 @@ Suggests:
     knitr,
     markdown,
     rmarkdown,
-    testthat (>= 2.1.0),
-    vcr (>= 0.5)
+    testthat (>= 3.0.0)
+VignetteBuilder: 
+    knitr
+Config/testthat/edition: 3
+Encoding: UTF-8
 Language: en-GB
-RoxygenNote: 7.2.1
-VignetteBuilder: knitr
+LazyData: true
+RoxygenNote: 7.3.2

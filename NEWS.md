@@ -1,7 +1,18 @@
 chirps 0.1.4.001 (2022-01-15) 
 =========================
 
-### ENHACEMENTS 
+### BUG FIXES
+
+* Fixes bug where the first and last dates requested are not available as per <https://github.com/ropensci/chirps/issues/46> and <https://github.com/ropensci/chirps/issues/50> 
+
+* Fixes mismatched brackets in documentation
+
+* Fixes bug where geojson objects were not allowed, <https://github.com/ropensci/chirps/commit/1cfb099d94e1b61aed5a3d372ea49b745f4bcc92>
+
+chirps 0.1.4.001 (2022-01-15) 
+=========================
+
+### ENHANCEMENTS  
 
 * Methods for objects of class "SpatExtent" in `get_chirps()` and `get_chirts()` to return a raster within a given area 
 

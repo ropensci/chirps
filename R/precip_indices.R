@@ -1,4 +1,4 @@
-#' Compute precipitation indices over a time series.
+#' Compute precipitation indices over a time series
 #'
 #' @param object an object of class \code{chirps} as provided by
 #'  \code{\link{get_chirps}}
@@ -6,7 +6,7 @@
 #'  observation or \code{TRUE} for a time series based on \var{intervals}
 #' @param intervals integer no lower than 5, for the days intervals when
 #'  \var{timeseries} = \code{TRUE}
-#' @return A dataframe with precipitation indices:
+#' @return A data frame with precipitation indices:
 #' \item{MLDS}{maximum length of consecutive dry day, rain < 1 mm (days)}
 #' \item{MLWS}{maximum length of consecutive wet days, rain >= 1 mm (days)}
 #' \item{R10mm}{number of heavy precipitation days 10 >= rain < 20 mm (days)}
@@ -309,8 +309,7 @@ precip_indices <- function(object, timeseries = FALSE, intervals = NULL) {
   
   r5day <- NULL
   
-  for (i in 1:(l-4)){
-    
+  for (i in 1:(l - 4)) {
     r5day <- cbind(r5day, sum(object[i:(i + 4)], na.rm = TRUE))
     
   }

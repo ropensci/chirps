@@ -17,8 +17,8 @@ get_esi(object, dates, operation = 5, period = 1, ...)
 }
 \arguments{
 \item{object}{input, an object of class \code{\link[base]{data.frame}} (or
-any other object that can be coerced to data.frame), \code{\link[terra]{SpatVector}}, 
-\code{\link[terra]{SpatRaster}}, \code{\link[terra]{SpatExtent}},
+any other object that can be coerced to \code{data.frame}),
+\code{\link[terra]{SpatVector}}, \code{\link[terra]{SpatRaster}},
 \code{\link[sf]{sf}} or \code{geojson}}
 
 \item{dates}{a character of start and end dates in that order in the format
@@ -27,10 +27,10 @@ any other object that can be coerced to data.frame), \code{\link[terra]{SpatVect
 \item{operation}{optional, an integer that represents which type of
 statistical operation to perform on the dataset}
 
-\item{period}{an integer value for the period of ESI data, 
-four weeks period = 1, twelve weeks = 2}
+\item{period}{an integer value for the period of ESI data, four weeks
+period = 1, twelve weeks = 2}
 
-\item{...}{additional arguments passed to \code{\link[terra]{terra}} 
+\item{...}{additional arguments passed to \code{\link[terra]{terra}}
 or \code{\link[sf]{sf}} methods
 See details}
 
@@ -47,15 +47,15 @@ A data frame of \acronym{ESI} data:
 \item{esi}{the ESI value}
 }
 \description{
-Get evaporative stress index (\acronym{ESI}) from \acronym{SERVIR} Global
-via ClimateSERV \acronym{API} Client. \acronym{ESI} is available every four
- (or twelve) weeks from 2001 to present.
+Get evaporative stress index (\acronym{ESI}) from \acronym{SERVIR} Global via
+ClimateSERV \acronym{API} Client. \acronym{ESI} is available every four
+(or twelve) weeks from 2001 to present.
 The dataset may contain cloudy data which is returned as \code{NA}s.
-ClimateSERV works with geojson of type 'Polygon'. The input \code{object} is
- then transformed into polygons with a small buffer area around the point.
+ClimateSERV works with 'geojson' of type 'Polygon'. The input \code{object}
+is then transformed into polygons with a small buffer area around the point.
 }
 \details{
-\bold{operation}: supported operations are:  
+\bold{operation}: supported operations are:
  \tabular{rll}{
  \bold{operation}      \tab    \tab \bold{value}\cr
  max                   \tab =  \tab 0\cr
@@ -70,8 +70,8 @@ ClimateSERV works with geojson of type 'Polygon'. The input \code{object} is
 \bold{nQuadSegs}: integer, number of segments per buffer quadrant
 }
 \note{
-get_esi may return some warning messages given by 
-\code{\link[sf]{sf}}, please look sf documentation for 
+\code{get_esi()} may return some warning messages given by
+\code{\link[sf]{sf}}, please check the \CRANpkg{sf} documentation for
 possible issues.
 }
 \examples{
@@ -82,8 +82,8 @@ lonlat <- data.frame(lon = c(-55.0281,-54.9857),
 
 dates <- c("2017-12-15","2018-06-20")
 
-# by default the function set a very small buffer around the points
-# which can return NAs due to cloudiness in ESI data
+# by default the function sets a very small buffer around the points which
+# can return NAs due to cloudiness in ESI data
 
 dt <- get_esi(lonlat, dates = dates)
 
