@@ -231,7 +231,7 @@ get_chirts.SpatExtent <- function(object, dates, var, as.raster = TRUE, ...){
   
   # year range
   yrange <- seq(1983, 2016, 1)
-  if (unique(years) %notin% yrange) {
+  if (any(unique(years) %notin% yrange)) {
     stop(call. = FALSE,
          "CHIRTS data is currently available from 1983 to 2016. ",
          "Soon available to near-present.")
