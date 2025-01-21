@@ -111,7 +111,7 @@ get_chirts.default <- function(object, dates, var, as.matrix = FALSE, ...){
   if (isTRUE(as.matrix)) {
     result <- terra::extract(rr, y = object, ...)
     result$ID <- NULL
-    return(result)
+    return(as.matrix(result))
   }else{
     as.matrix <- FALSE
   }
