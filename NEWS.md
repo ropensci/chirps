@@ -1,3 +1,8 @@
+chirps 1.1 (2025-11-24) 
+=========================
+
+* Housekeeping version to refresh libraries and formats as part of CRAN guidelines updates.
+
 chirps 0.1.4.001 (2022-01-15) 
 =========================
 

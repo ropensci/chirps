@@ -20,27 +20,27 @@
 #' @examples
 #' example("tapajos", package = "chirps")
 #'
-#' dates <- c("05/01/2017", "01/31/2018")
+#' dates = c("05/01/2017", "01/31/2018")
 #'
-#' operation <- 5
+#' operation = 5
 #'
-#' datatype <- 29
+#' datatype = 29
 #'
 #' chirps:::.GET(gjson, dates, operation, datatype)
 #'
 #'@noRd
-.GET <- function(gjson,
+.GET = function(gjson,
                  dates,
                  operation = NULL,
                  datatype = NULL) {
   message("\nFetching data from ClimateSERV \n")
   
-  begindate <- dates[1]
-  enddate <- dates[2]
+  begindate = dates[1]
+  enddate = dates[2]
   
   # submit data request and get ids
-  ids <- lapply(gjson, function(x) {
-    i <- .send_request(
+  ids = lapply(gjson, function(x) {
+    i = .send_request(
       datatype = datatype,
       begintime = begindate,
       endtime = enddate,
@@ -55,42 +55,42 @@
   
   # check request progress and wait
   # until the request is done by the server
-  request_progress <- seq_along(ids) == FALSE
+  request_progress = seq_along(ids) == FALSE
   
-  nids <- max(seq_along(ids))
+  nids = max(seq_along(ids))
   
   message("\nGetting your request...\n")
   
   while (isFALSE(all(request_progress))) {
-    request_progress <- lapply(ids, function(x) {
-      p <- .get_request_progress(x)
+    request_progress = lapply(ids, function(x) {
+      p = .get_request_progress(x)
       
     })
     
-    request_progress <- unlist(request_progress)
+    request_progress = unlist(request_progress)
     
   }
   
   # get data from request
-  result <- lapply(ids, function(x) {
-    d <- .get_data_from_request(id = x)
+  result = lapply(ids, function(x) {
+    d = .get_data_from_request(id = x)
     
     return(d)
     
   })
   
   # define ids
-  ids <- NULL
+  ids = NULL
   for (i in seq_along(result)) {
-    nr <- dim(result[[i]])[[1]]
+    nr = dim(result[[i]])[[1]]
     
-    ids <- c(ids, rep(i, nr))
+    ids = c(ids, rep(i, nr))
     
   }
   
-  result <- do.call("rbind", result)
+  result = do.call("rbind", result)
   
-  nr <- dim(result)[[1]]
+  nr = dim(result)[[1]]
   
   if (nr == 0) {
     stop("Failed to get valid values,
@@ -99,27 +99,27 @@
   }
   
   # add ids
-  result$id <- ids
+  result$id = ids
   
   # transform dates to the original format as input
-  dat <- strsplit(result$date, "/")
-  dat <- do.call("rbind", dat)
-  dat <- paste(dat[, 3], dat[, 1], dat[, 2], sep = "-")
-  result$date <- as.Date(dat, format = "%Y-%m-%d")
+  dat = strsplit(result$date, "/")
+  dat = do.call("rbind", dat)
+  dat = paste(dat[, 3], dat[, 1], dat[, 2], sep = "-")
+  result$date = as.Date(dat, format = "%Y-%m-%d")
   
-  names(result) <- c("date", "value", "id")
+  names(result) = c("date", "value", "id")
   
-  rownames(result) <- seq_len(nr)
+  rownames(result) = seq_len(nr)
   
-  result <- result[, c("id", "date", "value")]
+  result = result[, c("id", "date", "value")]
   
-  result <- result[order(result$date),]
+  result = result[order(result$date),]
   
-  result <- result[order(result$id),]
+  result = result[order(result$id),]
   
-  result[result == -9999] <- NA
+  result[result == -9999] = NA
   
-  class(result) <- union("chirps_df", class(result))
+  class(result) = union("chirps_df", class(result))
   
   return(result)
   

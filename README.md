@@ -42,12 +42,12 @@ Fetch CHIRPS data from three points across the *Tapajós* National Forest (Brazi
 ```r
 library("chirps")
 
-lonlat <- data.frame(lon = c(-55.0281,-54.9857, -55.0714),
-                     lat = c(-2.8094, -2.8756, -3.5279))
+lonlat = data.frame(lon = c(-55.0281,-54.9857, -55.0714),
+                    lat = c(-2.8094, -2.8756, -3.5279))
 
-dates <- c("2017-01-01", "2017-01-31")
+dates = c("2017-01-01", "2017-01-31")
 
-dat <- get_chirps(lonlat, dates, server = "CHC", as.matrix = FALSE)
+dat = get_chirps(lonlat, dates, server = "CHC", as.matrix = FALSE)
 
 ```
 
@@ -56,12 +56,12 @@ For a faster download of few datapoints (~ 10 datapoints), the argument `server 
 ```r
 library("chirps")
 
-lonlat <- data.frame(lon = c(-55.0281,-54.9857, -55.0714),
-                     lat = c(-2.8094, -2.8756, -3.5279))
+lonlat = data.frame(lon = c(-55.0281,-54.9857, -55.0714),
+                    lat = c(-2.8094, -2.8756, -3.5279))
 
-dates <- c("2017-01-01", "2017-01-31")
+dates = c("2017-01-01", "2017-01-31")
 
-dat <- get_chirps(lonlat, dates, server = "ClimateSERV", as.matrix = FALSE)
+dat = get_chirps(lonlat, dates, server = "ClimateSERV", as.matrix = FALSE)
 
 ```
 

@@ -35,12 +35,12 @@ Compute precipitation indices over a time series
 }
 \examples{
 \dontshow{if (interactive()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
-lonlat <- data.frame(lon = c(-55.0281,-54.9857),
+lonlat = data.frame(lon = c(-55.0281,-54.9857),
                      lat = c(-2.8094, -2.8756))
 
-dates <- c("2017-12-15", "2017-12-31")
+dates = c("2017-12-15", "2017-12-31")
 
-dt <- get_chirps(lonlat, dates, server = "ClimateSERV")
+dt = get_chirps(lonlat, dates, server = "ClimateSERV")
 
 # take the indices for the entire period
 precip_indices(dt, timeseries = FALSE)

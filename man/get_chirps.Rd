@@ -110,31 +110,31 @@ library("chirps")
 library("terra")
 
 # Case 1: return as a data.frame
-dates <- c("2017-12-15","2017-12-31")
-lonlat <- data.frame(lon = c(-55.0281,-54.9857), lat = c(-2.8094, -2.8756))
+dates = c("2017-12-15","2017-12-31")
+lonlat = data.frame(lon = c(-55.0281,-54.9857), lat = c(-2.8094, -2.8756))
 
-r1 <- get_chirps(lonlat, dates, server = "CHC")
+r1 = get_chirps(lonlat, dates, server = "CHC")
 
 # Case 2: return a matrix
-r2 <- get_chirps(lonlat, dates, server = "CHC", as.matrix = TRUE)
+r2 = get_chirps(lonlat, dates, server = "CHC", as.matrix = TRUE)
 
 # Case 3: input SpatVector and return raster
-f <- system.file("ex/lux.shp", package = "terra")
-v <- vect(f)
-r3 <- get_chirps(v, dates, server = "CHC", as.raster = TRUE)
+f = system.file("ex/lux.shp", package = "terra")
+v = vect(f)
+r3 = get_chirps(v, dates, server = "CHC", as.raster = TRUE)
 
 # Case 4: input SpatExtent and return a raster within the extent
-area <- ext(c(-66, -64, -6, -4))
+area = ext(c(-66, -64, -6, -4))
 
-dates <- c("2017-12-15", "2017-12-31")
+dates = c("2017-12-15", "2017-12-31")
 
-r4 <- get_chirps(area, dates, server = "CHC")
+r4 = get_chirps(area, dates, server = "CHC")
 
 # Case 5: using the server "ClimateSERV"
-r5 <- get_chirps(lonlat, dates, server = "ClimateSERV")
+r5 = get_chirps(lonlat, dates, server = "ClimateSERV")
 
 # Case 6: from "ClimateSERV" and return as a matrix
-r6 <- get_chirps(lonlat, dates, server = "ClimateSERV", as.matrix = TRUE)
+r6 = get_chirps(lonlat, dates, server = "ClimateSERV", as.matrix = TRUE)
 
 \dontshow{\}) # examplesIf}
 }

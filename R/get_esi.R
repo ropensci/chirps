@@ -40,23 +40,23 @@
 #'
 #' @examplesIf interactive()
 #'
-#' lonlat <- data.frame(lon = c(-55.0281,-54.9857),
+#' lonlat = data.frame(lon = c(-55.0281,-54.9857),
 #'                      lat = c(-2.8094, -2.8756))
 #'
-#' dates <- c("2017-12-15","2018-06-20")
+#' dates = c("2017-12-15","2018-06-20")
 #'
 #' # by default the function sets a very small buffer around the points which
 #' # can return NAs due to cloudiness in ESI data
 #'
-#' dt <- get_esi(lonlat, dates = dates)
+#' dt = get_esi(lonlat, dates = dates)
 #'
 #' # the argument dist passed through sf increase the buffer area
 #'
-#' dt <- get_esi(lonlat, dates = dates, dist = 0.1)
+#' dt = get_esi(lonlat, dates = dates, dist = 0.1)
 #'
 #' @importFrom sf st_centroid read_sf st_geometry_type
 #' @export
-get_esi <- function(object,
+get_esi = function(object,
                     dates,
                     operation = 5,
                     period = 1,
@@ -67,55 +67,55 @@ get_esi <- function(object,
 
 #' @rdname get_esi
 #' @export
-get_esi.default <-
+get_esi.default =
   function(object,
            dates,
            operation = 5,
            period = 1,
            ...) {
-    object <- as.data.frame(object)
+    object = as.data.frame(object)
     
     # validate lonlat to check if they are within the CHIRPS range lat -50, 50
     .validate_lonlat(object, xlim = c(-180, 180), ylim = c(-50, 50))
     
     # validate dates
-    dates_inter <-
+    dates_inter =
       .reformat_dates(dates, availability = c("2001-01-01", "0"))
     
     # get geojson strings from data.frame
-    gj <- as.geojson(object, ...)
+    gj = as.geojson(object, ...)
     
-    class(gj) <- "character"
+    class(gj) = "character"
     
-    gj <- split(gj, seq_along(gj))
+    gj = split(gj, seq_along(gj))
     
     if (period == 1) {
-      datatype <- 29
+      datatype = 29
     }
     if (period == 2) {
-      datatype <- 33
+      datatype = 33
     }
     
-    result <- .GET(
+    result = .GET(
       gjson = gj,
       dates = dates_inter,
       operation = operation,
       datatype = datatype
     )
     
-    names(result)[names(result) == "value"] <- "esi"
+    names(result)[names(result) == "value"] = "esi"
     
-    object$id <- rownames(object)
+    object$id = rownames(object)
     
-    result <- merge(result, object, by = "id", all.y = TRUE)
+    result = merge(result, object, by = "id", all.y = TRUE)
     
-    names(result)[3:5] <- c("esi", "lon", "lat")
+    names(result)[3:5] = c("esi", "lon", "lat")
     
-    result <- result[, c("id", "lon", "lat", "date", "esi")]
+    result = result[, c("id", "lon", "lat", "date", "esi")]
     
-    result <- as.data.frame(result, stringsAsFactors = FALSE)
+    result = as.data.frame(result, stringsAsFactors = FALSE)
     
-    class(result) <- c("chirps_df", class(result))
+    class(result) = c("chirps_df", class(result))
     
     return(result)
     
@@ -124,7 +124,7 @@ get_esi.default <-
 #' @rdname get_esi
 #' @method get_esi sf
 #' @export
-get_esi.sf <- function(object,
+get_esi.sf = function(object,
                        dates,
                        operation = 5,
                        period = 1,
@@ -132,10 +132,10 @@ get_esi.sf <- function(object,
                        ...) {
 
   # check geometry type
-  type <- c("POINT", "POLYGON")
+  type = c("POINT", "POLYGON")
   
   # check for supported types
-  supp_type <-
+  supp_type =
     c(all(grepl(type[[1]], sf::st_geometry_type(object))),
       all(grepl(type[[2]], sf::st_geometry_type(object))))
   
@@ -147,32 +147,32 @@ get_esi.sf <- function(object,
     )
   }
   
-  type <- type[which(supp_type)]
+  type = type[which(supp_type)]
   
-  nr <- dim(object)[[1]]
+  nr = dim(object)[[1]]
   
   # find the sf_column
-  index <- attr(object, "sf_column")
+  index = attr(object, "sf_column")
   
   # get the sf column
-  lonlat <- object[[index]]
+  lonlat = object[[index]]
   
   if (isTRUE(type == "POINT")) {
     # unlist the sf_column
-    lonlat <- unlist(object[[index]])
+    lonlat = unlist(object[[index]])
     
   }
   
   if (isTRUE(type == "POLYGON")) {
     # set centroid to validade lonlat
-    lonlat <- sf::st_centroid(lonlat)
+    lonlat = sf::st_centroid(lonlat)
     
     # unlist the sf_column
-    lonlat <- unlist(lonlat)
+    lonlat = unlist(lonlat)
     
   }
   
-  lonlat <- matrix(
+  lonlat = matrix(
     lonlat,
     nrow = nr,
     ncol = 2,
@@ -180,31 +180,31 @@ get_esi.sf <- function(object,
     dimnames = list(seq_len(nr), c("lon", "lat"))
   )
   
-  lonlat <- as.data.frame(lonlat)
+  lonlat = as.data.frame(lonlat)
   
   # validate lonlat to check if they are within the ESI range
   .validate_lonlat(lonlat, xlim = c(-180, 180), ylim = c(-50, 50))
   
   # validate and reformat dates
-  dates_inter <-
+  dates_inter =
     .reformat_dates(dates, availability = c("2001-01-01", "0"))
   
   # get geojson strings from data.frame
-  gj <- as.geojson(object)
+  gj = as.geojson(object)
   
-  class(gj) <- "character"
+  class(gj) = "character"
   
-  gj <- split(gj, seq_along(gj))
+  gj = split(gj, seq_along(gj))
   
   
   if (period == 1) {
-    datatype <- 29
+    datatype = 29
   }
   if (period == 2) {
-    datatype <- 33
+    datatype = 33
   }
   
-  result <- .GET(
+  result = .GET(
     gjson = gj,
     dates = dates_inter,
     operation = operation,
@@ -212,34 +212,34 @@ get_esi.sf <- function(object,
   )
   
   if (isTRUE(as.sf)) {
-    result$date <- as.integer(result$date)
-    result$date <- paste0("day_", result$date)
+    result$date = as.integer(result$date)
+    result$date = paste0("day_", result$date)
     
-    result <- split(result, result$date)
+    result = split(result, result$date)
     
-    result <- lapply(result, function(x) {
-      x <- x[order(x$id),]
-      x <- x[, "value"]
+    result = lapply(result, function(x) {
+      x = x[order(x$id),]
+      x = x[, "value"]
     })
     
-    result <- do.call("cbind", result)
+    result = do.call("cbind", result)
     
-    result <- cbind(object, result)
+    result = cbind(object, result)
     
   }
   
   if (isFALSE(as.sf)) {
-    lonlat$id <- rownames(lonlat)
+    lonlat$id = rownames(lonlat)
     
-    result <- merge(result, lonlat, by = "id")
+    result = merge(result, lonlat, by = "id")
     
-    names(result)[3:5] <- c("esi", "lon", "lat")
+    names(result)[3:5] = c("esi", "lon", "lat")
     
-    result <- result[, c("id", "lon", "lat", "date", "esi")]
+    result = result[, c("id", "lon", "lat", "date", "esi")]
     
-    result <- as.data.frame(result, stringsAsFactors = FALSE)
+    result = as.data.frame(result, stringsAsFactors = FALSE)
     
-    class(result) <- c("chirps_df", class(result))
+    class(result) = c("chirps_df", class(result))
   }
   
   return(result)
@@ -248,7 +248,7 @@ get_esi.sf <- function(object,
 #' @rdname get_esi
 #' @method get_esi geojson
 #' @export
-get_esi.geojson <-
+get_esi.geojson =
   function(object,
            dates,
            operation = 5,
@@ -256,10 +256,10 @@ get_esi.geojson <-
            as.geojson = FALSE,
            ...) {
     
-    type <- c("type\":\"Point", "type\":\"Polygon")
+    type = c("type\":\"Point", "type\":\"Polygon")
     
     # check for supported types
-    supp_type <- c(all(grepl(type[[1]], object)),
+    supp_type = c(all(grepl(type[[1]], object)),
                    all(grepl(type[[2]], object)))
     
     if (isFALSE(any(supp_type))) {
@@ -272,25 +272,25 @@ get_esi.geojson <-
     # if type Point
     if (all(grepl(type[[1]], object))) {
       # get matrix with lonlat to validate later
-      lonlat <- lapply(object, function(x) {
+      lonlat = lapply(object, function(x) {
         # read as sf
-        x <- sf::read_sf(x)
+        x = sf::read_sf(x)
         
         # find the sf_column
-        index <- attr(x, "sf_column")
+        index = attr(x, "sf_column")
         
         # unlist the sf_column
-        x <- unlist(x[[index]])
+        x = unlist(x[[index]])
         
       })
       
       # put all together
-      lonlat <- do.call("rbind", lonlat)
+      lonlat = do.call("rbind", lonlat)
       
-      lonlat <- as.data.frame(lonlat)
+      lonlat = as.data.frame(lonlat)
       
       # lonlat into a geojson Polygon
-      gjson <- as.geojson(lonlat, ...)
+      gjson = as.geojson(lonlat, ...)
       
     }
     
@@ -298,20 +298,20 @@ get_esi.geojson <-
     if (all(grepl(type[[2]], object))) {
       # take the centroid from geojson Polygons
       # to validate lonlat coordinates
-      lonlat <- lapply(object, function(x) {
-        x <- sf::read_sf(x)
+      lonlat = lapply(object, function(x) {
+        x = sf::read_sf(x)
         
-        x <- sf::st_centroid(x$geometry)
+        x = sf::st_centroid(x$geometry)
         
-        x <- unlist(x)
+        x = unlist(x)
       })
       
       # put all together
-      lonlat <- do.call("rbind", lonlat)
+      lonlat = do.call("rbind", lonlat)
       
-      lonlat <- as.data.frame(lonlat)
+      lonlat = as.data.frame(lonlat)
       
-      gjson <- split(object, seq_along(object))
+      gjson = split(object, seq_along(object))
       
     }
     
@@ -319,17 +319,17 @@ get_esi.geojson <-
     .validate_lonlat(lonlat, xlim = c(-180, 180), ylim = c(-50, 50))
     
     # validate dates
-    dates_inter <-
+    dates_inter =
       .reformat_dates(dates, availability = c("2001-01-01", "0"))
     
     if (period == 1) {
-      datatype <- 29
+      datatype = 29
     }
     if (period == 2) {
-      datatype <- 33
+      datatype = 33
     }
     
-    result <- .GET(
+    result = .GET(
       gjson = gjson,
       dates = dates_inter,
       operation = operation,
@@ -338,35 +338,35 @@ get_esi.geojson <-
     
     
     if (isTRUE(as.geojson)) {
-      result <- split(result, result$id)
+      result = split(result, result$id)
       
-      object <- split(object, seq_along(object))
+      object = split(object, seq_along(object))
       
       # add geojson properties
-      result <- mapply(function(X, Y) {
+      result = mapply(function(X, Y) {
         .add_geojson_properties(geometry = X,
                                 properties = Y,
                                 name = "esi")
         
       }, X = object, Y = result[])
       
-      class(result) <- c("geojson", "json", class(result))
+      class(result) = c("geojson", "json", class(result))
       
       
     }
     
     if (isFALSE(as.geojson)) {
-      lonlat$id <- rownames(lonlat)
+      lonlat$id = rownames(lonlat)
       
-      result <- merge(result, lonlat, by = "id")
+      result = merge(result, lonlat, by = "id")
       
-      names(result)[3:5] <- c("esi", "lon", "lat")
+      names(result)[3:5] = c("esi", "lon", "lat")
       
-      result <- result[, c("id", "lon", "lat", "date", "esi")]
+      result = result[, c("id", "lon", "lat", "date", "esi")]
       
-      result <- as.data.frame(result, stringsAsFactors = FALSE)
+      result = as.data.frame(result, stringsAsFactors = FALSE)
       
-      class(result) <- c("chirps_df", class(result))
+      class(result) = c("chirps_df", class(result))
       
     }
     

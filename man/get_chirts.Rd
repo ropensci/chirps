@@ -70,21 +70,21 @@ library("chirps")
 library("terra")
 
 # Case 1: input a data frame return a data frame in the long format
-dates <- c("2010-12-15","2010-12-31")
-lonlat <- data.frame(lon = c(-55.0281,-54.9857),
+dates = c("2010-12-15","2010-12-31")
+lonlat = data.frame(lon = c(-55.0281,-54.9857),
                      lat = c(-2.8094, -2.8756))
 
-temp1 <- get_chirts(lonlat, dates, var = "Tmax")
+temp1 = get_chirts(lonlat, dates, var = "Tmax")
 
 # Case 2: input a data frame return a matrix
-temp2 <- get_chirts(lonlat, dates, "Tmax", as.matrix = TRUE)
+temp2 = get_chirts(lonlat, dates, "Tmax", as.matrix = TRUE)
 
 # Case 3: input a raster and return raster
-f <- system.file("ex/lux.shp", package="terra")
-v <- vect(f)
-temp3 <- get_chirts(v, dates, var = "Tmax", as.raster = TRUE)
+f = system.file("ex/lux.shp", package="terra")
+v = vect(f)
+temp3 = get_chirts(v, dates, var = "Tmax", as.raster = TRUE)
 
 # Case 4: input a raster and return raster
-temp4 <- get_chirts(v, dates, var = "Tmax", as.matrix = TRUE)
+temp4 = get_chirts(v, dates, var = "Tmax", as.matrix = TRUE)
 \dontshow{\}) # examplesIf}
 }

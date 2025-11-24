@@ -3,21 +3,21 @@
 \docType{data}
 \name{tapajos}
 \alias{tapajos}
-\title{Tapajos National Forest}
+\title{Tapajós National Forest}
 \format{
 An object of class 'sfc_POLYGON' within the bounding box 
 xmin: -55.41127 ymin: -4.114584 
 xmax: -54.7973 ymax: -2.751706
 }
 \source{
-The data was provided by the Chico Mendes Institute via
-\url{https://www.protectedplanet.net/en}
+The data was provided by the Chico Mendes Institute for Biodiversity 
+Conservation (ICMBio) via \url{https://www.protectedplanet.net/en}
 }
 \usage{
 tapajos
 }
 \description{
-Geometries for the Tapajos National Forest, a protected 
+Geometries for the Tapajós National Forest, a protected 
 area in the Brazilian Amazon
 }
 \keyword{datasets}
