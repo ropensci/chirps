@@ -4,16 +4,16 @@
   "identifier": "chirps",
   "description": "API Client for the Climate Hazards Center 'CHIRPS' and 'CHIRTS'. The 'CHIRPS' data is a quasi-global (50°S – 50°N) high-resolution (0.05 arc-degrees) rainfall data set, which incorporates satellite imagery and in-situ station data to create gridded rainfall time series for trend analysis and seasonal drought monitoring. 'CHIRTS' is a quasi-global (60°S – 70°N), high-resolution data set of daily maximum and minimum temperatures. For more details on 'CHIRPS' and 'CHIRTS' data please visit its official home page <https://www.chc.ucsb.edu/data>.",
   "name": "chirps: API Client for CHIRPS and CHIRTS",
-  "codeRepository": "https://github.com/ropensci/chirps",
+  "codeRepository": "https://docs.ropensci.org/chirps/",
   "issueTracker": "https://github.com/ropensci/chirps/issues",
   "license": "https://spdx.org/licenses/MIT",
-  "version": "0.1.5",
+  "version": "1.1",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
     "url": "https://r-project.org"
   },
-  "runtimePlatform": "R version 4.4.1 (2024-06-14)",
+  "runtimePlatform": "R version 4.3.3 (2024-02-29)",
   "provider": {
     "@id": "https://cran.r-project.org",
     "@type": "Organization",
@@ -205,7 +205,7 @@
     },
     "SystemRequirements": null
   },
-  "fileSize": "1559.449KB",
+  "fileSize": "3088.877KB",
   "citation": [
     {
       "@type": "ScholarlyArticle",
@@ -240,30 +240,16 @@
       "name": "{chirps: API Client for the CHIRPS Precipitation Data in R}",
       "identifier": "10.21105/joss.02419",
       "url": "https://doi.org/10.21105/joss.02419",
-      "pagination": "2419",
       "@id": "https://doi.org/10.21105/joss.02419",
       "sameAs": "https://doi.org/10.21105/joss.02419",
       "isPartOf": {
         "@type": "PublicationIssue",
-        "issueNumber": "51",
         "datePublished": "2020",
         "isPartOf": {
           "@type": ["PublicationVolume", "Periodical"],
-          "volumeNumber": "5",
-          "name": "The Journal of Open Source Software"
+          "name": "{Journal of Open Source Software}"
         }
       }
     }
-  ],
-  "relatedLink": ["https://docs.ropensci.org/chirps/", "https://CRAN.R-project.org/package=chirps"],
-  "releaseNotes": "https://github.com/ropensci/chirps/blob/master/NEWS.md",
-  "readme": "https://github.com/ropensci/chirps/blob/master/README.md",
-  "contIntegration": ["https://codecov.io/gh/ropensci/chirps", "https://github.com/ropensci/chirps/actions/workflows/R-CMD-check.yaml", "https://app.codecov.io/gh/ropensci/chirps"],
-  "developmentStatus": "https://www.repostatus.org/#active",
-  "review": {
-    "@type": "Review",
-    "url": "https://github.com/ropensci/software-review/issues/357",
-    "provider": "https://ropensci.org"
-  },
-  "keywords": ["climatology", "precipitation-data", "rstats", "chirps"]
+  ]
 }
