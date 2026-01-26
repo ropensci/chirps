@@ -21,7 +21,7 @@ get_chirps(object, dates, server, ...)
   dates,
   server = "CHC",
   as.matrix = TRUE,
-  as.raster = FALSE,
+  as.raster = TRUE,
   ...
 )
 

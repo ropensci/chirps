@@ -277,8 +277,9 @@ get_chirps.SpatVector <- function(object, dates, server = "CHC",
 #' @method get_chirps SpatRaster
 #' @export
 get_chirps.SpatRaster <- function(object, dates, server = "CHC",
-                                  as.matrix = TRUE, as.raster = FALSE, ...) {
-  
+                                  as.matrix = TRUE, as.raster = TRUE, ...) {
+  ##
+  ##
   UseMethod("get_chirps", object = "SpatVector")
   
 }
