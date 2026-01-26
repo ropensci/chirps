@@ -3,11 +3,11 @@ title: "Introduction to chirps"
 package: chirps
 author:
 - name: Kauê de Sousa
-  affiliation: Department of Agricultural Sciences, Inland Norway University, Hamar, Norway </br> The Alliance of Bioversity International and CIAT, Montpellier, France
+  affiliation: Department of Agricultural Sciences, University of Inland Norway, Hamar, Norway </br> Digital Inclusion, Bioversity International, Montpellier, France
 - name: Adam H. Sparks 
   affiliation: Centre for Crop Health, University of Southern Queensland, Toowoomba, Australia
 - name: Aniruddha Ghosh
-  affiliation: The Alliance of Bioversity International and CIAT, Nairobi, Kenya
+  affiliation: Climate Action, International Center for Tropical Agriculture (CIAT), Nairobi, Kenya
 output: html_document
 vignette: >
   %\VignetteEngine{knitr::knitr}
@@ -15,16 +15,15 @@ vignette: >
   %\usepackage[UTF-8]{inputenc}
   %\VignetteEncoding{UTF-8}
 bibliography: ["chirps.bib"]
-csl: citation_style.csl
 ---
 
 
 
 # Summary
 
-The **chirps** package [@chirps] provides functionalities for reproducible analysis using the CHIRPS [@Funk2015] and CHIRTS data [@Funk2019] . CHIRPS is a daily precipitation data set developed by the [Climate Hazards Group](https://www.chc.ucsb.edu/) for high resolution precipitation gridded data. Spanning 50°S - 50°N (and all longitudes) and ranging from 1981 to near-present (normally with a 45 day lag), CHIRPS incorporates 0.05 arc-degree resolution satellite imagery, and in-situ station data to create gridded precipitation time series for trend analysis and seasonal drought monitoring. CHIRTS is a quasi-global (60°S – 70°N), high-resolution data set of daily maximum and minimum temperatures. 
+The `chirps` package [@chirps] provides functionalities for reproducible analysis using the CHIRPS [@Funk2015] and CHIRTS data [@Funk2019]. CHIRPS is a daily precipitation data set developed by the [Climate Hazards Group](https://www.chc.ucsb.edu/) for high resolution precipitation gridded data. Spanning 50°S - 50°N (and all longitudes) and ranging from 1981 to near-present (normally with a 45 day lag), CHIRPS incorporates 0.05 arc-degree resolution satellite imagery, and in-situ station data to create gridded precipitation time series for trend analysis and seasonal drought monitoring. CHIRTS is a quasi-global (60°S – 70°N), high-resolution data set of daily maximum and minimum temperatures. 
 
-Other functionalities of **chirps** are the computation of precipitation indices, the retrieval of the evaporative stress index (ESI) which describes temporal anomalies in evapotranspiration produced weekly at 0.25 arc-degree resolution for the entire globe, and the retrieval of IMERG data which provides near-real time global observations of rainfall at 0.5 arc-degree resolution.
+Other functionalities of `chirps` are the computation of precipitation indices, the retrieval of the evaporative stress index (ESI) which describes temporal anomalies in evapotranspiration produced weekly at 0.25 arc-degree resolution for the entire globe, and the retrieval of IMERG data which provides near-real time global observations of rainfall at 0.5 arc-degree resolution.
 
 # CHIRPS (precipitation data)
 
@@ -44,14 +43,14 @@ data("tapajos", package = "chirps")
 
 # sample three points within the Tapajos area
 set.seed(1234)
-tp_point <- st_sample(tapajos, 3)
+tp_point = st_sample(tapajos, 3)
 
 # coerce as sf points
-tp_point <- st_as_sf(tp_point)
+tp_point = st_as_sf(tp_point)
 
-dat <- get_chirps(tp_point,
-                  dates = c("2013-01-01","2018-12-31"), 
-                  server = "ClimateSERV")
+dat = get_chirps(tp_point,
+                 dates = c("2013-01-01","2018-12-31"), 
+                 server = "ClimateSERV")
 #> Fetching data from ClimateSERV
 #> Getting your request...
 ```
@@ -82,7 +81,7 @@ With `precip_indices()` is possible to assess how the precipitation changes acro
 
 
 ```r
-p_ind <- precip_indices(dat, timeseries = TRUE, intervals = 15)
+p_ind = precip_indices(dat, timeseries = TRUE, intervals = 15)
 
 p_ind
 #>          id       date    lon   lat  index  value
@@ -110,13 +109,13 @@ Maximum and minimum temperature and relative humidity data are available with th
 
 ```r
 
-dates <- c("2010-12-15","2010-12-31")
+dates = c("2010-12-15","2010-12-31")
 
-temp1 <- get_chirts(tp_point, dates, var = "Tmax", as.matrix = TRUE)
+temp1 = get_chirts(tp_point, dates, var = "Tmax", as.matrix = TRUE)
 
-temp2 <- get_chirts(tp_point, dates, var = "Tmin", as.matrix = TRUE)
+temp2 = get_chirts(tp_point, dates, var = "Tmin", as.matrix = TRUE)
 
-rhu <- get_chirts(tp_point, dates, var = "RHum", as.matrix = TRUE)
+rhu = get_chirts(tp_point, dates, var = "RHum", as.matrix = TRUE)
 
 ```
 
@@ -125,12 +124,12 @@ rhu <- get_chirts(tp_point, dates, var = "RHum", as.matrix = TRUE)
 
 ## Evapotranspiration 
 
-The **chirps** package also retrieves the Evaporative Stress Index (ESI) using the function `get_esi()` which behaves similarly as `get_chirps()`. 
+The `chirps` package also retrieves the Evaporative Stress Index (ESI) using the function `get_esi()` which behaves similarly as `get_chirps()`. 
 
 
 ```r
 
-dt <- get_esi(tp_point, c("2016-05-01","2016-12-31"))
+dt = get_esi(tp_point, c("2016-05-01","2016-12-31"))
 
 ```
 
@@ -139,14 +138,14 @@ The function `get_esi()` may return `NA`s due to cloudiness in the dataset. Whic
 
 ```r
 set.seed(123)
-lonlat <- data.frame(lon = runif(1, -55, -54),
-                     lat = runif(1, -3, -2.7))
+lonlat = data.frame(lon = runif(1, -55, -54),
+                    lat = runif(1, -3, -2.7))
 
 get_esi(lonlat, c("2017-12-01","2018-01-20"))
 
 ```
 
-One way to deal with this is increase the buffer area around the in-putted object with the argument `dist` passed to `st_buffer()` from *sf*[@sf] through the `...` functionality in `get_esi()`. The argument `nQuadSegs` defines the number of segments per quadrant in the buffer.  
+One way to deal with this is increase the buffer area around the in-putted object with the argument `dist` passed to `st_buffer()` from `sf` [@sf] through the `...` functionality in `get_esi()`. The argument `nQuadSegs` defines the number of segments per quadrant in the buffer.  
 
 
 ```r
@@ -174,9 +173,9 @@ get_chirps(tapajos, dates = c("2017-12-15","2017-12-31"), as.sf = TRUE)
 
 ```r
 
-tp_gjson <- sf_to_geojson(tp_point)
+tp_gjson = sf_to_geojson(tp_point)
 
-dt <- get_esi(tp_gjson, dates = c("2017-12-15","2017-12-31"), dist = 0.1)
+dt = get_esi(tp_gjson, dates = c("2017-12-15","2017-12-31"), dist = 0.1)
 
 ```
 
