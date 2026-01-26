@@ -1,15 +1,14 @@
-citHeader("To cite package ‘chirps’ in publications, please use:")
-
-citEntry(entry = "Article",
-    title = "{chirps: API Client for the CHIRPS Precipitation Data in R}",
-    author = c(person("Kauê", "de Sousa"), person("Adam H.","Sparks"),
-    person("William","Ashmall"),person("Jacob","van Etten"), person("Svein Ø.","Solberg")),
-    year = "2020",
-    doi = "10.21105/joss.02419",
-    journal = "The Journal of Open Source Software",
-    publisher = "The Open Journal",
-    volume = 5,
-    number = 51,
-    pages = 2419,
-    url = "https://doi.org/10.21105/joss.02419",
-    textVersion = "Kauê de Sousa and Adam H. Sparks and William Ashmall and Jacob van Etten and Svein Ø. Solberg (2020). chirps: API Client for the CHIRPS Precipitation Data in R. Journal of Open Source Software, 5(51), 2419, https://doi.org/10.21105/joss.02419")
+bibentry(bibtype = "Article",
+  title = "{chirps: API Client for the CHIRPS Precipitation Data in R}",
+  doi = "10.21105/joss.02419",
+  url = "https://doi.org/10.21105/joss.02419",
+  year = "2020",
+  author = c(person("Kauê", "de Sousa"), 
+             person("Adam H.","Sparks"),
+             person("William","Ashmall"),
+             person("Jacob","van Etten"), 
+             person("Svein Ø.","Solberg")),
+  journal = "{Journal of Open Source Software}",
+  textVersion = "de Sousa et al., (2020). chirps: API Client for the CHIRPS Precipitation Data in R. Journal of Open Source Software, 5(51), 2419, https://doi.org/10.21105/joss.02419")
+  
+  

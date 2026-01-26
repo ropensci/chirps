@@ -6,7 +6,7 @@
 \alias{get_chirts.SpatVector}
 \alias{get_chirts.SpatRaster}
 \alias{get_chirts.SpatExtent}
-\title{Get CHIRTS temperature data data}
+\title{Get CHIRTS temperature data}
 \usage{
 get_chirts(object, dates, var, ...)
 
@@ -19,8 +19,8 @@ get_chirts(object, dates, var, ...)
 \method{get_chirts}{SpatExtent}(object, dates, var, as.raster = TRUE, ...)
 }
 \arguments{
-\item{object}{an object of class \code{\link[base]{data.frame}} (or any other 
-object that can be coerced to a \code{data.frame}), \code{\link[terra]{SpatExtent}},
+\item{object}{an object of class \code{\link[base]{data.frame}} (or any other
+object that can be coerced to a \code{data.frame}),
 \code{\link[terra]{SpatVector}}, or \code{\link[terra]{SpatRaster}}}
 
 \item{dates}{a character of start and end dates in that order in the format
@@ -29,14 +29,15 @@ object that can be coerced to a \code{data.frame}), \code{\link[terra]{SpatExten
 \item{var}{character, A valid variable from the options: \dQuote{Tmax},
 \dQuote{Tmin}, \dQuote{RHum} and \dQuote{HeatIndex}}
 
-\item{...}{additional arguments passed to \code{\link[terra]{terra}}}
+\item{...}{further arguments passed to \code{\link[terra]{terra}}}
 
 \item{as.matrix}{logical, returns an object of class \code{matrix}}
 
-\item{as.raster}{logical, returns an object of class \code{\link[terra]{SpatRaster}}}
+\item{as.raster}{logical, returns an object of class
+\code{\link[terra]{SpatRaster}}}
 }
 \value{
-A SpatRaster object if \code{as.raster=TRUE}, else \code{matrix}, 
+A SpatRaster object if \code{as.raster=TRUE}, else \code{matrix},
 \code{list}, or \code{data.frame}
 }
 \description{
@@ -47,7 +48,7 @@ Get daily maximum and minimum temperature data from the "Climate Hazards
  currently available from 1983 to 2016. Soon available to near-present.
 }
 \details{
-Variable description from 
+Variable description from
 \url{https://data.chc.ucsb.edu/products/CHIRTSdaily/aaa.Readme.txt}
 \describe{
   \item{Tmax}{Daily average maximum air temperature at 2 m above ground}
@@ -57,7 +58,7 @@ Variable description from
   }
 }
 \section{Additional arguments}{
- 
+
 \bold{interval}: supported intervals are \dQuote{daily}, \dQuote{pentad},
  \dQuote{dekad}, \dQuote{monthly}, \dQuote{2-monthly}, \dQuote{3-monthly},
  and \dQuote{annual}. Currently hard coded to \dQuote{daily}.
@@ -69,21 +70,21 @@ library("chirps")
 library("terra")
 
 # Case 1: input a data frame return a data frame in the long format
-dates <- c("2010-12-15","2010-12-31")
-lonlat <- data.frame(lon = c(-55.0281,-54.9857),
+dates = c("2010-12-15","2010-12-31")
+lonlat = data.frame(lon = c(-55.0281,-54.9857),
                      lat = c(-2.8094, -2.8756))
 
-temp1 <- get_chirts(lonlat, dates, var = "Tmax")
+temp1 = get_chirts(lonlat, dates, var = "Tmax")
 
 # Case 2: input a data frame return a matrix
-temp2 <- get_chirts(lonlat, dates, "Tmax", as.matrix = TRUE)
+temp2 = get_chirts(lonlat, dates, "Tmax", as.matrix = TRUE)
 
 # Case 3: input a raster and return raster
-f <- system.file("ex/lux.shp", package="terra")
-v <- vect(f)
-temp3 <- get_chirts(v, dates, var = "Tmax", as.raster = TRUE)
+f = system.file("ex/lux.shp", package="terra")
+v = vect(f)
+temp3 = get_chirts(v, dates, var = "Tmax", as.raster = TRUE)
 
 # Case 4: input a raster and return raster
-temp4 <- get_chirts(v, dates, var = "Tmax", as.matrix = TRUE)
+temp4 = get_chirts(v, dates, var = "Tmax", as.matrix = TRUE)
 \dontshow{\}) # examplesIf}
 }

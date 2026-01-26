@@ -1,55 +1,35 @@
-context("test-get_chirps")
+load(test_path("test_data.rda"))
 
-# load("tests/test_data.rda")
-load("../test_data.rda")
-
-# Test if get_chirps fetch the correct values,
-# for this we downloaded two points from
-# https://climateserv.servirglobal.net/
-# and will compare it with the values retrieved by get_chirps
-
-# Test default method
-
-test_that("default method", {
-  vcr::use_cassette("default_method", {
-    x <- get_chirps(lonlat, dates)
-    
-    x <- round(x$chirps, 2)
-    
-    equal <- all(x == chirps$chirps)
-    
-    expect_true(equal)
-  })
+# Test get_chirps() default method -----
+test_that("get_chirps() returns proper values", {
+  x_df <-
+    get_chirps(data.frame(lonlat), dates = dates, server = "ClimateSERV")
+  expect_equal(x_df, chirps_df)
+  expect_named(x_df, names(chirps_df))
+  expect_equal(nrow(x_df), nrow(chirps_df))
+  expect_s3_class(x_df, class(chirps_df))
 })
 
-library("sf")
-# get_chirps for sf objects
-coords <- st_as_sf(lonlat, coords = c("lon", "lat"))
 
-test_that("sf method", {
-  vcr::use_cassette("sf_method", {
-    y <- get_chirps(coords, dates)
-    
-    y <- round(y$chirps, 2)
-    
-    equal <- all(y == chirps$chirps)
-    
-    expect_true(equal)
-  })
+# Test get_chirps() 'sf' return data frame method -----
+test_that("get_chirps() sf method return df", {
+  library("sf")
+  sf_coords <- st_as_sf(lonlat, coords = c("lon", "lat"), crs = "+proj=longlat +datum=WGS84 +ellps=WGS84 +towgs84=0,0,0")
+  x_sf <- get_chirps(object = sf_coords,
+                     dates = dates,
+                     server = "ClimateSERV")
+  expect_equal(x_sf$chirps, chirps_df$chirps, tolerance = 0.001)
+  expect_named(x_sf, names(chirps_df))
+  expect_equal(nrow(x_sf), nrow(chirps_df))
+  expect_s3_class(x_sf, class(chirps_df))
 })
 
 # get chirps with geojson method
-geojson <- as.geojson(lonlat)
-
-
 test_that("geojson method", {
-  vcr::use_cassette("geojson_method", {
-    z <- suppressWarnings(get_chirps(geojson, dates))
-    
-    z <- round(z$chirps, 2)
-    
-    equal <- all(z == chirps$chirps)
-    
-    expect_true(equal)
-  })
+  geojson_coords <- as.geojson(lonlat)
+  x_gjson <- get_chirps(geojson_coords, dates, server = "ClimateSERV")
+  expect_equal(x_gjson$chirps, chirps_df$chirps, tolerance = 0.001)
+  expect_named(x_gjson, names(chirps_df))
+  expect_equal(nrow(x_gjson), nrow(chirps_df))
+  expect_s3_class(x_gjson, class(chirps_df))
 })

@@ -20,10 +20,10 @@
 #' operation: supported operations are max = 0, min = 1, 
 #'  median = 2, sum = 4, average = 5
 #' @examples
-#' lonlat <- data.frame(lon = c(-60.34),
+#' lonlat = data.frame(lon = c(-60.34),
 #'                      lat = c(-5.38))
 #' 
-#' gjson <- as.geojson(lonlat)
+#' gjson = as.geojson(lonlat)
 #' 
 #' chirps:::.send_request(begintime = "12/10/2018",
 #'                        endtime = "12/26/2018",
@@ -31,17 +31,17 @@
 #'                         
 #' @importFrom httr RETRY accept_json content
 #' @noRd
-.send_request <- function(datatype = 0,
+.send_request = function(datatype = 0,
                           begintime = NULL,
                           endtime = NULL,
                           intervaltype = 0,
                           operationtype = 5,
                           geometry = NULL) {
   
-    #base_url <- "https://climateserv.servirglobal.net/api/"
+    #base_url = "https://climateserv.servirglobal.net/api/"
     
     # organise the query
-    query <- list(
+    query = list(
       datatype = toString(datatype),
       begintime = begintime,
       endtime = endtime,
@@ -53,29 +53,29 @@
       geometry = toString(geometry)
     )
     
-    # client_request <-
+    # client_request =
     #   crul::HttpClient$new(url = paste0(base_url, "submitDataRequest/?"))
     
     # check status
-    # status <- client_request$get()
+    # status = client_request$get()
     # status$raise_for_status()
     
     # send the query
     tryCatch({
-      # id <- client_request$get(query = query),
+      # id = client_request$get(query = query),
       # nocov start
-      id <- httr::RETRY(verb = "GET", 
+      id = httr::RETRY(verb = "GET", 
                         url = "https://climateserv.servirglobal.net/api/submitDataRequest/?",
                         query = query,
                         httr::accept_json(), 
                         terminate_on = c(403, 404))
       
-      id <- httr::content(id, as = "text", encoding = "UTF-8")
+      id = httr::content(id, as = "text", encoding = "UTF-8")
       
       }, 
       
       error = function(e) {
-        e$message <-
+        e$message =
           paste0(
             "Something went wrong with the query, no data were returned. ",
             "Most likely the server is down. Please see ",
@@ -83,15 +83,15 @@
             "server issues.\n"
           )
         # Otherwise refers to open.connection
-        e$call <- NULL
+        e$call = NULL
         stop(e)
       }
     ) # nocov end
     
-    # id <- id$parse("UTF-8")
+    # id = id$parse("UTF-8")
     
     # get content from the query
-    id <- strsplit(id, '["]')[[1]][2]
+    id = strsplit(id, '["]')[[1]][2]
     
     return(id)
     
@@ -103,55 +103,54 @@
 #' @return logical value, \code{TRUE} when the data is ready to be retrieved
 #' @examples
 #' 
-#' lonlat <- data.frame(lon = runif(1, 10, 12),
+#' lonlat = data.frame(lon = runif(1, 10, 12),
 #'                      lat = runif(1, 45, 47))
 #' 
-#' gjson <- as.geojson(lonlat)
+#' gjson = as.geojson(lonlat)
 #' 
-#' gjson <- as.character(gjson)
+#' gjson = as.character(gjson)
 #' 
-#' gsjon <- split(gjson, seq_along(gjson))
+#' gsjon = split(gjson, seq_along(gjson))
 #' 
-#' id <- chirps:::.send_request(begintime = "12/10/2018",
+#' id = chirps:::.send_request(begintime = "12/10/2018",
 #'                              endtime = "12/26/2018",
 #'                              geometry = gjson)
 #' 
 #' chirps:::.get_request_progress(id)
 #' @noRd
-.get_request_progress <- function(id) {
+.get_request_progress = function(id) {
   
-  # base_url <- "https://climateserv.servirglobal.net/api/"
+  # base_url = "https://climateserv.servirglobal.net/api/"
   # 
-  # client_progress <-
+  # client_progress =
   #   crul::HttpClient$new(url = paste0(base_url, 
   #                                     "getDataRequestProgress/?"))
   # 
   # 
   # # organise the query
-  progress_query <- list(id = id)
+  progress_query = list(id = id)
   # 
   # # check status
-  # status <- client_progress$get()
+  # status = client_progress$get()
   # 
   # # send query
   # client_progress$get(query = progress_query, retry = 6)
   # 
-  # p <- client_progress$get(query = progress_query)
+  # p = client_progress$get(query = progress_query)
   # 
-  # p <- p$parse("UTF-8")
+  # p = p$parse("UTF-8")
   # 
   # account for the chance that the server returns 
   # an error message and stop
   # the process with a (hopefully) useful error message
   
-  p <- httr::RETRY(verb = "GET", 
+  p = httr::RETRY(verb = "GET", 
                    url = "https://climateserv.servirglobal.net/api/getDataRequestProgress/?",
                    query = progress_query,
                    httr::accept_json(), 
                    terminate_on = c(403, 404))
   
-  # nocov start
-  p <- httr::content(p, as = "text", encoding = "UTF-8")
+  p = httr::content(p, as = "text", encoding = "UTF-8")
   
   if (p == -1) { #nocov start
     stop(call. = FALSE,
@@ -162,7 +161,7 @@
     )
   } #nocov end
   
-  p <- grepl(100, p)
+  p = grepl(100, p)
   
   return(p)
 }
@@ -172,16 +171,16 @@
 #' @param id character with the id obtained from \code{.send_request}
 #' @return A data frame with requested data
 #' @examples
-#' lonlat <- data.frame(lon = runif(1, 10, 12),
+#' lonlat = data.frame(lon = runif(1, 10, 12),
 #'                      lat = runif(1, 45, 47))
 #' 
-#' gjson <- as.geojson(lonlat)
+#' gjson = as.geojson(lonlat)
 #' 
-#' gjson <- as.character(gjson)
+#' gjson = as.character(gjson)
 #' 
-#' gsjon <- split(gjson, seq_along(gjson))
+#' gsjon = split(gjson, seq_along(gjson))
 #' 
-#' id <- chirps:::.send_request(begintime = "12/10/2018",
+#' id = chirps:::.send_request(begintime = "12/10/2018",
 #'                              endtime = "12/26/2018",
 #'                              geometry = gjson)
 #' 
@@ -189,18 +188,18 @@
 #' 
 #' @importFrom jsonlite fromJSON toJSON
 #' @noRd
-.get_data_from_request <- function(id) {
+.get_data_from_request = function(id) {
   
-  # base_url <- "https://climateserv.servirglobal.net/api/"
+  # base_url = "https://climateserv.servirglobal.net/api/"
   # 
-  # client_data <-
+  # client_data =
   #   crul::HttpClient$new(url = paste0(base_url, "getDataFromRequest/?"))
   # 
   # organise the query
-  query <- list(id = id)
+  query = list(id = id)
   
   # # check status
-  # status <- client_data$get()
+  # status = client_data$get()
   # status$raise_for_status()
   # 
   
@@ -208,24 +207,24 @@
     # client_data$get(query = query, retry = 6)
     # 
     # # send query
-    # d <- client_data$get(query = query)
+    # d = client_data$get(query = query)
     # 
-    # d <- d$parse("UTF-8")
+    # d = d$parse("UTF-8")
     
-    d <- httr::RETRY(verb = "GET", 
+    d = httr::RETRY(verb = "GET", 
                       url = "https://climateserv.servirglobal.net/api/getDataFromRequest/?",
                       query = query,
                       httr::accept_json(), 
                       terminate_on = c(403, 404))
     
-    d <- httr::content(d, as = "text", encoding = "UTF-8")
+    d = httr::content(d, as = "text", encoding = "UTF-8")
     
     
-    d <- jsonlite::fromJSON(d)
+    d = jsonlite::fromJSON(d)
     
   }, # nocov start
   error = function(e) {
-    e$message <-
+    e$message =
       paste0(
         "Something went wrong with the query, no data were returned. ",
         "Most likely the server is down. Please see ",
@@ -233,14 +232,14 @@
         "server issues.\n"
       )
     # Otherwise refers to open.connection
-    e$call <- NULL
+    e$call = NULL
     stop(e)
   }) # nocov end
   
-  d <- data.frame(cbind(date = d$data$date,
+  d = data.frame(cbind(date = d$data$date,
                         d$data$value))
   
-  d$date <- as.character(d$date)
+  d$date = as.character(d$date)
   
   
   return(d)
@@ -259,22 +258,22 @@
 #' @examples
 #' # random geographic locations around bbox(10, 12, 45, 57)
 #' set.seed(123)
-#' lonlat <- data.frame(lon = runif(10, 10, 12),
+#' lonlat = data.frame(lon = runif(10, 10, 12),
 #'                      lat = runif(10, 45, 49))
 #'
 #' .validate_lonlat(lonlat)
 #' @noRd
-.validate_lonlat <- function(lonlat,
+.validate_lonlat = function(lonlat,
                              xlim = c(-180, 180),
                              ylim = c(-50, 50)) {
-  lon <- lonlat[, 1]
+  lon = lonlat[, 1]
   
-  lat <- lonlat[, 2]
+  lat = lonlat[, 2]
   
-  v1 <- min(lon) < xlim[1]
-  v2 <- max(lon) > xlim[2]
-  v3 <- min(lat) < ylim[1]
-  v4 <- max(lat) > ylim[2]
+  v1 = min(lon) < xlim[1]
+  v2 = max(lon) > xlim[2]
+  v3 = min(lat) < ylim[1]
+  v4 = max(lat) > ylim[2]
   
   if (any(c(v1, v2, v3, v4))) {
     stop(
@@ -298,47 +297,47 @@
 #' @param availability a character for the dates the dataset is available
 #' @return nothing
 #' @examples
-#' dates <- c("2016-01-31","2017-12-01")
+#' dates = c("2016-01-31","2017-12-01")
 #'
 #' .validate_dates(dates)
 #'
-#' dates <- c("2018-01-31","2017-12-01")
+#' dates = c("2018-01-31","2017-12-01")
 #'
 #' .validate_dates(dates)
 #'
-#' dates <- c("2018-01-31", as.character(Sys.Date()))
+#' dates = c("2018-01-31", as.character(Sys.Date()))
 #'
 #' .validate_dates(dates)
 #'
-#' dates <- c("1980-12-31", "2018-01-31")
+#' dates = c("1980-12-31", "2018-01-31")
 #'
 #' .validate_dates(dates)
 #' @noRd
-.validate_dates <- function(x, availability = c("1981-01-01", "0")) {
-    xmin <- as.Date(x[1], format = "%Y-%m-%d")
+.validate_dates = function(x, availability = c("1981-01-01", "0")) {
+    xmin = as.Date(x[1], format = "%Y-%m-%d")
     
-    xmax <- as.Date(x[2], format = "%Y-%m-%d")
+    xmax = as.Date(x[2], format = "%Y-%m-%d")
     
     # the first day from which the dataset is available
-    past <- as.Date(availability[1], origin = "1970-01-01")
+    past = as.Date(availability[1], origin = "1970-01-01")
     
     # the most recent date from which the dataset is available
-    present <- availability[2]
+    present = availability[2]
     
     # generally it takes 45 days to update
     if (present == "0") {
-      present <- Sys.Date() - 45
-      present <- format(present,  "%Y-%m-%d")
+      present = Sys.Date() - 45
+      present = format(present,  "%Y-%m-%d")
     }
     
     # last given date should be higher than first
-    cond1 <- as.integer(xmax - xmin) > 1
+    cond1 = as.integer(xmax - xmin) >= 0
     
     # no older than past date
-    cond2 <- xmin > past
+    cond2 = xmin >= past
     
     # no later then present date
-    cond3 <- xmax < present
+    cond3 = xmax <= present
     
     if (!all(cond1, cond2, cond3)) {
       stop(
@@ -363,24 +362,24 @@
 #' @param ... further arguments passed to \code{\link{.validate_dates}}
 #' @return a character with reformated dates as "MM/DD/YYYY"
 #' @examples
-#' x <- c("2016-01-31","2017-12-01")
+#' x = c("2016-01-31","2017-12-01")
 #'
 #' .reformat_dates(x)
 #' @noRd
-.reformat_dates <- function(x, ...) {
+.reformat_dates = function(x, ...) {
   # validate dates
   .validate_dates(x, ...)
   
-  begindate <- x[1]
-  begindate <- strsplit(begindate, "-")[[1]]
-  begindate <-
+  begindate = x[1]
+  begindate = strsplit(begindate, "-")[[1]]
+  begindate =
     paste(begindate[2], begindate[3], begindate[1], sep = "/")
   
-  enddate <- x[2]
-  enddate <- strsplit(enddate, "-")[[1]]
-  enddate <- paste(enddate[2], enddate[3], enddate[1], sep = "/")
+  enddate = x[2]
+  enddate = strsplit(enddate, "-")[[1]]
+  enddate = paste(enddate[2], enddate[3], enddate[1], sep = "/")
   
-  dates <- c(begindate, enddate)
+  dates = c(begindate, enddate)
   
   return(dates)
   
@@ -393,7 +392,7 @@
 #' @examples
 #' .is_chirps(airquality)
 #' @noRd
-.is_chirps <- function(x) {
+.is_chirps = function(x) {
   c("chirps") %in% class(x)
   
 }
@@ -407,18 +406,18 @@
 #' @return a object of class geojson with FeatureCollection
 #' @examples
 #' set.seed(123)
-#' lonlat <- data.frame(lon = 1,
+#' lonlat = data.frame(lon = 1,
 #'                      lat = 1)
 #' 
-#' geometry <- as.geojson(lonlat)[[1]]
+#' geometry = as.geojson(lonlat)[[1]]
 #' 
-#' properties <- data.frame(x = LETTERS[1:3],
+#' properties = data.frame(x = LETTERS[1:3],
 #'                          a = as.character(1:3),
 #'                          z = colors()[1:3])
 #' 
-#' name <- "chirps"
+#' name = "chirps"
 #' 
-#' gjson <- .add_geojson_properties(geometry, properties, name)
+#' gjson = .add_geojson_properties(geometry, properties, name)
 #' 
 #' gjson
 #' 
@@ -429,50 +428,65 @@
 #' jsonlite::fromJSON(gjson)
 #' 
 #' @noRd
-.add_geojson_properties <- function(geometry, properties, name) {
+.add_geojson_properties = function(geometry, properties, name) {
   
   # extract the geometry
-  g <- geometry
+  g = geometry
   
-  g <- jsonlite::fromJSON(g)
+  g = jsonlite::fromJSON(g)
   
   # coerce coordinates to character to prevent toJSON to 
   # suppress floating numbers
-  g$geometry$coordinates <- as.character(g$geometry$coordinates)
+  g$geometry$coordinates = as.character(g$geometry$coordinates)
   
   # coerce the geometries back to json
-  g <- jsonlite::toJSON(g$geometry)
+  g = jsonlite::toJSON(g$geometry)
   
   # now convert the properties into json
-  p <- properties
+  p = properties
   
-  nr <- dim(p)[[1]]
+  nr = dim(p)[[1]]
   
-  nc <- dim(p)[[2]]
+  nc = dim(p)[[2]]
   
   # coerce values into characters
-  p[seq_len(nc)] <- lapply(p[seq_len(nc)], as.character)
+  p[seq_len(nc)] = lapply(p[seq_len(nc)], as.character)
   
-  p <- split(p, seq_len(nr))
+  p = split(p, seq_len(nr))
   
-  p <- jsonlite::toJSON(p)
+  p = jsonlite::toJSON(p)
   
-  p <- gsub("[[]", "", p)
+  p = gsub("[[]", "", p)
   
-  p <- gsub("[]]", "", p)
+  p = gsub("[]]", "", p)
   
-  header <- paste0("{\"type\":\"FeatureCollection\",\"name\":\"",
+  header = paste0("{\"type\":\"FeatureCollection\",\"name\":\"",
                    name,
                    "\",\"features\":[{\"type\":\"Feature\",\"properties\":")
   
-  header2 <- ",\"geometry\":"
+  header2 = ",\"geometry\":"
   
-  end <- "}]}"
+  end = "}]}"
   
-  gjson <- paste0(header, p, header2, g, end)
+  gjson = paste0(header, p, header2, g, end)
   
-  class(gjson) <- c("geojson", "json")
+  class(gjson) = c("geojson", "json")
   
   return(gjson)
   
+}
+
+#' Add %notin% function
+#'
+#' Negates `%in%` for easier (mis)matching.
+#'
+#' @param x A character string to match.
+#' @param table A table containing values to match `x` against.
+#'
+#' @return A logical vector, indicating if a mismatch was located for any
+#'  element of `x`: thus the values are `TRUE` or `FALSE` and never `NA`.
+#' @keywords internal
+#' @noRd
+`%notin%` = function(x, table) {
+  match(x, table, nomatch = 0L) == 0L
 }

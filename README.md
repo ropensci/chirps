@@ -2,10 +2,10 @@
 [![peer-review](https://badges.ropensci.org/357_status.svg)](https://github.com/ropensci/software-review/issues/357)
 [![status](https://joss.theoj.org/papers/3367fdbff2db55a60c1ab7d611017940/status.svg)](https://joss.theoj.org/papers/3367fdbff2db55a60c1ab7d611017940)
 [![CRAN status](https://www.r-pkg.org/badges/version/chirps)](https://cran.r-project.org/package=chirps)
-[![codecov](https://codecov.io/gh/ropensci/chirps/branch/master/graph/badge.svg)](https://codecov.io/gh/ropensci/chirps)
 [![Project Status](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
 [![DOI](https://zenodo.org/badge/225693680.svg)](https://zenodo.org/badge/latestdoi/225693680)
-[![tic](https://github.com/ropensci/chirps/workflows/tic/badge.svg?branch=master)](https://github.com/ropensci/chirps/actions)
+[![R-CMD-check](https://github.com/ropensci/chirps/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/ropensci/chirps/actions/workflows/R-CMD-check.yaml)
+[![Codecov test coverage](https://codecov.io/gh/ropensci/chirps/graph/badge.svg)](https://app.codecov.io/gh/ropensci/chirps)
 <!-- badges: end -->
 
 # *chirps*: API Client for CHIRPS and CHIRTS <img align="right" src="man/figures/logo.png">
@@ -42,12 +42,12 @@ Fetch CHIRPS data from three points across the *Tapajós* National Forest (Brazi
 ```r
 library("chirps")
 
-lonlat <- data.frame(lon = c(-55.0281,-54.9857, -55.0714),
-                     lat = c(-2.8094, -2.8756, -3.5279))
+lonlat = data.frame(lon = c(-55.0281,-54.9857, -55.0714),
+                    lat = c(-2.8094, -2.8756, -3.5279))
 
-dates <- c("2017-01-01", "2017-01-31")
+dates = c("2017-01-01", "2017-01-31")
 
-dat <- get_chirps(lonlat, dates, server = "CHC", as.matrix = FALSE)
+dat = get_chirps(lonlat, dates, server = "CHC", as.matrix = FALSE)
 
 ```
 
@@ -56,12 +56,12 @@ For a faster download of few datapoints (~ 10 datapoints), the argument `server 
 ```r
 library("chirps")
 
-lonlat <- data.frame(lon = c(-55.0281,-54.9857, -55.0714),
-                     lat = c(-2.8094, -2.8756, -3.5279))
+lonlat = data.frame(lon = c(-55.0281,-54.9857, -55.0714),
+                    lat = c(-2.8094, -2.8756, -3.5279))
 
-dates <- c("2017-01-01", "2017-01-31")
+dates = c("2017-01-01", "2017-01-31")
 
-dat <- get_chirps(lonlat, dates, server = "ClimateSERV", as.matrix = FALSE)
+dat = get_chirps(lonlat, dates, server = "ClimateSERV", as.matrix = FALSE)
 
 ```
 
