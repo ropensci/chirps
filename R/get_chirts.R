@@ -12,6 +12,7 @@
 #'  \code{\link[terra]{SpatVector}}, or \code{\link[terra]{SpatRaster}}
 #' @param var character, A valid variable from the options: \dQuote{Tmax},
 #'  \dQuote{Tmin}, \dQuote{RHum} and \dQuote{HeatIndex}
+#' @param dataset_version dataset version (character/string) . See default.  
 #' @param ... further arguments passed to \code{\link[terra]{terra}}
 #' @return A SpatRaster object if \code{as.raster=TRUE}, else \code{matrix},
 #' \code{list}, or \code{data.frame}
@@ -52,7 +53,7 @@
 #' # Case 4: input a raster and return raster
 #' temp4 = get_chirts(v, dates, var = "Tmax", as.matrix = TRUE)
 #'
-#' @importFrom terra crop extract rast
+#' @importFrom terra crop extract rast time
 #' @export
 get_chirts = function(object, dates, var, ...) {
   UseMethod("get_chirts")
@@ -65,12 +66,10 @@ get_chirts.default = function(object, dates, var, as.matrix = FALSE, ...){
   
   if (isTRUE(grepl("Spat", class(object)))) {
     
-<<<<<<< HEAD
+
    ## r <- get_chirps.SpatVector(object, dates, ...) modified by ecor on 20230329
     r <- get_chirts.SpatVector(object, dates, var, as.matrix = as.matrix, ...)
-=======
-    r = get_chirps.SpatVector(object, dates, ...)
->>>>>>> f2af871550c362513609d8a32b3d863d6ccedace
+
     return(r)
     
   }
@@ -147,12 +146,12 @@ get_chirts.default = function(object, dates, var, as.matrix = FALSE, ...){
 #' @method get_chirts SpatVector
 #' @export
 get_chirts.SpatVector =
-  function(object, dates, var, as.raster = TRUE, ...) {
+  function(object, dates, var, as.raster = TRUE, dataset_version,...) {
     dots = list(...)
     as.matrix = dots[["as.matrix"]]
     
     # get CHIRTS GeoTiff files
-    rr = .get_CHIRTS_tiles_CHC(dates, var, ...)
+    rr = .get_CHIRTS_tiles_CHC(dates, var, dataset_version=dataset_version, ...)
     
     if (isTRUE(as.matrix)) {
       result = terra::extract(rr, y = object, ...)
@@ -198,7 +197,7 @@ get_chirts.SpatVector =
 #' @method get_chirts SpatRaster
 #' @export
 get_chirts.SpatRaster =
-  function(object, dates, var, as.raster = TRUE, ...) {
+  function(object, dates, var, as.raster = TRUE,dataset_version=NA, ...) {
     UseMethod("get_chirts", object = "SpatVector")
     
   }
@@ -206,7 +205,7 @@ get_chirts.SpatRaster =
 #' @rdname get_chirts
 #' @method get_chirts SpatExtent
 #' @export
-get_chirts.SpatExtent = function(object, dates, var, as.raster = TRUE, ...){
+get_chirts.SpatExtent = function(object, dates, var, as.raster = TRUE, dataset_version, ...){
   
   UseMethod("get_chirts", object = "SpatVector")
   
@@ -219,7 +218,7 @@ get_chirts.SpatExtent = function(object, dates, var, as.raster = TRUE, ...){
                                   resolution = 0.05,
                                   coverage = "global",
                                   interval = "daily",
-                                  format = "tifs",
+                                  format = "tifs",dataset_version=NA,
                                   ...) {
   stopifnot(var %in% c("HeatIndex", "RHum", "Tmax", "Tmin"))
   

@@ -16,7 +16,8 @@ Authors@R: c(
     person("Jacob", "van Etten", role = "ths",
            comment = c(ORCID = "0000-0001-7554-2558")),
     person("Svein Ø.", "Solberg", role = "ths",
-           comment = c(ORCID = "0000-0002-4491-4483"))
+           comment = c(ORCID = "0000-0002-4491-4483")),
+    person("Emanuele", "Cordano", role="ctb",comment=c(ORCID="0000-0002-3508-5898"))
   )
 Description: API Client for the Climate Hazards Center 'CHIRPS' and
     'CHIRTS'.  The 'CHIRPS' data is a quasi-global (50°S – 50°N)
@@ -50,10 +51,4 @@ VignetteBuilder:
 Config/testthat/edition: 3
 Encoding: UTF-8
 Language: en-GB
-<<<<<<< HEAD
 RoxygenNote: 7.3.2
-VignetteBuilder: knitr
-=======
-LazyData: true
-RoxygenNote: 7.3.2
->>>>>>> f2af871550c362513609d8a32b3d863d6ccedace
