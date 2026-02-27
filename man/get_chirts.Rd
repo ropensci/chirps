@@ -12,11 +12,11 @@ get_chirts(object, dates, var, ...)
 
 \method{get_chirts}{default}(object, dates, var, as.matrix = FALSE, ...)
 
-\method{get_chirts}{SpatVector}(object, dates, var, as.raster = TRUE, ...)
+\method{get_chirts}{SpatVector}(object, dates, var, as.raster = TRUE, dataset_version, ...)
 
-\method{get_chirts}{SpatRaster}(object, dates, var, as.raster = TRUE, ...)
+\method{get_chirts}{SpatRaster}(object, dates, var, as.raster = TRUE, dataset_version = NA, ...)
 
-\method{get_chirts}{SpatExtent}(object, dates, var, as.raster = TRUE, ...)
+\method{get_chirts}{SpatExtent}(object, dates, var, as.raster = TRUE, dataset_version, ...)
 }
 \arguments{
 \item{object}{an object of class \code{\link[base]{data.frame}} (or any other
@@ -35,6 +35,8 @@ object that can be coerced to a \code{data.frame}),
 
 \item{as.raster}{logical, returns an object of class
 \code{\link[terra]{SpatRaster}}}
+
+\item{dataset_version}{dataset version (character/string) . See default.}
 }
 \value{
 A SpatRaster object if \code{as.raster=TRUE}, else \code{matrix},
