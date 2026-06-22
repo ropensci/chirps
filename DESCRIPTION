@@ -19,7 +19,7 @@ Authors@R: c(
            comment = c(ORCID = "0000-0002-4491-4483")),
     person("Emanuele", "Cordano", role="aut",comment=c(ORCID="0000-0002-3508-5898"))
   )
-Description: provides access to Climate Hazards Center (CHC) datasets 
+Description: Provides access to Climate Hazards Center (CHC) datasets 
     including CHIRPS, CHIRPS v3, CHIRTS-daily, and CHIRTS-ERA5. 
     The 'CHIRPS' data is a quasi-global (50°S – 50°N)
     high-resolution (0.05 arc-degrees) rainfall data set, which
