@@ -8,12 +8,31 @@
 [![Codecov test coverage](https://codecov.io/gh/ropensci/chirps/graph/badge.svg)](https://app.codecov.io/gh/ropensci/chirps)
 <!-- badges: end -->
 
-# *chirps*: API Client for CHIRPS and CHIRTS <img align="right" src="man/figures/logo.png">
+# chirps: Access Climate Hazards Center Climate Datasets <img align="right" src="man/figures/logo.png">
 
 ## Overview
 
-**chirps** provides the API Client for the Climate Hazards Center 'CHIRPS' and 'CHIRTS'. The 'CHIRPS' data is a quasi-global (50°S – 50°N) high-resolution (0.05 arc-degrees) rainfall data set, which incorporates satellite imagery 
-  and in-situ station data to create gridded rainfall time series for trend analysis and seasonal drought monitoring. 'CHIRTS' is a quasi-global (60°S – 70°N), high-resolution data set of daily maximum and minimum temperatures. For more details on 'CHIRPS' and 'CHIRTS' data please visit its official home page <https://www.chc.ucsb.edu/data>.
+**chirps** provides access to Climate Hazards Center (CHC) datasets including CHIRPS, CHIRPS v3, CHIRTS-daily, and CHIRTS-ERA5. Data can be retrieved either as extracted values for points and polygons or as native raster products for custom spatial workflows.
+
+## Available Datasets
+
+| Dataset | Variable | Resolution | Period |
+|----------|----------|----------|----------|
+| CHIRPS v2 | Precipitation | 0.05° / 0.25° | 1981–present |
+| CHIRPS v3 | Precipitation | 0.05° | 1981–present |
+| CHIRTS-daily | Tmax, Tmin, RHum, HeatIndex | 0.05° | 1983–2016 |
+| CHIRTS-ERA5 | Tmax, Tmin | 0.05° | 1980–present |
+
+## Applications
+
+These datasets are commonly used for:
+
+- Crop modeling
+- Climate risk assessment
+- Agricultural monitoring
+- Seasonal analysis
+- Environmental characterization
+- Ecological and biodiversity studies
 
 ## Quick start
 
@@ -37,7 +56,49 @@ install_github("ropensci/chirps", build_vignettes = TRUE)
 
 ## Example
 
-Fetch CHIRPS data from three points across the *Tapajós* National Forest (Brazil) from in Jan-2017. The default procedure will download the COG files from the CHIRPS server and handle it internally using the package `terra`. This is more interesting when dealing with hundreds of points and days. Data can be returned as a matrix using the argument `as.matrix = TRUE`.
+## Accessing raw raster products
+
+The package can provide direct access to CHC climate datasets as `terra::SpatRaster` objects. This is useful when working with large spatial datasets or custom extraction workflows.
+
+```r
+library("chirps")
+library("terra")
+
+dates = c("2017-11-15", "2017-11-20")
+
+# CHIRPS v2 precipitation
+chirps_v2 = get_chirps_raw(dates = dates, version = "2.0")
+
+# CHIRPS v3 precipitation
+chirps_v3 = get_chirps_raw(dates = dates, version = "3.0", type = "sat")
+
+# CHIRTS-ERA5 minimum temperature
+tmin = get_chirts_era5_raw(dates = dates, var = "Tmin")
+
+# CHIRTS-ERA5 maximum temperature
+tmax = get_chirts_era5_raw(dates = dates, var = "Tmax")
+```
+
+Raster values can be extracted using functions from the `terra` package. Fetch CHIRPS data from three points across the Tapajós National Forest (Brazil) in January 2017.
+
+```r
+lonlat = data.frame(lon = c(-55.0281, -54.9857, -55.0714),
+                    lat = c(-2.8094, -2.8756, -3.5279))
+
+pts = vect(lonlat,
+           geom = c("lon", "lat"),
+           crs = "EPSG:4326")
+
+rain = extract(chirps_v2, pts)
+```
+
+The resulting object contains daily values for each location and can be readily converted to a matrix or data frame for further analysis.
+
+The recommended workflow is to retrieve native raster products using `get_chirps_raw()`, `get_chirts_raw()`, and `get_chirts_era5_raw()`, and then use the `terra` package for extraction and spatial analysis.
+
+### Accessing high-level extraction
+
+`get_chirps()` default procedure will download the COG files from the CHIRPS server and handle it internally using the package `terra`. This is more interesting when dealing with hundreds of points and days. Data can be returned as a matrix using the argument `as.matrix = TRUE`.
 
 ```r
 library("chirps")
@@ -73,13 +134,24 @@ The full functionality of **chirps** is illustrated in the package vignette. The
 vignette("Overview", package = "chirps")
 ```
 
-## Use of CHIRPS data
+## Citing Data
 
-While *chirps* does not redistribute the data or provide it in any way, we encourage users to cite Funk et al. (2015) when using CHIRPS and Funk et al. (2019) when using CHIRTS
+While *chirps* does not redistribute data, users should cite the original data providers when using CHIRPS, CHIRTS, CHIRTS-ERA5, or CHIRPS v3 products.
 
+When using datasets obtained through this package, please cite the original data providers.
+
+### CHIRPS v3
+> Funk, C., Peterson, P., Harrison, L. et al. (2026). The Climate Hazards Center Infrared Precipitation with Stations, Version 3. Scientific Data, 13, 718. <https://doi.org/10.1038/s41597-026-07096-4>
+
+### CHIRTS-ERA5
+> CHIRTS-ERA5 Data Repository https://doi.org/10.15780/G2F08J (2025). Data was accessed on [DATE].
+
+### CHIRPS v2
 > Funk C., Peterson P., Landsfeld M., … Michaelsen J. (2015). The climate hazards infrared precipitation with stations—a new environmental record for monitoring extremes. *Scientific Data*, 2, 150066. <https://doi.org/10.1038/sdata.2015.66>
 
-> Funk, C., Peterson, P., Peterson, S., … Mata, N. (2019). A high-resolution 1983–2016 TMAX climate data record based on infrared temperatures and stations by the climate hazard center. *Journal of Climate*, 32(17), 5639–5658. <https://doi.org/10.1175/JCLI-D-18-0698.1>
+### CHIRTS
+> Verdin, A., Funk, C., Peterson, P., Landsfeld, M., Tuholske, C., and Grace, K. (2020). Development and validation of the CHIRTS-daily quasi-global high-resolution daily temperature data set. Scientific Data, 7, 303.
+<https://doi.org/doi{10.1038/s41597-020-00643-7>
 
 ## Meta
 

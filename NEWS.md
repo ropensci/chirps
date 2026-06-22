@@ -1,3 +1,33 @@
+chirps 2.0.0 (2026-06-22)
+=========================
+
+### NEW FEATURES
+
+* Added `get_chirps_raw()` to provide direct access to CHIRPS raster products as `terra::SpatRaster` objects without extracting values or reshaping outputs.
+
+* Added support for CHIRPS v3, including both daily `rnl` (ERA5-based) and `sat` (IMERG-based) products.
+
+* Added `get_chirts_raw()` to access CHIRTS-daily maximum temperature, minimum temperature, relative humidity, and heat index datasets as raster objects.
+
+* Added `get_chirts_era5_raw()` to access CHIRTS-ERA5 daily temperature datasets extending from 1980 to near-present.
+
+* Added support for retrieving raw climate datasets directly from Climate Hazards Center (CHC) archives through remote Cloud Optimized GeoTIFF (COG) and GeoTIFF access.
+
+### ENHANCEMENTS
+
+* Added raster time metadata to raw raster outputs using `terra::time()`.
+
+* Improved internal URL handling for CHIRPS and CHIRTS products through version-specific data source management.
+
+* Expanded package documentation with dataset descriptions, references, and citation guidance for CHIRPS v3, CHIRTS-daily, and CHIRTS-ERA5 products.
+
+### INTERNAL CHANGES
+
+* Refactored internal raster retrieval functions to support multiple dataset versions and products through a unified architecture.
+
+* Improved compatibility with modern `terra` workflows by exposing native raster products for downstream processing with `crop()`, `extract()`, `mask()`, and related functions.
+
+
 chirps 1.1 (2025-11-24) 
 =========================
 
