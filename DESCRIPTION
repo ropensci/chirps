@@ -1,6 +1,6 @@
 Type: Package
 Package: chirps
-Title: Access Climate Hazards Center Climate Datasets
+Title: Access Climate Hazards Center Datasets
 Version: 2.0
 Authors@R: c(
     person("Kauê", "de Sousa", , "desousa.kaue@gmail.com", role = c("aut", "cre"),
@@ -20,14 +20,14 @@ Authors@R: c(
     person("Emanuele", "Cordano", role="aut",comment=c(ORCID="0000-0002-3508-5898"))
   )
 Description: Provides access to Climate Hazards Center (CHC) datasets 
-    including CHIRPS, CHIRPS v3, CHIRTS-daily, and CHIRTS-ERA5. 
+    including CHIRPS v2, CHIRPS v3, CHIRTS-daily, and CHIRTS-ERA5. 
     The 'CHIRPS' data is a quasi-global (50°S – 50°N)
     high-resolution (0.05 arc-degrees) rainfall data set, which
     incorporates satellite imagery and in-situ station data to create
     gridded rainfall time series for trend analysis and seasonal drought
     monitoring. 'CHIRTS' is a quasi-global (60°S – 70°N), high-resolution
     data set of daily maximum and minimum temperatures. For more details
-    on 'CHIRPS' and 'CHIRTS' data please visit its official home page
+    on CHC datasets please visit their official home page
     <https://www.chc.ucsb.edu/data>.
 License: MIT + file LICENSE
 URL: https://docs.ropensci.org/chirps/
