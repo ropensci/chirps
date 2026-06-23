@@ -8,7 +8,7 @@
 [![Codecov test coverage](https://codecov.io/gh/ropensci/chirps/graph/badge.svg)](https://app.codecov.io/gh/ropensci/chirps)
 <!-- badges: end -->
 
-# chirps: Access Climate Hazards Center Climate Datasets <img align="right" src="man/figures/logo.png">
+# chirps: Access Climate Hazards Center Datasets <img align="right" src="man/figures/logo.png">
 
 ## Overview
 
@@ -151,7 +151,7 @@ When using datasets obtained through this package, please cite the original data
 
 ### CHIRTS
 > Verdin, A., Funk, C., Peterson, P., Landsfeld, M., Tuholske, C., and Grace, K. (2020). Development and validation of the CHIRTS-daily quasi-global high-resolution daily temperature data set. Scientific Data, 7, 303.
-<https://doi.org/doi{10.1038/s41597-020-00643-7>
+<https://doi.org/10.1038/s41597-020-00643-7>
 
 ## Meta
 

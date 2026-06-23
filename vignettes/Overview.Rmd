@@ -93,7 +93,7 @@ Available variables include:
 * `"HeatIndex"`
 
 
-## Extracting Values Using terra
+## Extracting values using terra
 
 Once data are loaded as rasters, values can be extracted for locations of interest.
 
@@ -116,7 +116,7 @@ The resulting object contains one row per location and one column per raster lay
 
 For users interested primarily in time series extraction, the package provides high-level functions that handle raster retrieval and extraction internally.
 
-### Point Locations
+### Point locations
 
 ```r
 lonlat = data.frame(lon = c(-55.0281, -54.9857, -55.0714),
@@ -141,7 +141,7 @@ dat = get_chirps(lonlat,
                  server = "ClimateSERV")
 ```
 
-## Working With terra
+## Working with terra
 
 Because the package returns native `SpatRaster` objects, users can directly leverage the `terra` ecosystem.
 
@@ -158,7 +158,7 @@ writeRaster(r,
             overwrite = TRUE)
 ```
 
-## Dataset Citations
+## Datasets citation
 
 When using data obtained through this package, please cite the original datasets.
 
@@ -173,9 +173,9 @@ When using data obtained through this package, please cite the original datasets
 
 ### CHIRTS
 > Verdin, A., Funk, C., Peterson, P., Landsfeld, M., Tuholske, C., and Grace, K. (2020). Development and validation of the CHIRTS-daily quasi-global high-resolution daily temperature data set. Scientific Data, 7, 303.
-<https://doi.org/doi{10.1038/s41597-020-00643-7>
+<https://doi.org/10.1038/s41597-020-00643-7>
 
-## Additional Resources
+## Additional resources
 
 * CHIRPS v3: https://www.chc.ucsb.edu/data/chirps3
 * CHIRTS-daily: https://www.chc.ucsb.edu/data/chirtsdaily
