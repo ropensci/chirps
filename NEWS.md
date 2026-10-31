@@ -25,6 +25,10 @@ This release corrects errors found in a review of the package. Some returned val
 
 ### CHANGES
 
+* `get_chirts_raw()` and `get_chirts_era5_raw()` failed to open the remote files, because `use_vsicurl` defaulted to `FALSE`. It now defaults to `TRUE`, as in earlier versions, and `get_chirps_raw()` streams its files the same way.
+
+* Fixed the vignette engine and an example that did not parse, both of which stopped `R CMD check`. The `tapajos` data are now lazy-loaded.
+
 * The default `server` is now `"CHC"`, as documented.
 
 * `as.matrix = TRUE` with the CHC server returns a matrix, as documented, instead of a data frame.

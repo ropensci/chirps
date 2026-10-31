@@ -102,7 +102,8 @@ get_chirps_raw = function(dates,
     message(paste(urls, collapse = "\n"))
   }
   
-  r = terra::rast(urls)
+  # stream the remote files with GDAL rather than treating them as paths
+  r = terra::rast(file.path("/vsicurl", urls))
   terra::time(r) = seqdate
   
   r
