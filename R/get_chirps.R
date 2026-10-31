@@ -263,7 +263,7 @@ get_chirps.SpatExtent = function(object,
   result = terra::crop(rr, y = object)
   
   if (isFALSE(as.raster) || isTRUE(dots[["as.matrix"]])) {
-    result = as.matrix(result)
+    result = terra::values(result, mat = TRUE)
   }
   
   return(result)
@@ -282,9 +282,11 @@ get_chirps.sf = function(object, dates, server = "CHC",
   dots = list(...)
   
   # check for supported types
+  gtype = as.character(sf::st_geometry_type(object))
+  
   supp_type =
-    c(all(grepl(type[[1]], sf::st_geometry_type(object))),
-      all(grepl(type[[2]], sf::st_geometry_type(object))))
+    c(all(gtype == "POINT"),
+      all(gtype %in% c("POLYGON", "MULTIPOLYGON")))
   
   if (!any(supp_type)) {
     stop(

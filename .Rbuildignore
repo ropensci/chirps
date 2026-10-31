@@ -23,4 +23,5 @@
 ^tic\.R$
 ^\.covrignore$
 ^package-lock\.json$
-^LICENSE\.md$^AGENTS\.md$
+^LICENSE\.md$
+^AGENTS\.md$

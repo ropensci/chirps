@@ -552,6 +552,8 @@
   if (!inherits(y, "SpatVector")) {
     y = as.matrix(as.data.frame(y)[, 1:2])
     storage.mode(y) = "numeric"
+    # terra accepts only standard coordinate names for a matrix
+    colnames(y) = c("x", "y")
   }
   
   result = do.call(terra::extract, c(list(x = r, y = y), dots))

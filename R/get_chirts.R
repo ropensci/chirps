@@ -182,7 +182,7 @@ get_chirts.SpatExtent = function(object, dates, var, as.raster = TRUE, ...){
   result = terra::crop(rr, y = object)
   
   if (isFALSE(as.raster) || isTRUE(dots[["as.matrix"]])) {
-    result = as.matrix(result)
+    result = terra::values(result, mat = TRUE)
   }
   
   return(result)

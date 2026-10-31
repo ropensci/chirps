@@ -15,7 +15,9 @@ This release corrects errors found in a review of the package. Some returned val
 
 * `get_chirps()` with `sf` polygons used only the first polygon. Each polygon is now represented by its own centroid.
 
-* `get_chirps()` with `server = "ClimateSERV"` failed to match coordinates when the input had row names other than 1 to n. The `id` column is now the position of the row in the input.
+* `get_chirps()` with `server = "ClimateSERV"` failed to match coordinates when the input had row names other than 1 to n. For both servers, the `id` column is now the position of the row in the input, not its row name.
+
+* `get_chirps()` with `sf` input now rejects MULTIPOINT geometries, which were silently misaligned, and accepts MULTIPOLYGON.
 
 * In `precip_indices()`, SDII counted rain on days under 1 mm in the total, and counted missing days as wet days. Rtotal summed rain on all days instead of wet days, as documented. Both now use wet days only (rain >= 1 mm).
 
