@@ -43,10 +43,11 @@ Imports:
     terra (>= 1.2-10)
 Suggests:
     climatrends,
+    curl,
     knitr,
     markdown,
     rmarkdown,
-    testthat (>= 3.0.0)
+    testthat (>= 3.2.0)
 VignetteBuilder: 
     knitr
 Config/testthat/edition: 3

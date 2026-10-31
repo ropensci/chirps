@@ -10,28 +10,19 @@
 \alias{get_chirps.geojson}
 \title{Get CHIRPS precipitation data}
 \usage{
-get_chirps(object, dates, server, ...)
+get_chirps(object, dates, server = "CHC", ...)
 
-\method{get_chirps}{default}(object, dates, server, as.matrix = FALSE, ...)
+\method{get_chirps}{default}(object, dates, server = "CHC", as.matrix = FALSE, ...)
 
 \method{get_chirps}{SpatVector}(object, dates, server = "CHC", as.raster = TRUE, ...)
 
-\method{get_chirps}{SpatRaster}(
-  object,
-  dates,
-  server = "CHC",
-  as.matrix = TRUE,
-  as.raster = FALSE,
-  ...
-)
+\method{get_chirps}{SpatRaster}(object, dates, server = "CHC", as.raster = TRUE, ...)
 
 \method{get_chirps}{SpatExtent}(object, dates, server = "CHC", as.raster = TRUE, ...)
 
-\method{get_chirps}{sf}(object, dates, server, as.sf = FALSE, ...)
+\method{get_chirps}{sf}(object, dates, server = "CHC", as.sf = FALSE, ...)
 
-\method{get_chirps}{geojson}(object, dates, server, as.geojson = FALSE, ...)
-
-\method{get_chirps}{SpatExtent}(object, dates, server = "CHC", as.raster = TRUE, ...)
+\method{get_chirps}{geojson}(object, dates, server = "CHC", as.geojson = FALSE, ...)
 }
 \arguments{
 \item{object}{input, an object of class \code{\link[base]{data.frame}} (or
