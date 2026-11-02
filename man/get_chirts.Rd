@@ -49,7 +49,7 @@ Get daily maximum and minimum temperature data from the "Climate Hazards
 }
 \details{
 Variable description from
-\url{https://data.chc.ucsb.edu/products/CHIRTSdaily/aaa.Readme.txt}
+\url{https://data.chc.ucsb.edu/products/CHIRTS/daily/aaa.Readme.txt}
 \describe{
   \item{Tmax}{Daily average maximum air temperature at 2 m above ground}
   \item{Tmin}{Daily average minimum air temperature at 2 m above ground}

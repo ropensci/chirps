@@ -40,7 +40,8 @@ Imports:
     jsonlite,
     sf,
     stats,
-    terra (>= 1.2-10)
+    terra (>= 1.7-0),
+    utils
 Suggests:
     climatrends,
     curl,

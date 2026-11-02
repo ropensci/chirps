@@ -1,0 +1,99 @@
+#' User agent sent with every request to CHC and ClimateSERV
+#'
+#' CHC asked for a descriptive user agent with a contact address, so they can
+#' tell package traffic apart from bots.
+#'
+#' @return a character string
+#' @importFrom utils packageVersion
+#' @importFrom httr HEAD status_code timeout user_agent
+#' @importFrom terra getGDALconfig setGDALconfig
+#' @noRd
+.chirps_ua = function() {
+  v = tryCatch(as.character(utils::packageVersion("chirps")),
+               error = function(e) "dev")
+  paste0("chirps R package/", v,
+         " (https://github.com/AgrDataSci/chirps; desousa.kaue@gmail.com)")
+}
+
+#' Make GDAL send the chirps user agent
+#'
+#' terra reads the remote files through GDAL, which reads them lazily, so the
+#' option has to stay set for the session. A user agent the user has set
+#' themselves is kept.
+#'
+#' @return nothing, called for its side effect
+#' @noRd
+.set_gdal_ua = function() {
+  current = tryCatch(terra::getGDALconfig("GDAL_HTTP_USERAGENT"),
+                     error = function(e) "")
+  if (length(current) == 0 || all(is.na(current) | current == "")) {
+    tryCatch(terra::setGDALconfig("GDAL_HTTP_USERAGENT", .chirps_ua()),
+             error = function(e) NULL)
+  }
+  invisible(NULL)
+}
+
+#' Check that the first and last files of a request exist before reading them
+#'
+#' CHC blocks IP addresses that request many files that do not exist. Checking
+#' two files instead of letting terra request every date stops a request with
+#' a wrong path or date after at most two misses.
+#'
+#' @param urls character, the URLs of the files, one per date
+#' @return nothing, stops with an informative error when a file is missing
+#' @noRd
+.check_remote = function(urls) {
+  urls = sub("^/vsicurl/", "", urls)
+  
+  probe = unique(urls[c(1, length(urls))])
+  
+  for (u in probe) {
+    status = tryCatch({
+      r = httr::HEAD(u, httr::user_agent(.chirps_ua()), httr::timeout(60))
+      httr::status_code(r)
+    }, error = function(e) NA_integer_)
+    
+    # a network failure is left to terra, which gives its own error
+    if (is.na(status) || status < 400) {
+      next
+    }
+    
+    if (status == 404) {
+      stop("The file ", u, " was not found on the CHC server. ",
+           "Check that the dates are within the period the product covers ",
+           "and that the version and type exist.\n", call. = FALSE)
+    }
+    
+    if (status == 403) {
+      stop("The CHC server refused the request for ", u, " (HTTP 403). ",
+           "The server blocks addresses that request many missing files. ",
+           "Wait before trying again, or contact the Climate Hazards Center ",
+           "<https://www.chc.ucsb.edu/>.\n", call. = FALSE)
+    }
+    
+    stop("The CHC server returned HTTP ", status, " for ", u, ".\n",
+         call. = FALSE)
+  }
+  
+  invisible(NULL)
+}
+
+#' Open remote CHC files as a SpatRaster
+#'
+#' @param urls character, the URLs of the files, one per date
+#' @param dates Date vector, one per URL
+#' @return a SpatRaster with one layer per date
+#' @noRd
+.read_remote = function(urls, dates) {
+  .check_remote(urls)
+  .set_gdal_ua()
+  
+  if (!all(grepl("^/vsicurl/", urls))) {
+    urls = file.path("/vsicurl", urls)
+  }
+  
+  r = terra::rast(urls)
+  terra::time(r) = dates
+  
+  r
+}

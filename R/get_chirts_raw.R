@@ -105,18 +105,19 @@ get_chirts_raw = function(dates,
     version = version
   )
   
-  if (isTRUE(use_vsicurl)) {
-    urls = file.path("/vsicurl", urls)
-  }
-  
   if (isTRUE(verbose)) {
     message(paste(urls, collapse = "\n"))
   }
   
-  r = terra::rast(urls)
-  terra::time(r) = seqdate
-  
-  r
+  if (isTRUE(use_vsicurl)) {
+    .read_remote(urls, seqdate)
+  } else {
+    .check_remote(urls)
+    .set_gdal_ua()
+    r = terra::rast(urls)
+    terra::time(r) = seqdate
+    r
+  }
 }
 
 #' @noRd
@@ -166,7 +167,7 @@ get_chirts_raw = function(dates,
   resolution = gsub("0\\.", "p", as.character(resolution))
   
   file.path(
-    "https://data.chc.ucsb.edu/products/CHIRTSdaily/v1.0",
+    "https://data.chc.ucsb.edu/products/CHIRTS/daily/v1.0",
     paste0(coverage, "_", format, "_", resolution),
     var,
     fnames

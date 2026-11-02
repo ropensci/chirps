@@ -67,7 +67,7 @@ library("terra")
 dates = c("2017-11-15", "2017-11-20")
 
 # CHIRPS v2 precipitation
-chirps_v2 = get_chirps_raw(dates = dates, version = "2.0")
+chirps_v2 = get_chirps_raw(dates = dates, version = "2.0") # retired after December 2026
 
 # CHIRPS v3 precipitation
 chirps_v3 = get_chirps_raw(dates = dates, version = "3.0", type = "sat")

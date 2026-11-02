@@ -67,12 +67,17 @@ Get daily precipitation data from the "Climate Hazards Group". Two server
 }
 \details{
 Data description at
-\url{https://data.chc.ucsb.edu/products/CHIRPS-2.0/README-CHIRPS.txt}
+\url{https://data.chc.ucsb.edu/products/CHIRPS/v2.0/README-CHIRPS.txt}
 
 \strong{Additional arguments when using server = "CHC"}
 
-\bold{resolution}: numeric, resolution of CHIRPS tiles either 0.05 (default)
- or 0.25 degrees
+\bold{version}: CHIRPS version, "3.0" (default) or "2.0". CHC retires
+ CHIRPS v2 after the December 2026 release
+
+\bold{type}: CHIRPS v3 product, "rnl" (default) or "sat"
+
+\bold{resolution}: numeric, resolution of CHIRPS v2 tiles either 0.05
+ (default) or 0.25 degrees
 
 \strong{Additional arguments when using server = "ClimateSERV"}
 

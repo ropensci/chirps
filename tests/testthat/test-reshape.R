@@ -135,7 +135,7 @@ test_that("get_chirps() accepts version as an argument", {
 test_that("raw URLs point to the CHC archive", {
   d = as.Date(c("2017-12-15", "2018-01-01"))
   u = chirps:::.chirps_raw_urls(d, version = "2.0", resolution = 0.05)
-  expect_equal(u[1], paste0("https://data.chc.ucsb.edu/products/CHIRPS-2.0/",
+  expect_equal(u[1], paste0("https://data.chc.ucsb.edu/products/CHIRPS/v2.0/",
                             "global_daily/cogs/p05/2017/",
                             "chirps-v2.0.2017.12.15.cog"))
   u = chirps:::.chirps_raw_urls(d, version = "2.0", resolution = 0.25)
@@ -143,6 +143,9 @@ test_that("raw URLs point to the CHC archive", {
   u = chirps:::.chirps_raw_urls(d, version = "3.0", type = "sat")
   expect_match(u[1], "v3.0/daily/final/sat/2017/chirps-v3.0.sat.2017.12.15.tif$")
   u = chirps:::.chirts_raw_urls(as.Date("2000-01-01"), var = "Tmax")
-  expect_match(u, "global_tifs_p05/Tmax/2000/Tmax.2000.01.01.tif$")
+  expect_equal(u, paste0("https://data.chc.ucsb.edu/products/CHIRTS/daily/",
+                         "v1.0/global_tifs_p05/Tmax/2000/Tmax.2000.01.01.tif"))
+  expect_equal(chirps:::.chirps_raw_urls(d[1]),
+               chirps:::.chirps_raw_urls(d[1], version = "3.0", type = "rnl"))
   expect_error(chirps:::.chirts_raw_urls(as.Date("2020-01-01"), var = "Tmax"))
 })

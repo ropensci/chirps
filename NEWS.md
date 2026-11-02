@@ -3,6 +3,20 @@ chirps (development version)
 
 This release corrects errors found in a review of the package. Some returned values change.
 
+### CHC DATA PATHS
+
+The Climate Hazards Center moved its data to new paths in late 2026, so downloads from the CHC server failed. Thanks to Will Turner (CHC) for reporting the new paths.
+
+* CHIRPS v2 files are now read from `products/CHIRPS/v2.0`, and CHIRTS-daily files from `products/CHIRTS/daily/v1.0`. Documentation links point to the new README files.
+
+* `get_chirps_raw()`, and `get_chirps()` with `server = "CHC"`, now default to CHIRPS v3 (`version = "3.0"`, `type = "rnl"`). CHC retires CHIRPS v2 after the December 2026 release. Use `version = "2.0"` to keep the earlier results until then.
+
+* Requests check the first and last file before reading the rest, and stop with a clear error when a file is missing. CHC blocks addresses that request many missing files, which is the most likely cause of the 403 errors in issue #56.
+
+* Requests to CHC and ClimateSERV send a user agent that names the package and a contact address.
+
+* A network test requests one known file from each CHC path, so a future move is caught by the checks.
+
 ### BUG FIXES
 
 * `get_chirps()` and `get_chirts()` paired values with the wrong dates when more than one point was requested with an `sf`, geojson or `SpatVector` input (and, for `get_chirts()`, also with a data frame). Values are now matched to the right point and date.

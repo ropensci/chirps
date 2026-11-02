@@ -67,7 +67,8 @@
       id = httr::RETRY(verb = "GET", 
                         url = "https://climateserv.servirglobal.net/api/submitDataRequest/?",
                         query = query,
-                        httr::accept_json(), 
+                        httr::accept_json(),
+                        httr::user_agent(.chirps_ua()),
                         terminate_on = c(403, 404))
       
       id = httr::content(id, as = "text", encoding = "UTF-8")
@@ -147,7 +148,8 @@
   p = httr::RETRY(verb = "GET", 
                    url = "https://climateserv.servirglobal.net/api/getDataRequestProgress/?",
                    query = progress_query,
-                   httr::accept_json(), 
+                   httr::accept_json(),
+                   httr::user_agent(.chirps_ua()),
                    terminate_on = c(403, 404))
   
   p = httr::content(p, as = "text", encoding = "UTF-8")
@@ -214,7 +216,8 @@
     d = httr::RETRY(verb = "GET", 
                       url = "https://climateserv.servirglobal.net/api/getDataFromRequest/?",
                       query = query,
-                      httr::accept_json(), 
+                      httr::accept_json(),
+                      httr::user_agent(.chirps_ua()),
                       terminate_on = c(403, 404))
     
     d = httr::content(d, as = "text", encoding = "UTF-8")
