@@ -34,16 +34,16 @@
 #' @details
 #' \strong{CHIRTS-daily} (Climate Hazards Center Infrared Temperature with
 #' Stations) is a quasi-global (60°S to 70°N), high-resolution
-#' (0.05° × 0.05°) dataset of daily maximum and minimum temperatures,
-#' relative humidity and heat index covering 1983–2016. It combines monthly
+#' (0.05 degrees) dataset of daily maximum and minimum temperatures,
+#' relative humidity and heat index covering 1983-2016. It combines monthly
 #' CHIRTS temperature fields with daily temperature variability from the
 #' ERA5 reanalysis. Daily minimum temperatures are derived using the ERA5
 #' diurnal temperature range. See
 #' \url{https://www.chc.ucsb.edu/data/chirtsdaily}.
 #'
 #' \strong{CHIRTS-ERA5} is a quasi-global (60°S to 70°N), high-resolution
-#' (0.05° × 0.05°) dataset of daily maximum and minimum temperatures from
-#' 1980 to near present. It combines CHIRTS (1983–2016) with the regularly
+#' (0.05 degrees) dataset of daily maximum and minimum temperatures from
+#' 1980 to near present. It combines CHIRTS (1983-2016) with the regularly
 #' updated ERA5 reanalysis, downscaled and bias-corrected relative to CHIRTS.
 #' It is an experimental CHC product. Users should cite "CHIRTS-ERA5 Data
 #' Repository. https://doi.org/10.15780/G2F08J. Data accessed on [DATE]."
@@ -64,9 +64,9 @@
 #'
 #' Funk, C., Peterson, P., Peterson, S., Shukla, S.,
 #' Davenport, F., Michaelsen, J., et al. (2019).
-#' A High-Resolution 1983–2016 Tmax Climate Data Record Based on
+#' A High-Resolution 1983-2016 Tmax Climate Data Record Based on
 #' Infrared Temperatures and Stations by the Climate Hazards Center.
-#' Journal of Climate, 32, 5639–5658.
+#' Journal of Climate, 32, 5639-5658.
 #' \doi{10.1175/JCLI-D-18-0698.1}
 #'
 #' Climate Hazards Center (CHC). CHIRTS-ERA5 Data Repository.

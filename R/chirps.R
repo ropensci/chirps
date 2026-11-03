@@ -12,7 +12,7 @@
 #' Funk et al. (2015). Scientific Data, 2, 150066.
 #' \doi{10.1038/sdata.2015.66}
 #'
-#' Funk et al. (2019). Journal of Climate, 32(17), 5639–5658.
+#' Funk et al. (2019). Journal of Climate, 32(17), 5639-5658.
 #' \doi{10.1175/JCLI-D-18-0698.1}
 #'
 #' @seealso
