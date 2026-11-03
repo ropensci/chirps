@@ -56,13 +56,14 @@ A \code{\link[terra]{SpatRaster}} with one layer per day.
 }
 \description{
 Download CHIRTS daily temperature data in its original raster format, from
-CHIRTS-daily (default) or CHIRTS-ERA5.
-
+ CHIRTS-daily (default) or CHIRTS-ERA5.
+}
+\details{
 This function returns CHIRTS raster layers as a
 \code{\link[terra]{SpatRaster}} without extracting values, reshaping the data,
 or converting it to a data frame.
-}
-\details{
+
+
 \strong{CHIRTS-daily} (Climate Hazards Center Infrared Temperature with
 Stations) is a quasi-global (60°S to 70°N), high-resolution
 (0.05 degrees) dataset of daily maximum and minimum temperatures,
@@ -81,9 +82,9 @@ Repository. https://doi.org/10.15780/G2F08J. Data accessed on [DATE]."
 See \url{https://www.chc.ucsb.edu/data/chirts-era5}.
 
 \strong{Messages}: each request states what it downloads, here daily
-temperature or humidity from CHIRTS, with the period, so it is not
-mistaken for rainfall from \code{\link{get_chirps}}. Set
-\code{options(chirps.quiet = TRUE)} to hide these messages.
+ temperature or humidity from CHIRTS, with the period, so it is not
+ mistaken for rainfall from \code{\link{get_chirps}}. Set
+ \code{options(chirps.quiet = TRUE)} to hide these messages.
 }
 \examples{
 if (interactive()) {
@@ -95,6 +96,7 @@ if (interactive()) {
                         var = "Tmin",
                         product = "CHIRTS-ERA5")
 }
+
 }
 \references{
 Verdin, A., Funk, C., Peterson, P., Landsfeld, M.,

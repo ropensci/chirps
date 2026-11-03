@@ -17,12 +17,13 @@ get_esi(object, dates, operation = 5, period = 1, ...)
 }
 \arguments{
 \item{object}{input, an object of class \code{\link[base]{data.frame}} (or
-any other object that can be coerced to \code{data.frame}),
-\code{\link[terra]{SpatVector}}, \code{\link[terra]{SpatRaster}},
-\code{\link[sf]{sf}} or \code{geojson}}
+any other object that can be coerced to \code{data.frame}) with longitude
+and latitude in the first two columns, \code{\link[terra]{SpatVector}},
+\code{\link[terra]{SpatRaster}}, \code{\link[terra]{SpatExtent}},
+\code{\link[sf]{sf}}, \code{sfc} or \code{geojson}}
 
-\item{dates}{a character of start and end dates in that order in the format
-"YYYY-MM-DD"}
+\item{dates}{a character or Date vector "YYYY-MM-DD", with one date for a
+single day or two dates for the start and end of the period}
 
 \item{operation}{optional, an integer that represents which type of
 statistical operation to perform on the dataset}
@@ -30,9 +31,8 @@ statistical operation to perform on the dataset}
 \item{period}{an integer value for the period of ESI data, four weeks
 period = 1, twelve weeks = 2}
 
-\item{...}{additional arguments passed to \code{\link[terra]{terra}}
-or \code{\link[sf]{sf}} methods
-See details}
+\item{...}{additional arguments passed to \code{\link{get_chirps_raw}} and
+\code{\link[terra]{extract}}. See details}
 
 \item{as.sf}{logical, returns an object of class \code{\link[sf]{sf}}}
 
@@ -69,19 +69,19 @@ is then transformed into polygons with a small buffer area around the point.
 
 \bold{nQuadSegs}: integer, number of segments per buffer quadrant
 }
-\section{Future deprecation}{
-
-\code{get_esi()} reads from the ClimateSERV API, which \CRANpkg{chirps}
-no longer recommends. \code{get_esi()} will be deprecated in a future
-release, and a notice says so once per session. CHIRPS rainfall is
-available from the CHC server with \code{\link{get_chirps}()}.
-}
-
 \note{
 \code{get_esi()} may return some warning messages given by
 \code{\link[sf]{sf}}, please check the \CRANpkg{sf} documentation for
 possible issues.
 }
+\section{Future deprecation}{
+
+\code{get_esi()} reads from the ClimateSERV API, which \CRANpkg{chirps}
+ no longer recommends. \code{get_esi()} will be deprecated in a future
+ release, and a notice says so once per session. CHIRPS rainfall is
+ available from the CHC server with \code{\link{get_chirps}()}.
+}
+
 \examples{
 \dontshow{if (interactive()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 

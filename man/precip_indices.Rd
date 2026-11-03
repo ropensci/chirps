@@ -25,21 +25,21 @@ A data frame with precipitation indices:
 \item{Rx1day}{maximum 1-day precipitation (mm)}
 \item{Rx5day}{maximum 5-day precipitation (mm)}
 \item{R95p}{total precipitation when rain > 95th percentile (mm), with
-the percentile taken over all days in the period, dry days included}
+ the percentile taken over all days in the period, dry days included}
 \item{R99p}{total precipitation when rain > 99th percentile (mm), with
-the percentile taken over all days in the period, dry days included}
+ the percentile taken over all days in the period, dry days included}
 \item{Rtotal}{total precipitation (mm) in wet days, rain >= 1 (mm)}
 \item{SDII}{simple daily intensity index, total precipitation in wet days
-divided by the number of wet days (mm/days)}
+ divided by the number of wet days (mm/days)}
 }
 \description{
 A simple example of how to compute rainfall indices from the data
-returned by \code{\link{get_chirps}} or \code{\link{get_imerg}}. For
-analysis, use the \CRANpkg{climatrends} package instead.
-\code{climatrends::rainfall()} computes the same indices with tested
-definitions and flexible periods per location, and climatrends also has
-temperature, growing degree days, evapotranspiration and crop sensitive
-indices. See the examples for how to pass CHIRPS data to it.
+ returned by \code{\link{get_chirps}} or \code{\link{get_imerg}}. For
+ analysis, use the \CRANpkg{climatrends} package instead.
+ \code{climatrends::rainfall()} computes the same indices with tested
+ definitions and flexible periods per location, and climatrends also has
+ temperature, growing degree days, evapotranspiration and crop sensitive
+ indices. See the examples for how to pass CHIRPS data to it.
 }
 \examples{
 \dontshow{if (interactive()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
@@ -67,9 +67,9 @@ if (requireNamespace("climatrends", quietly = TRUE)) {
 Aguilar E., et al. (2005). Journal of Geophysical Research, 110(D23), D23107.
 
 de Sousa K., van Etten J., Neby M., Solberg S. Ø. (2023). Climate
-variability indices for ecological and crop models in R: the climatrends
-package. Journal of Open Source Software, 8(85), 4405.
-\doi{10.21105/joss.04405}
+ variability indices for ecological and crop models in R: the climatrends
+ package. Journal of Open Source Software, 8(85), 4405.
+ \doi{10.21105/joss.04405}
 
 Kehel Z., et al. (2016). In: Applied Mathematics and Omics to Assess Crop
 Genetic Resources for Climate Change Adaptive Traits (eds Bari A., Damania
