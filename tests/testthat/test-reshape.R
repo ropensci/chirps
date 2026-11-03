@@ -274,12 +274,6 @@ test_that("get_chirts() and get_chirts_raw() read CHIRTS-ERA5 with product", {
   x = get_chirts(lonlat, c("1980-06-01", "1980-06-03"), var = "Tmax",
                  product = "CHIRTS-ERA5")
   expect_equal(nrow(x), 6)
-  
-  # the deprecated function calls get_chirts_raw() with a notice
-  assign("era5_deprecated", FALSE, envir = chirps:::.chirps_env)
-  expect_message(get_chirts_era5_raw(dates, var = "Tmax"), "deprecated")
-  expect_equal(called, c("Tmax", "CHIRTS-ERA5"))
-  expect_no_message(get_chirts_era5_raw(dates, var = "Tmax"))
 })
 
 test_that("get_chirts_raw() checks the variable and years of each product", {

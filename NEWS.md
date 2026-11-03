@@ -11,8 +11,6 @@ chirps 2.0.0 reads the Climate Hazards Center (CHC) data directly from the CHC s
 
 * `get_chirts()` and `get_chirts_raw()` read CHIRTS-daily (default, 1983 to 2016, Tmax, Tmin, RHum and HeatIndex) or CHIRTS-ERA5 with `product = "CHIRTS-ERA5"` (1980 to near present, Tmax and Tmin). One function covers each variable, `get_chirps_raw()` for rainfall and `get_chirts_raw()` for temperature.
 
-* `get_chirts_era5_raw()`, available on GitHub since June 2026, is deprecated in favour of `get_chirts_raw(product = "CHIRTS-ERA5")`. It still works and shows a notice once per session.
-
 * Each request states what it downloads, for example "Downloading daily rainfall (mm) from CHIRPS v3.0 (rnl) on the CHC server, 2017-12-15 to 2017-12-31 (17 days)." This makes it clear whether `get_chirps()` (rainfall) or `get_chirts()` (temperature) was called. Set `options(chirps.quiet = TRUE)` to hide these messages.
 
 ### CHC FIRST, CLIMATRENDS FOR INDICES
