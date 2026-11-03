@@ -1,6 +1,5 @@
 # One known file from each CHC path. These fail when CHC moves its data.
-skip_on_cran()
-skip_if_offline("data.chc.ucsb.edu")
+skip_if_no_chc()
 
 d = as.Date("2000-01-01")
 

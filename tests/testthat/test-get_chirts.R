@@ -1,6 +1,5 @@
 # these tests download data and are skipped on CRAN and offline
-skip_on_cran()
-skip_if_offline()
+skip_if_no_chc()
 
 
 # setup values for testing all

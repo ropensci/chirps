@@ -23,12 +23,15 @@ jobs:
           - {os: macos-latest,   r: 'release'}
           - {os: windows-latest, r: 'release'}
           - {os: ubuntu-latest,   r: 'devel', http-user-agent: 'release'}
-          - {os: ubuntu-latest,   r: 'release'}
+          - {os: ubuntu-latest,   r: 'release', chc-tests: 'true'}
           - {os: ubuntu-latest,   r: 'oldrel-1'}
 
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
       R_KEEP_PKG_SOURCE: yes
+      # CHC rate-limits addresses that send many requests, so only one job
+      # reads from the CHC server
+      CHIRPS_CHC_TESTS: ${{ matrix.config.chc-tests || 'false' }}
 
     steps:
       - uses: actions/checkout@v4

@@ -5,7 +5,7 @@
 #'
 #' @return a character string
 #' @importFrom utils packageVersion
-#' @importFrom httr HEAD status_code timeout user_agent
+#' @importFrom httr RETRY status_code timeout user_agent
 #' @importFrom terra getGDALconfig setGDALconfig
 #' @noRd
 .chirps_ua = function() {
@@ -60,8 +60,17 @@
   probe = unique(urls[c(1, length(urls))])
   
   for (u in probe) {
+    # retry when the server is busy (429, 5xx), with growing pauses, but
+    # stop at once on a missing file or a refusal
     status = tryCatch({
-      r = httr::HEAD(u, httr::user_agent(.chirps_ua()), httr::timeout(60))
+      r = httr::RETRY("HEAD", u,
+                      httr::user_agent(.chirps_ua()),
+                      httr::timeout(60),
+                      times = 4,
+                      pause_base = 2,
+                      pause_cap = 30,
+                      terminate_on = c(403, 404),
+                      quiet = TRUE)
       httr::status_code(r)
     }, error = function(e) NA_integer_)
     
@@ -81,6 +90,12 @@
            "The server blocks addresses that request many missing files. ",
            "Wait before trying again, or contact the Climate Hazards Center ",
            "<https://www.chc.ucsb.edu/>.\n", call. = FALSE)
+    }
+    
+    if (status == 429) {
+      stop("The CHC server is receiving too many requests from this address ",
+           "(HTTP 429). Wait a few minutes before trying again.\n",
+           call. = FALSE)
     }
     
     stop("The CHC server returned HTTP ", status, " for ", u, ".\n",
