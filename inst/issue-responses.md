@@ -11,14 +11,14 @@ Before pasting, check that PR #4 is merged and replace `remotes::install_github(
 | #56 Error 403 connection to CHC server | Close | 5bfcdd1, 9f5d94b, 8985c3d |
 | #54 CHIRPS v3 | Close | 5bfcdd1 |
 | #51 get_chirps is extremely slow | Close, invite to reopen | 9f5d94b, 8985c3d |
-| #49 Check data from ClimateSERV against CHC | Close | 9f5d94b |
+| #49 Check data from ClimateSERV against CHC | Close | 9f5d94b, e739ef2 |
 | #48 Try to increase the buffer area with 'dist' | Close | 9f5d94b |
 | #47 CHIRPS-GEFS and Prelim | Keep open | none yet |
 | #45 Example case No 4, SpatExtent fails | Close | a2ba257 |
-| #44 Extracting time series | Close | a2ba257 |
+| #44 Extracting time series | Close | a2ba257, e739ef2 |
 | #43 get_chirps using a SpatRaster | Close | a2ba257 |
 | #41 CHC data not available on specific date | Close | 5bfcdd1 |
-| #37 Using get_chirps over a SFC | Close | 69ea09b, 9f5d94b |
+| #37 Using get_chirps over a SFC | Close | 69ea09b, 9f5d94b, e739ef2 |
 | #36 get_chirts() does not allow fetching only one day | Close | 9f5d94b |
 | #32 Not possible to get data for only one or two days | Close | 9f5d94b |
 | #31 Tests fail | Close | a2ba257, 5bfcdd1 |
@@ -96,7 +96,7 @@ Closing for now. If it is still slow with the new version, please reopen with yo
 
 The new version is ready (PR AgrDataSci/chirps#3 and AgrDataSci/chirps#4). ClimateSERV serves CHIRPS v2 averaged over a small buffer around each point, while CHC gives the value of the cell that holds the point, so the two can differ. This is now explained in `?get_chirps` (AgrDataSci/chirps@9f5d94b).
 
-CHC is now the default server and uses CHIRPS v3. Since CHIRPS v2 is retired after December 2026, a full comparison of the v2 routes is no longer worth doing. ClimateSERV stays for ESI, IMERG and small requests. Closing.
+CHC is now the default server and uses CHIRPS v3, and the documentation and examples use CHC throughout (AgrDataSci/chirps@e739ef2). Since CHIRPS v2 is retired after December 2026, a full comparison of the v2 routes is no longer worth doing. ClimateSERV stays for ESI and IMERG, and for CHIRPS only for backward compatibility. Closing.
 
 ---
 
@@ -145,10 +145,14 @@ spt = sf::st_as_sf(sf::st_sample(tapajos, 30))
 
 dft = get_chirps(spt, dates = c("2017-01-01", "2018-12-31"))
 
-p_ind = precip_indices(dft, timeseries = TRUE, intervals = 30)
+# rainfall indices in periods of 30 days, with climatrends
+rain = get_chirps(spt, dates = c("2017-01-01", "2018-12-31"), as.matrix = TRUE)
+
+p_ind = climatrends::rainfall(rain, day.one = "2017-01-01", span = ncol(rain),
+                              timeseries = TRUE, intervals = 30)
 ```
 
-`precip_indices()` also had errors in SDII and Rtotal, now fixed in the same commit. Closing.
+`precip_indices()` had errors in SDII and Rtotal, fixed in the same commit, but it is now documented as a simple example. For analysis we recommend `climatrends::rainfall()`, which takes the matrix from `as.matrix = TRUE` directly (AgrDataSci/chirps@e739ef2). Closing.
 
 ---
 
@@ -174,15 +178,18 @@ The files exist. These errors came from old GDAL versions and, more recently, fr
 
 ## #37 Using get_chirps over a SFC, possible?
 
-Yes, in the next release. With `sf` polygons or multipolygons and `server = "CHC"`, each day is summarised over the cells that touch each polygon, one row per polygon and day (AgrDataSci/chirps@69ea09b, AgrDataSci/chirps@9f5d94b). The average is the default, and `operation` takes the same codes as ClimateSERV (0 max, 1 min, 2 median, 4 sum, 5 average).
+Yes, in the next release. `get_chirps()` accepts `sfc`, `sf` and `SpatVector` polygons. With `server = "CHC"` (the default), each day is summarised over the cells that touch each polygon, one row per polygon and day (AgrDataSci/chirps@69ea09b, AgrDataSci/chirps@9f5d94b, AgrDataSci/chirps@e739ef2). The average is the default, and `operation` takes the same codes as ClimateSERV (0 max, 1 min, 2 median, 4 sum, 5 average).
 
 ```r
 districts = sf::st_read("ETHIOPIA.shp")
 
-rain = get_chirps(districts, c("2017-12-15", "2017-12-31"), server = "CHC")
+rain = get_chirps(districts, c("2017-12-15", "2017-12-31"))
 
 rain_total = get_chirps(districts, c("2017-12-15", "2017-12-31"),
-                        server = "CHC", operation = 4)
+                        operation = 4)
+
+# an sfc works too
+rain_geom = get_chirps(sf::st_geometry(districts), c("2017-12-15", "2017-12-31"))
 ```
 
 The polygons can be in any CRS, as they are transformed to WGS84. Closing.
