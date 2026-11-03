@@ -814,13 +814,17 @@
 #' Geometries without a CRS are taken as longitude and latitude.
 #'
 #' @param g an sf or sfc object
-#' @return g in EPSG:4326, or unchanged when it has no CRS or is already in
+#' A PROJ string is used rather than EPSG:4326, so no lookup in the PROJ
+#' database is needed.
+#'
+#' @return g in WGS84 longitude and latitude, or unchanged when it has no CRS
+#'  or is already in
 #'  longitude and latitude
 #' @noRd
 .to_lonlat = function(g) {
   crs = sf::st_crs(g)
   if (!is.na(crs) && !isTRUE(sf::st_is_longlat(g))) {
-    g = sf::st_transform(g, 4326)
+    g = sf::st_transform(g, .wgs84)
   }
   g
 }
@@ -864,3 +868,6 @@
              HeatIndex = "daily heat index (HeatIndex, \u00b0C)")
   unname(labels[var])
 }
+
+# WGS84 longitude and latitude as a PROJ string
+.wgs84 = "+proj=longlat +datum=WGS84 +no_defs"

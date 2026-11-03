@@ -2,13 +2,17 @@
 # each value encodes its day and its cell, so the pairing of location, date
 # and value can be checked exactly
 
+# CRS as PROJ strings, so the tests do not need the PROJ database
+ll_crs = "+proj=longlat +datum=WGS84 +no_defs"
+merc_crs = "+proj=merc +lon_0=0 +k=1 +x_0=0 +y_0=0 +datum=WGS84 +units=m +no_defs"
+
 dates = c("2017-12-15", "2017-12-17")
 days = seq.Date(as.Date(dates[1]), as.Date(dates[2]), by = "day")
 
 fake_raster = function(dates, ...) {
   r = terra::rast(nrows = 4, ncols = 4,
                   xmin = -56, xmax = -54, ymin = -4, ymax = -2,
-                  nlyrs = 3, crs = "EPSG:4326")
+                  nlyrs = 3, crs = ll_crs)
   # value = day * 1000 + cell
   terra::values(r) = sapply(1:3, function(i) i * 1000 + seq_len(16))
   names(r) = paste0("chirps-v2.0.", gsub("-", ".", days))
@@ -53,7 +57,7 @@ test_that("get_chirps() data.frame method pairs dates and points", {
 
 test_that("get_chirps() sf method pairs dates and points", {
   local_mocked_bindings(get_chirps_raw = fake_raster)
-  s = sf::st_as_sf(lonlat, coords = c("lon", "lat"), crs = 4326)
+  s = sf::st_as_sf(lonlat, coords = c("lon", "lat"), crs = ll_crs)
   x = get_chirps(s, dates, server = "CHC")
   expect_equal(x$date, rep(days, times = 2))
   expect_equal(x$chirps[x$id == 2], cells[2] + (1:3) * 1000)
@@ -65,9 +69,9 @@ test_that("get_chirps() sf method pairs dates and points", {
 
 test_that("get_chirps() sf method takes one centroid per polygon", {
   local_mocked_bindings(get_chirps_raw = fake_raster)
-  s = sf::st_as_sf(lonlat, coords = c("lon", "lat"), crs = 4326)
-  p = sf::st_buffer(sf::st_transform(s, 3857), 100)
-  p = sf::st_transform(p, 4326)
+  s = sf::st_as_sf(lonlat, coords = c("lon", "lat"), crs = ll_crs)
+  p = sf::st_buffer(sf::st_transform(s, merc_crs), 100)
+  p = sf::st_transform(p, ll_crs)
   p$name = c("a", "b")
   x = get_chirps(p, dates, server = "CHC")
   expect_equal(nrow(x), 6)
@@ -77,7 +81,7 @@ test_that("get_chirps() sf method takes one centroid per polygon", {
 
 test_that("get_chirps() SpatVector method pairs dates and points", {
   local_mocked_bindings(get_chirps_raw = fake_raster)
-  v = terra::vect(as.matrix(lonlat), crs = "EPSG:4326")
+  v = terra::vect(as.matrix(lonlat), crs = ll_crs)
   x = get_chirps(v, dates, as.raster = FALSE)
   expect_equal(x$date, rep(days, times = 2))
   expect_equal(x$lon, rep(lonlat$lon, each = 3))
@@ -183,7 +187,7 @@ test_that("get_chirps() summarises sf polygons over their cells", {
   p = sf::st_sf(name = c("big", "small"),
                 geometry = sf::st_sfc(sq(-55.9, -55.1, -2.9, -2.1),
                                       sq(-55.9, -55.8, -2.2, -2.1),
-                                      crs = 4326))
+                                      crs = ll_crs))
   x = get_chirps(p, dates, server = "CHC")
   expect_equal(nrow(x), 6)
   expect_equal(x$chirps[x$id == 1], (1:3) * 1000 + mean(c(1, 2, 5, 6)))
@@ -197,7 +201,7 @@ test_that("get_chirps() summarises sf polygons over their cells", {
                "operation")
   
   # projected polygons are transformed to longitude and latitude
-  pp = sf::st_transform(p, 3857)
+  pp = sf::st_transform(p, merc_crs)
   y = get_chirps(pp, dates, server = "CHC")
   expect_equal(y$chirps, x$chirps)
 })
@@ -249,7 +253,7 @@ test_that("SpatVector polygons are summarised like sf polygons", {
   }
   p = sf::st_sf(geometry = sf::st_sfc(sq(-55.9, -55.1, -2.9, -2.1),
                                       sq(-55.9, -55.8, -2.2, -2.1),
-                                      crs = 4326))
+                                      crs = ll_crs))
   v = terra::vect(p)
   x = get_chirps(v, dates, as.raster = FALSE)
   expect_equal(nrow(x), 6)
@@ -300,7 +304,7 @@ test_that("sfc input works in get_chirps() and sf input in get_chirts()", {
     get_chirps_raw = fake_raster,
     get_chirts_raw = function(dates, var, ...) fake_raster(dates)
   )
-  s = sf::st_as_sf(lonlat, coords = c("lon", "lat"), crs = 4326)
+  s = sf::st_as_sf(lonlat, coords = c("lon", "lat"), crs = ll_crs)
   x = get_chirps(sf::st_geometry(s), dates)
   expect_equal(x$chirps, get_chirps(s, dates)$chirps)
   y = get_chirts(s, dates, var = "Tmax")
@@ -310,7 +314,7 @@ test_that("sfc input works in get_chirps() and sf input in get_chirts()", {
 
 test_that("as.matrix works for sf, and polygons without a CRS are read", {
   local_mocked_bindings(get_chirps_raw = fake_raster)
-  s = sf::st_as_sf(lonlat, coords = c("lon", "lat"), crs = 4326)
+  s = sf::st_as_sf(lonlat, coords = c("lon", "lat"), crs = ll_crs)
   m = get_chirps(s, dates, as.matrix = TRUE)
   expect_equal(colnames(m), format(days))
   expect_equal(unname(m[2, ]), cells[2] + (1:3) * 1000)

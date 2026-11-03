@@ -316,7 +316,7 @@ get_chirps.sf = function(object, dates, server = "CHC",
   # work in longitude and latitude
   crs = sf::st_crs(object)
   if (!is.na(crs) && !isTRUE(sf::st_is_longlat(object))) {
-    object = sf::st_transform(object, 4326)
+    object = sf::st_transform(object, .wgs84)
   }
   
   geom = sf::st_geometry(object)
