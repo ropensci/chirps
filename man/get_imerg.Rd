@@ -17,19 +17,19 @@ get_imerg(object, dates, operation = 5, ...)
 }
 \arguments{
 \item{object}{input, an object of class \code{\link[base]{data.frame}} (or
-any other object that can be coerced to \code{data.frame}),
-\code{\link[terra]{SpatVector}}, \code{\link[terra]{SpatRaster}},
-\code{\link[sf]{sf}} or \code{geojson}}
+any other object that can be coerced to \code{data.frame}) with longitude
+and latitude in the first two columns, \code{\link[terra]{SpatVector}},
+\code{\link[terra]{SpatRaster}}, \code{\link[terra]{SpatExtent}},
+\code{\link[sf]{sf}}, \code{sfc} or \code{geojson}}
 
-\item{dates}{a character of start and end dates in that order in the format
-"YYYY-MM-DD"}
+\item{dates}{a character or Date vector "YYYY-MM-DD", with one date for a
+single day or two dates for the start and end of the period}
 
 \item{operation}{optional, an integer that represents which type of
 statistical operation to perform on the dataset}
 
-\item{...}{additional arguments passed to \code{\link[terra]{terra}}
-or \code{\link[sf]{sf}} methods
-See details}
+\item{...}{additional arguments passed to \code{\link{get_chirps_raw}} and
+\code{\link[terra]{extract}}. See details}
 
 \item{as.sf}{logical, returns an object of class \code{\link[sf]{sf}}}
 
@@ -69,19 +69,19 @@ The IMERG dataset provides near-real time global observations of rainfall at
 \section{Future deprecation}{
 
 \code{get_imerg()} reads from the ClimateSERV API, which \CRANpkg{chirps}
-no longer recommends. \code{get_imerg()} will be deprecated in a future
-release, and a notice says so once per session. CHIRPS rainfall is
-available from the CHC server with \code{\link{get_chirps}()}.
+ no longer recommends. \code{get_imerg()} will be deprecated in a future
+ release, and a notice says so once per session. CHIRPS rainfall is
+ available from the CHC server with \code{\link{get_chirps}()}.
 }
 
 \examples{
 \dontshow{if (interactive()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
-lonlat <- data.frame(lon = c(-55.0281,-54.9857),
+lonlat = data.frame(lon = c(-55.0281,-54.9857),
                      lat = c(-2.8094, -2.8756))
 
-dates <- c("2017-12-15", "2017-12-31")
+dates = c("2017-12-15", "2017-12-31")
 
-dt <- get_imerg(lonlat, dates)
+dt = get_imerg(lonlat, dates)
 
 dt
 \dontshow{\}) # examplesIf}

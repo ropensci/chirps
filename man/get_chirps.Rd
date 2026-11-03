@@ -55,80 +55,80 @@ location and one column per day, named "YYYY-MM-DD"}
 }
 \value{
 A data frame of \acronym{CHIRPS} data in the long format, ordered
-by \code{id} and \code{date}, or a matrix, raster, \code{sf} or
-\code{geojson} object as requested:
+ by \code{id} and \code{date}, or a matrix, raster, \code{sf} or
+ \code{geojson} object as requested:
 \describe{
-\item{id}{the index for the rows in \code{object}}
-\item{date}{the date of each value}
-\item{lon}{the longitude as provided in \code{object}}
-\item{lat}{the latitude as provided in \code{object}}
-\item{chirps}{the \acronym{CHIRPS} value in mm}
+  \item{id}{the index for the rows in \code{object}}
+  \item{date}{the date of each value}
+  \item{lon}{the longitude as provided in \code{object}}
+  \item{lat}{the latitude as provided in \code{object}}
+  \item{chirps}{the \acronym{CHIRPS} value in mm}
 }
 }
 \description{
 Get daily rainfall from CHIRPS, produced by the Climate Hazards Center
-(CHC), for points, polygons or an area. The data are read from the CHC
-server, which is the main source and serves both CHIRPS v3 (default) and
-CHIRPS v2.
+ (CHC), for points, polygons or an area. The data are read from the CHC
+ server, which is the main source and serves both CHIRPS v3 (default) and
+ CHIRPS v2.
 }
 \details{
 \strong{Additional arguments}
 
 \bold{version}: CHIRPS version, "3.0" (default) or "2.0". CHC retires
-CHIRPS v2 after the December 2026 release
+ CHIRPS v2 after the December 2026 release
 
 \bold{type}: CHIRPS v3 product, "rnl" (default) or "sat". See
-\code{\link{get_chirps_raw}}
+ \code{\link{get_chirps_raw}}
 
 \bold{resolution}: numeric, resolution of CHIRPS v2, 0.05 (default) or
-0.25 degrees
+ 0.25 degrees
 
 \bold{operation}: for polygons, the function used to summarise the cells
-of each polygon on each day
-\tabular{rll}{
-\bold{operation}      \tab    \tab \bold{value}\cr
-max                   \tab =  \tab 0\cr
-min                   \tab =  \tab 1\cr
-median                \tab =  \tab 2\cr
-sum                   \tab =  \tab 4\cr
-average               \tab =  \tab 5 (\emph{default value})\cr
-}
+ of each polygon on each day
+ \tabular{rll}{
+ \bold{operation}      \tab    \tab \bold{value}\cr
+ max                   \tab =  \tab 0\cr
+ min                   \tab =  \tab 1\cr
+ median                \tab =  \tab 2\cr
+ sum                   \tab =  \tab 4\cr
+ average               \tab =  \tab 5 (\emph{default value})\cr
+ }
 
 \strong{Coverage}: CHIRPS v3 covers 60°S to 60°N and CHIRPS v2 covers
-50°S to 50°N, from 1981 to near present. Final data for a month arrive
-some weeks after it ends.
+ 50°S to 50°N, from 1981 to near present. Final data for a month arrive
+ some weeks after it ends.
 
 \strong{Polygons}: with \code{sf}, \code{SpatVector} or \code{geojson}
-polygons, each day is summarised over the cells that touch the polygon,
-with the function set by \bold{operation}. The \code{lon} and \code{lat}
-columns give the centroid of each polygon.
+ polygons, each day is summarised over the cells that touch the polygon,
+ with the function set by \bold{operation}. The \code{lon} and \code{lat}
+ columns give the centroid of each polygon.
 
 \strong{Messages}: each request states what it downloads, here daily
-rainfall from CHIRPS, with the period, so it is not mistaken for
-temperature from \code{\link{get_chirts}}. Set
-\code{options(chirps.quiet = TRUE)} to hide these messages.
+ rainfall from CHIRPS, with the period, so it is not mistaken for
+ temperature from \code{\link{get_chirts}}. Set
+ \code{options(chirps.quiet = TRUE)} to hide these messages.
 
 \strong{Indices}: for rainfall indices (dry spells, heavy rain days,
-intensity) use \code{climatrends::rainfall()}. The matrix returned with
-\code{as.matrix = TRUE} is its input, see the examples.
+ intensity) use \code{climatrends::rainfall()}. The matrix returned with
+ \code{as.matrix = TRUE} is its input, see the examples.
 }
 \section{Servers}{
 
 \bold{CHC} (default) reads the CHIRPS files from
-\url{https://data.chc.ucsb.edu} through \CRANpkg{terra}. It serves CHIRPS
-v3 and v2, gives the value of the cell that holds each point, and handles
-many points and long periods in one call. It is the recommended source.
+ \url{https://data.chc.ucsb.edu} through \CRANpkg{terra}. It serves CHIRPS
+ v3 and v2, gives the value of the cell that holds each point, and handles
+ many points and long periods in one call. It is the recommended source.
 
 \bold{ClimateSERV} is kept for backward compatibility. It serves CHIRPS v2
-only, averaged over a small buffer around each point, so its values can
-differ from the CHC values. It sends several requests per location and is
-slow for more than a few points. ClimateSERV support for CHIRPS may be
-removed in a future release. Its extra arguments are \bold{dist}, the
-buffer distance around each point, \bold{nQuadSegs}, the number of
-segments per buffer quadrant, and \bold{operation} as above.
+ only, averaged over a small buffer around each point, so its values can
+ differ from the CHC values. It sends several requests per location and is
+ slow for more than a few points. ClimateSERV support for CHIRPS may be
+ removed in a future release. Its extra arguments are \bold{dist}, the
+ buffer distance around each point, \bold{nQuadSegs}, the number of
+ segments per buffer quadrant, and \bold{operation} as above.
 
 \code{SpatVector}, \code{SpatRaster} and \code{SpatExtent} input always
-uses CHC.
+ uses CHC.
 }
 
 \examples{
@@ -168,13 +168,13 @@ if (requireNamespace("climatrends", quietly = TRUE)) {
 }
 \references{
 Funk, C., Peterson, P., Harrison, L. et al. (2026). Scientific Data, 13,
-718. \cr\doi{10.1038/s41597-026-07096-4}
+ 718. \cr\doi{10.1038/s41597-026-07096-4}
 
 Funk C. et al. (2015). Scientific Data, 2, 150066.
-\cr\doi{10.1038/sdata.2015.66}
+ \cr\doi{10.1038/sdata.2015.66}
 }
 \seealso{
 \code{\link{get_chirps_raw}} for the rasters,
-\code{\link{get_chirts}} for temperature, and the \CRANpkg{climatrends}
-package for rainfall and temperature indices
+ \code{\link{get_chirts}} for temperature, and the \CRANpkg{climatrends}
+ package for rainfall and temperature indices
 }

@@ -43,46 +43,46 @@ location and one column per day, named "YYYY-MM-DD"}
 }
 \value{
 A data frame in the long format, ordered by \code{id} and
-\code{date}, with the value in the column \code{chirts}. A SpatRaster
-if \code{as.raster = TRUE}, or a matrix with one column per day, named
-"YYYY-MM-DD", if \code{as.matrix = TRUE}
+ \code{date}, with the value in the column \code{chirts}. A SpatRaster
+ if \code{as.raster = TRUE}, or a matrix with one column per day, named
+ "YYYY-MM-DD", if \code{as.matrix = TRUE}
 }
 \description{
 Get daily temperature from the Climate Hazards Center (CHC) for points,
-polygons or an area. Two products are available. CHIRTS-daily (default)
-covers 1983 to 2016 and has maximum and minimum temperature, relative
-humidity and heat index. CHIRTS-ERA5 extends maximum and minimum
-temperature from 1980 to near present.
+ polygons or an area. Two products are available. CHIRTS-daily (default)
+ covers 1983 to 2016 and has maximum and minimum temperature, relative
+ humidity and heat index. CHIRTS-ERA5 extends maximum and minimum
+ temperature from 1980 to near present.
 }
 \details{
 Variable description from
 \url{https://data.chc.ucsb.edu/products/CHIRTS/daily/aaa.Readme.txt}
 \describe{
-\item{Tmax}{Daily average maximum air temperature at 2 m above ground}
-\item{Tmin}{Daily average minimum air temperature at 2 m above ground}
-\item{RHum}{Daily average relative humidity}
-\item{HeatIndex}{Daily average heat index}
-}
+  \item{Tmax}{Daily average maximum air temperature at 2 m above ground}
+  \item{Tmin}{Daily average minimum air temperature at 2 m above ground}
+  \item{RHum}{Daily average relative humidity}
+  \item{HeatIndex}{Daily average heat index}
+  }
 
 \strong{Additional arguments}
 
 \bold{product}: \dQuote{CHIRTS-daily} (default, 1983 to 2016) or
-\dQuote{CHIRTS-ERA5} (1980 to near present, Tmax and Tmin)
+ \dQuote{CHIRTS-ERA5} (1980 to near present, Tmax and Tmin)
 
 \bold{operation}: for polygons, the function used to summarise the cells
-of each polygon on each day, with the codes listed in
-\code{\link{get_chirps}} (average by default)
+ of each polygon on each day, with the codes listed in
+ \code{\link{get_chirps}} (average by default)
 
 \strong{Coverage}: both products cover 60°S to 70°N.
 
 \strong{Messages}: each request states what it downloads, here daily
-temperature or humidity from CHIRTS, with the period, so it is not
-mistaken for rainfall from \code{\link{get_chirps}}. Set
-\code{options(chirps.quiet = TRUE)} to hide these messages.
+ temperature or humidity from CHIRTS, with the period, so it is not
+ mistaken for rainfall from \code{\link{get_chirps}}. Set
+ \code{options(chirps.quiet = TRUE)} to hide these messages.
 
 \strong{Indices}: for temperature indices (growing degree days, crop
-sensitive indices, frost and heat days) use the \CRANpkg{climatrends}
-package, which takes the matrices returned with \code{as.matrix = TRUE}.
+ sensitive indices, frost and heat days) use the \CRANpkg{climatrends}
+ package, which takes the matrices returned with \code{as.matrix = TRUE}.
 }
 \examples{
 \dontshow{if (interactive()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
