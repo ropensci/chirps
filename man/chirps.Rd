@@ -8,7 +8,7 @@
 \description{
 \if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
 
-Provides access to Climate Hazards Center (CHC) datasets including CHIRPS, CHIRPS v3, CHIRTS-daily, and CHIRTS-ERA5. The 'CHIRPS' data is a quasi-global (50°S – 50°N) high-resolution (0.05 arc-degrees) rainfall data set, which incorporates satellite imagery and in-situ station data to create gridded rainfall time series for trend analysis and seasonal drought monitoring. 'CHIRTS' is a quasi-global (60°S – 70°N), high-resolution data set of daily maximum and minimum temperatures. For more details on 'CHIRPS' and 'CHIRTS' data please visit its official home page \url{https://www.chc.ucsb.edu/data}.
+Provides access to Climate Hazards Center (CHC) datasets including CHIRPS v3, CHIRPS v2, CHIRTS-daily and CHIRTS-ERA5, read directly from the CHC server. 'CHIRPS' is a quasi-global (60°S – 60°N for v3) high-resolution (0.05 arc-degrees) rainfall data set, which incorporates satellite imagery and in-situ station data to create gridded rainfall time series for trend analysis and seasonal drought monitoring. 'CHIRTS' is a quasi-global (60°S – 70°N), high-resolution data set of daily maximum and minimum temperatures. Data are returned as rasters or as time series for points and polygons, ready for climate indices with the 'climatrends' package. For more details on CHC datasets please visit their official home page \url{https://www.chc.ucsb.edu/data}.
 }
 \note{
 While \CRANpkg{chirps} does not redistribute the data or provide it in any

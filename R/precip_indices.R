@@ -1,4 +1,12 @@
-#' Compute precipitation indices over a time series
+#' Compute simple precipitation indices over a time series
+#'
+#' A simple example of how to compute rainfall indices from the data
+#'  returned by \code{\link{get_chirps}} or \code{\link{get_imerg}}. For
+#'  analysis, use the \CRANpkg{climatrends} package instead.
+#'  \code{climatrends::rainfall()} computes the same indices with tested
+#'  definitions and flexible periods per location, and climatrends also has
+#'  temperature, growing degree days, evapotranspiration and crop sensitive
+#'  indices. See the examples for how to pass CHIRPS data to it.
 #'
 #' @param object an object of class \code{chirps} as provided by
 #'  \code{\link{get_chirps}}
@@ -13,18 +21,27 @@
 #' \item{R20mm}{number of very heavy precipitation days rain >= 20 (days)}
 #' \item{Rx1day}{maximum 1-day precipitation (mm)}
 #' \item{Rx5day}{maximum 5-day precipitation (mm)}
-#' \item{R95p}{total precipitation when rain > 95th percentile (mm)}
-#' \item{R99p}{total precipitation when rain > 99th percentile (mm)}
+#' \item{R95p}{total precipitation when rain > 95th percentile (mm), with
+#'  the percentile taken over all days in the period, dry days included}
+#' \item{R99p}{total precipitation when rain > 99th percentile (mm), with
+#'  the percentile taken over all days in the period, dry days included}
 #' \item{Rtotal}{total precipitation (mm) in wet days, rain >= 1 (mm)}
-#' \item{SDII}{simple daily intensity index, total precipitation divided by the
-#'  number of wet days (mm/days)}
+#' \item{SDII}{simple daily intensity index, total precipitation in wet days
+#'  divided by the number of wet days (mm/days)}
 #' @references 
 #' 
 #' Aguilar E., et al. (2005). Journal of Geophysical Research, 110(D23), D23107.
 #' 
+#' de Sousa K., van Etten J., Neby M., Solberg S. Ø. (2023). Climate
+#'  variability indices for ecological and crop models in R: the climatrends
+#'  package. Journal of Open Source Software, 8(85), 4405.
+#'  \doi{10.21105/joss.04405}
+#' 
 #' Kehel Z., et al. (2016). In: Applied Mathematics and Omics to Assess Crop
 #'  Genetic Resources for Climate Change Adaptive Traits (eds Bari A., Damania
 #'  A. B., Mackay M., Dayanandan S.), pp. 151–174. CRC Press.
+#' 
+#' @seealso \code{climatrends::rainfall()}
 #' 
 #' @examplesIf interactive()
 #' lonlat = data.frame(lon = c(-55.0281,-54.9857),
@@ -32,13 +49,19 @@
 #' 
 #' dates = c("2017-12-15", "2017-12-31")
 #' 
-#' dt = get_chirps(lonlat, dates, server = "ClimateSERV")
+#' dt = get_chirps(lonlat, dates)
 #' 
 #' # take the indices for the entire period
 #' precip_indices(dt, timeseries = FALSE)
 #' 
 #' # take the indices for periods of 7 days
 #' precip_indices(dt, timeseries = TRUE, intervals = 7)
+#' 
+#' # recommended, the same data in climatrends
+#' if (requireNamespace("climatrends", quietly = TRUE)) {
+#'   rain = get_chirps(lonlat, dates, as.matrix = TRUE)
+#'   climatrends::rainfall(rain, day.one = dates[1], span = ncol(rain))
+#' }
 #'
 #' @importFrom stats quantile
 #' @export
@@ -47,6 +70,10 @@ precip_indices = function(object, timeseries = FALSE, intervals = NULL) {
   if (isFALSE(.is_chirps(object))) {
     stop("object must be a data.frame with class 'chirps'\n")
   }
+  
+  .notice_once("indices_noticed",
+               "precip_indices() is a simple example. For analysis use ",
+               "climatrends::rainfall(), see ?precip_indices.")
   
   indices = c("MLDS","MLWS","R10mm","R20mm","Rx1day",
                "Rx5day","R95p","R99p","Rtotal","SDII")
@@ -66,6 +93,11 @@ precip_indices = function(object, timeseries = FALSE, intervals = NULL) {
   # length == 49 (the maximum integer from dividing days/intervals)
   if (isTRUE(timeseries)) {
     
+    if (is.null(intervals) || intervals < 1 || intervals > nr) {
+      stop("'intervals' must be between 1 and the number of days in ",
+           "'object' when timeseries = TRUE\n", call. = FALSE)
+    }
+    
     bins = floor(nr / intervals)
     
     bins = rep(1:bins, each = intervals, length.out = NA)
@@ -81,7 +113,7 @@ precip_indices = function(object, timeseries = FALSE, intervals = NULL) {
   }
   
   # force the dates to be in the right order
-  object = object[order(as.Date(object$date, format = "%Y/%m/%d")), ]
+  object = object[order(as.Date(object$date)), ]
   
   # split by ids
   object = split(object, object$id)
@@ -274,11 +306,14 @@ precip_indices = function(object, timeseries = FALSE, intervals = NULL) {
 #' @noRd
 .sdii = function(object) {
   
-  # total precipitation
-  tp = sum(object, na.rm = TRUE)
+  # wet days, rain >= 1 mm
+  wet = object[!is.na(object) & object >= 1]
+  
+  # total precipitation in wet days
+  tp = sum(wet)
   
   # number of wet days
-  wd = length(object[object >= 1])
+  wd = length(wet)
   
   #if both zero, then return 0
   if (wd == 0) {
@@ -306,6 +341,11 @@ precip_indices = function(object, timeseries = FALSE, intervals = NULL) {
   # this look for the maximum sum of rain in
   # consecutive 5 days
   l = length(object)
+  
+  # shorter series have a single window
+  if (l < 5) {
+    return(sum(object, na.rm = TRUE))
+  }
   
   r5day = NULL
   
@@ -348,9 +388,8 @@ precip_indices = function(object, timeseries = FALSE, intervals = NULL) {
 #' @noRd
 .r_total = function(object) {
   
-  rt = object[object >= 1]
-  
-  rt = sum(object, na.rm = TRUE)
+  # total precipitation in wet days, rain >= 1 mm
+  rt = sum(object[!is.na(object) & object >= 1])
   
   return(rt)
   

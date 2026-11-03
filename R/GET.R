@@ -61,7 +61,15 @@
   
   message("\nGetting your request...\n")
   
+  first = TRUE
+
   while (isFALSE(all(request_progress))) {
+    # wait between checks so the server is not flooded with requests
+    if (!first) {
+      Sys.sleep(1)
+    }
+    first = FALSE
+
     request_progress = lapply(ids, function(x) {
       p = .get_request_progress(x)
       
@@ -93,8 +101,9 @@
   nr = dim(result)[[1]]
   
   if (nr == 0) {
-    stop("Failed to get valid values,
-         try to increase the buffer area with 'dist' \n",
+    stop("ClimateSERV returned no values for these locations and dates. ",
+         "Try server = \"CHC\", which reads the CHIRPS files directly, or ",
+         "a larger buffer around the points with 'dist'.\n",
          call. = FALSE)
   }
   

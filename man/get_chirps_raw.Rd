@@ -6,7 +6,7 @@
 \usage{
 get_chirps_raw(
   dates,
-  version = "2.0",
+  version = "3.0",
   resolution = 0.05,
   type = c("rnl", "sat"),
   verbose = FALSE,
@@ -18,7 +18,8 @@ get_chirps_raw(
 \code{"YYYY-MM-DD"} format.}
 
 \item{version}{Character or numeric. CHIRPS version. Supported values are
-\code{"2.0"} and \code{"3.0"}.}
+\code{"3.0"} (default) and \code{"2.0"}. CHC retires CHIRPS v2 after
+the December 2026 release.}
 
 \item{resolution}{Numeric. Spatial resolution for CHIRPS v2. Supported
 values are \code{0.05} and \code{0.25}. Ignored for CHIRPS v3.}
@@ -35,14 +36,13 @@ A \code{\link[terra]{SpatRaster}} with one layer per day.
 }
 \description{
 Download Global CHIRPS precipitation data in its original raster format.
-}
-\details{
+
 This function returns CHIRPS raster layers as a \code{\link[terra]{SpatRaster}}
 without extracting values, reshaping the data, or converting it to a data
 frame. It is intended for users who need direct access to the original
 raster product for custom spatial workflows.
-
-
+}
+\details{
 CHIRPS v3 (Climate Hazards Center Infrared Precipitation with Stations)
 is a high-resolution (0.05°), quasi-global rainfall dataset spanning
 60°N to 60°S from 1981 to near-present.
@@ -53,14 +53,19 @@ estimates over land.
 
 Two daily products are available:
 \describe{
-  \item{rnl}{Daily values derived using ECMWF ERA5 precipitation to
-  partition pentadal CHIRPS totals into daily amounts.}
-  \item{sat}{Daily values derived using NASA IMERG precipitation to
-  partition pentadal CHIRPS totals into daily amounts.}
+\item{rnl}{Daily values derived using ECMWF ERA5 precipitation to
+partition pentadal CHIRPS totals into daily amounts.}
+\item{sat}{Daily values derived using NASA IMERG precipitation to
+partition pentadal CHIRPS totals into daily amounts.}
 }
 
 Additional information is available at:
 \url{https://www.chc.ucsb.edu/data/chirps3}
+
+\strong{Messages}: each request states what it downloads, here daily
+rainfall from CHIRPS, with the period, so it is not mistaken for
+temperature from \code{\link{get_chirts}}. Set
+\code{options(chirps.quiet = TRUE)} to hide these messages.
 
 Daily product documentation:
 \url{https://data.chc.ucsb.edu/products/CHIRPS/v3.0/daily/readme.txt}
@@ -68,13 +73,13 @@ Daily product documentation:
 \examples{
 if (interactive()) {
 r1 = get_chirps_raw(dates = c("2017-12-15", "2017-12-31"),
-                    version = "2.0")
+                    version = "3.0",
+                    type = "rnl")
 
 r2 = get_chirps_raw(dates = c("2017-12-15", "2017-12-31"),
                     version = "3.0",
-                    type = "rnl")
+                    type = "sat")
 }
-
 }
 \references{
 Climate Hazards Center Infrared Precipitation with Stations version 3

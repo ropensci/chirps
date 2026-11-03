@@ -1,3 +1,7 @@
+# these tests download data and are skipped on CRAN and offline
+skip_on_cran()
+skip_if_offline()
+
 load(test_path("test_data.rda"))
 
 # Test get_chirps() default method -----

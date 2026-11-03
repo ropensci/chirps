@@ -8,7 +8,6 @@
 ^CODE_OF_CONDUCT\.md$
 ^README\.md$
 ^CONTRIBUTING\.md$
-^tests$
 ^logo\.svg$
 ^dev$
 ^doc$
@@ -16,7 +15,6 @@
 ^codemeta\.json$
 ^.github$
 ^vignettes/Overview\.Rmd\.orig$
-^vignettes/Overview\.md$
 ^vignettes/precompile\.R$
 ^CRAN-RELEASE$
 ^\.ccache$
@@ -25,3 +23,5 @@
 ^\.covrignore$
 ^package-lock\.json$
 ^LICENSE\.md$
+^AGENTS\.md$
+^inst/issue-responses\.md$

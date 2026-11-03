@@ -1,3 +1,7 @@
+# these tests download data and are skipped on CRAN and offline
+skip_on_cran()
+skip_if_offline()
+
 
 # setup for tests
 esi_lonlat <- data.frame(lon = c(-55.0281, -54.9857),

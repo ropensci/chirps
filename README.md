@@ -12,16 +12,20 @@
 
 ## Overview
 
-**chirps** provides access to Climate Hazards Center (CHC) datasets including CHIRPS, CHIRPS v3, CHIRTS-daily, and CHIRTS-ERA5. Data can be retrieved either as extracted values for points and polygons or as native raster products for custom spatial workflows.
+**chirps** provides access to Climate Hazards Center (CHC) datasets, CHIRPS v3 and v2 for rainfall and CHIRTS-daily and CHIRTS-ERA5 for temperature. Data are read directly from the CHC server, either as native rasters for custom spatial workflows or as time series for points and polygons.
+
+For climate indices computed from these data (dry spells, heavy rain days, growing degree days, crop sensitive indices), use the [climatrends](https://CRAN.R-project.org/package=climatrends) package, which takes the output of **chirps** directly.
 
 ## Available Datasets
 
-| Dataset | Variable | Resolution | Period |
-|----------|----------|----------|----------|
-| CHIRPS v2 | Precipitation | 0.05° / 0.25° | 1981–present |
-| CHIRPS v3 | Precipitation | 0.05° | 1981–present |
-| CHIRTS-daily | Tmax, Tmin, RHum, HeatIndex | 0.05° | 1983–2016 |
-| CHIRTS-ERA5 | Tmax, Tmin | 0.05° | 1980–present |
+| Dataset | Variable | Resolution | Coverage | Period |
+|----------|----------|----------|----------|----------|
+| CHIRPS v3 (default) | Precipitation | 0.05° | 60°S to 60°N | 1981 to near present |
+| CHIRPS v2 | Precipitation | 0.05° / 0.25° | 50°S to 50°N | 1981 to December 2026 (retired) |
+| CHIRTS-daily | Tmax, Tmin, RHum, HeatIndex | 0.05° | 60°S to 70°N | 1983 to 2016 |
+| CHIRTS-ERA5 | Tmax, Tmin | 0.05° | 60°S to 70°N | 1980 to near present |
+
+ESI and IMERG are also available through the ClimateSERV API with `get_esi()` and `get_imerg()`. Both will be deprecated in a future release.
 
 ## Applications
 
@@ -54,77 +58,78 @@ library("remotes")
 install_github("ropensci/chirps", build_vignettes = TRUE)
 ```
 
-## Example
+## Time series for points and polygons
 
-## Accessing raw raster products
-
-The package can provide direct access to CHC climate datasets as `terra::SpatRaster` objects. This is useful when working with large spatial datasets or custom extraction workflows.
+`get_chirps()` reads the CHIRPS v3 files from the CHC server and returns one row per location and day. Fetch rainfall for three points across the Tapajós National Forest (Brazil) in January 2017.
 
 ```r
 library("chirps")
+
+lonlat = data.frame(lon = c(-55.0281, -54.9857, -55.0714),
+                    lat = c(-2.8094, -2.8756, -3.5279))
+
+dates = c("2017-01-01", "2017-01-31")
+
+rain = get_chirps(lonlat, dates)
+```
+
+Each call states what it downloads, for example daily rainfall from CHIRPS v3.0 or daily maximum temperature from CHIRTS, so a mix-up between `get_chirps()` and `get_chirts()` is easy to spot. Set `options(chirps.quiet = TRUE)` to hide these messages.
+
+A single date returns one day. With `sf` polygons, each day is averaged over the cells of each polygon, and `operation` sets another summary (4 for the sum).
+
+```r
+data("tapajos", package = "chirps")
+
+rain_area = get_chirps(tapajos, dates, operation = 4)
+```
+
+Temperature works the same way with `get_chirts()`. CHIRTS-daily ends in 2016, so use `product = "CHIRTS-ERA5"` for recent years.
+
+```r
+tmax = get_chirts(lonlat, c("2024-01-01", "2024-01-31"), var = "Tmax",
+                  product = "CHIRTS-ERA5")
+```
+
+## Climate indices with climatrends
+
+With `as.matrix = TRUE`, **chirps** returns one row per location and one column per day, named by date. This is the input of `climatrends::rainfall()` and `climatrends::temperature()`.
+
+```r
+library("climatrends")
+
+rain = get_chirps(lonlat, dates, as.matrix = TRUE)
+
+rainfall(rain, day.one = dates[1], span = ncol(rain))
+```
+
+`precip_indices()` remains in **chirps** as a simple example. Use climatrends for analysis.
+
+## Raw raster products
+
+The `*_raw()` functions return the CHC files as `terra::SpatRaster` objects, with one layer per day. This suits large areas and custom extraction workflows.
+
+```r
 library("terra")
 
 dates = c("2017-11-15", "2017-11-20")
 
-# CHIRPS v2 precipitation
-chirps_v2 = get_chirps_raw(dates = dates, version = "2.0")
+# CHIRPS v3 precipitation, "rnl" (default) or "sat"
+chirps_v3 = get_chirps_raw(dates = dates, type = "sat")
 
-# CHIRPS v3 precipitation
-chirps_v3 = get_chirps_raw(dates = dates, version = "3.0", type = "sat")
+# CHIRTS-ERA5 minimum and maximum temperature
+tmin = get_chirts_raw(dates = dates, var = "Tmin", product = "CHIRTS-ERA5")
+tmax = get_chirts_raw(dates = dates, var = "Tmax", product = "CHIRTS-ERA5")
 
-# CHIRTS-ERA5 minimum temperature
-tmin = get_chirts_era5_raw(dates = dates, var = "Tmin")
+pts = vect(lonlat, geom = c("lon", "lat"), crs = "EPSG:4326")
 
-# CHIRTS-ERA5 maximum temperature
-tmax = get_chirts_era5_raw(dates = dates, var = "Tmax")
+rain = extract(chirps_v3, pts)
 ```
 
-Raster values can be extracted using functions from the `terra` package. Fetch CHIRPS data from three points across the Tapajós National Forest (Brazil) in January 2017.
+## Servers
 
-```r
-lonlat = data.frame(lon = c(-55.0281, -54.9857, -55.0714),
-                    lat = c(-2.8094, -2.8756, -3.5279))
+The CHC server is the default and the recommended source. `server = "ClimateSERV"` is kept for backward compatibility. It serves CHIRPS v2 only, which CHC retires after the December 2026 release, and it is slow for more than a few points. ClimateSERV support for CHIRPS may be removed in a future release.
 
-pts = vect(lonlat,
-           geom = c("lon", "lat"),
-           crs = "EPSG:4326")
-
-rain = extract(chirps_v2, pts)
-```
-
-The resulting object contains daily values for each location and can be readily converted to a matrix or data frame for further analysis.
-
-The recommended workflow is to retrieve native raster products using `get_chirps_raw()`, `get_chirts_raw()`, and `get_chirts_era5_raw()`, and then use the `terra` package for extraction and spatial analysis.
-
-### Accessing high-level extraction
-
-`get_chirps()` default procedure will download the COG files from the CHIRPS server and handle it internally using the package `terra`. This is more interesting when dealing with hundreds of points and days. Data can be returned as a matrix using the argument `as.matrix = TRUE`.
-
-```r
-library("chirps")
-
-lonlat = data.frame(lon = c(-55.0281,-54.9857, -55.0714),
-                    lat = c(-2.8094, -2.8756, -3.5279))
-
-dates = c("2017-01-01", "2017-01-31")
-
-dat = get_chirps(lonlat, dates, server = "CHC", as.matrix = FALSE)
-
-```
-
-For a faster download of few datapoints (~ 10 datapoints), the argument `server = "ClimateSERV"` can be used  
-
-```r
-library("chirps")
-
-lonlat = data.frame(lon = c(-55.0281,-54.9857, -55.0714),
-                    lat = c(-2.8094, -2.8756, -3.5279))
-
-dates = c("2017-01-01", "2017-01-31")
-
-dat = get_chirps(lonlat, dates, server = "ClimateSERV", as.matrix = FALSE)
-
-```
+CHC blocks addresses that request many files that do not exist. **chirps** checks the first and last file of each request before reading the rest and identifies itself with a user agent. Keep requests within the period each product covers.
 
 ## Going further
 

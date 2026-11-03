@@ -143,7 +143,7 @@ values3 <-
     20.17695,
     20.17695,
     20.17695,
-    10.08848,
+    20.17695,
     2.00000,
     1.00000,
     0.00000,
@@ -153,7 +153,7 @@ values3 <-
     0.00000,
     0.00000,
     76.70845,
-    25.56948
+    38.35423
   )
 
 test_that("accepts NAs", {
@@ -166,4 +166,25 @@ test_that("accepts NAs", {
 test_that("non chirps data", {
   expect_error(precip_indices(object = airquality))
   
+})
+
+# SDII and Rtotal use wet days only (rain >= 1 mm)
+test_that("SDII and Rtotal ignore rain under 1 mm", {
+  x = c(0.5, 0.5, 10, 0, 20)
+  expect_equal(chirps:::.sdii(x), 15)
+  expect_equal(chirps:::.r_total(x), 30)
+  # a missing day is not a wet day
+  expect_equal(chirps:::.sdii(c(NA, 10, 20)), 15)
+})
+
+test_that("Rx5day works on series shorter than 5 days", {
+  expect_equal(chirps:::.r_five_day(c(1, 2, 3)), 6)
+  expect_equal(chirps:::.r_five_day(c(1, 2, 3, 4, 5, 6)), 20)
+})
+
+test_that("timeseries requires valid intervals", {
+  expect_error(precip_indices(chirps_df, timeseries = TRUE),
+               "intervals")
+  expect_error(precip_indices(chirps_df, timeseries = TRUE, intervals = 10),
+               "intervals")
 })

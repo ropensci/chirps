@@ -69,6 +69,14 @@ is then transformed into polygons with a small buffer area around the point.
 
 \bold{nQuadSegs}: integer, number of segments per buffer quadrant
 }
+\section{Future deprecation}{
+
+\code{get_esi()} reads from the ClimateSERV API, which \CRANpkg{chirps}
+no longer recommends. \code{get_esi()} will be deprecated in a future
+release, and a notice says so once per session. CHIRPS rainfall is
+available from the CHC server with \code{\link{get_chirps}()}.
+}
+
 \note{
 \code{get_esi()} may return some warning messages given by
 \code{\link[sf]{sf}}, please check the \CRANpkg{sf} documentation for

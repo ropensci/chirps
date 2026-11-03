@@ -7,49 +7,44 @@
 \alias{get_chirps.SpatRaster}
 \alias{get_chirps.SpatExtent}
 \alias{get_chirps.sf}
+\alias{get_chirps.sfc}
 \alias{get_chirps.geojson}
 \title{Get CHIRPS precipitation data}
 \usage{
-get_chirps(object, dates, server, ...)
+get_chirps(object, dates, server = "CHC", ...)
 
-\method{get_chirps}{default}(object, dates, server, as.matrix = FALSE, ...)
+\method{get_chirps}{default}(object, dates, server = "CHC", as.matrix = FALSE, ...)
 
 \method{get_chirps}{SpatVector}(object, dates, server = "CHC", as.raster = TRUE, ...)
 
-\method{get_chirps}{SpatRaster}(
-  object,
-  dates,
-  server = "CHC",
-  as.matrix = TRUE,
-  as.raster = FALSE,
-  ...
-)
+\method{get_chirps}{SpatRaster}(object, dates, server = "CHC", as.raster = TRUE, ...)
 
 \method{get_chirps}{SpatExtent}(object, dates, server = "CHC", as.raster = TRUE, ...)
 
-\method{get_chirps}{sf}(object, dates, server, as.sf = FALSE, ...)
+\method{get_chirps}{sf}(object, dates, server = "CHC", as.sf = FALSE, ...)
 
-\method{get_chirps}{geojson}(object, dates, server, as.geojson = FALSE, ...)
+\method{get_chirps}{sfc}(object, dates, server = "CHC", as.sf = FALSE, ...)
 
-\method{get_chirps}{SpatExtent}(object, dates, server = "CHC", as.raster = TRUE, ...)
+\method{get_chirps}{geojson}(object, dates, server = "CHC", as.geojson = FALSE, ...)
 }
 \arguments{
 \item{object}{input, an object of class \code{\link[base]{data.frame}} (or
-any other object that can be coerced to \code{data.frame}),
-\code{\link[terra]{SpatVector}}, \code{\link[terra]{SpatRaster}},
-\code{\link[sf]{sf}} or \code{geojson}}
+any other object that can be coerced to \code{data.frame}) with longitude
+and latitude in the first two columns, \code{\link[terra]{SpatVector}},
+\code{\link[terra]{SpatRaster}}, \code{\link[terra]{SpatExtent}},
+\code{\link[sf]{sf}}, \code{sfc} or \code{geojson}}
 
-\item{dates}{a character of start and end dates in that order in the format
-"YYYY-MM-DD"}
+\item{dates}{a character or Date vector "YYYY-MM-DD", with one date for a
+single day or two dates for the start and end of the period}
 
-\item{server}{a character that represents the server source "CHC" or
-"ClimateSERV"}
+\item{server}{a character, "CHC" (default and recommended) or
+"ClimateSERV". See the section on servers}
 
-\item{...}{additional arguments passed to \code{\link[terra]{terra}}
-or \code{\link[sf]{sf}} methods
-See details}
+\item{...}{additional arguments passed to \code{\link{get_chirps_raw}} and
+\code{\link[terra]{extract}}. See details}
 
-\item{as.matrix}{logical, returns an object of class \code{matrix}}
+\item{as.matrix}{logical, returns a \code{matrix} with one row per
+location and one column per day, named "YYYY-MM-DD"}
 
 \item{as.raster}{logical, returns an object of class
 \code{\link[terra]{SpatRaster}}}
@@ -59,86 +54,127 @@ See details}
 \item{as.geojson}{logical, returns an object of class \code{geojson}}
 }
 \value{
-A matrix, raster or a data frame of \acronym{CHIRPS} data:
+A data frame of \acronym{CHIRPS} data in the long format, ordered
+by \code{id} and \code{date}, or a matrix, raster, \code{sf} or
+\code{geojson} object as requested:
 \describe{
-  \item{id}{the index for the rows in \code{object}}
-  \item{dates}{the dates from which \acronym{CHIRPS} was requested}
-  \item{lon}{the longitude as provided in \code{object}}
-  \item{lat}{the latitude as provided in \code{object}}
-  \item{chirps}{the \acronym{CHIRPS} value in mm}
+\item{id}{the index for the rows in \code{object}}
+\item{date}{the date of each value}
+\item{lon}{the longitude as provided in \code{object}}
+\item{lat}{the latitude as provided in \code{object}}
+\item{chirps}{the \acronym{CHIRPS} value in mm}
 }
 }
 \description{
-Get daily precipitation data from the "Climate Hazards Group". Two server
- sources are available. The first, "CHC" (default) is recommended for
- multiple data-points, while "ClimateSERV" is recommended when few
- data-points are required (~ 50).
+Get daily rainfall from CHIRPS, produced by the Climate Hazards Center
+(CHC), for points, polygons or an area. The data are read from the CHC
+server, which is the main source and serves both CHIRPS v3 (default) and
+CHIRPS v2.
 }
 \details{
-Data description at
-\url{https://data.chc.ucsb.edu/products/CHIRPS-2.0/README-CHIRPS.txt}
+\strong{Additional arguments}
 
-\strong{Additional arguments when using server = "CHC"}
+\bold{version}: CHIRPS version, "3.0" (default) or "2.0". CHC retires
+CHIRPS v2 after the December 2026 release
 
-\bold{resolution}: numeric, resolution of CHIRPS tiles either 0.05 (default)
- or 0.25 degrees
+\bold{type}: CHIRPS v3 product, "rnl" (default) or "sat". See
+\code{\link{get_chirps_raw}}
 
-\strong{Additional arguments when using server = "ClimateSERV"}
+\bold{resolution}: numeric, resolution of CHIRPS v2, 0.05 (default) or
+0.25 degrees
 
-\bold{dist}: numeric, buffer distance for each \code{object} coordinate
-
-\bold{nQuadSegs}: integer, number of segments per buffer quadrant
-
-\bold{operation}: supported operations for ClimateSERV are:
- \tabular{rll}{
- \bold{operation}      \tab    \tab \bold{value}\cr
- max                   \tab =  \tab 0\cr
- min                   \tab =  \tab 1\cr
- median                \tab =  \tab 2\cr
- sum                   \tab =  \tab 4\cr
- average               \tab =  \tab 5 (\emph{default value})\cr
- }
+\bold{operation}: for polygons, the function used to summarise the cells
+of each polygon on each day
+\tabular{rll}{
+\bold{operation}      \tab    \tab \bold{value}\cr
+max                   \tab =  \tab 0\cr
+min                   \tab =  \tab 1\cr
+median                \tab =  \tab 2\cr
+sum                   \tab =  \tab 4\cr
+average               \tab =  \tab 5 (\emph{default value})\cr
 }
-\note{
-\code{get_chirps()} may return some warning messages given by
-\code{\link[sf]{sf}}, please look \CRANpkg{sf} documentation for possible
-issues.
+
+\strong{Coverage}: CHIRPS v3 covers 60°S to 60°N and CHIRPS v2 covers
+50°S to 50°N, from 1981 to near present. Final data for a month arrive
+some weeks after it ends.
+
+\strong{Polygons}: with \code{sf}, \code{SpatVector} or \code{geojson}
+polygons, each day is summarised over the cells that touch the polygon,
+with the function set by \bold{operation}. The \code{lon} and \code{lat}
+columns give the centroid of each polygon.
+
+\strong{Messages}: each request states what it downloads, here daily
+rainfall from CHIRPS, with the period, so it is not mistaken for
+temperature from \code{\link{get_chirts}}. Set
+\code{options(chirps.quiet = TRUE)} to hide these messages.
+
+\strong{Indices}: for rainfall indices (dry spells, heavy rain days,
+intensity) use \code{climatrends::rainfall()}. The matrix returned with
+\code{as.matrix = TRUE} is its input, see the examples.
 }
+\section{Servers}{
+
+\bold{CHC} (default) reads the CHIRPS files from
+\url{https://data.chc.ucsb.edu} through \CRANpkg{terra}. It serves CHIRPS
+v3 and v2, gives the value of the cell that holds each point, and handles
+many points and long periods in one call. It is the recommended source.
+
+\bold{ClimateSERV} is kept for backward compatibility. It serves CHIRPS v2
+only, averaged over a small buffer around each point, so its values can
+differ from the CHC values. It sends several requests per location and is
+slow for more than a few points. ClimateSERV support for CHIRPS may be
+removed in a future release. Its extra arguments are \bold{dist}, the
+buffer distance around each point, \bold{nQuadSegs}, the number of
+segments per buffer quadrant, and \bold{operation} as above.
+
+\code{SpatVector}, \code{SpatRaster} and \code{SpatExtent} input always
+uses CHC.
+}
+
 \examples{
 \dontshow{if (interactive()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 library("chirps")
 library("terra")
 
-# Case 1: return as a data.frame
-dates = c("2017-12-15","2017-12-31")
-lonlat = data.frame(lon = c(-55.0281,-54.9857), lat = c(-2.8094, -2.8756))
+dates = c("2017-12-15", "2017-12-31")
+lonlat = data.frame(lon = c(-55.0281, -54.9857), lat = c(-2.8094, -2.8756))
 
-r1 = get_chirps(lonlat, dates, server = "CHC")
+# Case 1: return a data.frame in the long format
+r1 = get_chirps(lonlat, dates)
 
-# Case 2: return a matrix
-r2 = get_chirps(lonlat, dates, server = "CHC", as.matrix = TRUE)
+# Case 2: a single day, from the CHIRPS v3 product based on IMERG
+r2 = get_chirps(lonlat, "2017-12-15", type = "sat")
 
-# Case 3: input SpatVector and return raster
+# Case 3: return a matrix, one column per day
+r3 = get_chirps(lonlat, dates, as.matrix = TRUE)
+
+# Case 4: input SpatVector and return raster
 f = system.file("ex/lux.shp", package = "terra")
 v = vect(f)
-r3 = get_chirps(v, dates, server = "CHC", as.raster = TRUE)
+r4 = get_chirps(v, dates, as.raster = TRUE)
 
-# Case 4: input SpatExtent and return a raster within the extent
+# Case 5: input SpatExtent and return a raster within the extent
 area = ext(c(-66, -64, -6, -4))
+r5 = get_chirps(area, dates)
 
-dates = c("2017-12-15", "2017-12-31")
+# Case 6: total rainfall per polygon and day
+r6 = get_chirps(v, dates, as.raster = FALSE, operation = 4)
 
-r4 = get_chirps(area, dates, server = "CHC")
-
-# Case 5: using the server "ClimateSERV"
-r5 = get_chirps(lonlat, dates, server = "ClimateSERV")
-
-# Case 6: from "ClimateSERV" and return as a matrix
-r6 = get_chirps(lonlat, dates, server = "ClimateSERV", as.matrix = TRUE)
-
+# Case 7: rainfall indices with climatrends
+if (requireNamespace("climatrends", quietly = TRUE)) {
+  climatrends::rainfall(r3, day.one = dates[1], span = ncol(r3))
+}
 \dontshow{\}) # examplesIf}
 }
 \references{
+Funk, C., Peterson, P., Harrison, L. et al. (2026). Scientific Data, 13,
+718. \cr\doi{10.1038/s41597-026-07096-4}
+
 Funk C. et al. (2015). Scientific Data, 2, 150066.
- \cr\doi{10.1038/sdata.2015.66}
+\cr\doi{10.1038/sdata.2015.66}
+}
+\seealso{
+\code{\link{get_chirps_raw}} for the rasters,
+\code{\link{get_chirts}} for temperature, and the \CRANpkg{climatrends}
+package for rainfall and temperature indices
 }

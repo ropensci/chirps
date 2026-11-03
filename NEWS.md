@@ -1,31 +1,103 @@
-chirps 2.0.0 (2026-06-23)
+chirps 2.0.0 (2026-11-03)
 =========================
 
-### NEW FEATURES
+chirps 2.0.0 reads the Climate Hazards Center (CHC) data directly from the CHC server, adds CHIRPS v3 and CHIRTS-ERA5, and returns rasters or time series ready for climate indices with the climatrends package. It also corrects errors found in a review of the package, so some returned values change. Read the BUG FIXES and BREAKING CHANGES sections before you update code written for chirps 1.1.
 
-* Added `get_chirps_raw()` to provide direct access to CHIRPS raster products as `terra::SpatRaster` objects without extracting values or reshaping outputs.
+### NEW DATASETS AND FUNCTIONS
 
-* Added support for CHIRPS v3, including both daily `rnl` (ERA5-based) and `sat` (IMERG-based) products.
+* CHIRPS v3 is the default for `get_chirps()` and `get_chirps_raw()` (`version = "3.0"`), with the daily products `type = "rnl"` (ERA5-based, default) and `type = "sat"` (IMERG-based). It covers 60°S to 60°N. CHIRPS v2 remains available with `version = "2.0"` until CHC retires it after the December 2026 release, and a notice says so once per session.
 
-* Added `get_chirts_raw()` to access CHIRTS-daily maximum temperature, minimum temperature, relative humidity, and heat index datasets as raster objects.
+* `get_chirps_raw()` and `get_chirts_raw()` return the CHC files as `terra::SpatRaster` objects with one layer per day and time metadata, for custom workflows with `crop()`, `extract()` and `mask()`.
 
-* Added `get_chirts_era5_raw()` to access CHIRTS-ERA5 daily temperature datasets extending from 1980 to near-present.
+* `get_chirts()` and `get_chirts_raw()` read CHIRTS-daily (default, 1983 to 2016, Tmax, Tmin, RHum and HeatIndex) or CHIRTS-ERA5 with `product = "CHIRTS-ERA5"` (1980 to near present, Tmax and Tmin). One function covers each variable, `get_chirps_raw()` for rainfall and `get_chirts_raw()` for temperature.
 
-* Added support for retrieving raw climate datasets directly from Climate Hazards Center (CHC) archives through remote Cloud Optimized GeoTIFF (COG) and GeoTIFF access.
+* Each request states what it downloads, for example "Downloading daily rainfall (mm) from CHIRPS v3.0 (rnl) on the CHC server, 2017-12-15 to 2017-12-31 (17 days)." This makes it clear whether `get_chirps()` (rainfall) or `get_chirts()` (temperature) was called. Set `options(chirps.quiet = TRUE)` to hide these messages.
 
-### ENHANCEMENTS
+### CHC FIRST, CLIMATRENDS FOR INDICES
 
-* Added raster time metadata to raw raster outputs using `terra::time()`.
+* The CHC server is the default and recommended source in the documentation, README, vignette and examples. `server = "ClimateSERV"` serves CHIRPS v2 only and is kept for backward compatibility. It shows a notice once per session, and ClimateSERV support for CHIRPS may be removed in a future release. `get_esi()` and `get_imerg()` still use ClimateSERV and will be deprecated in a future release, with a notice once per session.
 
-* Improved internal URL handling for CHIRPS and CHIRTS products through version-specific data source management.
+* Matrices returned with `as.matrix = TRUE` have one column per day named "YYYY-MM-DD", for every input and server. This is the input of `climatrends::rainfall()`, `climatrends::temperature()` and `climatrends::GDD()`, and the documentation and vignette show how to pass the data.
 
-* Expanded package documentation with dataset descriptions, references, and citation guidance for CHIRPS v3, CHIRTS-daily, and CHIRTS-ERA5 products.
+* `precip_indices()` is documented as a simple example and shows a notice once per session that points to `climatrends::rainfall()`.
 
-### INTERNAL CHANGES
+### CHC DATA PATHS
 
-* Refactored internal raster retrieval functions to support multiple dataset versions and products through a unified architecture.
+The Climate Hazards Center moved its data to new paths in late 2026, so downloads from the CHC server failed. Thanks to Will Turner (CHC) for reporting the new paths.
 
-* Improved compatibility with modern `terra` workflows by exposing native raster products for downstream processing with `crop()`, `extract()`, `mask()`, and related functions.
+* CHIRPS v2 files are now read from `products/CHIRPS/v2.0`, and CHIRTS-daily files from `products/CHIRTS/daily/v1.0`. Documentation links point to the new README files.
+
+* Requests check the first and last file before reading the rest, and stop with a clear error when a file is missing. CHC blocks addresses that request many missing files, which is the most likely cause of the 403 errors in issue #56.
+
+* When the CHC server is busy (HTTP 429 or 5xx), the file check retries with growing pauses before it stops with a clear error. A rate limit while reading the files gives the same clear error instead of a GDAL message.
+
+* Tests that read from CHC run on one CI job only, to keep the load on the CHC server low.
+
+* Requests to CHC and ClimateSERV send a user agent that names the package and a contact address.
+
+* A network test requests one known file from each CHC path, so a future move is caught by the checks.
+
+### MORE INPUT TYPES
+
+* `dates` accepts a single date, for one day of data, in every function (#32, #36), and a Date vector as well as a character vector. A clear error says when `dates` is not a vector of dates, for example when an object is passed as the first argument of `get_chirps_raw()`, which takes no object (#58).
+
+* With `sf`, `sfc`, `SpatVector` or geojson polygons, each day is summarised over the cells that touch each polygon (#37). The average is the default, and `operation` takes the ClimateSERV codes (0 max, 1 min, 2 median, 4 sum, 5 average). `lon` and `lat` give the centroid of each polygon. Projected input is transformed to WGS84, and geometries without a CRS are read as longitude and latitude.
+
+* `get_chirps()` accepts `sfc` objects such as the `tapajos` data, and `get_chirts()` accepts `sf` and `sfc` points and polygons.
+
+* `as.raster = TRUE` with a data frame of points returns the raster cropped to the points. It failed before.
+
+### ISSUES ADDRESSED IN THIS RELEASE
+
+* GDAL now reads the CHC files without listing the remote folder or looking for side files, and retries failed reads. This cuts the number of requests per file and avoids requests for files that do not exist (#51, #56).
+
+* A clearer error when ClimateSERV returns no values, which points to `server = "CHC"` (#48). The help of `get_chirps()` explains why ClimateSERV and CHC values differ (#49).
+
+### BREAKING CHANGES
+
+* The default CHIRPS version is v3. Use `version = "2.0"` for the values of chirps 1.1.
+
+* `as.matrix = TRUE` columns are named "YYYY-MM-DD". They were layer names or "chirps-v2.0.YYYY.MM.DD" before.
+
+* `SpatVector` polygons with `as.raster = FALSE` return one row per polygon and day. They returned one row per cell before.
+
+* The default `server` is `"CHC"`, as documented.
+
+### BUG FIXES
+
+* `get_chirps()` and `get_chirts()` paired values with the wrong dates when more than one point was requested with an `sf`, geojson or `SpatVector` input (and, for `get_chirts()`, also with a data frame). Values are now matched to the right point and date.
+
+* `get_chirts()` returned CHIRPS rainfall instead of temperature for `SpatRaster` and `SpatExtent` inputs. Both now return CHIRTS data.
+
+* `get_chirps()` ignored `as.matrix` for `SpatRaster` inputs, and had two conflicting `SpatExtent` methods. Both raster inputs now crop to their extent.
+
+* `get_chirps(..., version = "3.0")` failed with "formal argument matched by multiple actual arguments". `version`, `type` and `resolution` now reach `get_chirps_raw()`.
+
+* `get_chirps()` with `sf` polygons used only the first polygon. Each polygon now gets its own values.
+
+* `get_chirps()` with `server = "ClimateSERV"` failed to match coordinates when the input had row names other than 1 to n. For both servers, the `id` column is now the position of the row in the input, not its row name.
+
+* `get_chirps()` with `sf` input now rejects MULTIPOINT geometries, which were silently misaligned, and accepts MULTIPOLYGON.
+
+* In `precip_indices()`, SDII counted rain on days under 1 mm in the total, and counted missing days as wet days. Rtotal summed rain on all days instead of wet days, as documented. Both now use wet days only (rain >= 1 mm).
+
+* `precip_indices()` failed when `intervals` was shorter than 4 days, and now gives a clear error when `intervals` is missing or longer than the series.
+
+* Clearer errors for coordinates outside the area a product covers, and for CHIRTS-daily dates outside 1983 to 2016, which point to CHIRTS-ERA5.
+
+* Polygons without data return NA for every operation.
+
+### OTHER CHANGES
+
+* `as.matrix = TRUE` with the CHC server returns a matrix, as documented, instead of a data frame.
+
+* ClimateSERV requests wait one second between progress checks instead of polling continuously.
+
+* Tests now run in `R CMD check`. Tests that download data are skipped on CRAN and offline, and new offline tests check how values are paired with points and dates.
+
+* The package description, README and vignette cover the new datasets, with citation guidance for CHIRPS v3, CHIRTS-daily and CHIRTS-ERA5.
+
+* AGENTS.md gives AI agents the main tasks, the matching functions and the pitfalls of the package.
 
 
 chirps 1.1 (2025-11-24) 
