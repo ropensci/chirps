@@ -15,6 +15,9 @@ jobs:
     runs-on: ubuntu-latest
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+      # the ubuntu release check job reads from CHC, coverage does not, to
+      # keep the load on the CHC server low
+      CHIRPS_CHC_TESTS: false
 
     steps:
       - uses: actions/checkout@v4

@@ -2,7 +2,7 @@
 % Please edit documentation in R/precip_indices.R
 \name{precip_indices}
 \alias{precip_indices}
-\title{Compute precipitation indices over a time series}
+\title{Compute simple precipitation indices over a time series}
 \usage{
 precip_indices(object, timeseries = FALSE, intervals = NULL)
 }
@@ -25,15 +25,21 @@ A data frame with precipitation indices:
 \item{Rx1day}{maximum 1-day precipitation (mm)}
 \item{Rx5day}{maximum 5-day precipitation (mm)}
 \item{R95p}{total precipitation when rain > 95th percentile (mm), with
- the percentile taken over all days in the period, dry days included}
+the percentile taken over all days in the period, dry days included}
 \item{R99p}{total precipitation when rain > 99th percentile (mm), with
- the percentile taken over all days in the period, dry days included}
+the percentile taken over all days in the period, dry days included}
 \item{Rtotal}{total precipitation (mm) in wet days, rain >= 1 (mm)}
 \item{SDII}{simple daily intensity index, total precipitation in wet days
- divided by the number of wet days (mm/days)}
+divided by the number of wet days (mm/days)}
 }
 \description{
-Compute precipitation indices over a time series
+A simple example of how to compute rainfall indices from the data
+returned by \code{\link{get_chirps}} or \code{\link{get_imerg}}. For
+analysis, use the \CRANpkg{climatrends} package instead.
+\code{climatrends::rainfall()} computes the same indices with tested
+definitions and flexible periods per location, and climatrends also has
+temperature, growing degree days, evapotranspiration and crop sensitive
+indices. See the examples for how to pass CHIRPS data to it.
 }
 \examples{
 \dontshow{if (interactive()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
@@ -42,19 +48,33 @@ lonlat = data.frame(lon = c(-55.0281,-54.9857),
 
 dates = c("2017-12-15", "2017-12-31")
 
-dt = get_chirps(lonlat, dates, server = "ClimateSERV")
+dt = get_chirps(lonlat, dates)
 
 # take the indices for the entire period
 precip_indices(dt, timeseries = FALSE)
 
 # take the indices for periods of 7 days
 precip_indices(dt, timeseries = TRUE, intervals = 7)
+
+# recommended, the same data in climatrends
+if (requireNamespace("climatrends", quietly = TRUE)) {
+  rain = get_chirps(lonlat, dates, as.matrix = TRUE)
+  climatrends::rainfall(rain, day.one = dates[1], span = ncol(rain))
+}
 \dontshow{\}) # examplesIf}
 }
 \references{
 Aguilar E., et al. (2005). Journal of Geophysical Research, 110(D23), D23107.
 
+de Sousa K., van Etten J., Neby M., Solberg S. Ø. (2023). Climate
+variability indices for ecological and crop models in R: the climatrends
+package. Journal of Open Source Software, 8(85), 4405.
+\doi{10.21105/joss.04405}
+
 Kehel Z., et al. (2016). In: Applied Mathematics and Omics to Assess Crop
- Genetic Resources for Climate Change Adaptive Traits (eds Bari A., Damania
- A. B., Mackay M., Dayanandan S.), pp. 151–174. CRC Press.
+Genetic Resources for Climate Change Adaptive Traits (eds Bari A., Damania
+A. B., Mackay M., Dayanandan S.), pp. 151–174. CRC Press.
+}
+\seealso{
+\code{climatrends::rainfall()}
 }

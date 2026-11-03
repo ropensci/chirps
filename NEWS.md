@@ -13,9 +13,53 @@ The Climate Hazards Center moved its data to new paths in late 2026, so download
 
 * Requests check the first and last file before reading the rest, and stop with a clear error when a file is missing. CHC blocks addresses that request many missing files, which is the most likely cause of the 403 errors in issue #56.
 
+* When the CHC server is busy (HTTP 429 or 5xx), the file check retries with growing pauses before it stops with a clear error.
+
+* Tests that read from CHC run on one CI job only, to keep the load on the CHC server low.
+
 * Requests to CHC and ClimateSERV send a user agent that names the package and a contact address.
 
 * A network test requests one known file from each CHC path, so a future move is caught by the checks.
+
+### CHC FIRST, CLIMATRENDS FOR INDICES
+
+* The CHC server is the recommended source in the documentation, README, vignette and examples. ClimateSERV serves CHIRPS v2 only and is kept for backward compatibility. `get_chirps(server = "ClimateSERV")` shows a notice once per session, and ClimateSERV support for CHIRPS may be removed in a future release.
+
+* `precip_indices()` is documented as a simple example and shows a notice once per session that points to `climatrends::rainfall()`. The documentation and vignette show how to pass CHIRPS and CHIRTS data to climatrends.
+
+* Matrices returned with `as.matrix = TRUE` have one column per day named "YYYY-MM-DD", for every input and server. This is the input of `climatrends::rainfall()` and `climatrends::temperature()`. Column names were layer names or "chirps-v2.0.YYYY.MM.DD" before.
+
+### NEW FEATURES
+
+* Each request states what it downloads, for example "Downloading daily rainfall (mm) from CHIRPS v3.0 (rnl) on the CHC server, 2017-12-15 to 2017-12-31 (17 days)." or "Downloading daily maximum temperature (Tmax, °C) from CHIRTS-daily ...". This makes it clear whether `get_chirps()` (rainfall) or `get_chirts()` (temperature) was called. Set `options(chirps.quiet = TRUE)` to hide these messages.
+
+* `get_chirts()` and `get_chirts_raw()` read CHIRTS-ERA5 with `product = "CHIRTS-ERA5"`, for maximum and minimum temperature from 1980 to near present. One function now covers each variable, `get_chirps_raw()` for rainfall and `get_chirts_raw()` for temperature.
+
+### DEPRECATED
+
+* `get_chirts_era5_raw()` is deprecated in favour of `get_chirts_raw(product = "CHIRTS-ERA5")`. It still works, shows a notice once per session, and will be removed in a future release.
+
+* `get_chirps()` accepts `sfc` objects such as the `tapajos` data, and `get_chirts()` accepts `sf` and `sfc` points and polygons.
+
+* `SpatVector` polygons with `as.raster = FALSE` are summarised over each polygon, as `sf` polygons are, in `get_chirps()` and `get_chirts()`. They returned one row per cell before.
+
+* `get_chirps()` accepts latitudes up to 60°S and 60°N with CHIRPS v3, the coverage of v3. The limit stays at 50° for CHIRPS v2 and ClimateSERV.
+
+* Clearer errors for coordinates outside the area a product covers, and for CHIRTS-daily dates outside 1983 to 2016, which now point to CHIRTS-ERA5.
+
+### ISSUES ADDRESSED IN THIS RELEASE
+
+* `dates` now accepts a single date, for one day of data, in every function (#32, #36). A clear error now says when `dates` is not a vector of dates, for example when an object is passed as the first argument of `get_chirps_raw()`, which takes no object (#58).
+
+* With `sf` or geojson polygons and `server = "CHC"`, each day is now summarised over the cells that touch the polygon, with the function set by `operation` (average by default), as ClimateSERV does. Earlier versions used the centroid only. Projected `sf` objects are transformed to longitude and latitude first (#37).
+
+* `as.raster = TRUE` with a data frame of points now returns the raster cropped to the points. It failed before.
+
+* GDAL now reads the CHC files without listing the remote folder or looking for side files, and retries failed reads. This cuts the number of requests per file and avoids requests for files that do not exist (#51, #56).
+
+* A clearer error when ClimateSERV returns no values, which points to `server = "CHC"` (#48). The help of `get_chirps()` explains why ClimateSERV and CHC values differ (#49).
+
+* `get_chirps_raw(version = "2.0")` shows a notice, once per session, that CHIRPS v2 is retired after December 2026.
 
 ### BUG FIXES
 

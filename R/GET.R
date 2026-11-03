@@ -101,8 +101,9 @@
   nr = dim(result)[[1]]
   
   if (nr == 0) {
-    stop("Failed to get valid values,
-         try to increase the buffer area with 'dist' \n",
+    stop("ClimateSERV returned no values for these locations and dates. ",
+         "Try server = \"CHC\", which reads the CHIRPS files directly, or ",
+         "a larger buffer around the points with 'dist'.\n",
          call. = FALSE)
   }
   

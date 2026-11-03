@@ -5,7 +5,7 @@
 #'
 #' @return a character string
 #' @importFrom utils packageVersion
-#' @importFrom httr HEAD status_code timeout user_agent
+#' @importFrom httr RETRY status_code timeout user_agent
 #' @importFrom terra getGDALconfig setGDALconfig
 #' @noRd
 .chirps_ua = function() {
@@ -15,21 +15,33 @@
          " (https://github.com/AgrDataSci/chirps; desousa.kaue@gmail.com)")
 }
 
-#' Make GDAL send the chirps user agent
+#' Set GDAL options for reading the CHC files
 #'
 #' terra reads the remote files through GDAL, which reads them lazily, so the
-#' option has to stay set for the session. A user agent the user has set
-#' themselves is kept.
+#' options have to stay set for the session. Options the user has set
+#' themselves are kept. Besides the user agent, GDAL is told not to list the
+#' remote folder and not to look for side files (.aux.xml, .ovr) on each
+#' open, which saves requests and avoids requests for files that do not
+#' exist, and to retry a failed read.
 #'
 #' @return nothing, called for its side effect
 #' @noRd
-.set_gdal_ua = function() {
-  current = tryCatch(terra::getGDALconfig("GDAL_HTTP_USERAGENT"),
-                     error = function(e) "")
-  if (length(current) == 0 || all(is.na(current) | current == "")) {
-    tryCatch(terra::setGDALconfig("GDAL_HTTP_USERAGENT", .chirps_ua()),
-             error = function(e) NULL)
+.set_gdal_options = function() {
+  opts = c(
+    GDAL_HTTP_USERAGENT = .chirps_ua(),
+    GDAL_DISABLE_READDIR_ON_OPEN = "EMPTY_DIR",
+    CPL_VSIL_CURL_ALLOWED_EXTENSIONS = ".tif,.tiff,.cog",
+    GDAL_HTTP_MAX_RETRY = "3",
+    GDAL_HTTP_RETRY_DELAY = "2"
+  )
+  
+  for (o in names(opts)) {
+    current = tryCatch(terra::getGDALconfig(o), error = function(e) "")
+    if (length(current) == 0 || all(is.na(current) | current == "")) {
+      tryCatch(terra::setGDALconfig(o, opts[[o]]), error = function(e) NULL)
+    }
   }
+  
   invisible(NULL)
 }
 
@@ -48,8 +60,17 @@
   probe = unique(urls[c(1, length(urls))])
   
   for (u in probe) {
+    # retry when the server is busy (429, 5xx), with growing pauses, but
+    # stop at once on a missing file or a refusal
     status = tryCatch({
-      r = httr::HEAD(u, httr::user_agent(.chirps_ua()), httr::timeout(60))
+      r = httr::RETRY("HEAD", u,
+                      httr::user_agent(.chirps_ua()),
+                      httr::timeout(60),
+                      times = 4,
+                      pause_base = 2,
+                      pause_cap = 30,
+                      terminate_on = c(403, 404),
+                      quiet = TRUE)
       httr::status_code(r)
     }, error = function(e) NA_integer_)
     
@@ -71,6 +92,12 @@
            "<https://www.chc.ucsb.edu/>.\n", call. = FALSE)
     }
     
+    if (status == 429) {
+      stop("The CHC server is receiving too many requests from this address ",
+           "(HTTP 429). Wait a few minutes before trying again.\n",
+           call. = FALSE)
+    }
+    
     stop("The CHC server returned HTTP ", status, " for ", u, ".\n",
          call. = FALSE)
   }
@@ -86,7 +113,7 @@
 #' @noRd
 .read_remote = function(urls, dates) {
   .check_remote(urls)
-  .set_gdal_ua()
+  .set_gdal_options()
   
   if (!all(grepl("^/vsicurl/", urls))) {
     urls = file.path("/vsicurl", urls)

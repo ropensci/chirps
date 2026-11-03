@@ -41,6 +41,11 @@
 #' Additional information is available at:
 #' \url{https://www.chc.ucsb.edu/data/chirps3}
 #'
+#' \strong{Messages}: each request states what it downloads, here daily
+#'  rainfall from CHIRPS, with the period, so it is not mistaken for
+#'  temperature from \code{\link{get_chirts}}. Set
+#'  \code{options(chirps.quiet = TRUE)} to hide these messages.
+#'
 #' Daily product documentation:
 #' \url{https://data.chc.ucsb.edu/products/CHIRPS/v3.0/daily/readme.txt}
 #' 
@@ -80,7 +85,7 @@ get_chirps_raw = function(dates,
                           verbose = FALSE,
                           ...) {
   
-  .validate_dates(dates)
+  dates = .validate_dates(dates)
   
   version = as.character(version)
   if (version %in% c("2", "3")) {
@@ -91,7 +96,18 @@ get_chirps_raw = function(dates,
     stop("`version` must be either '2.0' or '3.0'.", call. = FALSE)
   }
   
+  if (version == "2.0") {
+    .notice_v2()
+  }
+  
   seqdate = seq.Date(as.Date(dates[1]), as.Date(dates[2]), by = "day")
+  
+  label = if (version == "3.0") {
+    paste0("CHIRPS v3.0 (", match.arg(type, c("rnl", "sat")), ")")
+  } else {
+    paste0("CHIRPS v2.0 (", resolution, "\u00b0)")
+  }
+  .inform_request(label, "daily rainfall (mm)", seqdate)
   
   urls = .chirps_raw_urls(
     dates = seqdate,
@@ -154,4 +170,25 @@ get_chirps_raw = function(dates,
     
     return(urls)
   }
+}
+
+# keeps notices that are shown once per session
+.chirps_env = new.env(parent = emptyenv())
+
+#' Tell the user once per session that CHIRPS v2 is retired
+#' @noRd
+.notice_v2 = function() {
+  .notice_once("v2_noticed",
+               "CHIRPS v2 is retired after the December 2026 release. ",
+               "Use version = \"3.0\" for current data.")
+}
+
+#' Tell the user once per session that ClimateSERV is not the main source
+#' @noRd
+.notice_climateserv = function() {
+  .notice_once("climateserv_noticed",
+               "ClimateSERV serves CHIRPS v2 only, which CHC retires after ",
+               "the December 2026 release. Use server = \"CHC\" for ",
+               "CHIRPS v3. ClimateSERV support for CHIRPS may be removed ",
+               "in a future release.")
 }

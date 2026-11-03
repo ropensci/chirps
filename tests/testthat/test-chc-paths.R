@@ -1,6 +1,5 @@
 # One known file from each CHC path. These fail when CHC moves its data.
-skip_on_cran()
-skip_if_offline("data.chc.ucsb.edu")
+skip_if_no_chc()
 
 d = as.Date("2000-01-01")
 
@@ -17,9 +16,17 @@ urls = c(
 
 for (i in seq_along(urls)) {
   test_that(paste("CHC path exists:", names(urls)[i]), {
-    r = httr::HEAD(urls[[i]], httr::user_agent(chirps:::.chirps_ua()),
-                   httr::timeout(60))
-    expect_equal(httr::status_code(r), 200, label = urls[[i]])
+    r = httr::RETRY("HEAD", urls[[i]],
+                    httr::user_agent(chirps:::.chirps_ua()),
+                    httr::timeout(60),
+                    times = 4, pause_base = 5, pause_cap = 60,
+                    terminate_on = c(200, 403, 404), quiet = TRUE)
+    status = httr::status_code(r)
+    # a busy server says nothing about the path
+    if (status == 429 || status >= 500) {
+      skip(paste("CHC server busy, HTTP", status))
+    }
+    expect_equal(status, 200, label = urls[[i]])
   })
 }
 

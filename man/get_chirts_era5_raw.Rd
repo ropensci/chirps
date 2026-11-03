@@ -2,7 +2,7 @@
 % Please edit documentation in R/get_chirts_era5_raw.R
 \name{get_chirts_era5_raw}
 \alias{get_chirts_era5_raw}
-\title{Get raw CHIRTS-ERA5 raster data}
+\title{Get raw CHIRTS-ERA5 raster data (deprecated)}
 \usage{
 get_chirts_era5_raw(
   dates,
@@ -13,8 +13,8 @@ get_chirts_era5_raw(
 )
 }
 \arguments{
-\item{dates}{Character vector of length two with start and end dates in
-\code{"YYYY-MM-DD"} format.}
+\item{dates}{Character or Date vector "YYYY-MM-DD", with one date for a
+single day or two dates for the start and end of the period.}
 
 \item{var}{Character. Variable to download. Supported values are
 \code{"Tmin"} and \code{"Tmax"}.}
@@ -30,37 +30,18 @@ remote URLs.}
 A \code{\link[terra]{SpatRaster}} with one layer per day.
 }
 \description{
-Download CHIRTS-ERA5 daily temperature data in its original raster format.
-}
-\details{
-CHIRTS-ERA5 is a quasi-global (60°S to 70°N), high-resolution
-(0.05° × 0.05°) dataset of daily maximum and minimum temperatures,
-heat index, and wet bulb globe temperature from 1980 to near-present.
-
-The dataset combines the Climate Hazards Center Infrared Temperature
-with Stations (CHIRTS) product (1983–2016) with the regularly updated
-ERA5 reanalysis. ERA5 fields are downscaled and bias-corrected relative
-to CHIRTS to provide a temporally consistent climate record.
-
-Users of this dataset should cite:
-
-"CHIRTS-ERA5 Data Repository. https://doi.org/10.15780/G2F08J.
-Data accessed on [DATE]."
-
-Additional information is available at:
-\url{https://www.chc.ucsb.edu/data/chirts-era5}
+This function is deprecated. Use
+\code{get_chirts_raw(dates, var, product = "CHIRTS-ERA5")} instead.
+It will be removed in a future release.
 }
 \examples{
 if (interactive()) {
-  tmin = get_chirts_era5_raw(dates = c("1980-01-01", "1980-01-31"),
-                             var = "Tmin")
-
-  tmax = get_chirts_era5_raw(dates = c("1980-01-01", "1980-01-31"),
-                             var = "Tmax")
+  # use instead
+  tmin = get_chirts_raw(dates = c("1980-01-01", "1980-01-31"),
+                        var = "Tmin", product = "CHIRTS-ERA5")
 }
-
 }
-\references{
-Climate Hazards Center (CHC). CHIRTS-ERA5 Data Repository.
-\doi{10.15780/G2F08J}
+\seealso{
+\code{\link{get_chirts_raw}}
 }
+\keyword{internal}

@@ -20,50 +20,70 @@ get_chirts(object, dates, var, ...)
 }
 \arguments{
 \item{object}{an object of class \code{\link[base]{data.frame}} (or any other
-object that can be coerced to a \code{data.frame}),
-\code{\link[terra]{SpatVector}}, or \code{\link[terra]{SpatRaster}}}
+object that can be coerced to a \code{data.frame}) with longitude and
+latitude in the first two columns, \code{\link[sf]{sf}} points,
+\code{\link[terra]{SpatVector}}, \code{\link[terra]{SpatRaster}} or
+\code{\link[terra]{SpatExtent}}}
 
-\item{dates}{a character of start and end dates in that order in the format
-"YYYY-MM-DD"}
+\item{dates}{a character or Date vector "YYYY-MM-DD", with one date for a
+single day or two dates for the start and end of the period}
 
 \item{var}{character, A valid variable from the options: \dQuote{Tmax},
-\dQuote{Tmin}, \dQuote{RHum} and \dQuote{HeatIndex}}
+\dQuote{Tmin}, \dQuote{RHum} and \dQuote{HeatIndex}. CHIRTS-ERA5 has
+\dQuote{Tmax} and \dQuote{Tmin} only}
 
-\item{...}{further arguments passed to \code{\link[terra]{terra}}}
+\item{...}{further arguments passed to \code{\link{get_chirts_raw}} and
+\code{\link[terra]{extract}}. See details}
 
-\item{as.matrix}{logical, returns an object of class \code{matrix}}
+\item{as.matrix}{logical, returns a \code{matrix} with one row per
+location and one column per day, named "YYYY-MM-DD"}
 
 \item{as.raster}{logical, returns an object of class
 \code{\link[terra]{SpatRaster}}}
 }
 \value{
-A SpatRaster object if \code{as.raster=TRUE}, else \code{matrix},
-\code{list}, or \code{data.frame}
+A data frame in the long format, ordered by \code{id} and
+\code{date}, with the value in the column \code{chirts}. A SpatRaster
+if \code{as.raster = TRUE}, or a matrix with one column per day, named
+"YYYY-MM-DD", if \code{as.matrix = TRUE}
 }
 \description{
-Get daily maximum and minimum temperature data from the "Climate Hazards
- Group". CHIRTS-daily is a global 2-m temperature product that combines the
- monthly CHIRTSmax data set with the ERA5 reanalysis to produce routinely
- updated data to support the monitoring of temperature extreme. Data is
- currently available from 1983 to 2016. Soon available to near-present.
+Get daily temperature from the Climate Hazards Center (CHC) for points,
+polygons or an area. Two products are available. CHIRTS-daily (default)
+covers 1983 to 2016 and has maximum and minimum temperature, relative
+humidity and heat index. CHIRTS-ERA5 extends maximum and minimum
+temperature from 1980 to near present.
 }
 \details{
 Variable description from
 \url{https://data.chc.ucsb.edu/products/CHIRTS/daily/aaa.Readme.txt}
 \describe{
-  \item{Tmax}{Daily average maximum air temperature at 2 m above ground}
-  \item{Tmin}{Daily average minimum air temperature at 2 m above ground}
-  \item{RHum}{Daily average relative humidity}
-  \item{HeatIndex}{Daily average heat index}
-  }
-}
-\section{Additional arguments}{
-
-\bold{interval}: supported intervals are \dQuote{daily}, \dQuote{pentad},
- \dQuote{dekad}, \dQuote{monthly}, \dQuote{2-monthly}, \dQuote{3-monthly},
- and \dQuote{annual}. Currently hard coded to \dQuote{daily}.
+\item{Tmax}{Daily average maximum air temperature at 2 m above ground}
+\item{Tmin}{Daily average minimum air temperature at 2 m above ground}
+\item{RHum}{Daily average relative humidity}
+\item{HeatIndex}{Daily average heat index}
 }
 
+\strong{Additional arguments}
+
+\bold{product}: \dQuote{CHIRTS-daily} (default, 1983 to 2016) or
+\dQuote{CHIRTS-ERA5} (1980 to near present, Tmax and Tmin)
+
+\bold{operation}: for polygons, the function used to summarise the cells
+of each polygon on each day, with the codes listed in
+\code{\link{get_chirps}} (average by default)
+
+\strong{Coverage}: both products cover 60°S to 70°N.
+
+\strong{Messages}: each request states what it downloads, here daily
+temperature or humidity from CHIRTS, with the period, so it is not
+mistaken for rainfall from \code{\link{get_chirps}}. Set
+\code{options(chirps.quiet = TRUE)} to hide these messages.
+
+\strong{Indices}: for temperature indices (growing degree days, crop
+sensitive indices, frost and heat days) use the \CRANpkg{climatrends}
+package, which takes the matrices returned with \code{as.matrix = TRUE}.
+}
 \examples{
 \dontshow{if (interactive()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 library("chirps")
@@ -79,12 +99,27 @@ temp1 = get_chirts(lonlat, dates, var = "Tmax")
 # Case 2: input a data frame return a matrix
 temp2 = get_chirts(lonlat, dates, "Tmax", as.matrix = TRUE)
 
-# Case 3: input a raster and return raster
+# Case 3: recent dates from CHIRTS-ERA5
+temp3 = get_chirts(lonlat, c("2024-01-01", "2024-01-31"), var = "Tmin",
+                   product = "CHIRTS-ERA5")
+
+# Case 4: input a SpatVector and return raster
 f = system.file("ex/lux.shp", package="terra")
 v = vect(f)
-temp3 = get_chirts(v, dates, var = "Tmax", as.raster = TRUE)
+temp4 = get_chirts(v, dates, var = "Tmax", as.raster = TRUE)
 
-# Case 4: input a raster and return raster
-temp4 = get_chirts(v, dates, var = "Tmax", as.matrix = TRUE)
+# Case 5: average per polygon and day
+temp5 = get_chirts(v, dates, var = "Tmax", as.raster = FALSE)
+
+# Case 6: indices with climatrends
+if (requireNamespace("climatrends", quietly = TRUE)) {
+  tmin = get_chirts(lonlat, dates, var = "Tmin", as.matrix = TRUE)
+  temp = array(c(temp2, tmin), dim = c(dim(temp2), 2),
+               dimnames = list(NULL, colnames(temp2), NULL))
+  climatrends::temperature(temp, day.one = dates[1], span = ncol(temp2))
+}
 \dontshow{\}) # examplesIf}
+}
+\seealso{
+\code{\link{get_chirts_raw}}
 }

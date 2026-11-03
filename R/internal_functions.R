@@ -279,24 +279,112 @@
   v4 = max(lat) > ylim[2]
   
   if (any(c(v1, v2, v3, v4))) {
-    stop(
-      "Subscript out of bounds. \n lonlat are beyond the accepted bbox,
-      which are: ",
-      paste(
-        paste(xlim[1], ylim[1], sep = " , "),
-        paste(xlim[2], ylim[2], sep = " , "),
-        sep = " , "
-      ),
-      call. = FALSE
-    )
+    stop("Some coordinates are outside the area this product covers, ",
+         "longitude ", xlim[1], " to ", xlim[2], " and latitude ",
+         ylim[1], " to ", ylim[2], ". Check that the first column is ",
+         "longitude and the second is latitude.\n", call. = FALSE)
   }
+  
+  invisible(lonlat)
 }
 
+#' Latitude range covered by CHIRPS
+#'
+#' CHIRPS v3 covers 60S to 60N, CHIRPS v2 (also served by ClimateSERV)
+#' covers 50S to 50N.
+#'
+#' @param version the CHIRPS version, NULL for the default (3.0)
+#' @param server the server, "CHC" or "ClimateSERV"
+#' @return a numeric vector of length two
+#' @noRd
+.chirps_ylim = function(version = NULL, server = "CHC") {
+  v2 = identical(server, "ClimateSERV") ||
+    (!is.null(version) && as.character(version) %in% c("2", "2.0"))
+  if (v2) {
+    return(c(-50, 50))
+  }
+  c(-60, 60)
+}
+
+#' Name the columns of a wide matrix by date
+#'
+#' Columns named "YYYY-MM-DD" are the input that climatrends expects, e.g.
+#' climatrends::rainfall() and climatrends::temperature().
+#'
+#' @param m a matrix with one column per day
+#' @param days Date vector, one per column
+#' @return the matrix with column names "YYYY-MM-DD"
+#' @noRd
+.date_colnames = function(m, days) {
+  m = as.matrix(m)
+  attr(m, "ID") = NULL
+  if (ncol(m) == length(days)) {
+    colnames(m) = format(days)
+  }
+  m
+}
+
+#' Show a message once per session
+#'
+#' @param key character, the name of the notice
+#' @param ... the message, passed to message()
+#' @return nothing, called for its side effect
+#' @noRd
+.notice_once = function(key, ...) {
+  if (isTRUE(.chirps_env[[key]])) {
+    return(invisible(NULL))
+  }
+  assign(key, TRUE, envir = .chirps_env)
+  message(...)
+  invisible(NULL)
+}
+
+
+#' Turn the dates argument into a start and end date
+#'
+#' @param x the \code{dates} argument as given by the user, a character or
+#'  Date vector with one date (a single day) or two dates (start and end)
+#' @return a character vector of length two, "YYYY-MM-DD"
+#' @examples
+#' .as_dates("2010-12-15")
+#' .as_dates(as.Date(c("2010-12-15", "2010-12-31")))
+#' @noRd
+.as_dates = function(x) {
+  if (inherits(x, "Date")) {
+    x = format(x, "%Y-%m-%d")
+  }
+  
+  if (!is.character(x)) {
+    stop("`dates` must be a character or Date vector with the start and ",
+         "end dates, \"YYYY-MM-DD\", but an object of class '",
+         paste(class(x), collapse = "', '"), "' was given. ",
+         "Check that the dates are passed to `dates` and not to another ",
+         "argument.\n", call. = FALSE)
+  }
+  
+  if (length(x) == 1) {
+    x = c(x, x)
+  }
+  
+  if (length(x) != 2) {
+    stop("`dates` must have one date (a single day) or two dates ",
+         "(start and end), not ", length(x), ".\n", call. = FALSE)
+  }
+  
+  d = as.Date(x, format = "%Y-%m-%d")
+  
+  if (any(is.na(d))) {
+    stop("`dates` must be in the format \"YYYY-MM-DD\", but got \"",
+         paste(x, collapse = "\", \""), "\".\n", call. = FALSE)
+  }
+  
+  format(d, "%Y-%m-%d")
+}
 
 #' Validate dates within an accepted range
 #'
 #' @param x a character of start and end dates in that order in the format
-#'  "YYYY-MM-DD"
+#'  "YYYY-MM-DD", or a single date
 #' @param availability a character for the dates the dataset is available
 #' @return nothing
 #' @examples
@@ -307,55 +395,40 @@
 #' dates = c("2018-01-31","2017-12-01")
 #'
 #' .validate_dates(dates)
-#'
-#' dates = c("2018-01-31", as.character(Sys.Date()))
-#'
-#' .validate_dates(dates)
-#'
-#' dates = c("1980-12-31", "2018-01-31")
-#'
-#' .validate_dates(dates)
 #' @noRd
 .validate_dates = function(x, availability = c("1981-01-01", "0")) {
-    xmin = as.Date(x[1], format = "%Y-%m-%d")
-    
-    xmax = as.Date(x[2], format = "%Y-%m-%d")
-    
-    # the first day from which the dataset is available
-    past = as.Date(availability[1], origin = "1970-01-01")
-    
-    # the most recent date from which the dataset is available
-    present = availability[2]
-    
-    # generally it takes 45 days to update
-    if (present == "0") {
-      present = Sys.Date() - 45
-      present = format(present,  "%Y-%m-%d")
-    }
-    
-    # last given date should be higher than first
-    cond1 = as.integer(xmax - xmin) >= 0
-    
-    # no older than past date
-    cond2 = xmin >= past
-    
-    # no later then present date
-    cond3 = xmax <= present
-    
-    if (!all(cond1, cond2, cond3)) {
-      stop(
-        "Subscript out of bounds\n
-         Please check your dates. The dataset is available from ",
-        as.character(past),
-        " to about ",
-        as.character(present),
-        "\n
-         Or your dates may be twisted. \n",
-        call. = FALSE
-      )
-    }
-    
+  x = .as_dates(x)
+  
+  xmin = as.Date(x[1], format = "%Y-%m-%d")
+  
+  xmax = as.Date(x[2], format = "%Y-%m-%d")
+  
+  # the first day from which the dataset is available
+  past = as.Date(availability[1], origin = "1970-01-01")
+  
+  # the most recent date from which the dataset is available
+  present = availability[2]
+  
+  # generally it takes 45 days to update
+  if (present == "0") {
+    present = Sys.Date() - 45
   }
+  
+  present = as.Date(present)
+  
+  if (xmax < xmin) {
+    stop("Please check your dates. The start date (", x[1],
+         ") is after the end date (", x[2], ").\n", call. = FALSE)
+  }
+  
+  if (xmin < past || xmax > present) {
+    stop("Please check your dates. The dataset is available from ",
+         format(past), " to about ", format(present), ", but ",
+         x[1], " to ", x[2], " was requested.\n", call. = FALSE)
+  }
+  
+  invisible(x)
+}
 
 
 #' Reformat dates as required by ClimateServ
@@ -371,7 +444,7 @@
 #' @noRd
 .reformat_dates = function(x, ...) {
   # validate dates
-  .validate_dates(x, ...)
+  x = .validate_dates(x, ...)
   
   begindate = x[1]
   begindate = strsplit(begindate, "-")[[1]]
@@ -548,7 +621,8 @@
 .extract_values = function(r, y, dots = list()) {
   own = c("version", "resolution", "type", "verbose", "use_vsicurl",
           "as.raster", "as.matrix", "as.sf", "as.geojson", "operation",
-          "dist", "nQuadSegs", "server", "coverage", "interval", "format")
+          "dist", "nQuadSegs", "server", "coverage", "interval", "format",
+          "product")
   
   dots = dots[setdiff(names(dots), own)]
   
@@ -611,6 +685,10 @@
     operation = 5
   }
   
+  .inform_request("CHIRPS v2.0", "daily rainfall (mm)",
+                  seq.Date(as.Date(dates[1]), as.Date(dates[2]), by = "day"),
+                  server = "ClimateSERV")
+  
   result = .GET(
     gjson = gj,
     dates = dates_inter,
@@ -633,4 +711,156 @@
   rownames(result) = NULL
   
   result
+}
+
+#' Map a ClimateSERV operation code to a summary function
+#'
+#' @param operation integer, 0 max, 1 min, 2 median, 4 sum, 5 average
+#' @return a function
+#' @importFrom stats median
+#' @noRd
+.operation_fun = function(operation = 5) {
+  if (is.null(operation)) {
+    operation = 5
+  }
+  
+  f = switch(as.character(operation),
+             "0" = max,
+             "1" = min,
+             "2" = stats::median,
+             "4" = sum,
+             "5" = mean,
+             NULL)
+  
+  if (is.null(f)) {
+    stop("`operation` must be one of 0 (max), 1 (min), 2 (median), ",
+         "4 (sum) or 5 (average).\n", call. = FALSE)
+  }
+  
+  f
+}
+
+#' Summarise raster cells within each polygon
+#'
+#' @param r a SpatRaster, one layer per day
+#' @param polygons an sf object with POLYGON or MULTIPOLYGON geometries
+#' @param operation integer, see \code{.operation_fun}
+#' @param dots a list of further arguments for \code{terra::extract}
+#' @return a data.frame with one row per polygon and one column per layer.
+#'  Cells that touch a polygon count, so polygons smaller than a cell still
+#'  get a value
+#' @importFrom terra vect
+#' @importFrom sf st_transform st_sf st_geometry
+#' @noRd
+.polygon_values = function(r, polygons, operation = 5, dots = list()) {
+  v = terra::vect(sf::st_sf(geometry = .to_lonlat(sf::st_geometry(polygons))))
+  
+  dots[["touches"]] = TRUE
+  dots[["fun"]] = .operation_fun(operation)
+  dots[["na.rm"]] = TRUE
+  
+  result = .extract_values(r, v, dots)
+  
+  # polygons without data give NaN (mean) or Inf (max, min)
+  result[] = lapply(result, function(x) {
+    x[!is.finite(x)] = NA_real_
+    x
+  })
+  
+  result
+}
+
+#' Crop a raster to the extent of a set of points
+#'
+#' @param r a SpatRaster
+#' @param lonlat a data.frame with lon and lat in the first two columns
+#' @return a SpatRaster that covers all points, with one cell of margin
+#' @importFrom terra ext res crop
+#' @noRd
+.crop_to_points = function(r, lonlat) {
+  xy = as.matrix(as.data.frame(lonlat)[, 1:2])
+  storage.mode(xy) = "numeric"
+  e = terra::ext(min(xy[, 1]), max(xy[, 1]), min(xy[, 2]), max(xy[, 2]))
+  e = e + max(terra::res(r))
+  terra::crop(r, e, snap = "out")
+}
+
+#' All days between the start and end of the dates argument
+#'
+#' @param dates the dates argument, one or two dates
+#' @return a Date vector
+#' @noRd
+.days = function(dates) {
+  dates = .as_dates(dates)
+  seq.Date(as.Date(dates[1]), as.Date(dates[2]), by = "day")
+}
+
+#' Convert a SpatVector to sf
+#'
+#' @param x a SpatVector of points or polygons
+#' @return an sf object with the same geometries and CRS
+#' @importFrom terra geom crs
+#' @importFrom sf st_as_sfc st_crs NA_crs_
+#' @noRd
+.vect_to_sf = function(x) {
+  wkt = terra::crs(x)
+  crs = if (nzchar(wkt)) sf::st_crs(wkt) else sf::NA_crs_
+  g = sf::st_as_sfc(terra::geom(x, wkt = TRUE), crs = crs)
+  sf::st_sf(geometry = g)
+}
+
+#' Transform geometries to longitude and latitude when their CRS is known
+#'
+#' Geometries without a CRS are taken as longitude and latitude.
+#'
+#' @param g an sf or sfc object
+#' @return g in EPSG:4326, or unchanged when it has no CRS or is already in
+#'  longitude and latitude
+#' @noRd
+.to_lonlat = function(g) {
+  crs = sf::st_crs(g)
+  if (!is.na(crs) && !isTRUE(sf::st_is_longlat(g))) {
+    g = sf::st_transform(g, 4326)
+  }
+  g
+}
+
+#' Tell the user which data are being downloaded
+#'
+#' get_chirps() (rainfall) and get_chirts() (temperature) have similar
+#' names, so each request states the dataset, variable and period. Set
+#' options(chirps.quiet = TRUE) to hide it.
+#'
+#' @param product character, e.g. "CHIRPS v3.0 (rnl)"
+#' @param variable character, e.g. "daily rainfall (mm)"
+#' @param days Date vector of the days requested
+#' @param server character, the server name
+#' @return nothing, called for its side effect
+#' @noRd
+.inform_request = function(product, variable, days, server = "CHC") {
+  if (isTRUE(getOption("chirps.quiet", FALSE))) {
+    return(invisible(NULL))
+  }
+  n = length(days)
+  period = if (n == 1) {
+    format(days[1])
+  } else {
+    paste(format(days[1]), "to", format(days[n]))
+  }
+  message("Downloading ", variable, " from ", product, " on the ", server,
+          " server, ", period, " (", n, ifelse(n == 1, " day", " days"),
+          ").")
+  .notice_once("quiet_noticed",
+               "Set options(chirps.quiet = TRUE) to hide this message.")
+  invisible(NULL)
+}
+
+#' Label of a CHIRTS variable, with units
+#' @noRd
+.chirts_label = function(var) {
+  labels = c(Tmax = "daily maximum temperature (Tmax, \u00b0C)",
+             Tmin = "daily minimum temperature (Tmin, \u00b0C)",
+             RHum = "daily relative humidity (RHum, %)",
+             HeatIndex = "daily heat index (HeatIndex, \u00b0C)")
+  unname(labels[var])
 }
