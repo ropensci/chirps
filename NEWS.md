@@ -13,7 +13,7 @@ The Climate Hazards Center moved its data to new paths in late 2026, so download
 
 * Requests check the first and last file before reading the rest, and stop with a clear error when a file is missing. CHC blocks addresses that request many missing files, which is the most likely cause of the 403 errors in issue #56.
 
-* Requests to CHC and ClimateSERV send a user agent that names the package and its repository.
+* Requests to CHC and ClimateSERV send a user agent that names the package and a contact address.
 
 * A network test requests one known file from each CHC path, so a future move is caught by the checks.
 

@@ -1,8 +1,7 @@
 #' User agent sent with every request to CHC and ClimateSERV
 #'
-#' CHC asked for a descriptive user agent, so they can tell package traffic
-#' apart from bots. It points to the repository, where users can reach the
-#' maintainers.
+#' CHC asked for a descriptive user agent with a contact address, so they can
+#' tell package traffic apart from bots.
 #'
 #' @return a character string
 #' @importFrom utils packageVersion
@@ -12,7 +11,8 @@
 .chirps_ua = function() {
   v = tryCatch(as.character(utils::packageVersion("chirps")),
                error = function(e) "dev")
-  paste0("chirps R package/", v, " (https://github.com/AgrDataSci/chirps)")
+  paste0("chirps R package/", v,
+         " (https://github.com/AgrDataSci/chirps; desousa.kaue@gmail.com)")
 }
 
 #' Make GDAL send the chirps user agent
