@@ -215,4 +215,23 @@ get_chirts_raw = function(dates,
   )
 }
 
+#' @noRd
+.chirts_era5_raw_urls = function(dates,
+                                 var = c("Tmin", "Tmax")) {
+  
+  var = match.arg(var)
+  
+  years = format(dates, "%Y")
+  date_string = gsub("-", ".", dates)
+  
+  var_dir = tolower(var)
+  
+  sprintf(
+    "https://data.chc.ucsb.edu/experimental/CHIRTS-ERA5/%s/tifs/daily/%s/CHIRTS-ERA5.daily_%s.%s.tif",
+    var_dir,
+    years,
+    var,
+    date_string
+  )
+}
 

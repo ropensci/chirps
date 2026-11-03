@@ -192,3 +192,13 @@ get_chirps_raw = function(dates,
                "CHIRPS v3. ClimateSERV support for CHIRPS may be removed ",
                "in a future release.")
 }
+
+#' Tell the user once per session that a ClimateSERV function will be
+#' deprecated
+#' @param fun character, the function name
+#' @noRd
+.notice_climateserv_fun = function(fun) {
+  .notice_once(paste0(fun, "_noticed"),
+               fun, "() reads from the ClimateSERV API and will be ",
+               "deprecated in a future release of chirps.")
+}
