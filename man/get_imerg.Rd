@@ -66,6 +66,14 @@ The IMERG dataset provides near-real time global observations of rainfall at
 
 \bold{nQuadSegs}: integer, number of segments per buffer quadrant
 }
+\section{Future deprecation}{
+
+\code{get_imerg()} reads from the ClimateSERV API, which \CRANpkg{chirps}
+no longer recommends. \code{get_imerg()} will be deprecated in a future
+release, and a notice says so once per session. CHIRPS rainfall is
+available from the CHC server with \code{\link{get_chirps}()}.
+}
+
 \examples{
 \dontshow{if (interactive()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 lonlat <- data.frame(lon = c(-55.0281,-54.9857),

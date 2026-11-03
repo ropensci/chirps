@@ -25,7 +25,7 @@ For climate indices computed from these data (dry spells, heavy rain days, growi
 | CHIRTS-daily | Tmax, Tmin, RHum, HeatIndex | 0.05° | 60°S to 70°N | 1983 to 2016 |
 | CHIRTS-ERA5 | Tmax, Tmin | 0.05° | 60°S to 70°N | 1980 to near present |
 
-ESI and IMERG are also available through the ClimateSERV API with `get_esi()` and `get_imerg()`.
+ESI and IMERG are also available through the ClimateSERV API with `get_esi()` and `get_imerg()`. Both will be deprecated in a future release.
 
 ## Applications
 

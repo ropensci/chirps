@@ -157,7 +157,7 @@ writeRaster(v3, "chirps.tif", overwrite = TRUE)
 
 ## Servers
 
-The CHC server is the default and the recommended source. `server = "ClimateSERV"` is kept for backward compatibility. It serves CHIRPS v2 only, which CHC retires after the December 2026 release, averaged over a small buffer around each point, and it is slow for more than a few points. ClimateSERV support for CHIRPS may be removed in a future release. `get_esi()` and `get_imerg()` still use ClimateSERV, as these products are not on the CHC server.
+The CHC server is the default and the recommended source. `server = "ClimateSERV"` is kept for backward compatibility. It serves CHIRPS v2 only, which CHC retires after the December 2026 release, averaged over a small buffer around each point, and it is slow for more than a few points. ClimateSERV support for CHIRPS may be removed in a future release. `get_esi()` and `get_imerg()` still use ClimateSERV, as these products are not on the CHC server. Both will be deprecated in a future release.
 
 CHC blocks addresses that request many files that do not exist. **chirps** checks the first and last file of each request before reading the rest, and stops with a clear error when a file is missing. Keep requests within the period each product covers.
 

@@ -17,8 +17,8 @@ chirps is an R package that gives access to datasets from the Climate Hazards Ce
 | Daily rainfall as a raster for an area | `get_chirps_raw()`, or `get_chirps()` with a SpatVector, SpatRaster or SpatExtent | `version = "3.0"` with `type = "rnl"` or `"sat"` for CHIRPS v3. |
 | Daily maximum or minimum temperature, 1983 to 2016 | `get_chirts()`, `get_chirts_raw()` | Also relative humidity and heat index. |
 | Daily temperature from 1980 to near present | `get_chirts(..., product = "CHIRTS-ERA5")`, `get_chirts_raw(..., product = "CHIRTS-ERA5")` | Experimental CHC product, Tmax and Tmin. |
-| Evaporative stress index | `get_esi()` | ClimateSERV only. |
-| IMERG rainfall | `get_imerg()` | ClimateSERV only. |
+| Evaporative stress index | `get_esi()` | ClimateSERV only, to be deprecated. |
+| IMERG rainfall | `get_imerg()` | ClimateSERV only, to be deprecated. Prefer CHIRPS with `get_chirps()`. |
 | Rainfall and temperature indices | `climatrends::rainfall()`, `climatrends::temperature()`, `climatrends::GDD()` | Pass `get_chirps(..., as.matrix = TRUE)`. `precip_indices()` is only a simple example. |
 
 ## Pitfalls

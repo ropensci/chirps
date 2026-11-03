@@ -335,3 +335,9 @@ test_that("each request says which data it downloads", {
   options(chirps.quiet = TRUE)
   expect_no_message(chirps:::.inform_request("CHIRTS-ERA5", "x", d))
 })
+
+test_that("ClimateSERV functions announce their future deprecation", {
+  assign("get_esi_noticed", FALSE, envir = chirps:::.chirps_env)
+  expect_message(chirps:::.notice_climateserv_fun("get_esi"), "deprecated")
+  expect_no_message(chirps:::.notice_climateserv_fun("get_esi"))
+})

@@ -27,6 +27,12 @@
 #'
 #' \bold{nQuadSegs}: integer, number of segments per buffer quadrant
 #'
+#' @section Future deprecation:
+#' \code{get_esi()} reads from the ClimateSERV API, which \CRANpkg{chirps}
+#'  no longer recommends. \code{get_esi()} will be deprecated in a future
+#'  release, and a notice says so once per session. CHIRPS rainfall is
+#'  available from the CHC server with \code{\link{get_chirps}()}.
+#'
 #' @return A data frame of \acronym{ESI} data:
 #' \item{id}{the index for the rows in \code{object}}
 #' \item{dates}{the dates from which ESI was requested}
@@ -61,6 +67,7 @@ get_esi = function(object,
                     operation = 5,
                     period = 1,
                     ...) {
+  .notice_climateserv_fun("get_esi")
   UseMethod("get_esi")
   
 }

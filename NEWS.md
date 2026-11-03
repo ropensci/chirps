@@ -15,7 +15,7 @@ chirps 2.0.0 reads the Climate Hazards Center (CHC) data directly from the CHC s
 
 ### CHC FIRST, CLIMATRENDS FOR INDICES
 
-* The CHC server is the default and recommended source in the documentation, README, vignette and examples. `server = "ClimateSERV"` serves CHIRPS v2 only and is kept for backward compatibility. It shows a notice once per session, and ClimateSERV support for CHIRPS may be removed in a future release. `get_esi()` and `get_imerg()` still use ClimateSERV.
+* The CHC server is the default and recommended source in the documentation, README, vignette and examples. `server = "ClimateSERV"` serves CHIRPS v2 only and is kept for backward compatibility. It shows a notice once per session, and ClimateSERV support for CHIRPS may be removed in a future release. `get_esi()` and `get_imerg()` still use ClimateSERV and will be deprecated in a future release, with a notice once per session.
 
 * Matrices returned with `as.matrix = TRUE` have one column per day named "YYYY-MM-DD", for every input and server. This is the input of `climatrends::rainfall()`, `climatrends::temperature()` and `climatrends::GDD()`, and the documentation and vignette show how to pass the data.
 

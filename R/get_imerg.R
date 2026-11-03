@@ -25,6 +25,12 @@
 #'
 #' \bold{nQuadSegs}: integer, number of segments per buffer quadrant
 #'
+#' @section Future deprecation:
+#' \code{get_imerg()} reads from the ClimateSERV API, which \CRANpkg{chirps}
+#'  no longer recommends. \code{get_imerg()} will be deprecated in a future
+#'  release, and a notice says so once per session. CHIRPS rainfall is
+#'  available from the CHC server with \code{\link{get_chirps}()}.
+#'
 #' @return A data frame of \acronym{imerg} data:
 #' \item{id}{the index for the rows in \code{object}}
 #' \item{dates}{the dates from which imerg was requested}
@@ -45,6 +51,7 @@
 #' @importFrom sf st_centroid read_sf st_geometry_type
 #' @export
 get_imerg = function(object, dates, operation = 5, ...) {
+  .notice_climateserv_fun("get_imerg")
   UseMethod("get_imerg")
   
 }
