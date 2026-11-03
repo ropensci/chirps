@@ -31,6 +31,8 @@ The Climate Hazards Center moved its data to new paths in late 2026, so download
 
 ### NEW FEATURES
 
+* Each request states what it downloads, for example "Downloading daily rainfall (mm) from CHIRPS v3.0 (rnl) on the CHC server, 2017-12-15 to 2017-12-31 (17 days)." or "Downloading daily maximum temperature (Tmax, °C) from CHIRTS-daily ...". This makes it clear whether `get_chirps()` (rainfall) or `get_chirts()` (temperature) was called. Set `options(chirps.quiet = TRUE)` to hide these messages.
+
 * `get_chirts()` and `get_chirts_raw()` read CHIRTS-ERA5 with `product = "CHIRTS-ERA5"`, for maximum and minimum temperature from 1980 to near present. One function now covers each variable, `get_chirps_raw()` for rainfall and `get_chirts_raw()` for temperature.
 
 ### DEPRECATED

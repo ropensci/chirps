@@ -73,6 +73,8 @@ dates = c("2017-01-01", "2017-01-31")
 rain = get_chirps(lonlat, dates)
 ```
 
+Each call states what it downloads, for example daily rainfall from CHIRPS v3.0 or daily maximum temperature from CHIRTS, so a mix-up between `get_chirps()` and `get_chirts()` is easy to spot. Set `options(chirps.quiet = TRUE)` to hide these messages.
+
 A single date returns one day. With `sf` polygons, each day is averaged over the cells of each polygon, and `operation` sets another summary (4 for the sum).
 
 ```r

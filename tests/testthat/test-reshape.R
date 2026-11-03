@@ -327,3 +327,17 @@ test_that("as.matrix works for sf, and polygons without a CRS are read", {
   x = get_chirps(p, dates)
   expect_equal(x$chirps, (1:3) * 1000 + mean(c(1, 2, 5, 6)))
 })
+
+test_that("each request says which data it downloads", {
+  d = as.Date(c("2017-12-15", "2017-12-16"))
+  old = options(chirps.quiet = FALSE)
+  on.exit(options(old))
+  expect_message(chirps:::.inform_request("CHIRPS v3.0 (rnl)",
+                                          "daily rainfall (mm)", d),
+                 "daily rainfall \\(mm\\) from CHIRPS v3.0 \\(rnl\\).*2 days")
+  expect_message(chirps:::.inform_request("CHIRTS-daily",
+                                          chirps:::.chirts_label("Tmax"), d[1]),
+                 "maximum temperature.*2017-12-15 \\(1 day\\)")
+  options(chirps.quiet = TRUE)
+  expect_no_message(chirps:::.inform_request("CHIRTS-ERA5", "x", d))
+})

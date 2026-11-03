@@ -55,6 +55,11 @@
 #'  with the function set by \bold{operation}. The \code{lon} and \code{lat}
 #'  columns give the centroid of each polygon.
 #'
+#' \strong{Messages}: each request states what it downloads, here daily
+#'  rainfall from CHIRPS, with the period, so it is not mistaken for
+#'  temperature from \code{\link{get_chirts}}. Set
+#'  \code{options(chirps.quiet = TRUE)} to hide these messages.
+#'
 #' \strong{Indices}: for rainfall indices (dry spells, heavy rain days,
 #'  intensity) use \code{climatrends::rainfall()}. The matrix returned with
 #'  \code{as.matrix = TRUE} is its input, see the examples.

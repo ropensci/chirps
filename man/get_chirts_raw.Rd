@@ -79,6 +79,11 @@ updated ERA5 reanalysis, downscaled and bias-corrected relative to CHIRTS.
 It is an experimental CHC product. Users should cite "CHIRTS-ERA5 Data
 Repository. https://doi.org/10.15780/G2F08J. Data accessed on [DATE]."
 See \url{https://www.chc.ucsb.edu/data/chirts-era5}.
+
+\strong{Messages}: each request states what it downloads, here daily
+temperature or humidity from CHIRTS, with the period, so it is not
+mistaken for rainfall from \code{\link{get_chirps}}. Set
+\code{options(chirps.quiet = TRUE)} to hide these messages.
 }
 \examples{
 if (interactive()) {

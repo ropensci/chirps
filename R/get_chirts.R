@@ -43,6 +43,11 @@
 #'
 #' \strong{Coverage}: both products cover 60°S to 70°N.
 #'
+#' \strong{Messages}: each request states what it downloads, here daily
+#'  temperature or humidity from CHIRTS, with the period, so it is not
+#'  mistaken for rainfall from \code{\link{get_chirps}}. Set
+#'  \code{options(chirps.quiet = TRUE)} to hide these messages.
+#'
 #' \strong{Indices}: for temperature indices (growing degree days, crop
 #'  sensitive indices, frost and heat days) use the \CRANpkg{climatrends}
 #'  package, which takes the matrices returned with \code{as.matrix = TRUE}.

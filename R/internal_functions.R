@@ -685,6 +685,10 @@
     operation = 5
   }
   
+  .inform_request("CHIRPS v2.0", "daily rainfall (mm)",
+                  seq.Date(as.Date(dates[1]), as.Date(dates[2]), by = "day"),
+                  server = "ClimateSERV")
+  
   result = .GET(
     gjson = gj,
     dates = dates_inter,
@@ -819,4 +823,44 @@
     g = sf::st_transform(g, 4326)
   }
   g
+}
+
+#' Tell the user which data are being downloaded
+#'
+#' get_chirps() (rainfall) and get_chirts() (temperature) have similar
+#' names, so each request states the dataset, variable and period. Set
+#' options(chirps.quiet = TRUE) to hide it.
+#'
+#' @param product character, e.g. "CHIRPS v3.0 (rnl)"
+#' @param variable character, e.g. "daily rainfall (mm)"
+#' @param days Date vector of the days requested
+#' @param server character, the server name
+#' @return nothing, called for its side effect
+#' @noRd
+.inform_request = function(product, variable, days, server = "CHC") {
+  if (isTRUE(getOption("chirps.quiet", FALSE))) {
+    return(invisible(NULL))
+  }
+  n = length(days)
+  period = if (n == 1) {
+    format(days[1])
+  } else {
+    paste(format(days[1]), "to", format(days[n]))
+  }
+  message("Downloading ", variable, " from ", product, " on the ", server,
+          " server, ", period, " (", n, ifelse(n == 1, " day", " days"),
+          ").")
+  .notice_once("quiet_noticed",
+               "Set options(chirps.quiet = TRUE) to hide this message.")
+  invisible(NULL)
+}
+
+#' Label of a CHIRTS variable, with units
+#' @noRd
+.chirts_label = function(var) {
+  labels = c(Tmax = "daily maximum temperature (Tmax, \u00b0C)",
+             Tmin = "daily minimum temperature (Tmin, \u00b0C)",
+             RHum = "daily relative humidity (RHum, %)",
+             HeatIndex = "daily heat index (HeatIndex, \u00b0C)")
+  unname(labels[var])
 }

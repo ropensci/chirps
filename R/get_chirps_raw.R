@@ -41,6 +41,11 @@
 #' Additional information is available at:
 #' \url{https://www.chc.ucsb.edu/data/chirps3}
 #'
+#' \strong{Messages}: each request states what it downloads, here daily
+#'  rainfall from CHIRPS, with the period, so it is not mistaken for
+#'  temperature from \code{\link{get_chirts}}. Set
+#'  \code{options(chirps.quiet = TRUE)} to hide these messages.
+#'
 #' Daily product documentation:
 #' \url{https://data.chc.ucsb.edu/products/CHIRPS/v3.0/daily/readme.txt}
 #' 
@@ -96,6 +101,13 @@ get_chirps_raw = function(dates,
   }
   
   seqdate = seq.Date(as.Date(dates[1]), as.Date(dates[2]), by = "day")
+  
+  label = if (version == "3.0") {
+    paste0("CHIRPS v3.0 (", match.arg(type, c("rnl", "sat")), ")")
+  } else {
+    paste0("CHIRPS v2.0 (", resolution, "\u00b0)")
+  }
+  .inform_request(label, "daily rainfall (mm)", seqdate)
   
   urls = .chirps_raw_urls(
     dates = seqdate,

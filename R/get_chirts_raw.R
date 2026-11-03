@@ -49,6 +49,11 @@
 #' Repository. https://doi.org/10.15780/G2F08J. Data accessed on [DATE]."
 #' See \url{https://www.chc.ucsb.edu/data/chirts-era5}.
 #'
+#' \strong{Messages}: each request states what it downloads, here daily
+#'  temperature or humidity from CHIRTS, with the period, so it is not
+#'  mistaken for rainfall from \code{\link{get_chirps}}. Set
+#'  \code{options(chirps.quiet = TRUE)} to hide these messages.
+#'
 #' @references
 #' Verdin, A., Funk, C., Peterson, P., Landsfeld, M.,
 #' Tuholske, C., and Grace, K. (2020).
@@ -105,6 +110,8 @@ get_chirts_raw = function(dates,
     
     seqdate = .days(dates)
     
+    .inform_request("CHIRTS-ERA5", .chirts_label(var), seqdate)
+    
     urls = .chirts_era5_raw_urls(dates = seqdate, var = var)
     
   } else {
@@ -133,6 +140,8 @@ get_chirts_raw = function(dates,
       format = format,
       version = version
     )
+    
+    .inform_request("CHIRTS-daily", .chirts_label(var), seqdate)
   }
   
   if (isTRUE(verbose)) {
