@@ -80,7 +80,7 @@ get_chirps_raw = function(dates,
                           verbose = FALSE,
                           ...) {
   
-  .validate_dates(dates)
+  dates = .validate_dates(dates)
   
   version = as.character(version)
   if (version %in% c("2", "3")) {
@@ -89,6 +89,10 @@ get_chirps_raw = function(dates,
   
   if (!version %in% c("2.0", "3.0")) {
     stop("`version` must be either '2.0' or '3.0'.", call. = FALSE)
+  }
+  
+  if (version == "2.0") {
+    .notice_v2()
   }
   
   seqdate = seq.Date(as.Date(dates[1]), as.Date(dates[2]), by = "day")
@@ -154,4 +158,19 @@ get_chirps_raw = function(dates,
     
     return(urls)
   }
+}
+
+# keeps notices that are shown once per session
+.chirps_env = new.env(parent = emptyenv())
+
+#' Tell the user once per session that CHIRPS v2 is retired
+#' @noRd
+.notice_v2 = function() {
+  if (isTRUE(.chirps_env$v2_noticed)) {
+    return(invisible(NULL))
+  }
+  .chirps_env$v2_noticed = TRUE
+  message("CHIRPS v2 is retired after the December 2026 release. ",
+          "Use version = \"3.0\" for current data.")
+  invisible(NULL)
 }

@@ -36,6 +36,16 @@
 #' \bold{resolution}: numeric, resolution of CHIRPS v2 tiles either 0.05
 #'  (default) or 0.25 degrees
 #'
+#' \strong{Polygons}: with \code{sf} or \code{geojson} polygons, each day
+#'  is summarised over the cells that touch the polygon, with the function set
+#'  by \bold{operation} (average by default), for both servers. The
+#'  \code{lon} and \code{lat} columns give the centroid of each polygon.
+#'
+#' \strong{Servers}: ClimateSERV serves CHIRPS v2 averaged over a small buffer
+#'  around each point, so its values can differ from the CHC values, which are
+#'  the values of the cell that holds the point. CHC is faster for long
+#'  periods and is recommended for most uses.
+#'
 #' \strong{Additional arguments when using server = "ClimateSERV"}
 #'
 #' \bold{dist}: numeric, buffer distance for each \code{object} coordinate
@@ -131,7 +141,7 @@ get_chirps.default = function(object, dates, server = "CHC",
   
   nr = nrow(object)
   
-  .validate_dates(dates)
+  dates = .validate_dates(dates)
   
   days = seq.Date(as.Date(dates[1]), as.Date(dates[2]), by = "day")
   
@@ -160,7 +170,7 @@ get_chirps.default = function(object, dates, server = "CHC",
   rr = get_chirps_raw(dates = dates, ...)
   
   if (isTRUE(as.raster)) {
-    result = terra::crop(rr, y = object)
+    result = .crop_to_points(rr, object)
     return(result)
   }
   
@@ -207,7 +217,7 @@ get_chirps.SpatVector = function(object,
     return(result)
   }
   
-  .validate_dates(dates)
+  dates = .validate_dates(dates)
   
   days = seq.Date(as.Date(dates[1]), as.Date(dates[2]), by = "day")
   
@@ -304,7 +314,7 @@ get_chirps.sf = function(object, dates, server = "CHC",
   
   geom = sf::st_geometry(object)
   
-  # polygons are represented by their centroids, one per feature
+  # lon and lat of polygons are their centroids, one per feature
   if (type == "POLYGON") {
     geom = suppressWarnings(sf::st_centroid(geom))
   }
@@ -318,7 +328,7 @@ get_chirps.sf = function(object, dates, server = "CHC",
   
   nr = nrow(lonlat)
   
-  .validate_dates(dates)
+  dates = .validate_dates(dates)
   
   days = seq.Date(as.Date(dates[1]), as.Date(dates[2]), by = "day")
   
@@ -338,7 +348,12 @@ get_chirps.sf = function(object, dates, server = "CHC",
     # get CHIRPS CoG files
     rr = get_chirps_raw(dates = dates, ...)
     
-    result = .extract_values(rr, lonlat, dots)
+    # polygons are summarised over their cells, as ClimateSERV does
+    if (type == "POLYGON") {
+      result = .polygon_values(rr, object, dots[["operation"]], dots)
+    } else {
+      result = .extract_values(rr, lonlat, dots)
+    }
     
     result = .to_long(result,
                       ids = seq_len(nr),
@@ -386,6 +401,8 @@ get_chirps.geojson = function(object,
     )
   }
   
+  is_polygon = all(grepl(type[[2]], object))
+  
   # take the coordinates of Points and the centroid of Polygons
   lonlat = lapply(object, function(x) {
     x = sf::st_geometry(sf::read_sf(x))
@@ -405,7 +422,7 @@ get_chirps.geojson = function(object,
   
   nr = nrow(lonlat)
   
-  .validate_dates(dates)
+  dates = .validate_dates(dates)
   
   days = seq.Date(as.Date(dates[1]), as.Date(dates[2]), by = "day")
   
@@ -423,7 +440,15 @@ get_chirps.geojson = function(object,
     # get CHIRPS CoG files
     rr = get_chirps_raw(dates = dates, ...)
     
-    result = .extract_values(rr, lonlat, dots)
+    # polygons are summarised over their cells, as ClimateSERV does
+    if (is_polygon) {
+      polygons = do.call(rbind, lapply(object, function(x) {
+        sf::st_sf(geometry = sf::st_geometry(sf::read_sf(x)))
+      }))
+      result = .polygon_values(rr, polygons, dots[["operation"]], dots)
+    } else {
+      result = .extract_values(rr, lonlat, dots)
+    }
     
     result = .to_long(result,
                       ids = seq_len(nr),

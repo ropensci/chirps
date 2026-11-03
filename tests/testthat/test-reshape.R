@@ -149,3 +149,71 @@ test_that("raw URLs point to the CHC archive", {
                chirps:::.chirps_raw_urls(d[1], version = "3.0", type = "rnl"))
   expect_error(chirps:::.chirts_raw_urls(as.Date("2020-01-01"), var = "Tmax"))
 })
+
+test_that(".as_dates accepts one or two dates and rejects other input", {
+  expect_equal(chirps:::.as_dates("2010-12-15"), c("2010-12-15", "2010-12-15"))
+  expect_equal(chirps:::.as_dates(as.Date(c("2010-12-15", "2010-12-31"))),
+               c("2010-12-15", "2010-12-31"))
+  expect_error(chirps:::.as_dates(data.frame(x = 1)), "dates")
+  expect_error(chirps:::.as_dates(c("2010-12-15", "2010-12-16", "2010-12-17")),
+               "one date")
+  expect_error(chirps:::.as_dates("15/12/2010"), "YYYY-MM-DD")
+  expect_error(chirps:::.validate_dates(c("1982-01-01", "1982-12-31")), NA)
+})
+
+test_that("get_chirps() and get_chirts() return a single day", {
+  local_mocked_bindings(
+    get_chirps_raw = function(dates, ...) fake_raster(dates)[[1]],
+    get_chirts_raw = function(dates, var, ...) fake_raster(dates)[[1]]
+  )
+  x = get_chirps(lonlat, "2017-12-15", server = "CHC")
+  expect_equal(nrow(x), 2)
+  expect_equal(x$chirps, cells + 1000)
+  y = get_chirts(lonlat, "2017-12-15", var = "Tmax")
+  expect_equal(nrow(y), 2)
+})
+
+test_that("get_chirps() summarises sf polygons over their cells", {
+  local_mocked_bindings(get_chirps_raw = fake_raster)
+  # one polygon inside cells 1, 2, 5 and 6, one inside cell 1 only
+  sq = function(x0, x1, y0, y1) {
+    sf::st_polygon(list(rbind(c(x0, y0), c(x1, y0), c(x1, y1), c(x0, y1),
+                              c(x0, y0))))
+  }
+  p = sf::st_sf(name = c("big", "small"),
+                geometry = sf::st_sfc(sq(-55.9, -55.1, -2.9, -2.1),
+                                      sq(-55.9, -55.8, -2.2, -2.1),
+                                      crs = 4326))
+  x = get_chirps(p, dates, server = "CHC")
+  expect_equal(nrow(x), 6)
+  expect_equal(x$chirps[x$id == 1], (1:3) * 1000 + mean(c(1, 2, 5, 6)))
+  expect_equal(x$chirps[x$id == 2], (1:3) * 1000 + 1)
+  expect_equal(x$lon[x$id == 1], rep(-55.5, 3), tolerance = 1e-6)
+  
+  s = get_chirps(p, dates, server = "CHC", operation = 4)
+  expect_equal(s$chirps[s$id == 1], (1:3) * 4000 + sum(c(1, 2, 5, 6)))
+  
+  expect_error(get_chirps(p, dates, server = "CHC", operation = 3),
+               "operation")
+})
+
+test_that("as.raster = TRUE crops to the points of a data.frame", {
+  local_mocked_bindings(
+    get_chirps_raw = fake_raster,
+    get_chirts_raw = function(dates, var, ...) fake_raster(dates)
+  )
+  r = get_chirps(lonlat, dates, server = "CHC", as.raster = TRUE)
+  expect_s4_class(r, "SpatRaster")
+  expect_equal(terra::nlyr(r), 3)
+  one = get_chirps(lonlat[1, ], dates, server = "CHC", as.raster = TRUE)
+  expect_true(terra::ncell(one) >= 1)
+  r2 = get_chirts(lonlat, dates, var = "Tmax", as.raster = TRUE)
+  expect_s4_class(r2, "SpatRaster")
+})
+
+test_that("ClimateSERV operations map to summary functions", {
+  expect_identical(chirps:::.operation_fun(5), mean)
+  expect_identical(chirps:::.operation_fun(NULL), mean)
+  expect_identical(chirps:::.operation_fun(0), max)
+  expect_error(chirps:::.operation_fun(9), "operation")
+})

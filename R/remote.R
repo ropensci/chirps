@@ -15,21 +15,33 @@
          " (https://github.com/AgrDataSci/chirps; desousa.kaue@gmail.com)")
 }
 
-#' Make GDAL send the chirps user agent
+#' Set GDAL options for reading the CHC files
 #'
 #' terra reads the remote files through GDAL, which reads them lazily, so the
-#' option has to stay set for the session. A user agent the user has set
-#' themselves is kept.
+#' options have to stay set for the session. Options the user has set
+#' themselves are kept. Besides the user agent, GDAL is told not to list the
+#' remote folder and not to look for side files (.aux.xml, .ovr) on each
+#' open, which saves requests and avoids requests for files that do not
+#' exist, and to retry a failed read.
 #'
 #' @return nothing, called for its side effect
 #' @noRd
-.set_gdal_ua = function() {
-  current = tryCatch(terra::getGDALconfig("GDAL_HTTP_USERAGENT"),
-                     error = function(e) "")
-  if (length(current) == 0 || all(is.na(current) | current == "")) {
-    tryCatch(terra::setGDALconfig("GDAL_HTTP_USERAGENT", .chirps_ua()),
-             error = function(e) NULL)
+.set_gdal_options = function() {
+  opts = c(
+    GDAL_HTTP_USERAGENT = .chirps_ua(),
+    GDAL_DISABLE_READDIR_ON_OPEN = "EMPTY_DIR",
+    CPL_VSIL_CURL_ALLOWED_EXTENSIONS = ".tif,.tiff,.cog",
+    GDAL_HTTP_MAX_RETRY = "3",
+    GDAL_HTTP_RETRY_DELAY = "2"
+  )
+  
+  for (o in names(opts)) {
+    current = tryCatch(terra::getGDALconfig(o), error = function(e) "")
+    if (length(current) == 0 || all(is.na(current) | current == "")) {
+      tryCatch(terra::setGDALconfig(o, opts[[o]]), error = function(e) NULL)
+    }
   }
+  
   invisible(NULL)
 }
 
@@ -86,7 +98,7 @@
 #' @noRd
 .read_remote = function(urls, dates) {
   .check_remote(urls)
-  .set_gdal_ua()
+  .set_gdal_options()
   
   if (!all(grepl("^/vsicurl/", urls))) {
     urls = file.path("/vsicurl", urls)

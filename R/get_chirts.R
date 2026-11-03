@@ -76,7 +76,7 @@ get_chirts.default = function(object, dates, var, as.matrix = FALSE, ...){
   
   .validate_lonlat(object, xlim = c(-180, 180), ylim = c(-60, 70))
   
-  .validate_dates(dates)
+  dates = .validate_dates(dates)
   
   days = seq.Date(as.Date(dates[1]), as.Date(dates[2]), by = "day")
   
@@ -84,7 +84,7 @@ get_chirts.default = function(object, dates, var, as.matrix = FALSE, ...){
   rr = get_chirts_raw(dates, var, ...)
   
   if (isTRUE(as.raster)) {
-    result = terra::crop(rr, y = object)
+    result = .crop_to_points(rr, object)
     return(result) 
   }
   
@@ -127,6 +127,8 @@ get_chirts.SpatVector =
       result = terra::crop(rr, y = object)
       return(result)
     }
+    
+    dates = .validate_dates(dates)
     
     days = seq.Date(as.Date(dates[1]), as.Date(dates[2]), by = "day")
     

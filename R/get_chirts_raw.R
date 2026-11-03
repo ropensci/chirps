@@ -80,7 +80,7 @@ get_chirts_raw = function(dates,
                           verbose = FALSE,
                           ...) {
   
-  .validate_dates(dates)
+  dates = .validate_dates(dates)
   
   var = match.arg(var, c("HeatIndex", "RHum", "Tmax", "Tmin"))
   
@@ -113,7 +113,7 @@ get_chirts_raw = function(dates,
     .read_remote(urls, seqdate)
   } else {
     .check_remote(urls)
-    .set_gdal_ua()
+    .set_gdal_options()
     r = terra::rast(urls)
     terra::time(r) = seqdate
     r

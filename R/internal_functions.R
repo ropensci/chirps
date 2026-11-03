@@ -293,10 +293,51 @@
 }
 
 
+#' Turn the dates argument into a start and end date
+#'
+#' @param x the \code{dates} argument as given by the user, a character or
+#'  Date vector with one date (a single day) or two dates (start and end)
+#' @return a character vector of length two, "YYYY-MM-DD"
+#' @examples
+#' .as_dates("2010-12-15")
+#' .as_dates(as.Date(c("2010-12-15", "2010-12-31")))
+#' @noRd
+.as_dates = function(x) {
+  if (inherits(x, "Date")) {
+    x = format(x, "%Y-%m-%d")
+  }
+  
+  if (!is.character(x)) {
+    stop("`dates` must be a character or Date vector with the start and ",
+         "end dates, \"YYYY-MM-DD\", but an object of class '",
+         paste(class(x), collapse = "', '"), "' was given. ",
+         "Check that the dates are passed to `dates` and not to another ",
+         "argument.\n", call. = FALSE)
+  }
+  
+  if (length(x) == 1) {
+    x = c(x, x)
+  }
+  
+  if (length(x) != 2) {
+    stop("`dates` must have one date (a single day) or two dates ",
+         "(start and end), not ", length(x), ".\n", call. = FALSE)
+  }
+  
+  d = as.Date(x, format = "%Y-%m-%d")
+  
+  if (any(is.na(d))) {
+    stop("`dates` must be in the format \"YYYY-MM-DD\", but got \"",
+         paste(x, collapse = "\", \""), "\".\n", call. = FALSE)
+  }
+  
+  format(d, "%Y-%m-%d")
+}
+
 #' Validate dates within an accepted range
 #'
 #' @param x a character of start and end dates in that order in the format
-#'  "YYYY-MM-DD"
+#'  "YYYY-MM-DD", or a single date
 #' @param availability a character for the dates the dataset is available
 #' @return nothing
 #' @examples
@@ -307,55 +348,40 @@
 #' dates = c("2018-01-31","2017-12-01")
 #'
 #' .validate_dates(dates)
-#'
-#' dates = c("2018-01-31", as.character(Sys.Date()))
-#'
-#' .validate_dates(dates)
-#'
-#' dates = c("1980-12-31", "2018-01-31")
-#'
-#' .validate_dates(dates)
 #' @noRd
 .validate_dates = function(x, availability = c("1981-01-01", "0")) {
-    xmin = as.Date(x[1], format = "%Y-%m-%d")
-    
-    xmax = as.Date(x[2], format = "%Y-%m-%d")
-    
-    # the first day from which the dataset is available
-    past = as.Date(availability[1], origin = "1970-01-01")
-    
-    # the most recent date from which the dataset is available
-    present = availability[2]
-    
-    # generally it takes 45 days to update
-    if (present == "0") {
-      present = Sys.Date() - 45
-      present = format(present,  "%Y-%m-%d")
-    }
-    
-    # last given date should be higher than first
-    cond1 = as.integer(xmax - xmin) >= 0
-    
-    # no older than past date
-    cond2 = xmin >= past
-    
-    # no later then present date
-    cond3 = xmax <= present
-    
-    if (!all(cond1, cond2, cond3)) {
-      stop(
-        "Subscript out of bounds\n
-         Please check your dates. The dataset is available from ",
-        as.character(past),
-        " to about ",
-        as.character(present),
-        "\n
-         Or your dates may be twisted. \n",
-        call. = FALSE
-      )
-    }
-    
+  x = .as_dates(x)
+  
+  xmin = as.Date(x[1], format = "%Y-%m-%d")
+  
+  xmax = as.Date(x[2], format = "%Y-%m-%d")
+  
+  # the first day from which the dataset is available
+  past = as.Date(availability[1], origin = "1970-01-01")
+  
+  # the most recent date from which the dataset is available
+  present = availability[2]
+  
+  # generally it takes 45 days to update
+  if (present == "0") {
+    present = Sys.Date() - 45
   }
+  
+  present = as.Date(present)
+  
+  if (xmax < xmin) {
+    stop("Please check your dates. The start date (", x[1],
+         ") is after the end date (", x[2], ").\n", call. = FALSE)
+  }
+  
+  if (xmin < past || xmax > present) {
+    stop("Please check your dates. The dataset is available from ",
+         format(past), " to about ", format(present), ", but ",
+         x[1], " to ", x[2], " was requested.\n", call. = FALSE)
+  }
+  
+  invisible(x)
+}
 
 
 #' Reformat dates as required by ClimateServ
@@ -371,7 +397,7 @@
 #' @noRd
 .reformat_dates = function(x, ...) {
   # validate dates
-  .validate_dates(x, ...)
+  x = .validate_dates(x, ...)
   
   begindate = x[1]
   begindate = strsplit(begindate, "-")[[1]]
@@ -633,4 +659,72 @@
   rownames(result) = NULL
   
   result
+}
+
+#' Map a ClimateSERV operation code to a summary function
+#'
+#' @param operation integer, 0 max, 1 min, 2 median, 4 sum, 5 average
+#' @return a function
+#' @importFrom stats median
+#' @noRd
+.operation_fun = function(operation = 5) {
+  if (is.null(operation)) {
+    operation = 5
+  }
+  
+  f = switch(as.character(operation),
+             "0" = max,
+             "1" = min,
+             "2" = stats::median,
+             "4" = sum,
+             "5" = mean,
+             NULL)
+  
+  if (is.null(f)) {
+    stop("`operation` must be one of 0 (max), 1 (min), 2 (median), ",
+         "4 (sum) or 5 (average).\n", call. = FALSE)
+  }
+  
+  f
+}
+
+#' Summarise raster cells within each polygon
+#'
+#' @param r a SpatRaster, one layer per day
+#' @param polygons an sf object with POLYGON or MULTIPOLYGON geometries
+#' @param operation integer, see \code{.operation_fun}
+#' @param dots a list of further arguments for \code{terra::extract}
+#' @return a data.frame with one row per polygon and one column per layer.
+#'  Cells that touch a polygon count, so polygons smaller than a cell still
+#'  get a value
+#' @importFrom terra vect
+#' @importFrom sf st_transform st_sf st_geometry
+#' @noRd
+.polygon_values = function(r, polygons, operation = 5, dots = list()) {
+  v = terra::vect(sf::st_transform(sf::st_geometry(polygons), 4326))
+  
+  dots[["touches"]] = TRUE
+  dots[["fun"]] = .operation_fun(operation)
+  dots[["na.rm"]] = TRUE
+  
+  result = .extract_values(r, v, dots)
+  
+  result[] = lapply(result, function(x) ifelse(is.nan(x), NA_real_, x))
+  
+  result
+}
+
+#' Crop a raster to the extent of a set of points
+#'
+#' @param r a SpatRaster
+#' @param lonlat a data.frame with lon and lat in the first two columns
+#' @return a SpatRaster that covers all points, with one cell of margin
+#' @importFrom terra ext res crop
+#' @noRd
+.crop_to_points = function(r, lonlat) {
+  xy = as.matrix(as.data.frame(lonlat)[, 1:2])
+  storage.mode(xy) = "numeric"
+  e = terra::ext(min(xy[, 1]), max(xy[, 1]), min(xy[, 2]), max(xy[, 2]))
+  e = e + max(terra::res(r))
+  terra::crop(r, e, snap = "out")
 }

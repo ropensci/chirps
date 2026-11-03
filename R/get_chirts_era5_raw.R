@@ -52,7 +52,7 @@ get_chirts_era5_raw = function(dates,
                                verbose = FALSE,
                                ...) {
   
-  .validate_dates(dates, availability = c("1980-01-01", "0"))
+  dates = .validate_dates(dates, availability = c("1980-01-01", "0"))
   
   var = match.arg(var)
   
@@ -76,7 +76,7 @@ get_chirts_era5_raw = function(dates,
     .read_remote(urls, seqdate)
   } else {
     .check_remote(urls)
-    .set_gdal_ua()
+    .set_gdal_options()
     r = terra::rast(urls)
     terra::time(r) = seqdate
     r

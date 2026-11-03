@@ -79,6 +79,16 @@ Data description at
 \bold{resolution}: numeric, resolution of CHIRPS v2 tiles either 0.05
  (default) or 0.25 degrees
 
+\strong{Polygons}: with \code{sf} or \code{geojson} polygons, each day
+ is summarised over the cells that touch the polygon, with the function set
+ by \bold{operation} (average by default), for both servers. The
+ \code{lon} and \code{lat} columns give the centroid of each polygon.
+
+\strong{Servers}: ClimateSERV serves CHIRPS v2 averaged over a small buffer
+ around each point, so its values can differ from the CHC values, which are
+ the values of the cell that holds the point. CHC is faster for long
+ periods and is recommended for most uses.
+
 \strong{Additional arguments when using server = "ClimateSERV"}
 
 \bold{dist}: numeric, buffer distance for each \code{object} coordinate

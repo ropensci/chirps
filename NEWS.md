@@ -17,6 +17,20 @@ The Climate Hazards Center moved its data to new paths in late 2026, so download
 
 * A network test requests one known file from each CHC path, so a future move is caught by the checks.
 
+### ISSUES ADDRESSED IN THIS RELEASE
+
+* `dates` now accepts a single date, for one day of data, in every function (#32, #36). A clear error now says when `dates` is not a vector of dates, for example when an object is passed as the first argument of `get_chirps_raw()`, which takes no object (#58).
+
+* With `sf` or geojson polygons and `server = "CHC"`, each day is now summarised over the cells that touch the polygon, with the function set by `operation` (average by default), as ClimateSERV does. Earlier versions used the centroid only (#37).
+
+* `as.raster = TRUE` with a data frame of points now returns the raster cropped to the points. It failed before.
+
+* GDAL now reads the CHC files without listing the remote folder or looking for side files, and retries failed reads. This cuts the number of requests per file and avoids requests for files that do not exist (#51, #56).
+
+* A clearer error when ClimateSERV returns no values, which points to `server = "CHC"` (#48). The help of `get_chirps()` explains why ClimateSERV and CHC values differ (#49).
+
+* `get_chirps_raw(version = "2.0")` shows a notice, once per session, that CHIRPS v2 is retired after December 2026.
+
 ### BUG FIXES
 
 * `get_chirps()` and `get_chirts()` paired values with the wrong dates when more than one point was requested with an `sf`, geojson or `SpatVector` input (and, for `get_chirts()`, also with a data frame). Values are now matched to the right point and date.
