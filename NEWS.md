@@ -29,7 +29,7 @@ The Climate Hazards Center moved its data to new paths in late 2026, so download
 
 * Requests check the first and last file before reading the rest, and stop with a clear error when a file is missing. CHC blocks addresses that request many missing files, which is the most likely cause of the 403 errors in issue #56.
 
-* When the CHC server is busy (HTTP 429 or 5xx), the file check retries with growing pauses before it stops with a clear error.
+* When the CHC server is busy (HTTP 429 or 5xx), the file check retries with growing pauses before it stops with a clear error. A rate limit while reading the files gives the same clear error instead of a GDAL message.
 
 * Tests that read from CHC run on one CI job only, to keep the load on the CHC server low.
 

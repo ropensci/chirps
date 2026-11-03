@@ -27,9 +27,9 @@ chirts_values <-
 
 # Test get_chirts() default method -----
 test_that("get_chirts() returns proper values", {
-  x <- get_chirts(object = lonlat,
-                  dates = dates,
-                  var = "Tmax")
+  x = with_chc(get_chirts(object = lonlat,
+                          dates = dates,
+                          var = "Tmax"))
   expect_equal(x$chirts, chirts_values, tolerance =  0.01)
   expect_named(x, c("id", "lon", "lat", "date", "chirts"))
   expect_equal(nrow(x), 10)

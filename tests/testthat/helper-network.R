@@ -8,3 +8,14 @@ skip_if_no_chc = function() {
     skip("CHC tests run on one CI job only")
   }
 }
+
+# Run code that reads from CHC, and skip when the server rate-limits CI
+# (HTTP 429), which says nothing about the package
+with_chc = function(code) {
+  tryCatch(code, error = function(e) {
+    if (grepl("429|too many requests", conditionMessage(e))) {
+      skip("CHC server busy (HTTP 429)")
+    }
+    stop(e)
+  })
+}

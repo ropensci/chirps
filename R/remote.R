@@ -119,7 +119,14 @@
     urls = file.path("/vsicurl", urls)
   }
   
-  r = terra::rast(urls)
+  r = tryCatch(terra::rast(urls), error = function(e) {
+    if (grepl("429", conditionMessage(e))) {
+      stop("The CHC server is receiving too many requests from this address ",
+           "(HTTP 429). Wait a few minutes before trying again.\n",
+           call. = FALSE)
+    }
+    stop(e)
+  })
   terra::time(r) = dates
   
   r
