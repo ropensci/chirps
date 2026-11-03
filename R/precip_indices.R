@@ -39,7 +39,7 @@
 #' 
 #' Kehel Z., et al. (2016). In: Applied Mathematics and Omics to Assess Crop
 #'  Genetic Resources for Climate Change Adaptive Traits (eds Bari A., Damania
-#'  A. B., Mackay M., Dayanandan S.), pp. 151–174. CRC Press.
+#'  A. B., Mackay M., Dayanandan S.), pp. 151-174. CRC Press.
 #' 
 #' @seealso \code{climatrends::rainfall()}
 #' 
