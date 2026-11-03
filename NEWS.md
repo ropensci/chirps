@@ -31,7 +31,11 @@ The Climate Hazards Center moved its data to new paths in late 2026, so download
 
 ### NEW FEATURES
 
-* `get_chirts()` reads CHIRTS-ERA5 with `product = "CHIRTS-ERA5"`, for maximum and minimum temperature from 1980 to near present.
+* `get_chirts()` and `get_chirts_raw()` read CHIRTS-ERA5 with `product = "CHIRTS-ERA5"`, for maximum and minimum temperature from 1980 to near present. One function now covers each variable, `get_chirps_raw()` for rainfall and `get_chirts_raw()` for temperature.
+
+### DEPRECATED
+
+* `get_chirts_era5_raw()` is deprecated in favour of `get_chirts_raw(product = "CHIRTS-ERA5")`. It still works, shows a notice once per session, and will be removed in a future release.
 
 * `get_chirps()` accepts `sfc` objects such as the `tapajos` data, and `get_chirts()` accepts `sf` and `sfc` points and polygons.
 

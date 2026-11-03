@@ -1,9 +1,11 @@
-#' Get raw CHIRTS-ERA5 raster data
+#' Get raw CHIRTS-ERA5 raster data (deprecated)
 #'
-#' Download CHIRTS-ERA5 daily temperature data in its original raster format.
+#' This function is deprecated. Use
+#'  \code{get_chirts_raw(dates, var, product = "CHIRTS-ERA5")} instead.
+#'  It will be removed in a future release.
 #'
-#' @param dates Character vector of length two with start and end dates in
-#'   \code{"YYYY-MM-DD"} format.
+#' @param dates Character or Date vector "YYYY-MM-DD", with one date for a
+#'   single day or two dates for the start and end of the period.
 #' @param var Character. Variable to download. Supported values are
 #'   \code{"Tmin"} and \code{"Tmax"}.
 #' @param use_vsicurl Logical. If \code{TRUE}, prepends \code{"/vsicurl"} to
@@ -12,39 +14,17 @@
 #' @param ... Additional arguments reserved for future use.
 #'
 #' @return A \code{\link[terra]{SpatRaster}} with one layer per day.
-#' 
-#' @details
-#' CHIRTS-ERA5 is a quasi-global (60°S to 70°N), high-resolution
-#' (0.05° × 0.05°) dataset of daily maximum and minimum temperatures,
-#' heat index, and wet bulb globe temperature from 1980 to near-present.
 #'
-#' The dataset combines the Climate Hazards Center Infrared Temperature
-#' with Stations (CHIRTS) product (1983–2016) with the regularly updated
-#' ERA5 reanalysis. ERA5 fields are downscaled and bias-corrected relative
-#' to CHIRTS to provide a temporally consistent climate record.
+#' @seealso \code{\link{get_chirts_raw}}
 #'
-#' Users of this dataset should cite:
-#'
-#' "CHIRTS-ERA5 Data Repository. https://doi.org/10.15780/G2F08J.
-#' Data accessed on [DATE]."
-#'
-#' Additional information is available at:
-#' \url{https://www.chc.ucsb.edu/data/chirts-era5}
-#' 
-#' @references
-#' Climate Hazards Center (CHC). CHIRTS-ERA5 Data Repository.
-#' \doi{10.15780/G2F08J}
-#' 
 #' @examples
 #' if (interactive()) {
-#'   tmin = get_chirts_era5_raw(dates = c("1980-01-01", "1980-01-31"),
-#'                              var = "Tmin")
-#' 
-#'   tmax = get_chirts_era5_raw(dates = c("1980-01-01", "1980-01-31"),
-#'                              var = "Tmax")
+#'   # use instead
+#'   tmin = get_chirts_raw(dates = c("1980-01-01", "1980-01-31"),
+#'                         var = "Tmin", product = "CHIRTS-ERA5")
 #' }
 #'
-#' @importFrom terra rast time<-
+#' @keywords internal
 #' @export
 get_chirts_era5_raw = function(dates,
                                var = c("Tmin", "Tmax"),
@@ -52,35 +32,18 @@ get_chirts_era5_raw = function(dates,
                                verbose = FALSE,
                                ...) {
   
-  dates = .validate_dates(dates, availability = c("1980-01-01", "0"))
+  .notice_once("era5_deprecated",
+               "get_chirts_era5_raw() is deprecated. Use get_chirts_raw(",
+               "dates, var, product = \"CHIRTS-ERA5\") instead.")
   
   var = match.arg(var)
   
-  seqdate = seq.Date(as.Date(dates[1]), as.Date(dates[2]), by = "day")
-  
-  if (any(as.integer(format(seqdate, "%Y")) < 1980)) {
-    stop("CHIRTS-ERA5 data are only available from 1980 onwards.",
-         call. = FALSE)
-  }
-  
-  urls = .chirts_era5_raw_urls(
-    dates = seqdate,
-    var = var
-  )
-  
-  if (isTRUE(verbose)) {
-    message(paste(urls, collapse = "\n"))
-  }
-  
-  if (isTRUE(use_vsicurl)) {
-    .read_remote(urls, seqdate)
-  } else {
-    .check_remote(urls)
-    .set_gdal_options()
-    r = terra::rast(urls)
-    terra::time(r) = seqdate
-    r
-  }
+  get_chirts_raw(dates,
+                 var = var,
+                 product = "CHIRTS-ERA5",
+                 use_vsicurl = use_vsicurl,
+                 verbose = verbose,
+                 ...)
 }
 
 #' @noRd

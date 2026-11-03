@@ -32,9 +32,8 @@ single day or two dates for the start and end of the period}
 \dQuote{Tmin}, \dQuote{RHum} and \dQuote{HeatIndex}. CHIRTS-ERA5 has
 \dQuote{Tmax} and \dQuote{Tmin} only}
 
-\item{...}{further arguments passed to \code{\link{get_chirts_raw}},
-\code{\link{get_chirts_era5_raw}} and \code{\link[terra]{extract}}. See
-details}
+\item{...}{further arguments passed to \code{\link{get_chirts_raw}} and
+\code{\link[terra]{extract}}. See details}
 
 \item{as.matrix}{logical, returns a \code{matrix} with one row per
 location and one column per day, named "YYYY-MM-DD"}
@@ -117,5 +116,5 @@ if (requireNamespace("climatrends", quietly = TRUE)) {
 \dontshow{\}) # examplesIf}
 }
 \seealso{
-\code{\link{get_chirts_raw}}, \code{\link{get_chirts_era5_raw}}
+\code{\link{get_chirts_raw}}
 }

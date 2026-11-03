@@ -15,9 +15,8 @@
 #' @param var character, A valid variable from the options: \dQuote{Tmax},
 #'  \dQuote{Tmin}, \dQuote{RHum} and \dQuote{HeatIndex}. CHIRTS-ERA5 has
 #'  \dQuote{Tmax} and \dQuote{Tmin} only
-#' @param ... further arguments passed to \code{\link{get_chirts_raw}},
-#'  \code{\link{get_chirts_era5_raw}} and \code{\link[terra]{extract}}. See
-#'  details
+#' @param ... further arguments passed to \code{\link{get_chirts_raw}} and
+#'  \code{\link[terra]{extract}}. See details
 #' @return A data frame in the long format, ordered by \code{id} and
 #'  \code{date}, with the value in the column \code{chirts}. A SpatRaster
 #'  if \code{as.raster = TRUE}, or a matrix with one column per day, named
@@ -48,7 +47,7 @@
 #'  sensitive indices, frost and heat days) use the \CRANpkg{climatrends}
 #'  package, which takes the matrices returned with \code{as.matrix = TRUE}.
 #'
-#' @seealso \code{\link{get_chirts_raw}}, \code{\link{get_chirts_era5_raw}}
+#' @seealso \code{\link{get_chirts_raw}}
 #'
 #' @examplesIf interactive()
 #' library("chirps")
@@ -120,7 +119,7 @@ get_chirts.default = function(object, dates, var, as.matrix = FALSE, ...){
   days = seq.Date(as.Date(dates[1]), as.Date(dates[2]), by = "day")
   
   # get CHIRTS GeoTiff files
-  rr = .chirts_rast(dates, var, ...)
+  rr = get_chirts_raw(dates, var, ...)
   
   if (isTRUE(as.raster)) {
     result = .crop_to_points(rr, object)
@@ -155,7 +154,7 @@ get_chirts.SpatVector =
     as.matrix = isTRUE(dots[["as.matrix"]])
     
     # get CHIRTS GeoTiff files
-    rr = .chirts_rast(dates, var, ...)
+    rr = get_chirts_raw(dates, var, ...)
     
     if (isTRUE(as.raster) && !as.matrix) {
       return(terra::crop(rr, y = object))
@@ -220,7 +219,7 @@ get_chirts.SpatExtent = function(object, dates, var, as.raster = TRUE, ...){
   dots = list(...)
   
   # get CHIRTS GeoTiff files
-  rr = .chirts_rast(dates, var, ...)
+  rr = get_chirts_raw(dates, var, ...)
   
   result = terra::crop(rr, y = object)
   
@@ -230,24 +229,4 @@ get_chirts.SpatExtent = function(object, dates, var, as.raster = TRUE, ...){
   
   return(result)
   
-}
-
-#' Read CHIRTS-daily or CHIRTS-ERA5 as a SpatRaster
-#'
-#' @param dates the dates argument
-#' @param var the variable
-#' @param product "CHIRTS-daily" or "CHIRTS-ERA5"
-#' @param ... passed to the raw functions
-#' @return a SpatRaster
-#' @noRd
-.chirts_rast = function(dates, var, product = "CHIRTS-daily", ...) {
-  product = match.arg(product, c("CHIRTS-daily", "CHIRTS-ERA5"))
-  if (product == "CHIRTS-ERA5") {
-    if (!var %in% c("Tmax", "Tmin")) {
-      stop("CHIRTS-ERA5 has var = \"Tmax\" and \"Tmin\" only.",
-           call. = FALSE)
-    }
-    return(get_chirts_era5_raw(dates, var = var, ...))
-  }
-  get_chirts_raw(dates, var, ...)
 }

@@ -260,19 +260,30 @@ test_that("SpatVector polygons are summarised like sf polygons", {
   expect_equal(colnames(m), format(days))
 })
 
-test_that("get_chirts() reads CHIRTS-ERA5 with product", {
+test_that("get_chirts() and get_chirts_raw() read CHIRTS-ERA5 with product", {
   called = NULL
   local_mocked_bindings(
-    get_chirts_era5_raw = function(dates, var, ...) {
-      called <<- var
+    get_chirts_raw = function(dates, var, product = "CHIRTS-daily", ...) {
+      called <<- c(var, product)
       fake_raster(dates)
-    },
-    get_chirts_raw = function(...) stop("CHIRTS-daily should not be requested")
+    }
   )
   x = get_chirts(lonlat, dates, var = "Tmin", product = "CHIRTS-ERA5")
-  expect_equal(called, "Tmin")
+  expect_equal(called, c("Tmin", "CHIRTS-ERA5"))
   expect_equal(x$chirts[x$id == 2], cells[2] + (1:3) * 1000)
-  expect_error(get_chirts(lonlat, dates, var = "RHum", product = "CHIRTS-ERA5"),
+  x = get_chirts(lonlat, c("1980-06-01", "1980-06-03"), var = "Tmax",
+                 product = "CHIRTS-ERA5")
+  expect_equal(nrow(x), 6)
+  
+  # the deprecated function calls get_chirts_raw() with a notice
+  assign("era5_deprecated", FALSE, envir = chirps:::.chirps_env)
+  expect_message(get_chirts_era5_raw(dates, var = "Tmax"), "deprecated")
+  expect_equal(called, c("Tmax", "CHIRTS-ERA5"))
+  expect_no_message(get_chirts_era5_raw(dates, var = "Tmax"))
+})
+
+test_that("get_chirts_raw() checks the variable and years of each product", {
+  expect_error(get_chirts_raw(dates, var = "RHum", product = "CHIRTS-ERA5"),
                "Tmax")
   expect_error(chirps:::.chirts_raw_urls(as.Date("2020-01-01"), var = "Tmax"),
                "CHIRTS-ERA5")

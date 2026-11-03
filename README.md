@@ -115,8 +115,8 @@ dates = c("2017-11-15", "2017-11-20")
 chirps_v3 = get_chirps_raw(dates = dates, type = "sat")
 
 # CHIRTS-ERA5 minimum and maximum temperature
-tmin = get_chirts_era5_raw(dates = dates, var = "Tmin")
-tmax = get_chirts_era5_raw(dates = dates, var = "Tmax")
+tmin = get_chirts_raw(dates = dates, var = "Tmin", product = "CHIRTS-ERA5")
+tmax = get_chirts_raw(dates = dates, var = "Tmax", product = "CHIRTS-ERA5")
 
 pts = vect(lonlat, geom = c("lon", "lat"), crs = "EPSG:4326")
 

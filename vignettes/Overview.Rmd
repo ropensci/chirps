@@ -131,8 +131,10 @@ dates = c("2017-11-15", "2017-11-20")
 
 v3 = get_chirps_raw(dates = dates, type = "sat")
 
-tmax = get_chirts_era5_raw(dates = dates, var = "Tmax")
+# CHIRTS-ERA5, 1980 to near present
+tmax = get_chirts_raw(dates = dates, var = "Tmax", product = "CHIRTS-ERA5")
 
+# CHIRTS-daily, 1983 to 2016
 tx = get_chirts_raw(dates = c("2010-01-01", "2010-01-10"), var = "Tmax")
 ```
 
