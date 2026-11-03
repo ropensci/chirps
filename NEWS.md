@@ -21,7 +21,7 @@ The Climate Hazards Center moved its data to new paths in late 2026, so download
 
 * `dates` now accepts a single date, for one day of data, in every function (#32, #36). A clear error now says when `dates` is not a vector of dates, for example when an object is passed as the first argument of `get_chirps_raw()`, which takes no object (#58).
 
-* With `sf` or geojson polygons and `server = "CHC"`, each day is now summarised over the cells that touch the polygon, with the function set by `operation` (average by default), as ClimateSERV does. Earlier versions used the centroid only (#37).
+* With `sf` or geojson polygons and `server = "CHC"`, each day is now summarised over the cells that touch the polygon, with the function set by `operation` (average by default), as ClimateSERV does. Earlier versions used the centroid only. Projected `sf` objects are transformed to longitude and latitude first (#37).
 
 * `as.raster = TRUE` with a data frame of points now returns the raster cropped to the points. It failed before.
 

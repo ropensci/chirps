@@ -195,6 +195,11 @@ test_that("get_chirps() summarises sf polygons over their cells", {
   
   expect_error(get_chirps(p, dates, server = "CHC", operation = 3),
                "operation")
+  
+  # projected polygons are transformed to longitude and latitude
+  pp = sf::st_transform(p, 3857)
+  y = get_chirps(pp, dates, server = "CHC")
+  expect_equal(y$chirps, x$chirps)
 })
 
 test_that("as.raster = TRUE crops to the points of a data.frame", {

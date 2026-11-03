@@ -112,7 +112,7 @@
 #'
 #'
 #' @importFrom sf st_centroid read_sf st_geometry_type st_coordinates
-#'  st_geometry
+#'  st_geometry st_crs st_is_longlat st_transform
 #' @importFrom terra crop extract rast ext crds geomtype
 #' @export
 get_chirps = function(object, dates, server = "CHC", ...) {
@@ -311,6 +311,12 @@ get_chirps.sf = function(object, dates, server = "CHC",
   }
   
   type = type[which(supp_type)]
+  
+  # work in longitude and latitude
+  crs = sf::st_crs(object)
+  if (!is.na(crs) && !isTRUE(sf::st_is_longlat(object))) {
+    object = sf::st_transform(object, 4326)
+  }
   
   geom = sf::st_geometry(object)
   

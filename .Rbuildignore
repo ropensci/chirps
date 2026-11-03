@@ -25,3 +25,4 @@
 ^package-lock\.json$
 ^LICENSE\.md$
 ^AGENTS\.md$
+^inst/issue-responses\.md$
