@@ -6,7 +6,7 @@
 \usage{
 get_chirps_raw(
   dates,
-  version = "2.0",
+  version = "3.0",
   resolution = 0.05,
   type = c("rnl", "sat"),
   verbose = FALSE,
@@ -18,7 +18,8 @@ get_chirps_raw(
 \code{"YYYY-MM-DD"} format.}
 
 \item{version}{Character or numeric. CHIRPS version. Supported values are
-\code{"2.0"} and \code{"3.0"}.}
+\code{"3.0"} (default) and \code{"2.0"}. CHC retires CHIRPS v2 after
+the December 2026 release.}
 
 \item{resolution}{Numeric. Spatial resolution for CHIRPS v2. Supported
 values are \code{0.05} and \code{0.25}. Ignored for CHIRPS v3.}
@@ -68,11 +69,12 @@ Daily product documentation:
 \examples{
 if (interactive()) {
 r1 = get_chirps_raw(dates = c("2017-12-15", "2017-12-31"),
-                    version = "2.0")
+                    version = "3.0",
+                    type = "rnl")
 
 r2 = get_chirps_raw(dates = c("2017-12-15", "2017-12-31"),
                     version = "3.0",
-                    type = "rnl")
+                    type = "sat")
 }
 
 }

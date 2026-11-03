@@ -61,7 +61,15 @@
   
   message("\nGetting your request...\n")
   
+  first = TRUE
+
   while (isFALSE(all(request_progress))) {
+    # wait between checks so the server is not flooded with requests
+    if (!first) {
+      Sys.sleep(1)
+    }
+    first = FALSE
+
     request_progress = lapply(ids, function(x) {
       p = .get_request_progress(x)
       

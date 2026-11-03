@@ -10,7 +10,7 @@ author:
   affiliation: Climate Action, International Center for Tropical Agriculture (CIAT), Nairobi, Kenya
 output: html_document
 vignette: >
-  %\VignetteEngine{knitr::knitr}
+  %\VignetteEngine{knitr::rmarkdown}
   %\VignetteIndexEntry{Introduction to chirps}
   %\usepackage[UTF-8]{inputenc}
   %\VignetteEncoding{UTF-8}
@@ -43,7 +43,7 @@ library(terra)
 
 dates = c("2017-11-15", "2017-11-20")
 
-v2 = get_chirps_raw(dates = dates, version = "2.0")
+v2 = get_chirps_raw(dates = dates, version = "2.0") # retired after December 2026
 
 v2
 ```

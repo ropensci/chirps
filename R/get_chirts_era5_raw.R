@@ -48,7 +48,7 @@
 #' @export
 get_chirts_era5_raw = function(dates,
                                var = c("Tmin", "Tmax"),
-                               use_vsicurl = FALSE,
+                               use_vsicurl = TRUE,
                                verbose = FALSE,
                                ...) {
   
@@ -68,18 +68,19 @@ get_chirts_era5_raw = function(dates,
     var = var
   )
   
-  if (isTRUE(use_vsicurl)) {
-    urls = file.path("/vsicurl", urls)
-  }
-  
   if (isTRUE(verbose)) {
     message(paste(urls, collapse = "\n"))
   }
   
-  r = terra::rast(urls)
-  terra::time(r) = seqdate
-  
-  r
+  if (isTRUE(use_vsicurl)) {
+    .read_remote(urls, seqdate)
+  } else {
+    .check_remote(urls)
+    .set_gdal_ua()
+    r = terra::rast(urls)
+    terra::time(r) = seqdate
+    r
+  }
 }
 
 #' @noRd

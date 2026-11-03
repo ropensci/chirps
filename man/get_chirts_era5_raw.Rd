@@ -7,7 +7,7 @@
 get_chirts_era5_raw(
   dates,
   var = c("Tmin", "Tmax"),
-  use_vsicurl = FALSE,
+  use_vsicurl = TRUE,
   verbose = FALSE,
   ...
 )

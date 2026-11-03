@@ -24,12 +24,17 @@
 #'
 #' @details
 #' Data description at
-#' \url{https://data.chc.ucsb.edu/products/CHIRPS-2.0/README-CHIRPS.txt}
+#' \url{https://data.chc.ucsb.edu/products/CHIRPS/v2.0/README-CHIRPS.txt}
 #'
 #' \strong{Additional arguments when using server = "CHC"}
 #'
-#' \bold{resolution}: numeric, resolution of CHIRPS tiles either 0.05 (default)
-#'  or 0.25 degrees
+#' \bold{version}: CHIRPS version, "3.0" (default) or "2.0". CHC retires
+#'  CHIRPS v2 after the December 2026 release
+#'
+#' \bold{type}: CHIRPS v3 product, "rnl" (default) or "sat"
+#'
+#' \bold{resolution}: numeric, resolution of CHIRPS v2 tiles either 0.05
+#'  (default) or 0.25 degrees
 #'
 #' \strong{Additional arguments when using server = "ClimateSERV"}
 #'
@@ -96,10 +101,11 @@
 #' r6 = get_chirps(lonlat, dates, server = "ClimateSERV", as.matrix = TRUE)
 #'
 #'
-#' @importFrom sf st_centroid read_sf st_geometry_type
-#' @importFrom terra crop extract rast
+#' @importFrom sf st_centroid read_sf st_geometry_type st_coordinates
+#'  st_geometry
+#' @importFrom terra crop extract rast ext crds geomtype
 #' @export
-get_chirps = function(object, dates, server, ...) {
+get_chirps = function(object, dates, server = "CHC", ...) {
   if (isFALSE(any(server %in% c("CHC", "ClimateSERV")))) {
     stop("Unknown server, please choose 'CHC' or 'ClimateSERV'\n",
          call. = FALSE)
@@ -111,31 +117,25 @@ get_chirps = function(object, dates, server, ...) {
 
 #' @rdname get_chirps
 #' @export
-get_chirps.default = function(object, dates, server,
+get_chirps.default = function(object, dates, server = "CHC",
                               as.matrix = FALSE, ...) {
-  
-  
-  if (isTRUE(grepl("Spat", class(object)))) {
-    
-    r = get_chirps.SpatVector(object, dates, ...)
-    return(r)
-    
-  }
   
   object = as.data.frame(object)
   
   dots = list(...)
   
-  as.raster = dots[["as.raster"]]
+  as.raster = isTRUE(dots[["as.raster"]])
   
   # validate lonlat to check if they are within the CHIRPS range lat -50, 50
   .validate_lonlat(object, xlim = c(-180, 180), ylim = c(-50, 50))
   
+  nr = nrow(object)
+  
+  .validate_dates(dates)
+  
+  days = seq.Date(as.Date(dates[1]), as.Date(dates[2]), by = "day")
+  
   if (server == "ClimateSERV") {
-    # validate dates
-    dates_inter =
-      .reformat_dates(dates, availability = c("1981-01-01", "0"))
-    
     # get geojson strings from data.frame
     gj = as.geojson(object, ...)
     
@@ -143,95 +143,43 @@ get_chirps.default = function(object, dates, server,
     
     gj = split(gj, seq_along(gj))
     
-    operation = dots[["operation"]]
-    if (is.null(operation)) {
-      operation = 5
-    }
-    
-    result = .GET(
-      gjson = gj,
-      dates = dates_inter,
-      operation = operation,
-      datatype = 0
-    )
-    
-    names(result)[names(result) == "value"] = "chirps"
-    
-    object$id = rownames(object)
-    
-    result = merge(result, object, by = "id")
-    
-    names(result)[3:5] = c("chirps", "lon", "lat")
-    
-    result = result[, c("id", "lon", "lat", "date", "chirps")]
-    
-    result = as.data.frame(result, stringsAsFactors = FALSE)
-    
-    class(result) = c("chirps", "chirps_df", class(result))
+    result = .chirps_climateserv(gj, object, dates, dots[["operation"]])
     
     if (isTRUE(as.matrix)) {
-      result = split(result, result$id)
-      rr = lapply(result, function(x) {
-        as.vector(x$chirps)
-      })
-      rr = do.call(rbind, rr)
-      
-      newnames =
-        paste0("chirps-v2.0.", gsub("-", "\\.", result[[1]]$date))
-      
-      result = as.matrix(rr)
-      
-      dimnames(result)[[2]] = newnames
-      
+      result = .to_wide(result, "chirps", seq_len(nr), days, "chirps-v2.0.")
+      return(result)
     }
+    
+    class(result) = c("chirps", "chirps_df", class(result))
     
     return(result)
     
   }
   
-  if (server == "CHC") {
-    days = seq.Date(as.Date(dates[1]), as.Date(dates[2]), by = "day")
-    span = length(days)
-    
-    # get CHIRPS CoG files
-    rr = get_chirps_raw(dates = dates, version = "2.0", ...)
-    
-    if (isTRUE(as.raster)) {
-      result = terra::crop(rr, y = object)
-      return(result)
-    } else{
-      as.raster = FALSE
-    }
-    
-    if (isTRUE(as.matrix)) {
-      result = terra::extract(rr, y = object, ...)
-      result$ID = NULL
-      return(result)
-    } else{
-      as.matrix = FALSE
-    }
-    
-    if (all(isFALSE(as.matrix), isFALSE(as.raster))) {
-      result = terra::extract(rr, y = object, ...)
-      result$ID = NULL
-      result = c(t(result))
-      
-      result =
-        data.frame(
-          id = as.integer(rep(rownames(object), each = span)),
-          lon = as.numeric(rep(object[, 1], each = span)),
-          lat = as.numeric(rep(object[, 2], each = span)),
-          date = rep(days, times = nrow(object)),
-          chirps = as.numeric(result)
-        )
-      
-      class(result) = c("chirps", "chirps_df", class(result))
-      
-      return(result)
-      
-    }
-    
+  # server CHC, get CHIRPS CoG files
+  rr = get_chirps_raw(dates = dates, ...)
+  
+  if (isTRUE(as.raster)) {
+    result = terra::crop(rr, y = object)
+    return(result)
   }
+  
+  result = .extract_values(rr, object, dots)
+  
+  if (isTRUE(as.matrix)) {
+    return(as.matrix(result))
+  }
+  
+  result = .to_long(result,
+                    ids = seq_len(nr),
+                    lon = object[, 1],
+                    lat = object[, 2],
+                    days = days,
+                    name = "chirps")
+  
+  class(result) = c("chirps", "chirps_df", class(result))
+  
+  return(result)
   
 }
 
@@ -244,43 +192,49 @@ get_chirps.SpatVector = function(object,
                                  as.raster = TRUE,
                                  ...) {
   dots = list(...)
-  as.matrix = dots[["as.matrix"]]
+  as.matrix = isTRUE(dots[["as.matrix"]])
   
-  # get CHIRTS GeoTiff files
-  rr = get_chirps_raw(dates = dates, version = "2.0", ...)
+  # get CHIRPS CoG files
+  rr = get_chirps_raw(dates = dates, ...)
+  
+  if (isTRUE(as.matrix)) {
+    result = .extract_values(rr, object, dots)
+    return(as.matrix(result))
+  }
   
   if (isTRUE(as.raster)) {
     result = terra::crop(rr, y = object)
     return(result)
   }
   
-  if (isTRUE(as.matrix)) {
-    result = terra::extract(rr, y = object, ...)
-    result$ID = NULL
-    return(result)
+  .validate_dates(dates)
+  
+  days = seq.Date(as.Date(dates[1]), as.Date(dates[2]), by = "day")
+  
+  result = .extract_values(rr, object, dots)
+  
+  ids = attr(result, "ID")
+  
+  # coordinates are known for points, polygons return one row per cell
+  lon = NA
+  lat = NA
+  if (terra::geomtype(object) == "points") {
+    xy = terra::crds(object)
+    lon = xy[ids, 1]
+    lat = xy[ids, 2]
   }
   
-  if (all(isFALSE(as.matrix), isFALSE(as.raster))) {
-    days = seq.Date(as.Date(dates[1]), as.Date(dates[2]), by = "day")
-    span = length(days)
-    result = terra::extract(rr, y = object, ...)
-    ids = result$ID
-    result$ID = NULL
-    result = c(t(result))
-    
-    result = data.frame(
-      id = as.integer(rep(ids, each = span)),
-      lon = NA,
-      lat = NA,
-      date = rep(days, each = length(ids)),
-      chirps = as.numeric(result)
-    )
-    
-    class(result) = c("chirps", "chirps_df", class(result))
-    
-    return(result)
-    
-  }
+  result = .to_long(result,
+                    ids = ids,
+                    lon = lon,
+                    lat = lat,
+                    days = days,
+                    name = "chirps")
+  
+  class(result) = c("chirps", "chirps_df", class(result))
+  
+  return(result)
+  
 }
 
 #' @rdname get_chirps
@@ -289,27 +243,42 @@ get_chirps.SpatVector = function(object,
 get_chirps.SpatRaster = function(object,
                                  dates,
                                  server = "CHC",
-                                 as.matrix = TRUE,
-                                 as.raster = FALSE,
+                                 as.raster = TRUE,
                                  ...) {
-  UseMethod("get_chirps", object = "SpatVector")
+  get_chirps.SpatExtent(terra::ext(object),
+                        dates = dates,
+                        server = server,
+                        as.raster = as.raster,
+                        ...)
 }
-
 
 #' @rdname get_chirps
 #' @method get_chirps SpatExtent
 #' @export
-get_chirps.SpatExtent = function(object, dates, server = "CHC",
-                                 as.matrix = TRUE, as.raster = FALSE, ...) {
+get_chirps.SpatExtent = function(object,
+                                 dates,
+                                 server = "CHC",
+                                 as.raster = TRUE,
+                                 ...) {
+  dots = list(...)
   
-  UseMethod("get_chirps", object = "SpatVector")
+  # get CHIRPS CoG files
+  rr = get_chirps_raw(dates = dates, ...)
+  
+  result = terra::crop(rr, y = object)
+  
+  if (isFALSE(as.raster) || isTRUE(dots[["as.matrix"]])) {
+    result = terra::values(result, mat = TRUE)
+  }
+  
+  return(result)
+  
 }
-
 
 #' @rdname get_chirps
 #' @method get_chirps sf
 #' @export
-get_chirps.sf = function(object, dates, server,
+get_chirps.sf = function(object, dates, server = "CHC",
                          as.sf = FALSE,
                          ...) {
   # check geometry type
@@ -318,9 +287,11 @@ get_chirps.sf = function(object, dates, server,
   dots = list(...)
   
   # check for supported types
+  gtype = as.character(sf::st_geometry_type(object))
+  
   supp_type =
-    c(all(grepl(type[[1]], sf::st_geometry_type(object))),
-      all(grepl(type[[2]], sf::st_geometry_type(object))))
+    c(all(gtype == "POINT"),
+      all(gtype %in% c("POLYGON", "MULTIPOLYGON")))
   
   if (!any(supp_type)) {
     stop(
@@ -331,53 +302,27 @@ get_chirps.sf = function(object, dates, server,
   
   type = type[which(supp_type)]
   
-  nr = dim(object)[[1]]
+  geom = sf::st_geometry(object)
   
-  # find the sf_column
-  index = attr(object, "sf_column")
-  
-  if (type == "POINT") {
-    # get the sf column
-    lonlat = object[[index]]
-    # unlist the sf_column
-    lonlat = unlist(object[[index]])
-    
-  }
-  
+  # polygons are represented by their centroids, one per feature
   if (type == "POLYGON") {
-    # set centroid to validade lonlat
-    lonlat = sf::st_centroid(object)
-    
-    # unlist the sf_column
-    lonlat = unlist(lonlat)
-    
-    nr = 1
-    
+    geom = suppressWarnings(sf::st_centroid(geom))
   }
   
-  lonlat = matrix(
-    lonlat,
-    nrow = nr,
-    ncol = 2,
-    byrow = TRUE,
-    dimnames = list(seq_len(nr), c("lon", "lat"))
-  )
+  lonlat = sf::st_coordinates(geom)[, 1:2, drop = FALSE]
   
-  lonlat = as.data.frame(lonlat)
+  lonlat = data.frame(lon = lonlat[, 1], lat = lonlat[, 2])
   
   # validate lonlat to check if they are within the CHIRPS range
   .validate_lonlat(lonlat, xlim = c(-180, 180), ylim = c(-50, 50))
   
+  nr = nrow(lonlat)
+  
+  .validate_dates(dates)
+  
+  days = seq.Date(as.Date(dates[1]), as.Date(dates[2]), by = "day")
+  
   if (server == "ClimateSERV") {
-    # validate and reformat dates
-    dates_inter =
-      .reformat_dates(dates, availability = c("1981-01-01", "0"))
-    
-    operation = dots[["operation"]]
-    if (is.null(operation)) {
-      operation = 5
-    }
-    
     # get geojson strings from data.frame
     gj = as.geojson(object, ...)
     
@@ -385,67 +330,34 @@ get_chirps.sf = function(object, dates, server,
     
     gj = split(gj, seq_along(gj))
     
-    result = .GET(
-      gjson = gj,
-      dates = dates_inter,
-      operation = operation,
-      datatype = 0
-    )
-    
-    lonlat$id = rownames(lonlat)
-    
-    result = merge(result, lonlat, by = "id", all.x = TRUE)
-    
-    names(result)[3:5] = c("chirps", "lon", "lat")
-    
-    result = result[, c("id", "lon", "lat", "date", "chirps")]
-    
-    result = as.data.frame(result, stringsAsFactors = FALSE)
-    
-    class(result) = c("chirps", "chirps_df", class(result))
+    result = .chirps_climateserv(gj, lonlat, dates, dots[["operation"]])
     
   }
   
   if (server == "CHC") {
-    days = seq.Date(as.Date(dates[1]), as.Date(dates[2]), by = "day")
-    span = length(days)
-    
     # get CHIRPS CoG files
-    rr = get_chirps_raw(dates = dates, version = "2.0", ...)
+    rr = get_chirps_raw(dates = dates, ...)
     
-    result = terra::extract(rr, y = lonlat, ...)
-    result$ID = NULL
-    result = c(t(result))
+    result = .extract_values(rr, lonlat, dots)
     
-    result =
-      data.frame(
-        id = as.integer(rep(rownames(lonlat), each = span)),
-        lon = as.numeric(rep(lonlat[, 1], each = span)),
-        lat = as.numeric(rep(lonlat[, 2], each = span)),
-        date = rep(days, each = nrow(lonlat)),
-        chirps = as.numeric(result)
-      )
-    
-    class(result) = c("chirps", "chirps_df", class(result))
+    result = .to_long(result,
+                      ids = seq_len(nr),
+                      lon = lonlat$lon,
+                      lat = lonlat$lat,
+                      days = days,
+                      name = "chirps")
     
   }
   
   if (isTRUE(as.sf)) {
-    result$date = as.integer(result$date)
-    result$date = paste0("day_", result$date)
-    
-    result = split(result, result$date)
-    
-    result = lapply(result, function(x) {
-      x = x[order(x$id),]
-      x = x[, "chirps"]
-    })
-    
-    result = do.call("cbind", result)
-    
-    result = cbind(object, result)
-    
+    wide = .to_wide(result, "chirps", seq_len(nr), days, "day_")
+    colnames(wide) = paste0("day_", as.integer(days))
+    rownames(wide) = NULL
+    result = cbind(object, wide)
+    return(result)
   }
+  
+  class(result) = c("chirps", "chirps_df", class(result))
   
   return(result)
   
@@ -456,7 +368,7 @@ get_chirps.sf = function(object, dates, server,
 #' @export
 get_chirps.geojson = function(object,
                               dates,
-                              server,
+                              server = "CHC",
                               as.geojson = FALSE,
                               ...) {
   dots = list(...)
@@ -474,110 +386,55 @@ get_chirps.geojson = function(object,
     )
   }
   
-  # if type Point
-  if (all(grepl(type[[1]], object))) {
-    # get matrix with lonlat to validate later
-    lonlat = lapply(object, function(x) {
-      # read as sf
-      x = sf::read_sf(x)
-      
-      # find the sf_column
-      index = attr(x, "sf_column")
-      
-      # unlist the sf_column
-      x = unlist(x[[index]])
-      
-    })
-    
-    # put all together
-    lonlat = do.call("rbind", lonlat)
-    
-    lonlat = as.data.frame(lonlat)
-    
-  }
+  # take the coordinates of Points and the centroid of Polygons
+  lonlat = lapply(object, function(x) {
+    x = sf::st_geometry(sf::read_sf(x))
+    if (!all(grepl("POINT", sf::st_geometry_type(x)))) {
+      x = suppressWarnings(sf::st_centroid(x))
+    }
+    sf::st_coordinates(x)[1, 1:2]
+  })
   
-  # if Polygon
-  if (all(grepl(type[[2]], object))) {
-    # take the centroid from geojson Polygons
-    # to validate lonlat coordinates
-    lonlat = lapply(object, function(x) {
-      x = sf::read_sf(x)
-      
-      x = sf::st_centroid(x$geometry)
-      
-      x = unlist(x)
-    })
-    
-    # put all together
-    lonlat = do.call("rbind", lonlat)
-    
-    lonlat = as.data.frame(lonlat)
-    
-  }
+  # put all together
+  lonlat = do.call("rbind", lonlat)
+  
+  lonlat = data.frame(lon = lonlat[, 1], lat = lonlat[, 2])
   
   # validate lonlat to check if they are within the CHIRPS range lat -50, 50
   .validate_lonlat(lonlat, xlim = c(-180, 180), ylim = c(-50, 50))
   
+  nr = nrow(lonlat)
+  
+  .validate_dates(dates)
+  
+  days = seq.Date(as.Date(dates[1]), as.Date(dates[2]), by = "day")
+  
   if (server == "ClimateSERV") {
-    # validate and reformat dates
-    dates_inter =
-      .reformat_dates(dates, availability = c("1981-01-01", "0"))
-    
-    operation = dots[["operation"]]
-    if (is.null(operation)) {
-      operation = 5
-    }
-    
-    # get geojson strings from data.frame
+    # get geojson strings
     gj = split(object, seq_along(object))
     
-    class(gj) = "character"
+    gj = lapply(gj, as.character)
     
-    result = .GET(
-      gjson = gj,
-      dates = dates_inter,
-      operation = operation,
-      datatype = 0
-    )
-    
-    lonlat$id = rownames(lonlat)
-    
-    result = merge(result, lonlat, by = "id", all.x = TRUE)
-    
-    names(result)[3:5] = c("chirps", "lon", "lat")
-    
-    result = result[, c("id", "lon", "lat", "date", "chirps")]
-    
-    result = as.data.frame(result, stringsAsFactors = FALSE)
-    
-    class(result) = c("chirps", "chirps_df", class(result))
+    result = .chirps_climateserv(gj, lonlat, dates, dots[["operation"]])
     
   }
   
   if (server == "CHC") {
-    days = seq.Date(as.Date(dates[1]), as.Date(dates[2]), by = "day")
-    span = length(days)
-    
     # get CHIRPS CoG files
-    rr = get_chirps_raw(dates = dates, version = "2.0", ...)
+    rr = get_chirps_raw(dates = dates, ...)
     
-    result = terra::extract(rr, y = lonlat, ...)
-    result$ID = NULL
-    result = c(t(result))
+    result = .extract_values(rr, lonlat, dots)
     
-    result =
-      data.frame(
-        id = as.integer(rep(rownames(lonlat), each = span)),
-        lon = as.numeric(rep(lonlat[, 1], each = span)),
-        lat = as.numeric(rep(lonlat[, 2], each = span)),
-        date = rep(days, each = nrow(lonlat)),
-        chirps = as.numeric(result)
-      )
-    
-    class(result) = c("chirps", "chirps_df", class(result))
+    result = .to_long(result,
+                      ids = seq_len(nr),
+                      lon = lonlat$lon,
+                      lat = lonlat$lat,
+                      days = days,
+                      name = "chirps")
     
   }
   
+  class(result) = c("chirps", "chirps_df", class(result))
   
   if (isTRUE(as.geojson)) {
     result = split(result, result$id)
@@ -593,30 +450,6 @@ get_chirps.geojson = function(object,
     }, X = object, Y = result[])
     
     class(result) = c("geojson", "json", class(result))
-    
-    
-  }
-  
-  return(result)
-  
-}
-
-
-#' @rdname get_chirps
-#' @method get_chirps SpatExtent
-#' @export
-get_chirps.SpatExtent = function(object,
-                                 dates,
-                                 server = "CHC",
-                                 as.raster = TRUE,
-                                 ...) {
-  # get CHIRTS GeoTiff files
-  rr = get_chirps_raw(dates = dates, version = "2.0", ...)
-  
-  result = terra::crop(rr, y = object)
-  
-  if (isFALSE(as.raster)) {
-    result = as.matrix(result)
     
   }
   

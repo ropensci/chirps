@@ -1,3 +1,7 @@
+# these tests download data and are skipped on CRAN and offline
+skip_on_cran()
+skip_if_offline()
+
 
 
 # setup for tests, expected values for all
@@ -53,7 +57,7 @@ test_that("get_imerg() returns proper values", {
   expect_s3_class(x_df, "chirps_df")
 })
 
-sf_coords <- st_as_sf(imerg_lonlat,
+sf_coords <- sf::st_as_sf(imerg_lonlat,
                       coords = c("lon", "lat"),
                       crs = "+proj=longlat +datum=WGS84 +ellps=WGS84 +towgs84=0,0,0")
 

@@ -12,7 +12,7 @@ get_chirts_raw(
   interval = "daily",
   format = "tifs",
   version = "1.0",
-  use_vsicurl = FALSE,
+  use_vsicurl = TRUE,
   verbose = FALSE,
   ...
 )
@@ -78,7 +78,7 @@ CHIRTS-daily provides historical daily temperature estimates for
 see \code{\link{get_chirts_era5_raw}}.
 }
 \examples{
-#' if (interactive()) {
+if (interactive()) {
   r = get_chirts_raw(dates = c("2015-01-01", "2015-01-31"),
                      var = "Tmax")
 }

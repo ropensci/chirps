@@ -24,11 +24,13 @@ A data frame with precipitation indices:
 \item{R20mm}{number of very heavy precipitation days rain >= 20 (days)}
 \item{Rx1day}{maximum 1-day precipitation (mm)}
 \item{Rx5day}{maximum 5-day precipitation (mm)}
-\item{R95p}{total precipitation when rain > 95th percentile (mm)}
-\item{R99p}{total precipitation when rain > 99th percentile (mm)}
+\item{R95p}{total precipitation when rain > 95th percentile (mm), with
+ the percentile taken over all days in the period, dry days included}
+\item{R99p}{total precipitation when rain > 99th percentile (mm), with
+ the percentile taken over all days in the period, dry days included}
 \item{Rtotal}{total precipitation (mm) in wet days, rain >= 1 (mm)}
-\item{SDII}{simple daily intensity index, total precipitation divided by the
- number of wet days (mm/days)}
+\item{SDII}{simple daily intensity index, total precipitation in wet days
+ divided by the number of wet days (mm/days)}
 }
 \description{
 Compute precipitation indices over a time series

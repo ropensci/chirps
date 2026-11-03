@@ -40,16 +40,19 @@ Imports:
     jsonlite,
     sf,
     stats,
-    terra (>= 1.2-10)
+    terra (>= 1.7-0),
+    utils
 Suggests:
     climatrends,
+    curl,
     knitr,
     markdown,
     rmarkdown,
-    testthat (>= 3.0.0)
+    testthat (>= 3.2.0)
 VignetteBuilder: 
     knitr
 Config/testthat/edition: 3
 Encoding: UTF-8
+LazyData: true
 Language: en-GB
 RoxygenNote: 7.3.2

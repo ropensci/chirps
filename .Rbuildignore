@@ -8,7 +8,6 @@
 ^CODE_OF_CONDUCT\.md$
 ^README\.md$
 ^CONTRIBUTING\.md$
-^tests$
 ^logo\.svg$
 ^dev$
 ^doc$
@@ -25,3 +24,4 @@
 ^\.covrignore$
 ^package-lock\.json$
 ^LICENSE\.md$
+^AGENTS\.md$

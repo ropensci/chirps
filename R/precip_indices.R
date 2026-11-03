@@ -13,11 +13,13 @@
 #' \item{R20mm}{number of very heavy precipitation days rain >= 20 (days)}
 #' \item{Rx1day}{maximum 1-day precipitation (mm)}
 #' \item{Rx5day}{maximum 5-day precipitation (mm)}
-#' \item{R95p}{total precipitation when rain > 95th percentile (mm)}
-#' \item{R99p}{total precipitation when rain > 99th percentile (mm)}
+#' \item{R95p}{total precipitation when rain > 95th percentile (mm), with
+#'  the percentile taken over all days in the period, dry days included}
+#' \item{R99p}{total precipitation when rain > 99th percentile (mm), with
+#'  the percentile taken over all days in the period, dry days included}
 #' \item{Rtotal}{total precipitation (mm) in wet days, rain >= 1 (mm)}
-#' \item{SDII}{simple daily intensity index, total precipitation divided by the
-#'  number of wet days (mm/days)}
+#' \item{SDII}{simple daily intensity index, total precipitation in wet days
+#'  divided by the number of wet days (mm/days)}
 #' @references 
 #' 
 #' Aguilar E., et al. (2005). Journal of Geophysical Research, 110(D23), D23107.
@@ -66,6 +68,11 @@ precip_indices = function(object, timeseries = FALSE, intervals = NULL) {
   # length == 49 (the maximum integer from dividing days/intervals)
   if (isTRUE(timeseries)) {
     
+    if (is.null(intervals) || intervals < 1 || intervals > nr) {
+      stop("'intervals' must be between 1 and the number of days in ",
+           "'object' when timeseries = TRUE\n", call. = FALSE)
+    }
+    
     bins = floor(nr / intervals)
     
     bins = rep(1:bins, each = intervals, length.out = NA)
@@ -81,7 +88,7 @@ precip_indices = function(object, timeseries = FALSE, intervals = NULL) {
   }
   
   # force the dates to be in the right order
-  object = object[order(as.Date(object$date, format = "%Y/%m/%d")), ]
+  object = object[order(as.Date(object$date)), ]
   
   # split by ids
   object = split(object, object$id)
@@ -274,11 +281,14 @@ precip_indices = function(object, timeseries = FALSE, intervals = NULL) {
 #' @noRd
 .sdii = function(object) {
   
-  # total precipitation
-  tp = sum(object, na.rm = TRUE)
+  # wet days, rain >= 1 mm
+  wet = object[!is.na(object) & object >= 1]
+  
+  # total precipitation in wet days
+  tp = sum(wet)
   
   # number of wet days
-  wd = length(object[object >= 1])
+  wd = length(wet)
   
   #if both zero, then return 0
   if (wd == 0) {
@@ -306,6 +316,11 @@ precip_indices = function(object, timeseries = FALSE, intervals = NULL) {
   # this look for the maximum sum of rain in
   # consecutive 5 days
   l = length(object)
+  
+  # shorter series have a single window
+  if (l < 5) {
+    return(sum(object, na.rm = TRUE))
+  }
   
   r5day = NULL
   
@@ -348,9 +363,8 @@ precip_indices = function(object, timeseries = FALSE, intervals = NULL) {
 #' @noRd
 .r_total = function(object) {
   
-  rt = object[object >= 1]
-  
-  rt = sum(object, na.rm = TRUE)
+  # total precipitation in wet days, rain >= 1 mm
+  rt = sum(object[!is.na(object) & object >= 1])
   
   return(rt)
   

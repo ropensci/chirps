@@ -10,7 +10,8 @@
 #' @param dates Character vector of length two with start and end dates in
 #'   \code{"YYYY-MM-DD"} format.
 #' @param version Character or numeric. CHIRPS version. Supported values are
-#'   \code{"2.0"} and \code{"3.0"}.
+#'   \code{"3.0"} (default) and \code{"2.0"}. CHC retires CHIRPS v2 after
+#'   the December 2026 release.
 #' @param resolution Numeric. Spatial resolution for CHIRPS v2. Supported
 #'   values are \code{0.05} and \code{0.25}. Ignored for CHIRPS v3.
 #' @param type Character. CHIRPS v3 product type. Supported values are
@@ -62,17 +63,18 @@
 #' @examples
 #' if (interactive()) {
 #' r1 = get_chirps_raw(dates = c("2017-12-15", "2017-12-31"),
-#'                     version = "2.0")
+#'                     version = "3.0",
+#'                     type = "rnl")
 #' 
 #' r2 = get_chirps_raw(dates = c("2017-12-15", "2017-12-31"),
 #'                     version = "3.0",
-#'                     type = "rnl")
+#'                     type = "sat")
 #' }
 #'
 #' @importFrom terra rast time<-
 #' @export
 get_chirps_raw = function(dates,
-                          version = "2.0",
+                          version = "3.0",
                           resolution = 0.05,
                           type = c("rnl", "sat"),
                           verbose = FALSE,
@@ -102,15 +104,12 @@ get_chirps_raw = function(dates,
     message(paste(urls, collapse = "\n"))
   }
   
-  r = terra::rast(urls)
-  terra::time(r) = seqdate
-  
-  r
+  .read_remote(urls, seqdate)
 }
 
 #' @noRd
 .chirps_raw_urls = function(dates,
-                            version = "2.0",
+                            version = "3.0",
                             resolution = 0.05,
                             type = c("rnl", "sat")) {
   
@@ -131,7 +130,7 @@ get_chirps_raw = function(dates,
     )
     
     urls = file.path(
-      "https://data.chc.ucsb.edu/products/CHIRPS-2.0",
+      "https://data.chc.ucsb.edu/products/CHIRPS/v2.0",
       "global_daily",
       "cogs",
       resolution,

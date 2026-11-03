@@ -18,7 +18,7 @@
 #' @details
 #'
 #' Variable description from
-#' \url{https://data.chc.ucsb.edu/products/CHIRTSdaily/aaa.Readme.txt}
+#' \url{https://data.chc.ucsb.edu/products/CHIRTS/daily/aaa.Readme.txt}
 #' \describe{
 #'   \item{Tmax}{Daily average maximum air temperature at 2 m above ground}
 #'   \item{Tmin}{Daily average minimum air temperature at 2 m above ground}
@@ -52,7 +52,8 @@
 #' # Case 4: input a raster and return raster
 #' temp4 = get_chirts(v, dates, var = "Tmax", as.matrix = TRUE)
 #'
-#' @importFrom terra crop extract rast
+#' @importFrom terra crop extract rast ext crds geomtype
+#' @importFrom sf st_coordinates st_geometry
 #' @export
 get_chirts = function(object, dates, var, ...) {
   UseMethod("get_chirts")
@@ -63,40 +64,21 @@ get_chirts = function(object, dates, var, ...) {
 #' @export
 get_chirts.default = function(object, dates, var, as.matrix = FALSE, ...){
   
-  if (isTRUE(grepl("Spat", class(object)))) {
-    
-    r = get_chirps.SpatVector(object, dates, ...)
-    return(r)
-    
-  }
-  
   dots = list(...)
   
-  as.raster = dots[["as.raster"]]
-  if (!isTRUE(as.raster)) as.raster = FALSE
+  as.raster = isTRUE(dots[["as.raster"]])
   
-  if ("sf" %in% class(object)) {
-    
-    nr = dim(object)[[1]]
-    
-    # find the sf_column
-    index = attr(object, "sf_column")
-    
-    # get the sf column
-    lonlat = object[[index]]  
-    # unlist the sf_column
-    lonlat = unlist(object[[index]])
-    
-    object = matrix(lonlat,
-                    nrow = nr,
-                    ncol = 2, 
-                    byrow = TRUE, 
-                    dimnames = list(seq_len(nr), c("lon","lat")))
+  if (inherits(object, "sf")) {
+    object = sf::st_coordinates(sf::st_geometry(object))[, 1:2, drop = FALSE]
   }
   
   object = as.data.frame(object)
   
   .validate_lonlat(object, xlim = c(-180, 180), ylim = c(-60, 70))
+  
+  .validate_dates(dates)
+  
+  days = seq.Date(as.Date(dates[1]), as.Date(dates[2]), by = "day")
   
   # get CHIRTS GeoTiff files
   rr = get_chirts_raw(dates, var, ...)
@@ -104,39 +86,26 @@ get_chirts.default = function(object, dates, var, as.matrix = FALSE, ...){
   if (isTRUE(as.raster)) {
     result = terra::crop(rr, y = object)
     return(result) 
-  }else{
-    as.raster = FALSE
   }
+  
+  result = .extract_values(rr, object, dots)
   
   if (isTRUE(as.matrix)) {
-    result = terra::extract(rr, y = object, ...)
-    result$ID = NULL
     return(as.matrix(result))
-  }else{
-    as.matrix = FALSE
   }
   
-  if (all(isFALSE(as.matrix), isFALSE(as.raster))) {
-    result = terra::extract(rr, y = object, ...)
-    result$ID = NULL
-    result = c(t(result))
-    days = seq.Date(as.Date(dates[1]), as.Date(dates[2]), by = "day")
-    span = length(days)
-    
-    result = data.frame(id = as.integer(rep(rownames(object), each = span)),
-                        lon = as.numeric(rep(object[,1], each = span)),
-                        lat = as.numeric(rep(object[,2], each = span)),
-                        date = rep(days, each = nrow(object)),
-                        chirts = as.numeric(result))
-    
-    class(result) = c("chirps_df", class(result))
-    
-    return(result)
-    
-  }
+  result = .to_long(result,
+                    ids = seq_len(nrow(object)),
+                    lon = object[, 1],
+                    lat = object[, 2],
+                    days = days,
+                    name = "chirts")
+  
+  class(result) = c("chirps_df", class(result))
+  
+  return(result)
   
 }
-
 
 #' @rdname get_chirts
 #' @method get_chirts SpatVector
@@ -144,57 +113,59 @@ get_chirts.default = function(object, dates, var, as.matrix = FALSE, ...){
 get_chirts.SpatVector =
   function(object, dates, var, as.raster = TRUE, ...) {
     dots = list(...)
-    as.matrix = dots[["as.matrix"]]
+    as.matrix = isTRUE(dots[["as.matrix"]])
     
     # get CHIRTS GeoTiff files
     rr = get_chirts_raw(dates, var, ...)
     
     if (isTRUE(as.matrix)) {
-      result = terra::extract(rr, y = object, ...)
-      result$ID = NULL
-      return(result)
-    } else{
-      as.matrix = FALSE
+      result = .extract_values(rr, object, dots)
+      return(as.matrix(result))
     }
     
     if (isTRUE(as.raster)) {
       result = terra::crop(rr, y = object)
       return(result)
-    } else{
-      as.raster = FALSE
     }
     
-    if (all(isFALSE(as.matrix), isFALSE(as.raster))) {
-      days = seq.Date(as.Date(dates[1]), as.Date(dates[2]), by = "day")
-      span = length(days)
-      result = terra::extract(rr, y = object, ...)
-      ids = result$ID
-      result$ID = NULL
-      result = c(t(result))
-      
-      result = data.frame(
-        id = as.integer(rep(ids, each = span)),
-        lon = NA,
-        lat = NA,
-        date = rep(days, each = length(ids)),
-        chirts = as.numeric(result)
-      )
-      
-      class(result) = c("chirps_df", class(result))
-      
-      return(result)
-      
+    days = seq.Date(as.Date(dates[1]), as.Date(dates[2]), by = "day")
+    
+    result = .extract_values(rr, object, dots)
+    
+    ids = attr(result, "ID")
+    
+    # coordinates are known for points, polygons return one row per cell
+    lon = NA
+    lat = NA
+    if (terra::geomtype(object) == "points") {
+      xy = terra::crds(object)
+      lon = xy[ids, 1]
+      lat = xy[ids, 2]
     }
+    
+    result = .to_long(result,
+                      ids = ids,
+                      lon = lon,
+                      lat = lat,
+                      days = days,
+                      name = "chirts")
+    
+    class(result) = c("chirps_df", class(result))
+    
+    return(result)
     
   }
-
 
 #' @rdname get_chirts
 #' @method get_chirts SpatRaster
 #' @export
 get_chirts.SpatRaster =
   function(object, dates, var, as.raster = TRUE, ...) {
-    UseMethod("get_chirts", object = "SpatVector")
+    get_chirts.SpatExtent(terra::ext(object),
+                          dates = dates,
+                          var = var,
+                          as.raster = as.raster,
+                          ...)
     
   }
 
@@ -203,6 +174,17 @@ get_chirts.SpatRaster =
 #' @export
 get_chirts.SpatExtent = function(object, dates, var, as.raster = TRUE, ...){
   
-  UseMethod("get_chirts", object = "SpatVector")
+  dots = list(...)
+  
+  # get CHIRTS GeoTiff files
+  rr = get_chirts_raw(dates, var, ...)
+  
+  result = terra::crop(rr, y = object)
+  
+  if (isFALSE(as.raster) || isTRUE(dots[["as.matrix"]])) {
+    result = terra::values(result, mat = TRUE)
+  }
+  
+  return(result)
   
 }

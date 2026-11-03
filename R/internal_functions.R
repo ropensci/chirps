@@ -67,7 +67,8 @@
       id = httr::RETRY(verb = "GET", 
                         url = "https://climateserv.servirglobal.net/api/submitDataRequest/?",
                         query = query,
-                        httr::accept_json(), 
+                        httr::accept_json(),
+                        httr::user_agent(.chirps_ua()),
                         terminate_on = c(403, 404))
       
       id = httr::content(id, as = "text", encoding = "UTF-8")
@@ -147,7 +148,8 @@
   p = httr::RETRY(verb = "GET", 
                    url = "https://climateserv.servirglobal.net/api/getDataRequestProgress/?",
                    query = progress_query,
-                   httr::accept_json(), 
+                   httr::accept_json(),
+                   httr::user_agent(.chirps_ua()),
                    terminate_on = c(403, 404))
   
   p = httr::content(p, as = "text", encoding = "UTF-8")
@@ -214,7 +216,8 @@
     d = httr::RETRY(verb = "GET", 
                       url = "https://climateserv.servirglobal.net/api/getDataFromRequest/?",
                       query = query,
-                      httr::accept_json(), 
+                      httr::accept_json(),
+                      httr::user_agent(.chirps_ua()),
                       terminate_on = c(403, 404))
     
     d = httr::content(d, as = "text", encoding = "UTF-8")
@@ -489,4 +492,145 @@
 #' @noRd
 `%notin%` = function(x, table) {
   match(x, table, nomatch = 0L) == 0L
+}
+
+#' Reshape extracted raster values into the long chirps format
+#'
+#' @param values a data.frame or matrix with one row per location and one
+#'  column per day, as returned by \code{terra::extract()} without the ID
+#'  column
+#' @param ids integer ids, one per row of \code{values}
+#' @param lon,lat numeric coordinates, one per row of \code{values} or a
+#'  single value (e.g. NA) recycled to all rows
+#' @param days a Date vector, one per column of \code{values}
+#' @param name the name of the value column
+#' @return a data.frame with columns id, lon, lat, date and \code{name},
+#'  ordered by id and then by date
+#' @examples
+#' v = data.frame(d1 = c(1, 10), d2 = c(2, 20))
+#' .to_long(v, 1:2, c(-55, -54), c(-2, -3), as.Date("2020-01-01") + 0:1,
+#'          "chirps")
+#' @noRd
+.to_long = function(values, ids, lon, lat, days, name) {
+  values = as.matrix(values)
+  n = nrow(values)
+  span = length(days)
+  
+  if (ncol(values) != span) {
+    stop("The number of layers returned does not match the number of days",
+         call. = FALSE)
+  }
+  
+  result = data.frame(
+    id = rep(as.integer(ids), each = span),
+    lon = rep(rep_len(as.numeric(lon), n), each = span),
+    lat = rep(rep_len(as.numeric(lat), n), each = span),
+    date = rep(days, times = n),
+    value = as.numeric(t(values))
+  )
+  
+  names(result)[5] = name
+  
+  result
+}
+
+#' Extract raster values at points, keeping only arguments terra understands
+#'
+#' @param r a SpatRaster
+#' @param y a SpatVector, or a data.frame or matrix with lon and lat in
+#'  the first two columns
+#' @param dots a list of further arguments, those used by chirps itself
+#'  are dropped
+#' @return a data.frame with one row per location (or per cell for polygons)
+#'  and one column per layer, with the ID column removed and kept as
+#'  attribute "ID"
+#' @noRd
+.extract_values = function(r, y, dots = list()) {
+  own = c("version", "resolution", "type", "verbose", "use_vsicurl",
+          "as.raster", "as.matrix", "as.sf", "as.geojson", "operation",
+          "dist", "nQuadSegs", "server", "coverage", "interval", "format")
+  
+  dots = dots[setdiff(names(dots), own)]
+  
+  if (!inherits(y, "SpatVector")) {
+    y = as.matrix(as.data.frame(y)[, 1:2])
+    storage.mode(y) = "numeric"
+    # terra accepts only standard coordinate names for a matrix
+    colnames(y) = c("x", "y")
+  }
+  
+  result = do.call(terra::extract, c(list(x = r, y = y), dots))
+  result = as.data.frame(result)
+  
+  ids = result[["ID"]]
+  if (is.null(ids)) {
+    ids = seq_len(nrow(result))
+  }
+  result[["ID"]] = NULL
+  
+  attr(result, "ID") = ids
+  
+  result
+}
+
+#' Turn long chirps data into a wide matrix, one row per id and one column
+#' per day
+#'
+#' @param x a data.frame with columns id and date
+#' @param value the name of the value column
+#' @param ids integer, all ids expected in the rows
+#' @param days Date vector, all days expected in the columns
+#' @param prefix character, prefix for the column names
+#' @return a matrix with NA where a day is missing for an id
+#' @noRd
+.to_wide = function(x, value, ids, days, prefix) {
+  m = matrix(NA_real_, nrow = length(ids), ncol = length(days))
+  i = match(x$id, ids)
+  j = match(as.Date(x$date), days)
+  keep = !is.na(i) & !is.na(j)
+  m[cbind(i[keep], j[keep])] = as.numeric(x[[value]][keep])
+  dimnames(m) = list(ids, paste0(prefix, gsub("-", ".", format(days))))
+  m
+}
+
+#' Request CHIRPS from ClimateSERV and return the long chirps format
+#'
+#' @param gj a list of geojson strings, one per location
+#' @param lonlat a data.frame with lon and lat, one row per location in the
+#'  same order as \code{gj}
+#' @param dates a character of start and end dates "YYYY-MM-DD"
+#' @param operation integer, the ClimateSERV operation
+#' @return a data.frame with id, lon, lat, date and chirps, ordered by id
+#'  and date, where id is the position of the location in \code{gj}
+#' @noRd
+.chirps_climateserv = function(gj, lonlat, dates, operation = 5) {
+  dates_inter =
+    .reformat_dates(dates, availability = c("1981-01-01", "0"))
+  
+  if (is.null(operation)) {
+    operation = 5
+  }
+  
+  result = .GET(
+    gjson = gj,
+    dates = dates_inter,
+    operation = operation,
+    datatype = 0
+  )
+  
+  id = as.integer(result$id)
+  
+  result = data.frame(
+    id = id,
+    lon = as.numeric(lonlat[id, 1]),
+    lat = as.numeric(lonlat[id, 2]),
+    date = as.Date(result$date),
+    chirps = as.numeric(result$value)
+  )
+  
+  result = result[order(result$id, result$date), ]
+  
+  rownames(result) = NULL
+  
+  result
 }
