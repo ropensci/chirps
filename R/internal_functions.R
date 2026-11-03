@@ -749,7 +749,7 @@
 #' @importFrom sf st_transform st_sf st_geometry
 #' @noRd
 .polygon_values = function(r, polygons, operation = 5, dots = list()) {
-  v = terra::vect(.to_lonlat(sf::st_geometry(polygons)))
+  v = terra::vect(sf::st_sf(geometry = .to_lonlat(sf::st_geometry(polygons))))
   
   dots[["touches"]] = TRUE
   dots[["fun"]] = .operation_fun(operation)
@@ -757,7 +757,11 @@
   
   result = .extract_values(r, v, dots)
   
-  result[] = lapply(result, function(x) ifelse(is.nan(x), NA_real_, x))
+  # polygons without data give NaN (mean) or Inf (max, min)
+  result[] = lapply(result, function(x) {
+    x[!is.finite(x)] = NA_real_
+    x
+  })
   
   result
 }

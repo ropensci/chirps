@@ -302,3 +302,17 @@ test_that("sfc input works in get_chirps() and sf input in get_chirts()", {
   expect_equal(y$chirts[y$id == 2], cells[2] + (1:3) * 1000)
   expect_equal(y$lon, rep(lonlat$lon, each = 3))
 })
+
+test_that("as.matrix works for sf, and polygons without a CRS are read", {
+  local_mocked_bindings(get_chirps_raw = fake_raster)
+  s = sf::st_as_sf(lonlat, coords = c("lon", "lat"), crs = 4326)
+  m = get_chirps(s, dates, as.matrix = TRUE)
+  expect_equal(colnames(m), format(days))
+  expect_equal(unname(m[2, ]), cells[2] + (1:3) * 1000)
+  sq = sf::st_polygon(list(rbind(c(-55.9, -2.9), c(-55.1, -2.9),
+                                 c(-55.1, -2.1), c(-55.9, -2.1),
+                                 c(-55.9, -2.9))))
+  p = sf::st_sf(geometry = sf::st_sfc(sq))
+  x = get_chirps(p, dates)
+  expect_equal(x$chirps, (1:3) * 1000 + mean(c(1, 2, 5, 6)))
+})

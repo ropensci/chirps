@@ -9,7 +9,7 @@
 #'  any other object that can be coerced to \code{data.frame}) with longitude
 #'  and latitude in the first two columns, \code{\link[terra]{SpatVector}},
 #'  \code{\link[terra]{SpatRaster}}, \code{\link[terra]{SpatExtent}},
-#'  \code{\link[sf]{sf}} or \code{geojson}
+#'  \code{\link[sf]{sf}}, \code{sfc} or \code{geojson}
 #' @param dates a character or Date vector "YYYY-MM-DD", with one date for a
 #'  single day or two dates for the start and end of the period
 #' @param server a character, "CHC" (default and recommended) or
@@ -141,7 +141,8 @@ get_chirps = function(object, dates, server = "CHC", ...) {
          call. = FALSE)
   }
   
-  if (identical(server, "ClimateSERV")) {
+  terra_input = inherits(object, c("SpatVector", "SpatRaster", "SpatExtent"))
+  if (identical(server, "ClimateSERV") && !terra_input) {
     .notice_climateserv()
   }
   
@@ -238,15 +239,7 @@ get_chirps.SpatVector = function(object,
   # summarised over their cells and ids follow the rows of object
   object = .vect_to_sf(object)
   
-  result = get_chirps.sf(object, dates, server = "CHC", ...)
-  
-  if (as.matrix) {
-    days = .days(dates)
-    result = .to_wide(result, "chirps", seq_len(nrow(object)), days, "")
-    result = .date_colnames(result, days)
-  }
-  
-  result
+  get_chirps.sf(object, dates, server = "CHC", ...)
   
 }
 
@@ -374,6 +367,11 @@ get_chirps.sf = function(object, dates, server = "CHC",
     
   }
   
+  if (isTRUE(dots[["as.matrix"]])) {
+    wide = .to_wide(result, "chirps", seq_len(nr), days, "")
+    return(.date_colnames(wide, days))
+  }
+  
   if (isTRUE(as.sf)) {
     wide = .to_wide(result, "chirps", seq_len(nr), days, "day_")
     colnames(wide) = paste0("day_", as.integer(days))
@@ -476,6 +474,11 @@ get_chirps.geojson = function(object,
                       days = days,
                       name = "chirps")
     
+  }
+  
+  if (isTRUE(dots[["as.matrix"]])) {
+    wide = .to_wide(result, "chirps", seq_len(nr), days, "")
+    return(.date_colnames(wide, days))
   }
   
   class(result) = c("chirps", "chirps_df", class(result))

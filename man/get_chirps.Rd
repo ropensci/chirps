@@ -32,7 +32,7 @@ get_chirps(object, dates, server = "CHC", ...)
 any other object that can be coerced to \code{data.frame}) with longitude
 and latitude in the first two columns, \code{\link[terra]{SpatVector}},
 \code{\link[terra]{SpatRaster}}, \code{\link[terra]{SpatExtent}},
-\code{\link[sf]{sf}} or \code{geojson}}
+\code{\link[sf]{sf}}, \code{sfc} or \code{geojson}}
 
 \item{dates}{a character or Date vector "YYYY-MM-DD", with one date for a
 single day or two dates for the start and end of the period}

@@ -114,7 +114,8 @@ get_chirts.default = function(object, dates, var, as.matrix = FALSE, ...){
   
   .validate_lonlat(object, xlim = c(-180, 180), ylim = c(-60, 70))
   
-  dates = .validate_dates(dates)
+  # CHIRTS-ERA5 starts in 1980, the product functions check their own years
+  dates = .validate_dates(dates, availability = c("1980-01-01", "0"))
   
   days = seq.Date(as.Date(dates[1]), as.Date(dates[2]), by = "day")
   
@@ -164,7 +165,13 @@ get_chirts.SpatVector =
     
     object = .vect_to_sf(object)
     
-    if (any(grepl("POLYGON", sf::st_geometry_type(object)))) {
+    gtype = as.character(sf::st_geometry_type(object))
+    is_polygon = all(gtype %in% c("POLYGON", "MULTIPOLYGON"))
+    if (!is_polygon && !all(gtype == "POINT")) {
+      stop("Please provide points or polygons.\n", call. = FALSE)
+    }
+    
+    if (is_polygon) {
       result = .polygon_values(rr, object, dots[["operation"]], dots)
       xy = sf::st_coordinates(suppressWarnings(
         sf::st_centroid(.to_lonlat(sf::st_geometry(object)))))
@@ -172,6 +179,8 @@ get_chirts.SpatVector =
       xy = sf::st_coordinates(.to_lonlat(sf::st_geometry(object)))[, 1:2, drop = FALSE]
       result = .extract_values(rr, xy, dots)
     }
+    
+    .validate_lonlat(xy, xlim = c(-180, 180), ylim = c(-60, 70))
     
     if (as.matrix) {
       return(.date_colnames(result, days))
