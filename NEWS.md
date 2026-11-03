@@ -21,6 +21,26 @@ The Climate Hazards Center moved its data to new paths in late 2026, so download
 
 * A network test requests one known file from each CHC path, so a future move is caught by the checks.
 
+### CHC FIRST, CLIMATRENDS FOR INDICES
+
+* The CHC server is the recommended source in the documentation, README, vignette and examples. ClimateSERV serves CHIRPS v2 only and is kept for backward compatibility. `get_chirps(server = "ClimateSERV")` shows a notice once per session, and ClimateSERV support for CHIRPS may be removed in a future release.
+
+* `precip_indices()` is documented as a simple example and shows a notice once per session that points to `climatrends::rainfall()`. The documentation and vignette show how to pass CHIRPS and CHIRTS data to climatrends.
+
+* Matrices returned with `as.matrix = TRUE` have one column per day named "YYYY-MM-DD", for every input and server. This is the input of `climatrends::rainfall()` and `climatrends::temperature()`. Column names were layer names or "chirps-v2.0.YYYY.MM.DD" before.
+
+### NEW FEATURES
+
+* `get_chirts()` reads CHIRTS-ERA5 with `product = "CHIRTS-ERA5"`, for maximum and minimum temperature from 1980 to near present.
+
+* `get_chirps()` accepts `sfc` objects such as the `tapajos` data, and `get_chirts()` accepts `sf` and `sfc` points and polygons.
+
+* `SpatVector` polygons with `as.raster = FALSE` are summarised over each polygon, as `sf` polygons are, in `get_chirps()` and `get_chirts()`. They returned one row per cell before.
+
+* `get_chirps()` accepts latitudes up to 60°S and 60°N with CHIRPS v3, the coverage of v3. The limit stays at 50° for CHIRPS v2 and ClimateSERV.
+
+* Clearer errors for coordinates outside the area a product covers, and for CHIRTS-daily dates outside 1983 to 2016, which now point to CHIRTS-ERA5.
+
 ### ISSUES ADDRESSED IN THIS RELEASE
 
 * `dates` now accepts a single date, for one day of data, in every function (#32, #36). A clear error now says when `dates` is not a vector of dates, for example when an object is passed as the first argument of `get_chirps_raw()`, which takes no object (#58).

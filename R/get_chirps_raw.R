@@ -166,11 +166,17 @@ get_chirps_raw = function(dates,
 #' Tell the user once per session that CHIRPS v2 is retired
 #' @noRd
 .notice_v2 = function() {
-  if (isTRUE(.chirps_env$v2_noticed)) {
-    return(invisible(NULL))
-  }
-  .chirps_env$v2_noticed = TRUE
-  message("CHIRPS v2 is retired after the December 2026 release. ",
-          "Use version = \"3.0\" for current data.")
-  invisible(NULL)
+  .notice_once("v2_noticed",
+               "CHIRPS v2 is retired after the December 2026 release. ",
+               "Use version = \"3.0\" for current data.")
+}
+
+#' Tell the user once per session that ClimateSERV is not the main source
+#' @noRd
+.notice_climateserv = function() {
+  .notice_once("climateserv_noticed",
+               "ClimateSERV serves CHIRPS v2 only, which CHC retires after ",
+               "the December 2026 release. Use server = \"CHC\" for ",
+               "CHIRPS v3. ClimateSERV support for CHIRPS may be removed ",
+               "in a future release.")
 }

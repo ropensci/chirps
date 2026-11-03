@@ -1,58 +1,42 @@
 #' Get CHIRPS precipitation data
 #'
-#' Get daily precipitation data from the "Climate Hazards Group". Two server
-#'  sources are available. The first, "CHC" (default) is recommended for
-#'  multiple data-points, while "ClimateSERV" is recommended when few
-#'  data-points are required (~ 50).
+#' Get daily rainfall from CHIRPS, produced by the Climate Hazards Center
+#'  (CHC), for points, polygons or an area. The data are read from the CHC
+#'  server, which is the main source and serves both CHIRPS v3 (default) and
+#'  CHIRPS v2.
 #'
 #' @param object input, an object of class \code{\link[base]{data.frame}} (or
-#'  any other object that can be coerced to \code{data.frame}),
-#'  \code{\link[terra]{SpatVector}}, \code{\link[terra]{SpatRaster}},
+#'  any other object that can be coerced to \code{data.frame}) with longitude
+#'  and latitude in the first two columns, \code{\link[terra]{SpatVector}},
+#'  \code{\link[terra]{SpatRaster}}, \code{\link[terra]{SpatExtent}},
 #'  \code{\link[sf]{sf}} or \code{geojson}
-#' @param dates a character of start and end dates in that order in the format
-#'  "YYYY-MM-DD"
-#' @param server a character that represents the server source "CHC" or
-#'  "ClimateSERV"
+#' @param dates a character or Date vector "YYYY-MM-DD", with one date for a
+#'  single day or two dates for the start and end of the period
+#' @param server a character, "CHC" (default and recommended) or
+#'  "ClimateSERV". See the section on servers
 #' @param as.sf logical, returns an object of class \code{\link[sf]{sf}}
 #' @param as.geojson logical, returns an object of class \code{geojson}
 #' @param as.raster logical, returns an object of class
 #' \code{\link[terra]{SpatRaster}}
-#' @param as.matrix logical, returns an object of class \code{matrix}
-#' @param ... additional arguments passed to \code{\link[terra]{terra}}
-#' or \code{\link[sf]{sf}} methods
-#' See details
+#' @param as.matrix logical, returns a \code{matrix} with one row per
+#'  location and one column per day, named "YYYY-MM-DD"
+#' @param ... additional arguments passed to \code{\link{get_chirps_raw}} and
+#' \code{\link[terra]{extract}}. See details
 #'
 #' @details
-#' Data description at
-#' \url{https://data.chc.ucsb.edu/products/CHIRPS/v2.0/README-CHIRPS.txt}
-#'
-#' \strong{Additional arguments when using server = "CHC"}
+#' \strong{Additional arguments}
 #'
 #' \bold{version}: CHIRPS version, "3.0" (default) or "2.0". CHC retires
 #'  CHIRPS v2 after the December 2026 release
 #'
-#' \bold{type}: CHIRPS v3 product, "rnl" (default) or "sat"
+#' \bold{type}: CHIRPS v3 product, "rnl" (default) or "sat". See
+#'  \code{\link{get_chirps_raw}}
 #'
-#' \bold{resolution}: numeric, resolution of CHIRPS v2 tiles either 0.05
-#'  (default) or 0.25 degrees
+#' \bold{resolution}: numeric, resolution of CHIRPS v2, 0.05 (default) or
+#'  0.25 degrees
 #'
-#' \strong{Polygons}: with \code{sf} or \code{geojson} polygons, each day
-#'  is summarised over the cells that touch the polygon, with the function set
-#'  by \bold{operation} (average by default), for both servers. The
-#'  \code{lon} and \code{lat} columns give the centroid of each polygon.
-#'
-#' \strong{Servers}: ClimateSERV serves CHIRPS v2 averaged over a small buffer
-#'  around each point, so its values can differ from the CHC values, which are
-#'  the values of the cell that holds the point. CHC is faster for long
-#'  periods and is recommended for most uses.
-#'
-#' \strong{Additional arguments when using server = "ClimateSERV"}
-#'
-#' \bold{dist}: numeric, buffer distance for each \code{object} coordinate
-#'
-#' \bold{nQuadSegs}: integer, number of segments per buffer quadrant
-#'
-#' \bold{operation}: supported operations for ClimateSERV are:
+#' \bold{operation}: for polygons, the function used to summarise the cells
+#'  of each polygon on each day
 #'  \tabular{rll}{
 #'  \bold{operation}      \tab    \tab \bold{value}\cr
 #'  max                   \tab =  \tab 0\cr
@@ -62,54 +46,90 @@
 #'  average               \tab =  \tab 5 (\emph{default value})\cr
 #'  }
 #'
-#' @return A matrix, raster or a data frame of \acronym{CHIRPS} data:
+#' \strong{Coverage}: CHIRPS v3 covers 60°S to 60°N and CHIRPS v2 covers
+#'  50°S to 50°N, from 1981 to near present. Final data for a month arrive
+#'  some weeks after it ends.
+#'
+#' \strong{Polygons}: with \code{sf}, \code{SpatVector} or \code{geojson}
+#'  polygons, each day is summarised over the cells that touch the polygon,
+#'  with the function set by \bold{operation}. The \code{lon} and \code{lat}
+#'  columns give the centroid of each polygon.
+#'
+#' \strong{Indices}: for rainfall indices (dry spells, heavy rain days,
+#'  intensity) use \code{climatrends::rainfall()}. The matrix returned with
+#'  \code{as.matrix = TRUE} is its input, see the examples.
+#'
+#' @section Servers:
+#' \bold{CHC} (default) reads the CHIRPS files from
+#'  \url{https://data.chc.ucsb.edu} through \CRANpkg{terra}. It serves CHIRPS
+#'  v3 and v2, gives the value of the cell that holds each point, and handles
+#'  many points and long periods in one call. It is the recommended source.
+#'
+#' \bold{ClimateSERV} is kept for backward compatibility. It serves CHIRPS v2
+#'  only, averaged over a small buffer around each point, so its values can
+#'  differ from the CHC values. It sends several requests per location and is
+#'  slow for more than a few points. ClimateSERV support for CHIRPS may be
+#'  removed in a future release. Its extra arguments are \bold{dist}, the
+#'  buffer distance around each point, \bold{nQuadSegs}, the number of
+#'  segments per buffer quadrant, and \bold{operation} as above.
+#'
+#' \code{SpatVector}, \code{SpatRaster} and \code{SpatExtent} input always
+#'  uses CHC.
+#'
+#' @return A data frame of \acronym{CHIRPS} data in the long format, ordered
+#'  by \code{id} and \code{date}, or a matrix, raster, \code{sf} or
+#'  \code{geojson} object as requested:
 #' \describe{
 #'   \item{id}{the index for the rows in \code{object}}
-#'   \item{dates}{the dates from which \acronym{CHIRPS} was requested}
+#'   \item{date}{the date of each value}
 #'   \item{lon}{the longitude as provided in \code{object}}
 #'   \item{lat}{the latitude as provided in \code{object}}
 #'   \item{chirps}{the \acronym{CHIRPS} value in mm}
 #' }
 #' @references
 #'
+#' Funk, C., Peterson, P., Harrison, L. et al. (2026). Scientific Data, 13,
+#'  718. \cr\doi{10.1038/s41597-026-07096-4}
+#'
 #' Funk C. et al. (2015). Scientific Data, 2, 150066.
 #'  \cr\doi{10.1038/sdata.2015.66}
 #'
-#' @note \code{get_chirps()} may return some warning messages given by
-#' \code{\link[sf]{sf}}, please look \CRANpkg{sf} documentation for possible
-#' issues.
+#' @seealso \code{\link{get_chirps_raw}} for the rasters,
+#'  \code{\link{get_chirts}} for temperature, and the \CRANpkg{climatrends}
+#'  package for rainfall and temperature indices
 #'
 #' @examplesIf interactive()
 #' library("chirps")
 #' library("terra")
 #'
-#' # Case 1: return as a data.frame
-#' dates = c("2017-12-15","2017-12-31")
-#' lonlat = data.frame(lon = c(-55.0281,-54.9857), lat = c(-2.8094, -2.8756))
+#' dates = c("2017-12-15", "2017-12-31")
+#' lonlat = data.frame(lon = c(-55.0281, -54.9857), lat = c(-2.8094, -2.8756))
 #'
-#' r1 = get_chirps(lonlat, dates, server = "CHC")
+#' # Case 1: return a data.frame in the long format
+#' r1 = get_chirps(lonlat, dates)
 #'
-#' # Case 2: return a matrix
-#' r2 = get_chirps(lonlat, dates, server = "CHC", as.matrix = TRUE)
+#' # Case 2: a single day, from the CHIRPS v3 product based on IMERG
+#' r2 = get_chirps(lonlat, "2017-12-15", type = "sat")
 #'
-#' # Case 3: input SpatVector and return raster
+#' # Case 3: return a matrix, one column per day
+#' r3 = get_chirps(lonlat, dates, as.matrix = TRUE)
+#'
+#' # Case 4: input SpatVector and return raster
 #' f = system.file("ex/lux.shp", package = "terra")
 #' v = vect(f)
-#' r3 = get_chirps(v, dates, server = "CHC", as.raster = TRUE)
+#' r4 = get_chirps(v, dates, as.raster = TRUE)
 #'
-#' # Case 4: input SpatExtent and return a raster within the extent
+#' # Case 5: input SpatExtent and return a raster within the extent
 #' area = ext(c(-66, -64, -6, -4))
+#' r5 = get_chirps(area, dates)
 #'
-#' dates = c("2017-12-15", "2017-12-31")
+#' # Case 6: total rainfall per polygon and day
+#' r6 = get_chirps(v, dates, as.raster = FALSE, operation = 4)
 #'
-#' r4 = get_chirps(area, dates, server = "CHC")
-#'
-#' # Case 5: using the server "ClimateSERV"
-#' r5 = get_chirps(lonlat, dates, server = "ClimateSERV")
-#'
-#' # Case 6: from "ClimateSERV" and return as a matrix
-#' r6 = get_chirps(lonlat, dates, server = "ClimateSERV", as.matrix = TRUE)
-#'
+#' # Case 7: rainfall indices with climatrends
+#' if (requireNamespace("climatrends", quietly = TRUE)) {
+#'   climatrends::rainfall(r3, day.one = dates[1], span = ncol(r3))
+#' }
 #'
 #' @importFrom sf st_centroid read_sf st_geometry_type st_coordinates
 #'  st_geometry st_crs st_is_longlat st_transform
@@ -119,6 +139,10 @@ get_chirps = function(object, dates, server = "CHC", ...) {
   if (isFALSE(any(server %in% c("CHC", "ClimateSERV")))) {
     stop("Unknown server, please choose 'CHC' or 'ClimateSERV'\n",
          call. = FALSE)
+  }
+  
+  if (identical(server, "ClimateSERV")) {
+    .notice_climateserv()
   }
   
   UseMethod("get_chirps")
@@ -136,8 +160,9 @@ get_chirps.default = function(object, dates, server = "CHC",
   
   as.raster = isTRUE(dots[["as.raster"]])
   
-  # validate lonlat to check if they are within the CHIRPS range lat -50, 50
-  .validate_lonlat(object, xlim = c(-180, 180), ylim = c(-50, 50))
+  # validate lonlat to check if they are within the CHIRPS range
+  .validate_lonlat(object, xlim = c(-180, 180),
+                   ylim = .chirps_ylim(dots[["version"]], server))
   
   nr = nrow(object)
   
@@ -156,8 +181,8 @@ get_chirps.default = function(object, dates, server = "CHC",
     result = .chirps_climateserv(gj, object, dates, dots[["operation"]])
     
     if (isTRUE(as.matrix)) {
-      result = .to_wide(result, "chirps", seq_len(nr), days, "chirps-v2.0.")
-      return(result)
+      result = .to_wide(result, "chirps", seq_len(nr), days, "")
+      return(.date_colnames(result, days))
     }
     
     class(result) = c("chirps", "chirps_df", class(result))
@@ -177,7 +202,7 @@ get_chirps.default = function(object, dates, server = "CHC",
   result = .extract_values(rr, object, dots)
   
   if (isTRUE(as.matrix)) {
-    return(as.matrix(result))
+    return(.date_colnames(result, days))
   }
   
   result = .to_long(result,
@@ -204,46 +229,24 @@ get_chirps.SpatVector = function(object,
   dots = list(...)
   as.matrix = isTRUE(dots[["as.matrix"]])
   
-  # get CHIRPS CoG files
-  rr = get_chirps_raw(dates = dates, ...)
-  
-  if (isTRUE(as.matrix)) {
-    result = .extract_values(rr, object, dots)
-    return(as.matrix(result))
+  if (isTRUE(as.raster) && !as.matrix) {
+    rr = get_chirps_raw(dates = dates, ...)
+    return(terra::crop(rr, y = object))
   }
   
-  if (isTRUE(as.raster)) {
-    result = terra::crop(rr, y = object)
-    return(result)
+  # points and polygons go through the sf method, so polygons are
+  # summarised over their cells and ids follow the rows of object
+  object = .vect_to_sf(object)
+  
+  result = get_chirps.sf(object, dates, server = "CHC", ...)
+  
+  if (as.matrix) {
+    days = .days(dates)
+    result = .to_wide(result, "chirps", seq_len(nrow(object)), days, "")
+    result = .date_colnames(result, days)
   }
   
-  dates = .validate_dates(dates)
-  
-  days = seq.Date(as.Date(dates[1]), as.Date(dates[2]), by = "day")
-  
-  result = .extract_values(rr, object, dots)
-  
-  ids = attr(result, "ID")
-  
-  # coordinates are known for points, polygons return one row per cell
-  lon = NA
-  lat = NA
-  if (terra::geomtype(object) == "points") {
-    xy = terra::crds(object)
-    lon = xy[ids, 1]
-    lat = xy[ids, 2]
-  }
-  
-  result = .to_long(result,
-                    ids = ids,
-                    lon = lon,
-                    lat = lat,
-                    days = days,
-                    name = "chirps")
-  
-  class(result) = c("chirps", "chirps_df", class(result))
-  
-  return(result)
+  result
   
 }
 
@@ -278,7 +281,7 @@ get_chirps.SpatExtent = function(object,
   result = terra::crop(rr, y = object)
   
   if (isFALSE(as.raster) || isTRUE(dots[["as.matrix"]])) {
-    result = terra::values(result, mat = TRUE)
+    result = .date_colnames(terra::values(result, mat = TRUE), .days(dates))
   }
   
   return(result)
@@ -330,7 +333,8 @@ get_chirps.sf = function(object, dates, server = "CHC",
   lonlat = data.frame(lon = lonlat[, 1], lat = lonlat[, 2])
   
   # validate lonlat to check if they are within the CHIRPS range
-  .validate_lonlat(lonlat, xlim = c(-180, 180), ylim = c(-50, 50))
+  .validate_lonlat(lonlat, xlim = c(-180, 180),
+                   ylim = .chirps_ylim(dots[["version"]], server))
   
   nr = nrow(lonlat)
   
@@ -385,6 +389,14 @@ get_chirps.sf = function(object, dates, server = "CHC",
 }
 
 #' @rdname get_chirps
+#' @method get_chirps sfc
+#' @export
+get_chirps.sfc = function(object, dates, server = "CHC", as.sf = FALSE, ...) {
+  get_chirps.sf(sf::st_sf(geometry = object), dates = dates, server = server,
+                as.sf = as.sf, ...)
+}
+
+#' @rdname get_chirps
 #' @method get_chirps geojson
 #' @export
 get_chirps.geojson = function(object,
@@ -423,8 +435,9 @@ get_chirps.geojson = function(object,
   
   lonlat = data.frame(lon = lonlat[, 1], lat = lonlat[, 2])
   
-  # validate lonlat to check if they are within the CHIRPS range lat -50, 50
-  .validate_lonlat(lonlat, xlim = c(-180, 180), ylim = c(-50, 50))
+  # validate lonlat to check if they are within the CHIRPS range
+  .validate_lonlat(lonlat, xlim = c(-180, 180),
+                   ylim = .chirps_ylim(dots[["version"]], server))
   
   nr = nrow(lonlat)
   

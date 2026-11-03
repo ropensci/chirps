@@ -133,7 +133,9 @@ get_chirts_raw = function(dates,
   year_int = as.integer(years)
   
   if (any(!year_int %in% 1983:2016)) {
-    stop("CHIRTS data are only available from 1983 to 2016.",
+    stop("CHIRTS-daily data are only available from 1983 to 2016. ",
+         "For other years use get_chirts(..., product = \"CHIRTS-ERA5\") ",
+         "or get_chirts_era5_raw(), which cover 1980 to near present.",
          call. = FALSE)
   }
   

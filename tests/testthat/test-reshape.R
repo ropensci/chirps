@@ -222,3 +222,83 @@ test_that("ClimateSERV operations map to summary functions", {
   expect_identical(chirps:::.operation_fun(0), max)
   expect_error(chirps:::.operation_fun(9), "operation")
 })
+
+test_that("matrices have one column per day, named by date", {
+  local_mocked_bindings(get_chirps_raw = fake_raster)
+  m = get_chirps(lonlat, dates, server = "CHC", as.matrix = TRUE)
+  expect_equal(colnames(m), format(days))
+  e = get_chirps(terra::ext(-56, -55, -3, -2), dates, as.raster = FALSE)
+  expect_equal(colnames(e), format(days))
+})
+
+test_that("CHIRPS v3 accepts latitudes up to 60 degrees, v2 up to 50", {
+  local_mocked_bindings(get_chirps_raw = fake_raster)
+  north = data.frame(lon = -55, lat = 55)
+  expect_error(chirps:::.validate_lonlat(north, ylim = chirps:::.chirps_ylim()), NA)
+  expect_error(get_chirps(north, dates, server = "CHC", version = "2.0"),
+               "latitude -50 to 50")
+  expect_equal(chirps:::.chirps_ylim(), c(-60, 60))
+  expect_equal(chirps:::.chirps_ylim("3.0", "ClimateSERV"), c(-50, 50))
+})
+
+test_that("SpatVector polygons are summarised like sf polygons", {
+  local_mocked_bindings(get_chirps_raw = fake_raster)
+  sq = function(x0, x1, y0, y1) {
+    sf::st_polygon(list(rbind(c(x0, y0), c(x1, y0), c(x1, y1), c(x0, y1),
+                              c(x0, y0))))
+  }
+  p = sf::st_sf(geometry = sf::st_sfc(sq(-55.9, -55.1, -2.9, -2.1),
+                                      sq(-55.9, -55.8, -2.2, -2.1),
+                                      crs = 4326))
+  v = terra::vect(p)
+  x = get_chirps(v, dates, as.raster = FALSE)
+  expect_equal(nrow(x), 6)
+  expect_equal(x$chirps[x$id == 1], (1:3) * 1000 + mean(c(1, 2, 5, 6)))
+  expect_equal(x$chirps, get_chirps(p, dates, server = "CHC")$chirps)
+  m = get_chirps(v, dates, as.raster = FALSE, as.matrix = TRUE)
+  expect_equal(dim(m), c(2, 3))
+  expect_equal(colnames(m), format(days))
+})
+
+test_that("get_chirts() reads CHIRTS-ERA5 with product", {
+  called = NULL
+  local_mocked_bindings(
+    get_chirts_era5_raw = function(dates, var, ...) {
+      called <<- var
+      fake_raster(dates)
+    },
+    get_chirts_raw = function(...) stop("CHIRTS-daily should not be requested")
+  )
+  x = get_chirts(lonlat, dates, var = "Tmin", product = "CHIRTS-ERA5")
+  expect_equal(called, "Tmin")
+  expect_equal(x$chirts[x$id == 2], cells[2] + (1:3) * 1000)
+  expect_error(get_chirts(lonlat, dates, var = "RHum", product = "CHIRTS-ERA5"),
+               "Tmax")
+  expect_error(chirps:::.chirts_raw_urls(as.Date("2020-01-01"), var = "Tmax"),
+               "CHIRTS-ERA5")
+})
+
+test_that("notices are shown once per session", {
+  assign("climateserv_noticed", FALSE, envir = chirps:::.chirps_env)
+  expect_message(chirps:::.notice_climateserv(), "CHIRPS v2 only")
+  expect_no_message(chirps:::.notice_climateserv())
+  
+  local_mocked_bindings(get_chirps_raw = fake_raster)
+  x = get_chirps(lonlat, dates, server = "CHC")
+  assign("indices_noticed", FALSE, envir = chirps:::.chirps_env)
+  expect_message(precip_indices(x), "climatrends")
+  expect_no_message(precip_indices(x))
+})
+
+test_that("sfc input works in get_chirps() and sf input in get_chirts()", {
+  local_mocked_bindings(
+    get_chirps_raw = fake_raster,
+    get_chirts_raw = function(dates, var, ...) fake_raster(dates)
+  )
+  s = sf::st_as_sf(lonlat, coords = c("lon", "lat"), crs = 4326)
+  x = get_chirps(sf::st_geometry(s), dates)
+  expect_equal(x$chirps, get_chirps(s, dates)$chirps)
+  y = get_chirts(s, dates, var = "Tmax")
+  expect_equal(y$chirts[y$id == 2], cells[2] + (1:3) * 1000)
+  expect_equal(y$lon, rep(lonlat$lon, each = 3))
+})

@@ -20,143 +20,144 @@ csl: citation_style.csl
 
 # Overview
 
-The **chirps** package provides access to climate datasets produced by the Climate Hazards Center (CHC), University of California Santa Barbara. The package supports both high-level extraction of climate time series for points and polygons, as well as direct access to the original raster products through the **terra** package.
+The **chirps** package provides access to climate datasets produced by the Climate Hazards Center (CHC), University of California Santa Barbara. Data are read directly from the CHC server. The package returns time series for points and polygons, or the original raster products through the **terra** package.
 
-Supported datasets include:
+| Dataset             | Variables                   | Coverage     | Period                         |
+| ------------------- | --------------------------- | ------------ | ------------------------------ |
+| CHIRPS v3 (default) | Precipitation               | 60°S to 60°N | 1981 to near present           |
+| CHIRPS v2           | Precipitation               | 50°S to 50°N | 1981 to December 2026 (retired) |
+| CHIRTS-daily        | Tmax, Tmin, RHum, HeatIndex | 60°S to 70°N | 1983 to 2016                   |
+| CHIRTS-ERA5         | Tmax, Tmin                  | 60°S to 70°N | 1980 to near present           |
 
-| Dataset      | Variables                   | Period       |
-| ------------ | --------------------------- | ------------ |
-| CHIRPS v2    | Precipitation               | 1981–present |
-| CHIRPS v3    | Precipitation               | 1981–present |
-| CHIRTS-daily | Tmax, Tmin, RHum, HeatIndex | 1983–2016    |
-| CHIRTS-ERA5  | Tmax, Tmin                  | 1980–present |
+Climate indices are out of scope for **chirps**. The [climatrends](https://CRAN.R-project.org/package=climatrends) package computes rainfall, temperature, growing degree days, evapotranspiration and crop sensitive indices, and it takes the output of **chirps** directly.
 
-## Accessing raw raster products
+## Time series for points
 
-The recommended workflow is to retrieve climate products as native `SpatRaster` objects and use functions from **terra** for subsequent extraction and spatial analysis.
-
-### CHIRPS v2
+`get_chirps()` returns one row per location and day, ordered by `id` and `date`.
 
 ```r
-library(chirps)
-library(terra)
+library("chirps")
 
-dates = c("2017-11-15", "2017-11-20")
-
-v2 = get_chirps_raw(dates = dates, version = "2.0") # retired after December 2026
-
-v2
-```
-
-### CHIRPS v3
-
-```r
-dates = c("2017-11-15", "2017-11-20")
-
-v3 = get_chirps_raw(dates = dates, version = "3.0", type = "sat")
-
-v3
-```
-
-Available daily CHIRPS v3 products include:
-
-* `"sat"`: daily totals derived using NASA IMERG
-* `"rnl"`: daily totals derived using ERA5 reanalysis
-
-### CHIRTS-ERA5
-
-```r
-dates = c("2017-11-15", "2017-11-20")
-
-tmax = get_chirts_era5_raw(dates = dates, var = "Tmax")
-
-tmin = get_chirts_era5_raw(dates = dates, var = "Tmin")
-```
-
-CHIRTS-ERA5 extends the CHIRTS temperature record from 1980 to near-present by combining CHIRTS with ERA5 reanalysis data.
-
-### CHIRTS-daily
-
-```r
-dates = c("2010-01-01", "2010-01-10")
-
-tmax = get_chirts_raw(dates = dates, var = "Tmax")
-
-tmin = get_chirts_raw(dates = dates, var = "Tmin")
-```
-
-Available variables include:
-
-* `"Tmax"`
-* `"Tmin"`
-* `"RHum"`
-* `"HeatIndex"`
-
-
-## Extracting values using terra
-
-Once data are loaded as rasters, values can be extracted for locations of interest.
-
-```r
-lonlat = data.frame(lon = c(-55.0281, -54.9857, -55.0714),
-                    lat = c(-2.8094, -2.8756, -3.5279))
-
-pts = vect(lonlat,
-           geom = c("lon", "lat"),
-           crs = "EPSG:4326")
-
-rain = extract(v3, pts)
-
-head(rain)
-```
-
-The resulting object contains one row per location and one column per raster layer.
-
-## Accessing climate time series
-
-For users interested primarily in time series extraction, the package provides high-level functions that handle raster retrieval and extraction internally.
-
-### Point locations
-
-```r
 lonlat = data.frame(lon = c(-55.0281, -54.9857, -55.0714),
                     lat = c(-2.8094, -2.8756, -3.5279))
 
 dates = c("2017-01-01", "2017-01-31")
 
-dat = get_chirps(lonlat,
-                 dates,
-                 server = "CHC")
+dat = get_chirps(lonlat, dates)
 
 head(dat)
 ```
 
-### ClimateSERV
-
-For small requests involving a limited number of locations, the ClimateSERV API can be used.
+A single date returns one day.
 
 ```r
-dat = get_chirps(lonlat,
-                 dates,
-                 server = "ClimateSERV")
+day1 = get_chirps(lonlat, "2017-01-15")
 ```
 
-## Working with terra
-
-Because the package returns native `SpatRaster` objects, users can directly leverage the `terra` ecosystem.
+CHIRPS v3 has two daily products. `type = "rnl"` (default) splits the pentadal totals into days with ERA5, and `type = "sat"` uses NASA IMERG.
 
 ```r
-# crop to area of interest
-r_crop = crop(r, ext(-60, -50, -5, 5))
+dat_sat = get_chirps(lonlat, dates, type = "sat")
+```
 
-# calculate mean precipitation
-mean_rain = app(r, mean)
+## Time series for polygons
+
+With `sf` or `SpatVector` polygons, each day is summarised over the cells that touch each polygon. The average is the default, and `operation` sets another summary (0 max, 1 min, 2 median, 4 sum, 5 average).
+
+```r
+data("tapajos", package = "chirps")
+
+rain_mean = get_chirps(tapajos, dates)
+
+rain_total = get_chirps(tapajos, dates, operation = 4)
+```
+
+## Temperature
+
+`get_chirts()` works the same way for temperature. CHIRTS-daily covers 1983 to 2016. For other years, use `product = "CHIRTS-ERA5"`, which covers maximum and minimum temperature from 1980 to near present.
+
+```r
+tmax = get_chirts(lonlat, c("2010-01-01", "2010-01-31"), var = "Tmax")
+
+tmin = get_chirts(lonlat, c("2024-01-01", "2024-01-31"), var = "Tmin",
+                  product = "CHIRTS-ERA5")
+```
+
+## Climate indices with climatrends
+
+With `as.matrix = TRUE`, **chirps** returns one row per location and one column per day, named "YYYY-MM-DD". This is the input that climatrends expects.
+
+```r
+library("climatrends")
+
+rain = get_chirps(lonlat, dates, as.matrix = TRUE)
+
+rainfall(rain, day.one = dates[1], span = ncol(rain))
+
+# indices in periods of 7 days
+rainfall(rain, day.one = dates[1], span = ncol(rain),
+         timeseries = TRUE, intervals = 7)
+```
+
+Temperature indices take an array with maximum temperature in the first layer and minimum temperature in the second.
+
+```r
+dates = c("2024-01-01", "2024-01-31")
+
+tmax = get_chirts(lonlat, dates, var = "Tmax", product = "CHIRTS-ERA5",
+                  as.matrix = TRUE)
+
+tmin = get_chirts(lonlat, dates, var = "Tmin", product = "CHIRTS-ERA5",
+                  as.matrix = TRUE)
+
+temp = array(c(tmax, tmin), dim = c(dim(tmax), 2),
+             dimnames = list(NULL, colnames(tmax), NULL))
+
+temperature(temp, day.one = dates[1], span = ncol(tmax))
+
+GDD(temp, day.one = dates[1], span = ncol(tmax), tbase = 10)
+```
+
+`precip_indices()` remains in **chirps** as a simple example of how to compute indices from a `chirps` data frame. Use climatrends for analysis.
+
+## Raw raster products
+
+The `*_raw()` functions return the CHC files as `SpatRaster` objects with one layer per day. Use them for large areas or custom workflows with **terra**.
+
+```r
+library("terra")
+
+dates = c("2017-11-15", "2017-11-20")
+
+v3 = get_chirps_raw(dates = dates, type = "sat")
+
+tmax = get_chirts_era5_raw(dates = dates, var = "Tmax")
+
+tx = get_chirts_raw(dates = c("2010-01-01", "2010-01-10"), var = "Tmax")
+```
+
+Once data are loaded as rasters, the **terra** functions apply.
+
+```r
+pts = vect(lonlat, geom = c("lon", "lat"), crs = "EPSG:4326")
+
+rain = extract(v3, pts)
+
+# crop to an area of interest
+v3_crop = crop(v3, ext(-56, -54, -4, -2))
+
+# total rainfall in the period
+total = app(v3, sum)
 
 # write to disk
-writeRaster(r,
-            "chirps.tif",
-            overwrite = TRUE)
+writeRaster(v3, "chirps.tif", overwrite = TRUE)
 ```
+
+## Servers
+
+The CHC server is the default and the recommended source. `server = "ClimateSERV"` is kept for backward compatibility. It serves CHIRPS v2 only, which CHC retires after the December 2026 release, averaged over a small buffer around each point, and it is slow for more than a few points. ClimateSERV support for CHIRPS may be removed in a future release. `get_esi()` and `get_imerg()` still use ClimateSERV, as these products are not on the CHC server.
+
+CHC blocks addresses that request many files that do not exist. **chirps** checks the first and last file of each request before reading the rest, and stops with a clear error when a file is missing. Keep requests within the period each product covers.
 
 ## Datasets citation
 

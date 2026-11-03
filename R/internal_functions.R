@@ -279,17 +279,64 @@
   v4 = max(lat) > ylim[2]
   
   if (any(c(v1, v2, v3, v4))) {
-    stop(
-      "Subscript out of bounds. \n lonlat are beyond the accepted bbox,
-      which are: ",
-      paste(
-        paste(xlim[1], ylim[1], sep = " , "),
-        paste(xlim[2], ylim[2], sep = " , "),
-        sep = " , "
-      ),
-      call. = FALSE
-    )
+    stop("Some coordinates are outside the area this product covers, ",
+         "longitude ", xlim[1], " to ", xlim[2], " and latitude ",
+         ylim[1], " to ", ylim[2], ". Check that the first column is ",
+         "longitude and the second is latitude.\n", call. = FALSE)
   }
+  
+  invisible(lonlat)
+}
+
+#' Latitude range covered by CHIRPS
+#'
+#' CHIRPS v3 covers 60S to 60N, CHIRPS v2 (also served by ClimateSERV)
+#' covers 50S to 50N.
+#'
+#' @param version the CHIRPS version, NULL for the default (3.0)
+#' @param server the server, "CHC" or "ClimateSERV"
+#' @return a numeric vector of length two
+#' @noRd
+.chirps_ylim = function(version = NULL, server = "CHC") {
+  v2 = identical(server, "ClimateSERV") ||
+    (!is.null(version) && as.character(version) %in% c("2", "2.0"))
+  if (v2) {
+    return(c(-50, 50))
+  }
+  c(-60, 60)
+}
+
+#' Name the columns of a wide matrix by date
+#'
+#' Columns named "YYYY-MM-DD" are the input that climatrends expects, e.g.
+#' climatrends::rainfall() and climatrends::temperature().
+#'
+#' @param m a matrix with one column per day
+#' @param days Date vector, one per column
+#' @return the matrix with column names "YYYY-MM-DD"
+#' @noRd
+.date_colnames = function(m, days) {
+  m = as.matrix(m)
+  attr(m, "ID") = NULL
+  if (ncol(m) == length(days)) {
+    colnames(m) = format(days)
+  }
+  m
+}
+
+#' Show a message once per session
+#'
+#' @param key character, the name of the notice
+#' @param ... the message, passed to message()
+#' @return nothing, called for its side effect
+#' @noRd
+.notice_once = function(key, ...) {
+  if (isTRUE(.chirps_env[[key]])) {
+    return(invisible(NULL))
+  }
+  assign(key, TRUE, envir = .chirps_env)
+  message(...)
+  invisible(NULL)
 }
 
 
@@ -574,7 +621,8 @@
 .extract_values = function(r, y, dots = list()) {
   own = c("version", "resolution", "type", "verbose", "use_vsicurl",
           "as.raster", "as.matrix", "as.sf", "as.geojson", "operation",
-          "dist", "nQuadSegs", "server", "coverage", "interval", "format")
+          "dist", "nQuadSegs", "server", "coverage", "interval", "format",
+          "product")
   
   dots = dots[setdiff(names(dots), own)]
   
@@ -701,7 +749,7 @@
 #' @importFrom sf st_transform st_sf st_geometry
 #' @noRd
 .polygon_values = function(r, polygons, operation = 5, dots = list()) {
-  v = terra::vect(sf::st_transform(sf::st_geometry(polygons), 4326))
+  v = terra::vect(.to_lonlat(sf::st_geometry(polygons)))
   
   dots[["touches"]] = TRUE
   dots[["fun"]] = .operation_fun(operation)
@@ -727,4 +775,44 @@
   e = terra::ext(min(xy[, 1]), max(xy[, 1]), min(xy[, 2]), max(xy[, 2]))
   e = e + max(terra::res(r))
   terra::crop(r, e, snap = "out")
+}
+
+#' All days between the start and end of the dates argument
+#'
+#' @param dates the dates argument, one or two dates
+#' @return a Date vector
+#' @noRd
+.days = function(dates) {
+  dates = .as_dates(dates)
+  seq.Date(as.Date(dates[1]), as.Date(dates[2]), by = "day")
+}
+
+#' Convert a SpatVector to sf
+#'
+#' @param x a SpatVector of points or polygons
+#' @return an sf object with the same geometries and CRS
+#' @importFrom terra geom crs
+#' @importFrom sf st_as_sfc st_crs NA_crs_
+#' @noRd
+.vect_to_sf = function(x) {
+  wkt = terra::crs(x)
+  crs = if (nzchar(wkt)) sf::st_crs(wkt) else sf::NA_crs_
+  g = sf::st_as_sfc(terra::geom(x, wkt = TRUE), crs = crs)
+  sf::st_sf(geometry = g)
+}
+
+#' Transform geometries to longitude and latitude when their CRS is known
+#'
+#' Geometries without a CRS are taken as longitude and latitude.
+#'
+#' @param g an sf or sfc object
+#' @return g in EPSG:4326, or unchanged when it has no CRS or is already in
+#'  longitude and latitude
+#' @noRd
+.to_lonlat = function(g) {
+  crs = sf::st_crs(g)
+  if (!is.na(crs) && !isTRUE(sf::st_is_longlat(g))) {
+    g = sf::st_transform(g, 4326)
+  }
+  g
 }

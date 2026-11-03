@@ -15,7 +15,6 @@
 ^codemeta\.json$
 ^.github$
 ^vignettes/Overview\.Rmd\.orig$
-^vignettes/Overview\.md$
 ^vignettes/precompile\.R$
 ^CRAN-RELEASE$
 ^\.ccache$
