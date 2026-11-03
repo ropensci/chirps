@@ -1,6 +1,6 @@
 # Replies to open issues in ropensci/chirps
 
-Replies ready to paste into each issue in <https://github.com/ropensci/chirps/issues>. Each reply names the commit in AgrDataSci/chirps that addresses it. The first commits came in with PR AgrDataSci/chirps#3 (merged) and the rest with PR AgrDataSci/chirps#4. All reach CRAN with the next release.
+Replies ready to paste into each issue in <https://github.com/ropensci/chirps/issues>. Each reply names the commit in AgrDataSci/chirps that addresses it. The first commits came in with PR AgrDataSci/chirps#3 (merged) and the rest with PR AgrDataSci/chirps#4. All reach CRAN with chirps 2.0.0.
 
 Before pasting, check that PR #4 is merged and replace `remotes::install_github("AgrDataSci/chirps")` if users should install from ropensci/chirps instead.
 
@@ -27,7 +27,7 @@ Before pasting, check that PR #4 is merged and replace `remotes::install_github(
 
 ## #58 Error: Subscript out of bounds with dates in 1982
 
-Thanks @ecor. The dates are fine. `get_chirps_raw()` takes no object, so its first argument is `dates`, and `ee` was read as the dates. The next release gives a clear error in this case (AgrDataSci/chirps@9f5d94b).
+Thanks @ecor. The dates are fine. `get_chirps_raw()` takes no object, so its first argument is `dates`, and `ee` was read as the dates. chirps 2.0.0 gives a clear error in this case (AgrDataSci/chirps@9f5d94b).
 
 To get the rasters and crop them to your area:
 
@@ -51,7 +51,7 @@ Thanks @ecor. A doubled roxygen comment in the example of `get_chirts_raw()` lef
 
 The Climate Hazards Center moved its data to new paths, and Will Turner (CHC) kindly sent us the new layout. The 403 errors came from the CHC servers, which block addresses that request many files that do not exist. The old paths made each call request one missing file per day.
 
-The next release fixes this (AgrDataSci/chirps@5bfcdd1, AgrDataSci/chirps@9f5d94b, AgrDataSci/chirps@8985c3d).
+chirps 2.0.0 fixes this (AgrDataSci/chirps@5bfcdd1, AgrDataSci/chirps@9f5d94b, AgrDataSci/chirps@8985c3d).
 
 - CHIRPS v2 reads from `products/CHIRPS/v2.0` and CHIRTS from `products/CHIRTS/daily/v1.0`.
 - Each request checks the first and last file before reading the rest, and stops with a clear error if one is missing.
@@ -60,13 +60,13 @@ The next release fixes this (AgrDataSci/chirps@5bfcdd1, AgrDataSci/chirps@9f5d94
 - Requests identify the package with a user agent, so CHC can tell it apart from bots.
 - A test checks one file from each CHC path, so a future move is caught early.
 
-If your address was blocked, wait a while before trying again. Closing, please reopen if the error comes back with the new version.
+If your address was blocked, wait a while before trying again. Closing, please reopen if the error comes back with chirps 2.0.0.
 
 ---
 
 ## #54 CHIRPS v3
 
-CHIRPS v3 came in with @ecor's pull request, thank you. In the next release it is also the default for `get_chirps_raw()` and `get_chirps(server = "CHC")`, since CHC retires CHIRPS v2 after December 2026 (AgrDataSci/chirps@5bfcdd1).
+CHIRPS v3 came in with @ecor's pull request, thank you. In chirps 2.0.0 it is also the default for `get_chirps_raw()` and `get_chirps(server = "CHC")`, since CHC retires CHIRPS v2 after December 2026 (AgrDataSci/chirps@5bfcdd1).
 
 ```r
 dates = c("2017-12-15", "2017-12-31")
@@ -84,17 +84,17 @@ Use `version = "2.0"` to keep CHIRPS v2 until it is retired. Closing.
 
 ## #51 get_chirps is extremely slow
 
-Thanks for the report. With `server = "CHC"` the package reads one file per day, so time grows with the number of days, not with the number of points. The next release cuts the requests per file (AgrDataSci/chirps@9f5d94b). GDAL no longer lists the remote folder or looks for side files on each open, and it retries failed reads. When the server is busy, the file check waits and retries (AgrDataSci/chirps@8985c3d).
+Thanks for the report. With `server = "CHC"` the package reads one file per day, so time grows with the number of days, not with the number of points. chirps 2.0.0 cuts the requests per file (AgrDataSci/chirps@9f5d94b). GDAL no longer lists the remote folder or looks for side files on each open, and it retries failed reads. When the server is busy, the file check waits and retries (AgrDataSci/chirps@8985c3d).
 
 For long periods, request all points in one call, as you did, rather than one call per point. ClimateSERV remains slower for many points because it sends several requests per point.
 
-Closing for now. If it is still slow with the new version, please reopen with your timing, and we will look at caching downloaded files.
+Closing for now. If it is still slow with chirps 2.0.0, please reopen with your timing, and we will look at caching downloaded files.
 
 ---
 
 ## #49 Check data from ClimateSERV against CHC and prepare for new version
 
-The new version is ready (PR AgrDataSci/chirps#3 and AgrDataSci/chirps#4). ClimateSERV serves CHIRPS v2 averaged over a small buffer around each point, while CHC gives the value of the cell that holds the point, so the two can differ. This is now explained in `?get_chirps` (AgrDataSci/chirps@9f5d94b).
+chirps 2.0.0 is ready (PR AgrDataSci/chirps#3 and AgrDataSci/chirps#4). ClimateSERV serves CHIRPS v2 averaged over a small buffer around each point, while CHC gives the value of the cell that holds the point, so the two can differ. This is now explained in `?get_chirps` (AgrDataSci/chirps@9f5d94b).
 
 CHC is now the default server and uses CHIRPS v3, and the documentation and examples use CHC throughout (AgrDataSci/chirps@e739ef2). Since CHIRPS v2 is retired after December 2026, a full comparison of the v2 routes is no longer worth doing. ClimateSERV stays for ESI and IMERG, and for CHIRPS only for backward compatibility. Closing.
 
@@ -110,7 +110,7 @@ location = data.frame(lon = 78.96288, lat = 20.593684)
 d = get_chirps(location, dates = c("2019-01-01", "2019-12-31"), server = "CHC")
 ```
 
-The same works for your `sf` points from `st_sample()`. The next release also gives a clearer error that points to `server = "CHC"` (AgrDataSci/chirps@9f5d94b). Closing, please reopen if CHC also fails.
+The same works for your `sf` points from `st_sample()`. chirps 2.0.0 also gives a clearer error that points to `server = "CHC"` (AgrDataSci/chirps@9f5d94b). Closing, please reopen if CHC also fails.
 
 ---
 
@@ -172,13 +172,13 @@ Closing.
 
 ## #41 CHC data not available on specific date
 
-The files exist. These errors came from old GDAL versions and, more recently, from CHC moving its data. The next release uses the new CHC paths and checks the first and last file before reading, so a missing file now gives a clear error that names it (AgrDataSci/chirps@5bfcdd1). Use GDAL 3 or later, which reads these files without problems. Closing, please reopen with `terra::gdal()` output if it happens again.
+The files exist. These errors came from old GDAL versions and, more recently, from CHC moving its data. chirps 2.0.0 uses the new CHC paths and checks the first and last file before reading, so a missing file now gives a clear error that names it (AgrDataSci/chirps@5bfcdd1). Use GDAL 3 or later, which reads these files without problems. Closing, please reopen with `terra::gdal()` output if it happens again.
 
 ---
 
 ## #37 Using get_chirps over a SFC, possible?
 
-Yes, in the next release. `get_chirps()` accepts `sfc`, `sf` and `SpatVector` polygons. With `server = "CHC"` (the default), each day is summarised over the cells that touch each polygon, one row per polygon and day (AgrDataSci/chirps@69ea09b, AgrDataSci/chirps@9f5d94b, AgrDataSci/chirps@e739ef2). The average is the default, and `operation` takes the same codes as ClimateSERV (0 max, 1 min, 2 median, 4 sum, 5 average).
+Yes, in chirps 2.0.0. `get_chirps()` accepts `sfc`, `sf` and `SpatVector` polygons. With `server = "CHC"` (the default), each day is summarised over the cells that touch each polygon, one row per polygon and day (AgrDataSci/chirps@69ea09b, AgrDataSci/chirps@9f5d94b, AgrDataSci/chirps@e739ef2). The average is the default, and `operation` takes the same codes as ClimateSERV (0 max, 1 min, 2 median, 4 sum, 5 average).
 
 ```r
 districts = sf::st_read("ETHIOPIA.shp")
@@ -212,7 +212,7 @@ Closing.
 
 ## #32 Not possible to get data for only one or two days
 
-Two-day requests were fixed in 800ba70. The next release also accepts a single date, in every function (AgrDataSci/chirps@9f5d94b), with a test. Closing.
+Two-day requests were fixed in 800ba70. chirps 2.0.0 also accepts a single date, in every function (AgrDataSci/chirps@9f5d94b), with a test. Closing.
 
 ---
 
