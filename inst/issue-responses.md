@@ -1,16 +1,16 @@
 # Replies to open issues in ropensci/chirps
 
-Replies ready to paste into each issue in <https://github.com/ropensci/chirps/issues>. Each reply names the commit in AgrDataSci/chirps that addresses it. The commits are on the branch `review/round-1` (PR AgrDataSci/chirps#3) and reach CRAN with the next release.
+Replies ready to paste into each issue in <https://github.com/ropensci/chirps/issues>. Each reply names the commit in AgrDataSci/chirps that addresses it. The first commits came in with PR AgrDataSci/chirps#3 (merged) and the rest with PR AgrDataSci/chirps#4. All reach CRAN with the next release.
 
-Before pasting, check that PR #3 is merged and replace `remotes::install_github("AgrDataSci/chirps")` if users should install from ropensci/chirps instead.
+Before pasting, check that PR #4 is merged and replace `remotes::install_github("AgrDataSci/chirps")` if users should install from ropensci/chirps instead.
 
 | Issue | Action | Commits |
 |---|---|---|
 | #58 Subscript out of bounds with dates in 1982 | Close | 9f5d94b |
 | #57 CRAN check error | Close | 0490442 |
-| #56 Error 403 connection to CHC server | Close | 5bfcdd1, 9f5d94b |
+| #56 Error 403 connection to CHC server | Close | 5bfcdd1, 9f5d94b, 8985c3d |
 | #54 CHIRPS v3 | Close | 5bfcdd1 |
-| #51 get_chirps is extremely slow | Close, invite to reopen | 9f5d94b |
+| #51 get_chirps is extremely slow | Close, invite to reopen | 9f5d94b, 8985c3d |
 | #49 Check data from ClimateSERV against CHC | Close | 9f5d94b |
 | #48 Try to increase the buffer area with 'dist' | Close | 9f5d94b |
 | #47 CHIRPS-GEFS and Prelim | Keep open | none yet |
@@ -51,11 +51,12 @@ Thanks @ecor. A doubled roxygen comment in the example of `get_chirts_raw()` lef
 
 The Climate Hazards Center moved its data to new paths, and Will Turner (CHC) kindly sent us the new layout. The 403 errors came from the CHC servers, which block addresses that request many files that do not exist. The old paths made each call request one missing file per day.
 
-The next release fixes this (AgrDataSci/chirps@5bfcdd1, AgrDataSci/chirps@9f5d94b).
+The next release fixes this (AgrDataSci/chirps@5bfcdd1, AgrDataSci/chirps@9f5d94b, AgrDataSci/chirps@8985c3d).
 
 - CHIRPS v2 reads from `products/CHIRPS/v2.0` and CHIRTS from `products/CHIRTS/daily/v1.0`.
 - Each request checks the first and last file before reading the rest, and stops with a clear error if one is missing.
 - GDAL no longer lists the remote folder or asks for side files, so each file takes fewer requests.
+- When the server is busy (HTTP 429), the check waits and retries instead of sending more requests.
 - Requests identify the package with a user agent, so CHC can tell it apart from bots.
 - A test checks one file from each CHC path, so a future move is caught early.
 
@@ -83,7 +84,7 @@ Use `version = "2.0"` to keep CHIRPS v2 until it is retired. Closing.
 
 ## #51 get_chirps is extremely slow
 
-Thanks for the report. With `server = "CHC"` the package reads one file per day, so time grows with the number of days, not with the number of points. The next release cuts the requests per file (AgrDataSci/chirps@9f5d94b). GDAL no longer lists the remote folder or looks for side files on each open, and it retries failed reads.
+Thanks for the report. With `server = "CHC"` the package reads one file per day, so time grows with the number of days, not with the number of points. The next release cuts the requests per file (AgrDataSci/chirps@9f5d94b). GDAL no longer lists the remote folder or looks for side files on each open, and it retries failed reads. When the server is busy, the file check waits and retries (AgrDataSci/chirps@8985c3d).
 
 For long periods, request all points in one call, as you did, rather than one call per point. ClimateSERV remains slower for many points because it sends several requests per point.
 
@@ -93,7 +94,7 @@ Closing for now. If it is still slow with the new version, please reopen with yo
 
 ## #49 Check data from ClimateSERV against CHC and prepare for new version
 
-The new version is ready (PR AgrDataSci/chirps#3). ClimateSERV serves CHIRPS v2 averaged over a small buffer around each point, while CHC gives the value of the cell that holds the point, so the two can differ. This is now explained in `?get_chirps` (AgrDataSci/chirps@9f5d94b).
+The new version is ready (PR AgrDataSci/chirps#3 and AgrDataSci/chirps#4). ClimateSERV serves CHIRPS v2 averaged over a small buffer around each point, while CHC gives the value of the cell that holds the point, so the two can differ. This is now explained in `?get_chirps` (AgrDataSci/chirps@9f5d94b).
 
 CHC is now the default server and uses CHIRPS v3. Since CHIRPS v2 is retired after December 2026, a full comparison of the v2 routes is no longer worth doing. ClimateSERV stays for ESI, IMERG and small requests. Closing.
 
